@@ -5,9 +5,9 @@
 
 Команда Разработчиков:
 
-* @PsycholoG-ZxZ - [Курушин Дмитрий](https://github.com/PsycholoG-ZxZ) (старший)
-* @coudam - [Конюхов Александр](https://github.com/coudam) 
-* @ansi-rius - [Бакланова Анастасия](https://github.com/ansi-rius)
-* @dimonbocha - [Бокарев Дмитрий](https://github.com/dimonbocha)
-* @kirsnegir - [Снегур Кирилл](https://github.com/kirsnegir)
-* ??? - Лысенко Анастасия
+* [Курушин Дмитрий](https://github.com/PsycholoG-ZxZ) (старший) - @PsycholoG-ZxZ 
+* [Конюхов Александр](https://github.com/coudam) - @coudam
+* [Бакланова Анастасия](https://github.com/ansi-rius) - @ansi-rius
+* [Бокарев Дмитрий](https://github.com/dimonbocha) - @dimonbocha
+* [Снегур Кирилл](https://github.com/kirsnegir) - @kirsnegir
+* Лысенко Анастасия - ???
