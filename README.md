@@ -10,4 +10,4 @@
 * [Бакланова Анастасия](https://github.com/ansi-rius) - @ansi-rius
 * [Бокарев Дмитрий](https://github.com/dimonbocha) - @dimonbocha
 * [Снегур Кирилл](https://github.com/kirsnegir) - @kirsnegir
-* Лысенко Анастасия - ???
+* [Лысенко Анастасия](https://github.com/LysenkoAnastasia) - @LysenkoAnastasia
