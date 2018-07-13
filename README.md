@@ -5,9 +5,9 @@
 
 Команда Разработчиков:
 
-* PsycholoG-ZxZ - Курушин Дмитрий (старший)
-* coudam - Конюхов Александр 
-* ansi-rius - Бакланова Анастасия
-* dimonbocha - Бокарев Дмитрий
-* kirsnegir - Снегур Кирилл
+* @PsycholoG-ZxZ - Курушин Дмитрий(https://github.com/PsycholoG-ZxZ) (старший)
+* @coudam - Конюхов Александр 
+* @ansi-rius - Бакланова Анастасия(https://github.com/ansi-rius)
+* @dimonbocha - Бокарев Дмитрий(https://github.com/dimonbocha)
+* @kirsnegir - Снегур Кирилл(https://github.com/kirsnegir)
 * ??? - Лысенко Анастасия
