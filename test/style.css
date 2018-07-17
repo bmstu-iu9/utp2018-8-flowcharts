@@ -1,19 +1,32 @@
+body{
+	background-color: #FFF2F2;
+}
+#back{
+	background:#F9FFC1;
+	padding: 50px;
+	width:1250px;
+	height:610px;
+	position:absolute;
+	top: 40px;
+	left: 30px;
+	border: 4px solid #00CC9E;
+}
 #menu{
 	background:#E8D2FF;
 	width:220px;
 	height:600px;
 	position:absolute;
 	left:30px;
-	top:100px;
+	top:50px;
 	border: 4px solid #00CC9E;
 }
-#workSpace{
-	background:#E8D2FF;
-	width:800px;
-	height:600px;
+#workSpace  {
+	background-color: #E8D2FF;
+	width:807px;
+	height:608px;
 	position:absolute;
 	left:260px;
-	top:100px;
+	top:50px;
 	border: 4px solid #00CC9E;
 }
 #inputZone{
@@ -22,7 +35,7 @@
 	height:110px;
 	position:absolute;
 	left:1070px;
-	top:100px;
+	top:50px;
 	border: 4px solid #00CC9E;
 }
 #footer{
@@ -31,7 +44,7 @@
 	height:480px;
 	position:absolute;
 	left:1070px;
-	top:220px;
+	top:170px;
 	border: 4px solid #00CC9E;
 }
 /*#td1 {
@@ -43,10 +56,29 @@
 }*/
 
 #td1 TD {
+	text-align: center;
 	padding: 10px;
     vertical-align: top; 
     width: 200px;
     height: 123px;
     background-color: #8CFFE4;
 	border: 2px solid #00CC9E;
+}
+#workSpace TH {
+    color: white; /* Цвет текста */
+    background: #daa520;  /* Цвет фона */
+}
+
+.lc {
+    border: none;
+    text-align: center; 
+    vertical-align: top; 
+    width: 269px
+}
+
+.lv {
+	background-color: #E5E5E5;
+	text-align: center; 
+    vertical-align: top; 
+    width: 269px ;
 }
