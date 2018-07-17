@@ -22,7 +22,7 @@ body{
 }
 #workSpace {
 	background-color: #D2ABD2;
-	width:807px;
+	width:830px;
 	height:614px;
 	position:absolute;
 	left:270px;
@@ -60,20 +60,18 @@ body{
 
 
 .lc {
-    border: none;
     text-align: center; 
     vertical-align: top; 
     width: 269px;
-    height:130px;
+    height:140px;
 }
 
 .lv {
-	height: 130px;
-	border: none;
 	background-color: #E5E5E5;
 	text-align: center; 
     vertical-align: top; 
     width: 269px ;
+	height: 140px;	
 }
 
 td {
