@@ -2,50 +2,50 @@ body{
 	background-color: #FFF2F2;
 }
 #back{
-	background:#F9FFC1;
+	background:#A2A2A2;
 	padding: 50px;
 	width:1260px;
 	height:610px;
 	position:absolute;
 	top: 40px;
 	left: 20px;
-	border: 4px solid #00CC9E;
+	border: 4px solid #00634D;
 }
 #menu{
-	background:#E8D2FF;
+	background:#D2ABD2;
 	width:250px;
 	height:606px;
 	position:absolute;
 	left:10px;
 	top:50px;
-	border: 4px solid #00CC9E;
+	border: 4px solid #00634D;
 }
 #workSpace {
-	background-color: #E8D2FF;
+	background-color: #D2ABD2;
 	width:807px;
 	height:614px;
 	position:absolute;
 	left:270px;
 	top:50px;
-	border: 4px solid #00CC9E;         
+	border: 4px solid #00634D;         
 }
 #inputZone{
-	background:#E8D2FF;
+	background:#D2ABD2;
 	width:220px;
 	height:110px;
 	position:absolute;
 	left:1120px;
 	top:50px;
-	border: 4px solid #00CC9E;
+	border: 4px solid #00634D;
 }
 #footer{
-	background:#E8D2FF;
+	background:#D2ABD2;
 	width:220px;
 	height:486px;
 	position:absolute;
 	left:1120px;
 	top:170px;
-	border: 4px solid #00CC9E;
+	border: 4px solid #00634D;
 }
 
 #td1 TD {
@@ -54,8 +54,8 @@ body{
     vertical-align: top; 
     width: 200px;
     height: 123px;
-    background-color: #8CFFE4;
-	border: 2px solid #00CC9E;
+    background-color: #9EBDFF;
+	border: 2px solid #00634D;
 }
 
 
