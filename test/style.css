@@ -85,10 +85,18 @@ table tbody {
  	display:block;
  	max-height:600px;
  	overflow-y:scroll; 
- }
+}
 table tbody tr { 
 	display:table; 
 	width:100%;
 	table-layout:fixed;
 }
 
+.droptarget {
+	background-color:#E7A7A7 ;
+	height: 130px;
+	text-align: center; 
+    vertical-align: top; 
+    width: 269px ;
+	border: 3px solid #FD6E70; 
+}
