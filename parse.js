@@ -1,13 +1,13 @@
 var sym;
 
 let map = new Map([
-    ['x',  10],
+    ['x',  110],
     ['y',   2],
     ['z', 15]
 ]);
-var str = 'x/y+z';
+var str = '8/y+z';
 sym = str[0];
-console.log(parse());
+console.log("result = " + parse());
 var ind = 0;
 var num;
 
@@ -18,11 +18,13 @@ function parse() {
     var n;
     if (ind < str.length) {
         n = parseE();
+        console.log(n);
         return n;
         //parse();
     }
     else {
-        return 'Syntax Error'
+        //return 'Syntax Error'
+       return parseE();
     }
 }
 
@@ -47,7 +49,7 @@ function parseEE() {
 }
 
 function parseE() {
-    if (sym == '<' || sym == '>' || sym == '=') {
+    if (sym === '<' || sym === '>' || sym === '=') {
         parseEE();
     }
     return parse_E(parseT());
@@ -117,23 +119,16 @@ function parse_T(n) {
 // если число, то вернуть число
 // если переменная, то найти значение переменной в map и вернуть
 function parseF() {
-    if (isNumber(sym)) {
+    if (Number(sym)) {
         var num = sym;
         sym_next();
         return num;
     }
-    if (isChar(sym)) {
+    if (Symbol(sym)) {
         var n;
-        if (true) {
-
-        } else {
-            var i;
-            System.out.println("i = " + i);
-            hashMap.put(sym.getVar(), i);
-            n = hashMap.get(sym.getVar());
-            sym = sym.next();
-        }
-        return n;
+            var i = map.get(sym);
+            sym_next();
+        return i;
     }
     if (sym === '(') {
         sym_next();
