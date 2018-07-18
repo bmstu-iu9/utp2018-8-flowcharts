@@ -22,7 +22,7 @@ body{
 }
 #workSpace {
 	background-color: #B1A3B1;
-	width:830px;
+	width:855px;
 	height:614px;
 	position:absolute;
 	left:270px;
@@ -34,7 +34,7 @@ body{
 	width:220px;
 	height:110px;
 	position:absolute;
-	left:1120px;
+	left:1130px;
 	top:50px;
 	border: 4px solid #00634D;
 }
@@ -43,7 +43,7 @@ body{
 	width:220px;
 	height:486px;
 	position:absolute;
-	left:1120px;
+	left:1130px;
 	top:170px;
 	border: 4px solid #00634D;
 }
