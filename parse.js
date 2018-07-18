@@ -1,0 +1,155 @@
+var sym;
+
+let map = new Map([
+    ['x',  10],
+    ['y',   2],
+    ['z', 15]
+]);
+var str = 'x/y+z';
+sym = str[0];
+console.log(parse());
+var ind = 0;
+var num;
+
+//console.log(next());
+
+function parse() {
+    // System.out.println(parseE());
+    var n;
+    if (ind < str.length) {
+        n = parseE();
+        return n;
+        //parse();
+    }
+    else {
+        return 'Syntax Error'
+    }
+}
+
+function sym_next() {
+    sym = str[ind+1];
+    ind++;
+    return sym;
+
+}
+
+function next() {
+    var sym_new = str[ind+1];
+    return sym_new;
+
+}
+
+
+//<E>  ::= <T> <E’>.
+function parseEE() {
+    var a =  parseNew(parseF());
+    console.log("ans "+a);
+}
+
+function parseE() {
+    if (sym == '<' || sym == '>' || sym == '=') {
+        parseEE();
+    }
+    return parse_E(parseT());
+}
+
+function parseNew(n)  {
+    if (sym === '>' && next() === '=') {
+        sym_next();
+        sym_next();
+        return (n >= parseF());
+    } else if (next() === '=' && sym === '<') {
+        sym_next();
+        sym_next();
+        return (n <= parseF());
+    }
+    else if (sym === '>') {
+        sym_next();
+        return (n > parseF());
+    }
+    else if (sym === '=' && next() === '=') {
+        sym_next();
+        sym_next()
+        return (n === parseF());
+    }
+    else if (sym === '<') {
+        sym_next();
+        return (n < parseF());
+    }
+    return n;
+}
+
+//<E’> ::= + <T> <E’> | - <T> <E’> | .
+function parse_E(n) {
+    if (sym === '+') {
+        sym_next();
+        return parse_E(n + parseT());
+    }
+    if (sym === '-') {
+        sym_next();
+        return parse_E(n - parseT());
+    }
+    return n;
+}
+
+//<T>  ::= <F> <T’>.
+function parseT() {
+    return parse_T(parseF());
+}
+
+//<T’> ::= * <F> <T’> | / <F> <T’> | .
+function parse_T(n) {
+    if (sym === '*') {
+        sym_next();
+        return parse_T(n * parseF());
+    }
+    if (sym === '/') {
+        sym = sym.next();
+        return parse_T(n / parseF());
+    }
+    if (next() === '<' || next() === '>' || next() === '=') {
+        parseEE();
+    }
+    return n;
+}
+
+//<F>  ::= <number> | <var> | ( <E> ) | - <F>.
+// если число, то вернуть число
+// если переменная, то найти значение переменной в map и вернуть
+function parseF() {
+    if (isNumber(sym)) {
+        var num = sym;
+        sym_next();
+        return num;
+    }
+    if (isChar(sym)) {
+        var n;
+        if (true) {
+
+        } else {
+            var i;
+            System.out.println("i = " + i);
+            hashMap.put(sym.getVar(), i);
+            n = hashMap.get(sym.getVar());
+            sym = sym.next();
+        }
+        return n;
+    }
+    if (sym === '(') {
+        sym_next();
+        var n = parseE();
+        //проверка, что есть ")"
+        // expect(Tag.RPAREN);
+        return n;
+    }
+    if (sym === '-') {
+        // expect(Tag.DIF);
+        return -1 * parseF();
+    }
+    if (next() === '>' || next() === '<' || next() === '=') {
+        sym_next();
+        parseEE();
+    }
+    //не должен выводить ничего
+    return 1;
+}
