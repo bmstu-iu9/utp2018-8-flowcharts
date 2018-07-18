@@ -12,7 +12,7 @@ body{
 	border: 4px solid #00634D;
 }
 #menu{
-	background:#D2ABD2;
+	background:#B1A3B1;
 	width:250px;
 	height:606px;
 	position:absolute;
@@ -21,7 +21,7 @@ body{
 	border: 4px solid #00634D;
 }
 #workSpace {
-	background-color: #D2ABD2;
+	background-color: #B1A3B1;
 	width:830px;
 	height:614px;
 	position:absolute;
@@ -30,7 +30,7 @@ body{
 	border: 4px solid #00634D;         
 }
 #inputZone{
-	background:#D2ABD2;
+	background:#B1A3B1;
 	width:220px;
 	height:110px;
 	position:absolute;
@@ -39,7 +39,7 @@ body{
 	border: 4px solid #00634D;
 }
 #footer{
-	background:#D2ABD2;
+	background:#B1A3B1;
 	width:220px;
 	height:486px;
 	position:absolute;
@@ -54,7 +54,7 @@ body{
     vertical-align: top; 
     width: 200px;
     height: 123px;
-    background-color: #9EBDFF;
+    background-color: #C6D8FF;
 	border: 2px solid #00634D;
 }
 
