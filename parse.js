@@ -1,14 +1,14 @@
 var sym;
 
 let map = new Map([
-    ['x',  110],
+    ['x',  10],
     ['y',   2],
     ['z', 15]
 ]);
-var str = '8/y+z';
+var str = 'x/y+z';
 sym = str[0];
-console.log("result = " + parse());
 var ind = 0;
+console.log("result = " + parse());
 var num;
 
 //console.log(next());
@@ -19,8 +19,8 @@ function parse() {
     if (ind < str.length) {
         n = parseE();
         console.log(n);
+        parse();
         return n;
-        //parse();
     }
     else {
         //return 'Syntax Error'
@@ -106,7 +106,7 @@ function parse_T(n) {
         return parse_T(n * parseF());
     }
     if (sym === '/') {
-        sym = sym.next();
+        sym_next();
         return parse_T(n / parseF());
     }
     if (next() === '<' || next() === '>' || next() === '=') {
