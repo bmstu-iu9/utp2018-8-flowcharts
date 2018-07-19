@@ -27,6 +27,7 @@ body{
 	background-color: #B1A3B1;
 	width:855px;
 	height:614px;
+	border-spacing:2px 0px;
 	position:absolute;
 	left:270px;
 	top:50px;
@@ -67,6 +68,8 @@ body{
     vertical-align: top; 
     width: 269px;
     height:140px;
+    border: 3px solid #B1A3B1; 
+
 }
 
 .lv {
@@ -75,6 +78,8 @@ body{
     vertical-align: top; 
     width: 269px ;
 	height: 140px;	
+	border: 3px solid #E5E5E5; 
+
 }
 
 td {
