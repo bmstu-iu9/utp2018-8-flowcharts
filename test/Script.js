@@ -27,6 +27,7 @@ document.addEventListener("drop", function(event) {
     	}	else {
     		event.target.className = "lc";
     	}
+    	addRow();
     	startNode.appendChild(start);
         changeTrigger(row, cell,data.id);
     }
@@ -42,7 +43,6 @@ function changeTrigger(row, cell, type){
 		var newColumn = findFreeColumn(cell)
 		table.rows[row].cells[newColumn].className= "droptarget";
 	}
-	//addRow(); не робит
 }
 
 function findFreeColumn(startColumn){
@@ -75,6 +75,7 @@ function addColumn(side){
 	var newCellClass;
 	var table = document.getElementById("workSpace");
 	var pos =0;
+	var cell;
 	if (!side){
 		pos=columns.length-1;
 	}
@@ -102,7 +103,11 @@ function addColumn(side){
 	}
 }
 
-function addRow(){
+function addRow(){ // переделаить
 	var table = document.getElementById("workSpace");
-	table.appendChild(table.rows[table.rows.length-1].cloneNode(true));
+	var row = table.insertRow(-1);
+	for (var i =0; i< columns.length;i++){
+		var cell = row.insertCell(-1);
+		cell.className= table.rows[0].cells[i].className;	
+	}
 }
