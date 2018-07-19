@@ -1,6 +1,9 @@
 var columns = [false,true,false];
 var mainColumn=1;
 
+var R=0;
+var L=0;
+
 document.addEventListener("dragstart", function(event) {
     event.dataTransfer.setData("Text", event.target.id);
 });
@@ -39,11 +42,12 @@ function changeTrigger(row, cell, type){
 		var newColumn = findFreeColumn(cell)
 		table.rows[row].cells[newColumn].className= "droptarget";
 	}
+	//addRow(); не робит
 }
 
 function findFreeColumn(startColumn){
 	var table = document.getElementById("workSpace");
-	if (startColumn<mainColumn || (!columns[mainColumn-1] && mainColumn== startColumn)){
+	if (startColumn<mainColumn || R>=L){
 		for (var i=startColumn-1;i>=0;i--){
 			if (!columns[i]){
 				if(i==0){
@@ -55,10 +59,9 @@ function findFreeColumn(startColumn){
 			}
 		}
 	} else {
-		alert();
-		for (i=startColumn+1;i<columns.length;i++){
+		for (var i=startColumn+1;i<columns.length;i++){
 			if (!columns[i]){
-				if(i==columns.length-1){
+				if (i== columns.length-1){
 					addColumn(false);
 				}
 				columns[i]=true;
@@ -85,11 +88,21 @@ function addColumn(side){
 		newCell.className=newCellClass;
 		if (!side){
 			table.rows[i].appendChild(newCell);
-			columns.push(false);
 		} else{
 			table.rows[i].insertBefore(newCell,table.rows[i].children[0]);
-			columns.unshift(false);
-			mainColumn++;
 		}
 	}
+	if (side){
+		columns.unshift(false);
+		L++;
+	}else {
+		R++;
+		mainColumn++;
+		columns.push(false);
+	}
+}
+
+function addRow(){
+	var table = document.getElementById("workSpace");
+	table.appendChild(table.rows[table.rows.length-1].cloneNode(true));
 }
