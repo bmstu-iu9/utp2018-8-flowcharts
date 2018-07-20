@@ -1,6 +1,5 @@
 var columns = [false,true,false];
 var mainColumn=1;
-
 var R=0;
 var L=0;
 
@@ -15,6 +14,7 @@ document.addEventListener("dragover", function(event) {
 document.addEventListener("drop", function(event) {
     event.preventDefault();
     if ( event.target.className == "droptarget" ) {
+    	var table = document.getElementById("workSpace");
         var data =document.getElementById(event.dataTransfer.getData("Text"));
         var startNode= data.parentNode
         var start= data.cloneNode(true);
@@ -27,8 +27,7 @@ document.addEventListener("drop", function(event) {
     	}	else {
     		event.target.className = "lc";
     	}
-    	addRow();
-    	startNode.appendChild(start);
+       	startNode.appendChild(start);
         changeTrigger(row, cell,data.id);
     }
 });
@@ -42,6 +41,9 @@ function changeTrigger(row, cell, type){
 	if (type=== "romb"){ 
 		var newColumn = findFreeColumn(cell)
 		table.rows[row].cells[newColumn].className= "droptarget";
+	}
+	if (row +1 >= document.getElementById("workSpace").rows.length-2){
+		addRow();
 	}
 }
 
