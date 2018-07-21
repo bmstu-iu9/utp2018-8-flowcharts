@@ -1,26 +1,20 @@
-oper= ["+", "=","-", "*", "/", "<", ">", ">=", "<=", "==", "(", ")", "?" , ":", "!", "||", "&&" /* "+=" , "-=", "++", "--", "*=", "/="" */ ];
+var oper= ["+", "=","-", "*", "/", "<", ">", ">=", "<=", "==", "(", ")", "?" , ":", "!", "||", "&&" ,";", " "/* "+=" , "-=", "++", "--", "*=", "/="" */ ];
+var sOper= ["=", "|","&"];
 
 class Pos {
-
-    constructor(str) {
-        this.str = str;
-        this.pos = 0;
-    }
-
-    constr (str, pos) {
+    constructor(str,pos) {
         this.str = str;
         this.pos = pos;
     }
-
     skip() {
-        return this.constr(this.str, this.pos++);
+        return new Pos(this.str,this.pos+1);
     }
 
     skipWhile(char) {
-        if (this.getChar() === char) {
-            return this.skip.skipWhile(char);
+        while (this.getChar() === char) {
+            this.pos++;
         }
-        return this;
+        return new Pos(this.str,this.pos);
     }
 
     getChar() {
@@ -28,25 +22,49 @@ class Pos {
     }
 
      getVal(type) {
-        if (type === "number") {
+        if (type === "oper") {
             let t = this;
             let res = "";
             let a = this.getChar();
-            while (a >= '0' && a <= '9') {
+            res+=a;
+            t = t.skip();
+            a= t.getChar();
+            if  (sOper.some(t=>t===a)) {
                 res += a;
-                t = t.skip;
+                t = t.skip();
                 a = t.getChar();
             }
             this.pos = t.pos;
             return res;
-        } else if (type === "ident") {
+        } else if (type === "number"){
             let t = this;
             let res = "";
             let a = this.getChar();
-            while (a >= 'a' && a <= 'z' || a >= '0' && a <= '9' || a >= 'A' && a <= 'Z') {
-                res += a;
-                t = t.skip;
-                a = t.getChar();
+            while(!oper.some(t=>t=== a)){
+                if  (a >= '0' && a <= '9') {
+                    res += a;
+                    t = t.skip();
+                    a = t.getChar();
+                } else {
+                    alert("error of Syntax1");
+                    return "error"; 
+                }
+            }
+            this.pos = t.pos;
+            return res;
+        } else {
+            let t = this;
+            let res = "";
+            let a = this.getChar();
+            while(!oper.some(t=>t=== a)){
+                if  (a >= 'a' && a <= 'z' || a >= '0' && a <= '9' || a >= 'A' && a <= 'Z' ) {
+                    res += a;
+                    t = t.skip();
+                    a = t.getChar();
+                } else {
+                    alert("error of Syntax2");
+                    return "error";
+                }
             }
             this.pos = t.pos;
             return res;
@@ -57,32 +75,34 @@ class Pos {
 
 class token {
     constructor(str){
-        new Pos(str);
-        this.construct(str);
+        this.tkn= new Pos(str,0);
+        this.next();
     }
 
-    construct(tkn){
-        this.start = tkn.skipWhile(' ');
-        let a = this.start.getChar();
-
+    next(){
+        this.start = this.tkn.skipWhile(" ");
+        var a = this.start.getChar();
+        alert(a);
         if (oper.some(t => t === a)){
-            this.val=a;
+            this.val=this.start.getVal("oper");
             this.id="oper";
-        }
-        if (a > 'a' && a < 'z') {
-            this.val = start.getVal("ident");
+        } else if (a >= 'a' && a <= 'z' || a >= 'A' && a <= 'Z') {
+            this.val = this.start.getVal("ident");
             this.id="ident";
             if (this.val === "true" || this.val === "false"){
                 this.id="boolean";
             }
+        } else if (a >= '0' && a <= '9') {
+            this.val = this.start.getVal("number");
+            this.id = "number";
         } else {
-            if (a >= '0' && a <= '9') {
-                this.val = this.start.getVal("number");
-                this.id = "number";
-            } else {
-                return alert("error of token");
-            }
+            alert("error of token3");
+            return "error"
         }
+        if (this.val === "error"){
+            //исключение
+        }
+        this.tkn=this.start;
     }
 
     getVal(){
@@ -93,8 +113,11 @@ class token {
     }
 
 }
-
-
+var t = new token("lol= 235(sd + 23) - 1 * sdw3;");
+while(t.getVal() != ";"){
+    alert(t.getVal());
+    t.next();
+}
 var sym;
 
 
