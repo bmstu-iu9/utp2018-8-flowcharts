@@ -82,7 +82,6 @@ class token {
     next(){
         this.start = this.tkn.skipWhile(" ");
         var a = this.start.getChar();
-        alert(a);
         if (oper.some(t => t === a)){
             this.val=this.start.getVal("oper");
             this.id="oper";
@@ -113,11 +112,15 @@ class token {
     }
 
 }
-var t = new token("lol= 235(sd + 23) - 1 * sdw3;");
+var tmp="";
+var t = new token("lol==S235(sd+< 23 ) - 1 * sdw3;");
 while(t.getVal() != ";"){
-    alert(t.getVal());
+    tmp+=t.getVal();
     t.next();
 }
+alert(tmp);
+
+
 var sym;
 
 
