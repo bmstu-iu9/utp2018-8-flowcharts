@@ -1,0 +1,40 @@
+<value> ::=
+	var <ident> = <expr> . 
+	| <expr> . 	
+	| <ident> = <expr> .
+
+
+<expr> ::=
+        <comparison_expr> ? <comparison_expr> : <expr>
+        | <comparison_expr>.
+
+
+// не доделанно //
+<comparison_expr> ::=
+	<comparison>
+	| <comparison> || <comparison>
+	| <comparison> && <comparison>
+        | <arith_expr>.
+
+
+<comparison> ::=
+	<arith_expr> <comparison_op> <arith_expr>
+	
+
+<arith_expr> ::=
+        <arith_expr> + <term>
+        | <arith_expr> - <term>
+        | <term>.
+
+
+<term> ::=
+        <term> * <factor>
+        | <term> / <factor>
+        | <factor>.
+
+
+<factor> ::=
+        <number>
+        | <ident>
+        | ( <expr> )
+        | - <factor>.
