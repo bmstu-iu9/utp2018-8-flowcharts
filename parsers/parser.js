@@ -23,6 +23,10 @@ class Pos {
         return this;
     }
 
+    getPos() {
+        return this.pos;
+    }
+
     getChar() {
         return this.str[this.pos];
     }
@@ -118,7 +122,7 @@ new map('x', 10);
 new map('y', 2);
 new map('z', 15);
 var str = 'x/y+z';
-console.log("result = " + parse());
+console.log("result = " + parse(str));
 
 function parse(str) {
     var a = new token(str);
@@ -137,14 +141,15 @@ function parse(str) {
 
 function parseEE() {
     var a =  parseNew(parseF());
-    console.log("ans "+a);
+    console.log("ans " + a);
 }
 
 //<E>  ::= <T> <E’>.
 function parseE() {
-    if (this.getId() === 'boolean') {
-        parseEE();
-    }
+   // parseF();
+    //if (this.getId() === 'boolean') {
+      //  parseEE();
+    //}
     return parse_E(parseT());
 }
 
@@ -225,29 +230,38 @@ function parseF() {
     }
     else if (this.getId() === 'ident') {
         if (this.getVal() === 'var') {
+            this.construct();
             var key = this.getVal();
+            s.add(key);
             this.construct();
             if (this.getVal() === '=') {
                 this.construct();
-                var any = this.getVal();
-                m.set(key, any);
+               // var any = this.getVal();
+                m.set(key, parseF());
             }
             else {
                 s.add(key);
             }
         }
-        if (m.has(this.getVal())) {
-            var n;
-            var i = m.get(this.getVal());
-            this.construct();
-            return i;
+        if (s.has(this.getVal())) {
+            var i;
+            if (m.has(this.getVal())) {
+                var n;
+                i = m.get(this.getVal());
+                this.construct();
+                return i;
+            }
+            else if (this.getVal() === '=') {
+                this.construct();
+                m.set(i,parseF());
+            }
         }
         else {
             console.log('SE');
             return;
         }
     }
-    else if (sym === '(') {
+  /*  else if (sym === '(') {
         this.construct();
         var n = parseE();
         //проверка, что есть ")"
@@ -257,7 +271,8 @@ function parseF() {
     if (this.getVal() === '-') {
         // expect(Tag.DIF);
         return -1 * parseF();
-    }
+    }*/
+
     if (this.getId() === 'boolean') {
         this.construct();
         parseEE();
