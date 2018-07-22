@@ -114,7 +114,7 @@ class token {
 
 }
 
-var t = new token("sd-2>sdw3*2;");
+var t = new token("sd+25>sdw3*3;");
 /*while(t.getVal() != ";"){
     alert(t.getVal());
     t.next();
@@ -233,15 +233,15 @@ function parseT() {
 function parse_T(n) {
     if (t.getVal() === '*') {
         t.next();
-        return parse_T(Number(n) * Number(parseF()));
+        return parse_T(Number(n) * Number(parseT()));
     }
     if (t.getVal() === '/') {
         t.next();
-        return parse_T(Number(n) / Number(parseF()));
+        return parse_T(Number(n) / Number(parseT()));
     }
-    if (t.getVal() === '>' || t.getVal() === '<' || t.getVal() === '<=' || t.getVal() === '>=' || t.getVal() === '==') {
+   /* if (t.getVal() === '>' || t.getVal() === '<' || t.getVal() === '<=' || t.getVal() === '>=' || t.getVal() === '==') {
        return parseEE(n);
-    }
+    }*/
     return n;
 }
 
