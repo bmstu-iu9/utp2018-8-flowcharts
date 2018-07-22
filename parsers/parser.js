@@ -82,7 +82,10 @@ class token {
     next(){
         this.start = this.tkn.skipWhile(" ");
         var a = this.start.getChar();
+<<<<<<< HEAD
       //  console.log(a);
+=======
+>>>>>>> da3b09a39d4bfc66c7d7676b7e4a8ba5a265843b
         if (oper.some(t => t === a)){
             this.val=this.start.getVal("oper");
             this.id="oper";
@@ -113,12 +116,24 @@ class token {
     }
 
 }
+<<<<<<< HEAD
 
 var t = new token("var lol= 235+sd/sdw3 + 23;");
 /*while(t.getVal() != ";"){
     alert(t.getVal());
     t.next();
 }*/
+=======
+var tmp="";
+var t = new token("lol==S235(sd+< 23 ) - 1 * sdw3;");
+while(t.getVal() != ";"){
+    tmp+=t.getVal();
+    t.next();
+}
+alert(tmp);
+
+
+>>>>>>> da3b09a39d4bfc66c7d7676b7e4a8ba5a265843b
 var sym;
 
 
