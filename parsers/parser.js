@@ -82,10 +82,7 @@ class token {
     next(){
         this.start = this.tkn.skipWhile(" ");
         var a = this.start.getChar();
-<<<<<<< HEAD
       //  console.log(a);
-=======
->>>>>>> da3b09a39d4bfc66c7d7676b7e4a8ba5a265843b
         if (oper.some(t => t === a)){
             this.val=this.start.getVal("oper");
             this.id="oper";
@@ -116,24 +113,12 @@ class token {
     }
 
 }
-<<<<<<< HEAD
 
-var t = new token("var lol= 235+sd/sdw3 + 23;");
+var t = new token("sd-2>sdw3*2;");
 /*while(t.getVal() != ";"){
     alert(t.getVal());
     t.next();
 }*/
-=======
-var tmp="";
-var t = new token("lol==S235(sd+< 23 ) - 1 * sdw3;");
-while(t.getVal() != ";"){
-    tmp+=t.getVal();
-    t.next();
-}
-alert(tmp);
-
-
->>>>>>> da3b09a39d4bfc66c7d7676b7e4a8ba5a265843b
 var sym;
 
 
@@ -158,15 +143,15 @@ s.add('sdw3');
 new map('sd', 10);
 new map('sdw3', 2);
 new map('z', 15);
-var str = 'var lol= 235+sd/sdw3 + 23;';
 console.log("result = " + parse());
+//console.log('lol = ' + m.get('lol'));
 
 function parse() {
     //var a = new token(str);
-    var n;
+   // var n;
     if (';' !== t.getVal()) {
         //console.log(t.getVal());
-        n = parseE();
+        var n =  parseE();
        // console.log(n);
         parse();
         return n;
@@ -177,16 +162,15 @@ function parse() {
     }
 }
 
-function parseEE() {
-    var a =  parseNew(parseF());
-    console.log("ans "+a);
+function parseEE(n) {
+   // t.next();
+    var a =  parseNew(n);
+    console.log(a);
+    return a;
 }
 
 //<E>  ::= <T> <E’>.
 function parseE() {
-    if (t.getId() === 'boolean') {
-        parseEE();
-    }
     return parse_E(parseT());
 }
 
@@ -195,22 +179,25 @@ function parseE() {
 function parseNew(n)  {
     if (t.getVal() === '>=') {
         t.next();
-        return (n >= parseF());
+        return (Number(n) >= Number(parseF()));
     } else if (t.getVal() === '<=') {
         t.next();
-        return (n <= parseF());
+        return (Number(n) <= Number(parseF()));
     }
     else if (t.getVal() === '>') {
         t.next();
-        return (n > parseF());
+        var l = parseE();
+        console.log(n);
+        console.log(l);
+        return (Number(n) > Number(l));
     }
     else if (t.getVal() === '==') {
         t.next();
-        return (n === parseF());
+        return (Number(n) === Number(parseF()));
     }
     else if (t.getVal() === '<') {
         t.next();
-        return (n < parseF());
+        return (Number(n) < Number(parseF()));
     }
     return n;
 }
@@ -222,11 +209,14 @@ function parseNew(n)  {
 function parse_E(n) {
     if (t.getVal() === '+') {
         t.next();
-        return parse_E(n + parseT());
+        return parse_E(Number(n) + Number(parseT()));
     }
-    if (t.getVal() === '-') {
+   else if (t.getVal() === '-') {
         t.next();
-        return parse_E(n - parseT());
+        return parse_E(Number(n) - Number(parseT()));
+    }
+    if (t.getVal() === '>' || t.getVal() === '<' || t.getVal() === '<=' || t.getVal() === '>=' || t.getVal() === '==') {
+        return parseEE(n);
     }
     return n;
 }
@@ -243,14 +233,14 @@ function parseT() {
 function parse_T(n) {
     if (t.getVal() === '*') {
         t.next();
-        return parse_T(n * parseF());
+        return parse_T(Number(n) * Number(parseF()));
     }
     if (t.getVal() === '/') {
         t.next();
-        return parse_T(n / parseF());
+        return parse_T(Number(n) / Number(parseF()));
     }
-    if (t.getId() === 'boolean') {
-        parseEE();
+    if (t.getVal() === '>' || t.getVal() === '<' || t.getVal() === '<=' || t.getVal() === '>=' || t.getVal() === '==') {
+       return parseEE(n);
     }
     return n;
 }
@@ -271,30 +261,30 @@ function parseF() {
             var key = t.getVal();
             s.add(key);
             t.next();
+          //  console.log(t.getVal());
             if (t.getVal() === '=') {
                 t.next();
-                m.set(key, parseE());
-                return;
+                var p = parseE();
+               // console.log(123);
+                m.set(key, Number(p));
+                return 'initialization';
             }
             else {
                 s.add(key);
             }
         }
-       // console.log(t);
+        // console.log(t);
         if (s.has(t.getVal())) {
             var key = t.getVal();
             t.next();
             if (t.getVal() === '=') {
                 t.next();
-                m.set(key, parseE());
+                m.set(key, Number(parseE()));
             }
-            var n;
-            var i = m.get(t.getVal());
-            t.next();
+            var i = m.get(key);
             return i;
         }
         else {
-            //console.log('SE');
             return 'SE';
         }
     }
@@ -309,10 +299,9 @@ function parseF() {
         // expect(Tag.DIF);
         return -1 * parseF();
     }
-    if (t.getId() === 'boolean') {
-        t.next();
-        parseEE();
+    if (t.getVal() === '>' || t.getVal() === '<' || t.getVal() === '<=' || t.getVal() === '>=' || t.getVal() === '==') {
+       // t.next();
+        return parseEE();
     }
-    //не должен выводить ничего
-    //return 1000;
 }
+
