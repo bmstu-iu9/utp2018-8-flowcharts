@@ -105,6 +105,10 @@ function addColumn(side){
 	}
 }
 
+function sleep (time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
+
 function addRow(){ // переделаить
 	var table = document.getElementById("workSpace");
 	var row = table.insertRow(-1);
@@ -113,3 +117,20 @@ function addRow(){ // переделаить
 		cell.className= table.rows[0].cells[i].className;	
 	}
 }
+
+
+function addWindow(trg){
+	var obj;
+	if (trg.id=="hiddenTools"){
+		obj= document.getElementById("menu");
+	} else  if (trg.id=="hiddenInformationMenu") {
+		obj= document.getElementById("InformationMenu");
+	}
+	if (obj.style.display=="none"){
+		obj.style.display= "block";
+	} else{
+		obj.style.display= "none";
+	}
+	
+}
+
