@@ -5,6 +5,10 @@ body{
     -moz-user-select: none;
     -ms-user-select: none;
     background-color: #a5acba	;
+    -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
 }
 
 main{
@@ -68,9 +72,9 @@ header div{
 
 #main{
 	background:  #a5acba;
-	width:65%;
+	width:69%;
 	position: absolute;
-  	left: 14%;
+  	left: 11%;
   	top: 0;
 	height:100%;
 }
@@ -110,7 +114,7 @@ header div{
 	text-align: center; 
     vertical-align: top; 
     width: 240px ;
-	height: 200px;
+	height: 250px;
 
 }
 
@@ -123,6 +127,7 @@ table tbody {
  	display:block;
  	overflow-y:auto; 
  	max-height:100%;
+ 	max-width:100%;
 }
 table tbody tr { 
 	display:table; 
@@ -133,7 +138,7 @@ table tbody tr {
 .droptarget {
 	background-color: #C69795 ;
 	width: 240px ;
-	height: 170px;
+	height: 250px;
 	text-align: center; 
     vertical-align: top; 
 }
