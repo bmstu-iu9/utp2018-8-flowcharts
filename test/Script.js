@@ -10,7 +10,7 @@ document.addEventListener("dragstart", function(event) {
 document.addEventListener("dragover", function(event) {
     event.preventDefault();
 });
- 
+
 document.addEventListener("drop", function(event) {
     event.preventDefault();
     if ( event.target.className == "droptarget" ) {
@@ -18,7 +18,7 @@ document.addEventListener("drop", function(event) {
         var data =document.getElementById(event.dataTransfer.getData("Text"));
         var startNode= data.parentNode
         var start= data.cloneNode(true);
-        data.setAttribute("draggable", "false"); 
+        data.setAttribute("draggable", "false");
         event.target.appendChild(data);
         var row=event.target.parentNode.rowIndex;
         var cell =event.target.cellIndex;
@@ -36,9 +36,9 @@ document.addEventListener("drop", function(event) {
 function changeTrigger(row, cell, type){
 	var table = document.getElementById("workSpace");
 	if (type !== "end"){
-			table.rows[row+1].cells[cell].className= "droptarget"; 
+			table.rows[row+1].cells[cell].className= "droptarget";
 	}
-	if (type=== "romb"){ 
+	if (type=== "romb"){
 		var newColumn = findFreeColumn(cell)
 		table.rows[row].cells[newColumn].className= "droptarget";
 	}
@@ -71,7 +71,7 @@ function findFreeColumn(startColumn){
 			}
 		}
 	}
-} 
+}
 
 function addColumn(side){
 	var newCellClass;
@@ -114,23 +114,24 @@ function addRow(){ // переделаить
 	var row = table.insertRow(-1);
 	for (var i =0; i< columns.length;i++){
 		var cell = row.insertCell(-1);
-		cell.className= table.rows[0].cells[i].className;	
+		cell.className= table.rows[0].cells[i].className;
 	}
 }
 
 
 function addWindow(trg){
 	var obj;
+  	var main= document.getElementById("main");
 	if (trg.id=="hiddenTools"){
 		obj= document.getElementById("menu");
 	} else  if (trg.id=="hiddenInformationMenu") {
 		obj= document.getElementById("InformationMenu");
 	}
 	if (obj.style.display=="none"){
-		obj.style.display= "block";
+	    obj.style.display= "block";
 	} else{
-		obj.style.display= "none";
+    	
+ 		obj.style.display= "none";
 	}
-	
-}
 
+}
