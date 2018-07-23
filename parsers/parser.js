@@ -1,4 +1,4 @@
-var oper= ["+", "=","-", "*", "/", "<", ">", ">=", "<=", "==", "(", ")", "?" , ":", "!", "||", "&&" ,";", " "/* "+=" , "-=", "++", "--", "*=", "/="" */ ];
+var oper= ["+", "=","-", "*", "/", "<", ">" , "(", ")", "?" , ":", "!", "|", "&" ,";", " "/* "+=" , "-=", "++", "--", "*=", "/="" */ ];
 var sOper= ["=", "|","&"];
 
 class Pos {
@@ -82,7 +82,6 @@ class token {
     next(){
         this.start = this.tkn.skipWhile(" ");
         var a = this.start.getChar();
-      //  console.log(a);
         if (oper.some(t => t === a)){
             this.val=this.start.getVal("oper");
             this.id="oper";
@@ -114,7 +113,7 @@ class token {
 
 }
 
-var t = new token("sd+25>sdw3*3;");
+
 /*while(t.getVal() != ";"){
     alert(t.getVal());
     t.next();
@@ -140,83 +139,86 @@ class set {
 
 s.add('sd');
 s.add('sdw3');
+s.add('z');
 new map('sd', 10);
 new map('sdw3', 2);
 new map('z', 15);
-console.log("result = " + parse());
+var t = new token("false || true && (false || true);");
+
+alert("result = " + parse());
 //console.log('lol = ' + m.get('lol'));
+
+
 
 function parse() {
     //var a = new token(str);
    // var n;
     if (';' !== t.getVal()) {
         //console.log(t.getVal());
-        var n =  parseE();
+        var n =  parseO();
        // console.log(n);
-        parse();
         return n;
-    }
-    else {
-        //return 'Syntax Error'
-        return parseE();
     }
 }
 
-function parseEE(n) {
-   // t.next();
-    var a =  parseNew(n);
-    console.log(a);
-    return a;
+/*
+<O>  ::= <E> <O'>.
+<O'> ::= == <E> <O'>.
+<E>  ::= <T> <E’>. 
+<E’> ::= + <T> <E’> | - <T> <E’> | . 
+<T>  ::= <F> <T’>. 
+<T’> ::= * <F> <T’> | / <F> <T’> | . 
+<F>  ::= <number> | <var> | ( <O> ) | - <F> | ! <F> | <bool>.
+*/
+
+function parseO() {
+    return parse_O(parseE());
 }
+
+function parse_O(n) {
+     if ( t.getVal() === '<') {
+        t.next();
+        return parse_O(Number(n) < Number(parseE()));
+    }
+    else if (t.getVal() === '>') {
+        t.next();
+        return parse_O(Number(n) > Number(parseE()));
+    }
+    else if (t.getVal() === '>=') {
+        t.next();
+        return parse_O(Number(n) >= Number(parseE()));
+    }
+    else if (t.getVal() === '<=') {
+        t.next();
+        return parse_O(Number(n) <= Number(parseE()));
+    }
+    else if (t.getVal() === '==') {
+        t.next();
+        return parse_O(Number(n) == Number(parseE()));
+    } 
+    return n;
+}
+
 
 //<E>  ::= <T> <E’>.
 function parseE() {
     return parse_E(parseT());
 }
 
-//<comparison> ::=
-//      <arith_expr> <comparison_op> <arith_expr>
-function parseNew(n)  {
-    if (t.getVal() === '>=') {
-        t.next();
-        return (Number(n) >= Number(parseF()));
-    } else if (t.getVal() === '<=') {
-        t.next();
-        return (Number(n) <= Number(parseF()));
-    }
-    else if (t.getVal() === '>') {
-        t.next();
-        var l = parseE();
-        console.log(n);
-        console.log(l);
-        return (Number(n) > Number(l));
-    }
-    else if (t.getVal() === '==') {
-        t.next();
-        return (Number(n) === Number(parseF()));
-    }
-    else if (t.getVal() === '<') {
-        t.next();
-        return (Number(n) < Number(parseF()));
-    }
-    return n;
-}
 
-//<arith_expr> ::=
-//         <arith_expr> + <term>
-//         | <arith_expr> - <term>
-//         | <term>.
 function parse_E(n) {
+    //alert(t.getVal());
     if (t.getVal() === '+') {
         t.next();
         return parse_E(Number(n) + Number(parseT()));
     }
-   else if (t.getVal() === '-') {
+    else if (t.getVal() === '-') {
         t.next();
         return parse_E(Number(n) - Number(parseT()));
     }
-    if (t.getVal() === '>' || t.getVal() === '<' || t.getVal() === '<=' || t.getVal() === '>=' || t.getVal() === '==') {
-        return parseEE(n);
+    else if (t.getVal() === '||'){
+        t.next();
+        return parse_E(n || parseO());
     }
     return n;
 }
@@ -226,36 +228,41 @@ function parseT() {
     return parse_T(parseF());
 }
 
-//<term> ::=
-//         <term> * <factor>
-//         | <term> / <factor>
-//         | <factor>.
+
 function parse_T(n) {
+    //alert(n);
     if (t.getVal() === '*') {
         t.next();
-        return parse_T(Number(n) * Number(parseT()));
+        return parse_T(Number(n) * Number(parseF()));
     }
-    if (t.getVal() === '/') {
+    else if (t.getVal() === '/') {
         t.next();
-        return parse_T(Number(n) / Number(parseT()));
+        return parse_T(Number(n) / Number(parseF()));
     }
-   /* if (t.getVal() === '>' || t.getVal() === '<' || t.getVal() === '<=' || t.getVal() === '>=' || t.getVal() === '==') {
-       return parseEE(n);
-    }*/
+    else if (t.getVal() === '&&'){
+        t.next();
+        return parse_T(n && parseF());
+    }
     return n;
 }
 
-//<value> ::=
-//  var <ident> = <expr> .
-//  | <expr> .
-//  | <ident> = <expr> .
 function parseF() {
-    if (Number(t.getVal())) {
+    //alert(t.getVal())
+    if (t.getId()==="number") {
         var num = t.getVal();
         t.next();
         return num;
     }
-    else if (Symbol(t.getVal())) {
+    else if (t.getId()==='boolean'){
+        if (t.getVal() == "true"){
+            t.next();
+            return true;
+        } else{
+            t.next();
+            return false;
+        }
+    }
+    else if (t.getId()==="ident") {
         if (t.getVal() === 'var') {
             t.next();
             var key = t.getVal();
@@ -288,19 +295,24 @@ function parseF() {
             return 'SE';
         }
     }
-    else if (sym === '(') {
+    else if (t.getVal() === '(') {
         t.next();
-        var n = parseE();
-        //проверка, что есть ")"
-        // expect(Tag.RPAREN);
-        return n;
+        var n = parseO();
+        if (t.getVal() === ')'){
+            t.next();
+            return n;
+        } else {
+            return 'SE';
+        }
     }
-    if (t.getVal() === '-') {
+    else if (t.getVal() === '-') {
         // expect(Tag.DIF);
+        t.next();
         return -1 * parseF();
     }
-    if (t.getVal() === '>' || t.getVal() === '<' || t.getVal() === '<=' || t.getVal() === '>=' || t.getVal() === '==') {
-       // t.next();
-        return parseEE();
+    else if (t.getVal()=== '!'){
+        t.next();
+        return !parseF();
     }
 }
+
