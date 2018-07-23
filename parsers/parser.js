@@ -1,5 +1,5 @@
-var oper= ["+", "=","-", "*", "/", "<", ">" , "(", ")", "?" , ":", "!", "|", "&" ,";", " "/* "+=" , "-=", "++", "--", "*=", "/="" */ ];
-var sOper= ["=", "|","&"];
+var oper= ["+", "=","-", "*", "/", "<", ">" , "(", ")", "?" , ":", "!", "|", "&" ,";", " "/* "+=" , "-=", "++", "--", "*=", "/= */ ];
+var sOper= ["=", "|","&","+","-"];
 
 class Pos {
     constructor(str,pos) {
@@ -113,11 +113,6 @@ class token {
 
 }
 
-
-/*while(t.getVal() != ";"){
-    alert(t.getVal());
-    t.next();
-}*/
 var sym;
 
 
@@ -126,7 +121,6 @@ class map {
     constructor (key, any) {
         m.set(key, any);
     }
-
 }
 
 let s = new Set();
@@ -143,20 +137,15 @@ s.add('z');
 new map('sd', 10);
 new map('sdw3', 2);
 new map('z', 15);
-var t = new token("false || true && (false || true);");
+var t = new token("sd/=2;");
 
 alert("result = " + parse());
-//console.log('lol = ' + m.get('lol'));
 
 
 
 function parse() {
-    //var a = new token(str);
-   // var n;
     if (';' !== t.getVal()) {
-        //console.log(t.getVal());
         var n =  parseO();
-       // console.log(n);
         return n;
     }
 }
@@ -176,7 +165,7 @@ function parseO() {
 }
 
 function parse_O(n) {
-     if ( t.getVal() === '<') {
+    if ( t.getVal() === '<') {
         t.next();
         return parse_O(Number(n) < Number(parseE()));
     }
@@ -195,12 +184,11 @@ function parse_O(n) {
     else if (t.getVal() === '==') {
         t.next();
         return parse_O(Number(n) == Number(parseE()));
-    } 
+    }
     return n;
 }
 
 
-//<E>  ::= <T> <E’>.
 function parseE() {
     return parse_E(parseT());
 }
@@ -223,7 +211,6 @@ function parse_E(n) {
     return n;
 }
 
-//<T>  ::= <F> <T’>.
 function parseT() {
     return parse_T(parseF());
 }
@@ -231,6 +218,7 @@ function parseT() {
 
 function parse_T(n) {
     //alert(n);
+
     if (t.getVal() === '*') {
         t.next();
         return parse_T(Number(n) * Number(parseF()));
@@ -254,7 +242,7 @@ function parseF() {
         return num;
     }
     else if (t.getId()==='boolean'){
-        if (t.getVal() == "true"){
+        if (t.getVal()){
             t.next();
             return true;
         } else{
@@ -268,11 +256,10 @@ function parseF() {
             var key = t.getVal();
             s.add(key);
             t.next();
-          //  console.log(t.getVal());
             if (t.getVal() === '=') {
                 t.next();
-                var p = parseE();
-               // console.log(123);
+                var p = parseO();
+               // доработаь с вариантами что значение будет bool
                 m.set(key, Number(p));
                 return 'initialization';
             }
@@ -280,13 +267,28 @@ function parseF() {
                 s.add(key);
             }
         }
-        // console.log(t);
-        if (s.has(t.getVal())) {
+        else if (s.has(t.getVal())) {
             var key = t.getVal();
             t.next();
             if (t.getVal() === '=') {
                 t.next();
                 m.set(key, Number(parseE()));
+            }
+            else if (t.getVal() === '++'){
+                t.next();
+                m.set(key,m.get(key)+1);
+            }
+            else if (t.getVal() === '--'){
+                t.next();
+                m.set(key,m.get(key)+1);
+            }
+            else if (t.getVal() === '*='){
+                t.next();
+                m.set(key,m.get(key)*Number(parseE()));
+            }
+            else if (t.getVal() === '/='){
+                t.next();
+                m.set(key,m.get(key)/Number(parseE()));
             }
             var i = m.get(key);
             return i;
