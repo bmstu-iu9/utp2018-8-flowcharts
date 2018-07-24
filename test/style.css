@@ -35,6 +35,7 @@ header div{
 }
 #buttons{
 	display: flex;
+	justify-content:space-around;
 	margin: 1% 25%; 
 	width: 50%;
 	height: 70%;
@@ -67,19 +68,21 @@ header div{
 }
 
 #menu{
+	/*border: 4px solid #2a3c3c;*/
 	background:#7D8596;
 	position: absolute;
+	width: 11%;
 	height: 100%;
   	left: 0;
   	top: 0;
-	width: 11%;
+  	display: block;
 }
 
 #main{
 	background:  #a5acba;
-	width:69%;
-	position: absolute;
   	left: 11%;
+	width:68%;
+	position: absolute;
   	top: 0;
 	height:100%;
 }
@@ -91,6 +94,7 @@ header div{
   	top: 0;
 	width:21%;
 	height:100%;
+	display: block;
 }
 
 #workSpace {
@@ -132,12 +136,12 @@ table tbody {
  	display:block;
  	overflow-y:auto;
  	max-height:100%;
- 	max-width:100%;
+ 	max-width: :100%;
 }
 table tbody tr {
 	display:table;
 	width:100%;
-	height: 100%
+	height: 100%;
 	table-layout:fixed;
 }
 

@@ -2,10 +2,12 @@ var columns = [false,true,false];
 var mainColumn=1;
 var R=0;
 var L=0;
+//alert(document.documentElement.clientWidth);
 
 document.addEventListener("dragstart", function(event) {
     event.dataTransfer.setData("Text", event.target.id);
 });
+
 
 document.addEventListener("dragover", function(event) {
     event.preventDefault();
@@ -109,7 +111,7 @@ function sleep (time) {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
 
-function addRow(){ // переделаить
+function addRow(){
 	var table = document.getElementById("workSpace");
 	var row = table.insertRow(-1);
 	for (var i =0; i< columns.length;i++){
@@ -118,19 +120,52 @@ function addRow(){ // переделаить
 	}
 }
 
-
+var pos=1;
 function addWindow(trg){
 	var obj;
-  	var main= document.getElementById("main");
-	if (trg.id=="hiddenTools"){
-		obj= document.getElementById("menu");
-	} else  if (trg.id=="hiddenInformationMenu") {
-		obj= document.getElementById("InformationMenu");
-	}
+	let menu =document.getElementById("menu");
+	let Ht=document.getElementById("hiddenTools");
+	let iMenu =document.getElementById("InformationMenu")
+	let Hm=document.getElementById("hiddenInformationMenu");
+	let main =document.getElementById("main");
+	trg==Hm? obj= iMenu: obj=menu;
 	if (obj.style.display=="none"){
+		if (trg==Ht){
+			if (iMenu.style.display=="none"){
+				main.style.width="89%";
+				main.style.left="11%";
+			}else{
+				main.style.width="68%";
+				main.style.left="11%";
+			}
+		}else{
+			if (menu.style.display=="none"){
+				main.style.width="79%";
+				main.style.left="0%";
+			}else{
+				main.style.width="68%";
+				main.style.left="11%";
+			}
+		}
 	    obj.style.display= "block";
 	} else{
-    	
+    	if (trg==Ht){
+			if (iMenu.style.display=="none"){
+				main.style.width="100%";
+				main.style.left="0%";
+			}else{
+				main.style.width="79%";
+				main.style.left="0%";
+			}
+		}else{
+			if (menu.style.display=="none"){
+				main.style.width="100%";
+				main.style.left="0%";
+			}else{
+				main.style.width="89%";
+				main.style.left="11%";
+			}
+		}
  		obj.style.display= "none";
 	}
 
