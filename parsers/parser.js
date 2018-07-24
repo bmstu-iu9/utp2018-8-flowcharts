@@ -1,5 +1,5 @@
-var oper= ["+", "=","-", "*", "/", "<", ">" , "(", ")", "?" , ":", "!", "|", "&" ,";", " "/* "+=" , "-=", "++", "--", "*=", "/= */ ];
-var sOper= ["=", "|","&","+","-"];
+var oper= ["+", "=","-", "*", "/", "<", ">" , "(", ")", "?" , ":", "!", "|", "&","%" ,";", " "/* "+=" , "-=", "++", "--", "*=", "/= */ ];
+var sOper= ["=", "|","&"];
 
 class Pos {
     constructor(str,pos) {
@@ -114,9 +114,6 @@ class token {
 
 }
 
-var sym;
-
-
 var m = new Map();
 class map {
     constructor (key, any) {
@@ -138,24 +135,26 @@ s.add('z');
 new map('sd', 10);
 new map('sdw3', 2);
 new map('z', 15);
-var str = "sd*(2>10?3:4);";
+var str = "2-4;";
 var t = new token(str);
-
+var count = str.indexOf(';', 0);
 var SE = 0;
 var result = parse();
-var count = str.indexOf(';', 0);
-if (result === undefined || SE === 'SE' || count !== str.length-1) {
-    console.log('Syntax Error');
+function checkRes(result){
+    if (result === undefined || SE === 'SE' || count !== str.length-1 || result==="NaN" ) {//кастыыль)  
+        console.log('Syntax Error');
+        return "error";
+    }
+    else {
+        alert(result);
+        console.log("result = " + result);
+        return  result;
+    }
 }
-else {
-    console.log("result = " + result);
-}
-alert(result);
 
 function parse() {
     if (';' !== t.getVal()) {
-        var n =  parseO();
-        return n;
+        return checkRes(parseO());
     }
 
 }
@@ -212,7 +211,11 @@ function parse_O(n) {
     else if (t.getVal() === '==') {
         t.next();
         return parse_O(Number(n) == Number(parseE()));
-    }
+    } 
+    else if (t.getId()==="number"|| t.getId()==="ident" || n==="initialization"&& t.getVal()!=";"){
+        SE = 'SE';
+        return;
+    } 
     return n;
 }
 
@@ -235,6 +238,10 @@ function parse_E(n) {
     else if (t.getVal() === '||'){
         t.next();
         return parse_E(n || parseO());
+    } 
+    else if (t.getId()==="number"|| t.getId()==="ident"){
+        SE = 'SE';
+        return;
     }
     return n;
 }
@@ -250,6 +257,9 @@ function parse_T(n) {
     if (t.getVal() === '*') {
         t.next();
         return parse_T(Number(n) * Number(parseF()));
+    } else if (t.getVal() === '%') {
+        t.next();
+        return parse_T(Number(n) * Number(parseF()));
     }
     else if (t.getVal() === '/') {
         t.next();
@@ -258,6 +268,10 @@ function parse_T(n) {
     else if (t.getVal() === '&&'){
         t.next();
         return parse_T(n && parseF());
+    }
+    else if (t.getId()==="number"|| t.getId()==="ident"){
+        SE = 'SE';
+        return;
     }
     return n;
 }
@@ -281,7 +295,6 @@ function parseF() {
     else if (t.getId()==="ident") {
         if (t.getVal() === 'var') {
             t.next();
-            var key = t.getVal();
             s.add(key);
             t.next();
             if (t.getVal() === '=') {
@@ -290,9 +303,8 @@ function parseF() {
                     SE = 'SE';
                     return ;
                 }
-                var p = parseO();
                 // доработаь с вариантами что значение будет bool
-                m.set(key, Number(p));
+                m.set(key, Number(parseO()));
                 return 'initialization';
             }
             else {
@@ -304,7 +316,7 @@ function parseF() {
             t.next();
             if (t.getVal() === '=') {
                 t.next();
-                m.set(key, Number(parseE()));
+                m.set(key, Number(parseO()));
                 return 'initialization';
             }
             else if (t.getVal() === '++'){
@@ -343,13 +355,16 @@ function parseF() {
         }   
     }
     else if (t.getVal() === '-') {
-        // expect(Tag.DIF);
         t.next();
         return -1 * parseF();
     }
     else if (t.getVal()=== '!'){
         t.next();
         return !parseF();
+    } 
+    else {
+        SE='SE';
+        return;
     }
 }
 
