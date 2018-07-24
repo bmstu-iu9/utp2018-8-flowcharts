@@ -138,7 +138,7 @@ s.add('z');
 new map('sd', 10);
 new map('sdw3', 2);
 new map('z', 15);
-var str = "sd*2>10?true:false;";
+var str = "sd*(2>10?3:4);";
 var t = new token(str);
 
 var SE = 0;
@@ -150,6 +150,7 @@ if (result === undefined || SE === 'SE' || count !== str.length-1) {
 else {
     console.log("result = " + result);
 }
+alert(result);
 
 function parse() {
     if (';' !== t.getVal()) {
@@ -181,7 +182,7 @@ function parse_O(n) {
         }
         else {
             t.next();
-            t.next();
+            parseO();
             if (t.getVal() === ':') {
                 t.next();
                 return parseO();
@@ -192,7 +193,7 @@ function parse_O(n) {
             }
         }
     }
-    if ( t.getVal() === '<') {
+    else if ( t.getVal() === '<') {
         t.next();
         return parse_O(Number(n) < Number(parseE()));
     }
@@ -339,7 +340,7 @@ function parseF() {
         } else {
             SE = 'SE';
             return ;
-        }
+        }   
     }
     else if (t.getVal() === '-') {
         // expect(Tag.DIF);
