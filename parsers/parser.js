@@ -46,7 +46,7 @@ class Pos {
                     t = t.skip();
                     a = t.getChar();
                 } else {
-                    alert("error of Syntax1");
+                    console.log("error of Syntax1");
                     return "error";
                 }
             }
@@ -62,7 +62,7 @@ class Pos {
                     t = t.skip();
                     a = t.getChar();
                 } else {
-                    alert("error of Syntax2");
+                    console.log("error of Syntax2");
                     return "error";
                 }
             }
@@ -137,11 +137,16 @@ s.add('z');
 new map('sd', 10);
 new map('sdw3', 2);
 new map('z', 15);
-var t = new token("sd/=2;");
+var t = new token("var sd = 7+sdw3;");
 
-alert("result = " + parse());
-
-
+var result = parse();
+if (result === undefined || result === 'SE') {
+    console.log('Syntax Error');
+}
+else {
+    console.log("result = " + result);
+}
+//console.log(m.get('lol'));
 
 function parse() {
     if (';' !== t.getVal()) {
@@ -153,10 +158,10 @@ function parse() {
 /*
 <O>  ::= <E> <O'>.
 <O'> ::= == <E> <O'>.
-<E>  ::= <T> <E’>. 
-<E’> ::= + <T> <E’> | - <T> <E’> | . 
-<T>  ::= <F> <T’>. 
-<T’> ::= * <F> <T’> | / <F> <T’> | . 
+<E>  ::= <T> <E’>.
+<E’> ::= + <T> <E’> | - <T> <E’> | .
+<T>  ::= <F> <T’>.
+<T’> ::= * <F> <T’> | / <F> <T’> | .
 <F>  ::= <number> | <var> | ( <O> ) | - <F> | ! <F> | <bool>.
 */
 
@@ -258,8 +263,11 @@ function parseF() {
             t.next();
             if (t.getVal() === '=') {
                 t.next();
+                if (s.has(key)) {
+                    return 'SE';
+                }
                 var p = parseO();
-               // доработаь с вариантами что значение будет bool
+                // доработаь с вариантами что значение будет bool
                 m.set(key, Number(p));
                 return 'initialization';
             }
@@ -273,6 +281,7 @@ function parseF() {
             if (t.getVal() === '=') {
                 t.next();
                 m.set(key, Number(parseE()));
+                return 'initialization';
             }
             else if (t.getVal() === '++'){
                 t.next();
