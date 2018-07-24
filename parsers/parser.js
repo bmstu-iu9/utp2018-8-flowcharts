@@ -46,7 +46,7 @@ class Pos {
                     t = t.skip();
                     a = t.getChar();
                 } else {
-                    console.log("error of Syntax1");
+                   // console.log("error of Syntax1");
                     return "error";
                 }
             }
@@ -62,7 +62,7 @@ class Pos {
                     t = t.skip();
                     a = t.getChar();
                 } else {
-                    console.log("error of Syntax2");
+                    //console.log("error of Syntax2");
                     return "error";
                 }
             }
@@ -95,10 +95,11 @@ class token {
             this.val = this.start.getVal("number");
             this.id = "number";
         } else {
-            console.log("error of token3");
-            return "error"
+            //console.log("error of token3");
+            return "error";
         }
         if (this.val === "error"){
+            SE = 'SE';
             //исключение
         }
         this.tkn=this.start;
@@ -137,22 +138,25 @@ s.add('z');
 new map('sd', 10);
 new map('sdw3', 2);
 new map('z', 15);
-var t = new token("var sd = 7+sdw3;");
+var str = "sd*2>10?true:false;";
+var t = new token(str);
 
+var SE = 0;
 var result = parse();
-if (result === undefined || result === 'SE') {
+var count = str.indexOf(';', 0);
+if (result === undefined || SE === 'SE' || count !== str.length-1) {
     console.log('Syntax Error');
 }
 else {
     console.log("result = " + result);
 }
-//console.log(m.get('lol'));
 
 function parse() {
     if (';' !== t.getVal()) {
         var n =  parseO();
         return n;
     }
+
 }
 
 /*
@@ -170,6 +174,24 @@ function parseO() {
 }
 
 function parse_O(n) {
+    if (t.getVal() === '?') {
+        if (n) {
+            t.next();
+            return parseO();
+        }
+        else {
+            t.next();
+            t.next();
+            if (t.getVal() === ':') {
+                t.next();
+                return parseO();
+            }
+            else {
+                SE = 'SE';
+                return;
+            }
+        }
+    }
     if ( t.getVal() === '<') {
         t.next();
         return parse_O(Number(n) < Number(parseE()));
@@ -264,7 +286,8 @@ function parseF() {
             if (t.getVal() === '=') {
                 t.next();
                 if (s.has(key)) {
-                    return 'SE';
+                    SE = 'SE';
+                    return ;
                 }
                 var p = parseO();
                 // доработаь с вариантами что значение будет bool
@@ -303,7 +326,8 @@ function parseF() {
             return i;
         }
         else {
-            return 'SE';
+            SE = 'SE';
+            return ;
         }
     }
     else if (t.getVal() === '(') {
@@ -313,7 +337,8 @@ function parseF() {
             t.next();
             return n;
         } else {
-            return 'SE';
+            SE = 'SE';
+            return ;
         }
     }
     else if (t.getVal() === '-') {
