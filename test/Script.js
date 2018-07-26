@@ -44,15 +44,15 @@ function changeTrigger(row, cell, type){
 		var newColumn = findFreeColumn(cell)
 		table.rows[row].cells[newColumn].className= "droptarget";
 	}
-	if (row +1 >= document.getElementById("workSpace").rows.length-2){
+	if (row +1 >= document.getElementById("workSpace").rows.length-1){
 		addRow();
 	}
 }
 
 function findFreeColumn(startColumn){
 	var table = document.getElementById("workSpace");
-	if (startColumn<mainColumn || R>=L){
-		for (var i=startColumn-1;i>=0;i--){
+	if (startColumn<mainColumn || startColumn==mainColumn && R>=L){
+		for (let i=startColumn-1;i>=0;i--){
 			if (!columns[i]){
 				if(i==0){
 					addColumn(true);
@@ -63,7 +63,7 @@ function findFreeColumn(startColumn){
 			}
 		}
 	} else {
-		for (var i=startColumn+1;i<columns.length;i++){
+		for (let i=startColumn+1;i<columns.length;i++){
 			if (!columns[i]){
 				if (i== columns.length-1){
 					addColumn(false);
@@ -99,10 +99,10 @@ function addColumn(side){
 	}
 	if (side){
 		columns.unshift(false);
+		mainColumn++;
 		L++;
 	}else {
 		R++;
-		mainColumn++;
 		columns.push(false);
 	}
 }
