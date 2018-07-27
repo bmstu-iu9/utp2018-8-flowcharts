@@ -7,6 +7,7 @@ let graph=[];
 let countOfVort=1;
 let targets= new Map();
 let graphIds= new Map();
+
 class vort{
 	constructor(type,pos, x, y){
 		this.parents= [];
@@ -24,6 +25,7 @@ class vort{
 		this.childs.push(child);
 	}
 }
+
 graph.push(new vort("start",0,0,0));
 targets.set("1 0",0);
 
@@ -48,15 +50,14 @@ function paintChilds(V,paint){
 	}
 	for (let i=0;i<V.childs.length;i++){
 		let W=graph[V.childs[i]];
-		if (W.ifRes){
+		if (W.ifRes || !paint){
             paintChilds(W,paint);
 		}
 	}
 }
 
-
 function paintParents(V,paint){
-    if (paint){
+	if (paint){
         V.cell.className="focusеtarget";
     } else {
         V.cell.className=V.baseClass;
