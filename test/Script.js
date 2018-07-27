@@ -15,7 +15,7 @@ class vort{
 		this.pos=pos;
 		this.x=x;
         this.y=y;
-		this.ifRes="nan";
+		this.ifRes=true;
 	}
 	addParent(parent){
 		this.parents.push(parent);
@@ -48,7 +48,7 @@ function paintChilds(V,paint){
 	}
 	for (let i=0;i<V.childs.length;i++){
 		let W=graph[V.childs[i]];
-		if (W.ifRes!=="false"){
+		if (W.ifRes){
             paintChilds(W,paint);
 		}
 	}
@@ -104,6 +104,10 @@ document.addEventListener("drop", function(event) {
         parent.addChild(countOfVort-1);
         graphIds.set(key,countOfVort-1);
 		targets.delete(key);
+
+		if (newVort.x===parent.x){
+			newVort.ifRes=false;
+		}
 
         changeTrigger(row, cell,data.id,newVort);
         if (parent.pos!=0 && parent.cell.className==="focusеtarget"){
