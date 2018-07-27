@@ -64,12 +64,12 @@ header div{
 	background-color: #1A3131;
 }
 
-#hiddenInformationMenu:hover #informationHead{
+#hiddenInformationMenu:hover{
 	display: block;
 	opacity: 0.5;
 }
 
-#hiddenTools:hover #toolsHead{
+#hiddenTools:hover{
 	display: block;
 	opacity: 0.5;
 }
@@ -122,7 +122,7 @@ header div{
 #workSpace {
 	height: 100%;
 	width: 100%;
-	background: #a5acba;
+	background: #AFB7C7;
   	border-spacing:2px 0px;
 }
 
@@ -139,7 +139,6 @@ header div{
     vertical-align: top;
     width: 240px;
     height:170px;
-    background-color:#AFB7C7 ;
 }
 
 .lv {
@@ -149,7 +148,6 @@ header div{
 	height: 250px;
 
 }
-
 
 td {
 	text-align: center;
@@ -170,6 +168,14 @@ table tbody tr {
 
 .droptarget {
 	background-color: #C69795 ;
+	width: 240px ;
+	height: 250px;
+	text-align: center;
+    vertical-align: top;
+}
+
+.focusеtarget {
+	background-color: #78849B ;
 	width: 240px ;
 	height: 250px;
 	text-align: center;

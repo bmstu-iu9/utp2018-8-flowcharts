@@ -6,6 +6,7 @@ let L=0;
 let graph=[];
 let countOfVort=1;
 let targets= new Map();
+let graphIds= new Map();
 class vort{
 	constructor(type,pos, x, y){
 		this.parents= [];
@@ -13,7 +14,8 @@ class vort{
 		this.type=type;
 		this.pos=pos;
 		this.x=x;
-		this.y=y;
+        this.y=y;
+		this.ifRes="nan";
 	}
 	addParent(parent){
 		this.parents.push(parent);
@@ -22,9 +24,48 @@ class vort{
 		this.childs.push(child);
 	}
 }
-
 graph.push(new vort("start",0,0,0));
 targets.set("1 0",0);
+
+
+function getFocus(trg) {
+	let row=trg.parentNode.rowIndex;
+	let cell=trg.cellIndex;
+	let paint=true;
+	let V =graph[graphIds.get(row+ " "+(cell-mainColumn))];
+	if (V.cell.className==="focusеtarget"){
+		paint=false;
+	}
+	paintChilds(V,paint);
+	paintParents(V,paint);
+}
+
+function paintChilds(V,paint){
+	if (paint){
+        V.cell.className="focusеtarget";
+    } else {
+        V.cell.className=V.baseClass;
+	}
+	for (let i=0;i<V.childs.length;i++){
+		let W=graph[V.childs[i]];
+		if (W.ifRes!=="false"){
+            paintChilds(W,paint);
+		}
+	}
+}
+
+
+function paintParents(V,paint){
+    if (paint){
+        V.cell.className="focusеtarget";
+    } else {
+        V.cell.className=V.baseClass;
+    }
+    for (let i=0;i<V.parents.length;i++){
+        let W=graph[V.parents[i]];
+        paintParents(W,paint);
+    }
+}
 
 document.addEventListener("dragstart", function(event) {
     event.dataTransfer.setData("Text", event.target.id);
@@ -40,10 +81,11 @@ document.addEventListener("drop", function(event) {
     if ( event.target.className === "droptarget" ) {
     	var table = document.getElementById("workSpace");
         var data =document.getElementById(event.dataTransfer.getData("Text"));
-        var startNode= data.parentNode
+        var startNode= data.parentNode;
         var start= data.cloneNode(true);
         data.setAttribute("draggable", "false");
         event.target.appendChild(data);
+        event.target.setAttribute('onclick',"getFocus(this)");
         var row=event.target.parentNode.rowIndex;
         var cell =event.target.cellIndex;
         if (document.getElementById("workSpace").rows[row+1].cells[cell].className === "lv"){
@@ -54,12 +96,21 @@ document.addEventListener("drop", function(event) {
        	startNode.appendChild(start);
 
         var key=row + " " +(cell-mainColumn);
-       	var newVort = new vort(data.id,++countOfVort,row,cell-mainColumn);//поменть id у фигур
+       	var newVort = new vort(data.id,countOfVort++,row,cell-mainColumn);//поменть id у фигур
+		newVort.baseClass=event.target.className;
 		newVort.addParent(targets.get(key));
-		graph[targets.get(key)].addChild(countOfVort-1);
+		newVort.cell=event.target;
+        var parent=graph[targets.get(key)];
+        parent.addChild(countOfVort-1);
+        graphIds.set(key,countOfVort-1);
 		targets.delete(key);
+
         changeTrigger(row, cell,data.id,newVort);
-		graph.push(newVort);
+        if (parent.pos!=0 && parent.cell.className==="focusеtarget"){
+        	paintChilds(newVort,true);
+		}
+
+        graph.push(newVort);
     }
 });
 
@@ -138,10 +189,6 @@ function addColumn(side){
 	}
 }
 
-function sleep (time) {
-  return new Promise((resolve) => setTimeout(resolve, time));
-}
-
 function addRow(){
     let table = document.getElementById("workSpace");
     let row = table.insertRow(-1);
@@ -151,7 +198,7 @@ function addRow(){
 	}
 }
 
-let pos = 1;
+
 
 function addWindow(trg){
     let obj;
@@ -200,5 +247,5 @@ function addWindow(trg){
 		}
  		obj.style.display= "none";
 	}
-
 }
+
