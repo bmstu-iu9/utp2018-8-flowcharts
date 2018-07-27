@@ -1,8 +1,30 @@
-var columns = [false,true,false];
-var mainColumn=1;
-var R=0;
-var L=0;
 //alert(document.documentElement.clientWidth);
+let columns = [false,true,false];
+let mainColumn=1;
+let R=0;
+let L=0;
+let graph=[];
+let countOfVort=1;
+let targets= new Map();
+class vort{
+	constructor(type,pos, x, y){
+		this.parents= [];
+		this.childs=[];
+		this.type=type;
+		this.pos=pos;
+		this.x=x;
+		this.y=y;
+	}
+	addParent(parent){
+		this.parents.push(parent);
+	}
+	addChild(child){
+		this.childs.push(child);
+	}
+}
+
+graph.push(new vort("start",0,0,0));
+targets.set("1 0",0);
 
 document.addEventListener("dragstart", function(event) {
     event.dataTransfer.setData("Text", event.target.id);
@@ -15,7 +37,7 @@ document.addEventListener("dragover", function(event) {
 
 document.addEventListener("drop", function(event) {
     event.preventDefault();
-    if ( event.target.className == "droptarget" ) {
+    if ( event.target.className === "droptarget" ) {
     	var table = document.getElementById("workSpace");
         var data =document.getElementById(event.dataTransfer.getData("Text"));
         var startNode= data.parentNode
@@ -30,21 +52,30 @@ document.addEventListener("drop", function(event) {
     		event.target.className = "lc";
     	}
        	startNode.appendChild(start);
-        changeTrigger(row, cell,data.id);
+
+        var key=row + " " +(cell-mainColumn);
+       	var newVort = new vort(data.id,++countOfVort,row,cell-mainColumn);//поменть id у фигур
+		newVort.addParent(targets.get(key));
+		graph[targets.get(key)].addChild(countOfVort-1);
+		targets.delete(key);
+        changeTrigger(row, cell,data.id,newVort);
+		graph.push(newVort);
     }
 });
 
 
-function changeTrigger(row, cell, type){
+function changeTrigger(row, cell, type, newVort){
 	var table = document.getElementById("workSpace");
 	if (type !== "end"){
-			table.rows[row+1].cells[cell].className= "droptarget";
+		targets.set((row+1)+" "+(cell-mainColumn),newVort.pos);
+		table.rows[row+1].cells[cell].className= "droptarget";
 	}
 	if (type=== "romb"){
-		var newColumn = findFreeColumn(cell)
+		var newColumn = findFreeColumn(cell);
+        targets.set(row+" "+(newColumn-mainColumn),newVort.pos);
 		table.rows[row].cells[newColumn].className= "droptarget";
 	}
-	if (row +1 >= document.getElementById("workSpace").rows.length-1){
+	if (row >= document.getElementById("workSpace").rows.length-2){
 		addRow();
 	}
 }
@@ -112,26 +143,27 @@ function sleep (time) {
 }
 
 function addRow(){
-	var table = document.getElementById("workSpace");
-	var row = table.insertRow(-1);
-	for (var i =0; i< columns.length;i++){
-		var cell = row.insertCell(-1);
+    let table = document.getElementById("workSpace");
+    let row = table.insertRow(-1);
+	for (let i =0; i< columns.length;i++){
+        let cell = row.insertCell(-1);
 		cell.className= table.rows[0].cells[i].className;
 	}
 }
 
-var pos=1;
+let pos = 1;
+
 function addWindow(trg){
-	var obj;
+    let obj;
 	let menu =document.getElementById("menu");
 	let Ht=document.getElementById("hiddenTools");
 	let iMenu =document.getElementById("InformationMenu")
 	let Hm=document.getElementById("hiddenInformationMenu");
 	let main =document.getElementById("main");
-	trg==Hm? obj= iMenu: obj=menu;
-	if (obj.style.display=="none"){
-		if (trg==Ht){
-			if (iMenu.style.display=="none"){
+	trg===Hm? obj= iMenu: obj=menu;
+	if (obj.style.display==="none"){
+		if (trg===Ht){
+			if (iMenu.style.display==="none"){
 				main.style.width="89%";
 				main.style.left="11%";
 			}else{
@@ -139,7 +171,7 @@ function addWindow(trg){
 				main.style.left="11%";
 			}
 		}else{
-			if (menu.style.display=="none"){
+			if (menu.style.display==="none"){
 				main.style.width="79%";
 				main.style.left="0%";
 			}else{
@@ -149,8 +181,8 @@ function addWindow(trg){
 		}
 	    obj.style.display= "block";
 	} else{
-    	if (trg==Ht){
-			if (iMenu.style.display=="none"){
+    	if (trg===Ht){
+			if (iMenu.style.display==="none"){
 				main.style.width="100%";
 				main.style.left="0%";
 			}else{
@@ -158,7 +190,7 @@ function addWindow(trg){
 				main.style.left="0%";
 			}
 		}else{
-			if (menu.style.display=="none"){
+			if (menu.style.display==="none"){
 				main.style.width="100%";
 				main.style.left="0%";
 			}else{
