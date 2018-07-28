@@ -109,7 +109,7 @@ document.addEventListener("drop", function(event) {
 		}
 
         changeTrigger(row, cell,data.id,newVort);
-        if (parent.pos!=0 && parent.cell.className==="focusеtarget"){
+        if (parent.pos!=0 && parent.cell.className==="focusеtarget" && newVort.ifRes){
         	newVort.cell.className="focusеtarget";
 		}
 
