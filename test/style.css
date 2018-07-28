@@ -146,11 +146,11 @@ header div{
     vertical-align: top;
     width: 270px ;
 	height: 250px;
-
 }
 
 td {
     text-align: center;
+	/*border: 1px solid #111;*/
 }
 
 table tbody {

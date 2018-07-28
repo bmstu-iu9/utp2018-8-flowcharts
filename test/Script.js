@@ -24,7 +24,9 @@ class vort{
 	}
 }
 
-graph.push(new vort("start",0,0,0));
+var startV=new vort("start",0,0,0);
+startV.baseClass="lv";
+graph.push(startV);
 targets.set("1 0",0);
 
 
@@ -36,6 +38,7 @@ function getFocus(trg) {
 	if (V.cell.className==="focusеtarget"){
 		paint=false;
 	}
+	paintChilds(graph[1],false);
 	paintChilds(V,paint);
 	paintParents(V,paint);
 }
@@ -79,6 +82,7 @@ document.addEventListener("drop", function(event) {
     event.preventDefault();
     if ( event.target.className === "droptarget" ) {
     	var table = document.getElementById("workSpace");
+    	graph[0].cell= table.rows[0].cells[mainColumn];
         var data =document.getElementById(event.dataTransfer.getData("Text"));
         var startNode= data.parentNode;
         var start= data.cloneNode(true);
@@ -87,11 +91,7 @@ document.addEventListener("drop", function(event) {
         event.target.setAttribute('onclick',"getFocus(this)");
         var row=event.target.parentNode.rowIndex;
         var cell =event.target.cellIndex;
-        if (document.getElementById("workSpace").rows[row+1].cells[cell].className === "lv"){
-        	event.target.className = "lv";
-    	}	else {
-    		event.target.className = "lc";
-    	}
+        event.target.className = "lv";
        	startNode.appendChild(start);
 
         var key=row + " " +(cell-mainColumn);
@@ -110,7 +110,7 @@ document.addEventListener("drop", function(event) {
 
         changeTrigger(row, cell,data.id,newVort);
         if (parent.pos!=0 && parent.cell.className==="focusеtarget"){
-        	paintChilds(newVort,true);
+        	newVort.cell.className="focusеtarget";
 		}
 
         graph.push(newVort);
@@ -168,11 +168,7 @@ function addColumn(side){
 	if (!side){
 		pos=columns.length-1;
 	}
-	if (table.rows[0].cells[pos].className=== "lv"){
-		newCellClass ="lc";
-	} else {
-		newCellClass ="lv";
-	}
+	newCellClass ="lv";
 	for (var i =0;i<table.rows.length;i++){
 		var newCell= document.createElement("td");
 		newCell.className=newCellClass;
@@ -197,7 +193,7 @@ function addRow(){
     let row = table.insertRow(-1);
 	for (let i =0; i< columns.length;i++){
         let cell = row.insertCell(-1);
-		cell.className= table.rows[0].cells[i].className;
+		cell.className= table.rows[0].cells[0].className;
 	}
 }
 
