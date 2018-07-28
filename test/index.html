@@ -7,8 +7,8 @@
    </head>
    <body>
    	<header >
-   		<div id="hiddenTools" style="text-align: center;" onclick="addWindow(this)">
-   			<strong id="toolsHead"><i>Tools</i></strong>
+   		<div id="hiddenTools" style="text-align: center;line-height: 80px;" onclick="addWindow(this)">
+   			<strong id="toolsHead" ><i>Tools</i></strong>
    		</div>
    		<div id="options">
 	   		<div id="buttons">
@@ -18,11 +18,11 @@
 	   		        <div><input style="margin: 20px;" type="radio"checked/></div>
    			</div>
    		</div>
-   		<div id="hiddenInformationMenu" style="text-align: center" onclick="addWindow(this)">
+   		<div id="hiddenInformationMenu" style="text-align: center;line-height: 80px;" onclick="addWindow(this)">
    			<strong id="informationHead"><i>Information</i></strong>
    		</div>
    	</header>
-   	<main>
+   	<main id="Main">
 	    <div id="menu">
 	     	<table id="td1" >	
 	     		<tbody id="selection">
@@ -69,5 +69,6 @@
 	    	
 	    </div>
     </main>
+    <!--<script >alert(document.getElementById("Main").style.height=document.documentElement.clientHeight-80);</script>-->
    </body>
  </html>

@@ -1,7 +1,7 @@
 
 ::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
+    width: 8px;
+    height: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -19,7 +19,6 @@
 }
 
 
-
 body{
 	width: 100%;
 	height: 100%;
@@ -33,12 +32,13 @@ body{
 
 }
 
-	main{
+main{
 		position: relative;
 		width: 100%;
-		height: 910px;
+		height:92vh;
 
-	}
+}
+
 *{
   margin: 0;
   padding: 0;
@@ -49,7 +49,7 @@ header{
 	display: flex;
 	width: 100%;
 	justify-content:center;
-	height: 80px;
+	height: 8vh;
 	background-color: #2a3c3c;
 }
 header div{
@@ -137,21 +137,20 @@ header div{
 .lc {
     text-align: center;
     vertical-align: top;
-    width: 240px;
-    height:170px;
+    width: 270px;
+    height:250px;
 }
 
 .lv {
 	text-align: center;
     vertical-align: top;
-    width: 240px ;
+    width: 270px ;
 	height: 250px;
 
 }
 
 td {
-	text-align: center;
-    vertical-align: top;
+    text-align: center;
 }
 
 table tbody {
@@ -160,23 +159,33 @@ table tbody {
  	max-width: :100%;
 }
 table tbody tr {
+    vertical-align: middle;
 	display:table;
 	width:100%;
 	height: 100%;
 	table-layout:fixed;
 }
+#main tr{
+	display: flex;
+    align-items: center;
+ 	justify-content: center;
+}
+
+#main tr img{
+	margin: 50px;
+}
 
 .droptarget {
 	background-color: #C69795 ;
-	width: 240px ;
+	width: 270px ;
 	height: 250px;
 	text-align: center;
     vertical-align: top;
 }
 
 .focusеtarget {
-	background-color: #78849B ;
-	width: 240px ;
+	background-color: #92A0BC ;
+	width: 270px ;
 	height: 250px;
 	text-align: center;
     vertical-align: top;

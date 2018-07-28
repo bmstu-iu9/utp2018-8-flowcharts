@@ -7,7 +7,7 @@ let graph=[];
 let countOfVort=1;
 let targets= new Map();
 let graphIds= new Map();
-
+//document.getElementById("Main").style.height=document.documentElement.clientHeight-80;
 class vort{
 	constructor(type,pos, x, y){
 		this.parents= [];
