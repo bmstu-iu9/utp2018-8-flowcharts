@@ -1,5 +1,5 @@
 var oper= ["+", "=","-", "*", "/", "<", ">" , "(", ")", "?" , ":", "!", "|", "&","%" ,";", " "/* "+=" , "-=", "++", "--", "*=", "/= */ ];
-var sOper= ["=", "|","&"];
+var sOper= ["=", "|","&", "+","-", "*", "/"];
 
 class Pos {
     constructor(str,pos) {
@@ -46,7 +46,7 @@ class Pos {
                     t = t.skip();
                     a = t.getChar();
                 } else {
-                   // console.log("error of Syntax1");
+                    // console.log("error of Syntax1");
                     return "error";
                 }
             }
@@ -135,13 +135,13 @@ s.add('z');
 new map('sd', 10);
 new map('sdw3', 2);
 new map('z', 15);
-var str = "2-4;";
+var str = "sd+=7;";
 var t = new token(str);
 var count = str.indexOf(';', 0);
 var SE = 0;
 var result = parse();
 function checkRes(result){
-    if (result === undefined || SE === 'SE' || count !== str.length-1 || result==="NaN" ) {//кастыыль)  
+    if (result === undefined || SE === 'SE' || count !== str.length-1 || result==='NaN' ) {//кастыыль)
         console.log('Syntax Error');
         return "error";
     }
@@ -211,11 +211,11 @@ function parse_O(n) {
     else if (t.getVal() === '==') {
         t.next();
         return parse_O(Number(n) == Number(parseE()));
-    } 
+    }
     else if (t.getId()==="number"|| t.getId()==="ident" || n==="initialization"&& t.getVal()!=";"){
         SE = 'SE';
         return;
-    } 
+    }
     return n;
 }
 
@@ -238,7 +238,7 @@ function parse_E(n) {
     else if (t.getVal() === '||'){
         t.next();
         return parse_E(n || parseO());
-    } 
+    }
     else if (t.getId()==="number"|| t.getId()==="ident"){
         SE = 'SE';
         return;
@@ -295,14 +295,15 @@ function parseF() {
     else if (t.getId()==="ident") {
         if (t.getVal() === 'var') {
             t.next();
+            var key = t.getVal();
+            if (s.has(key)) {
+                SE = 'SE';
+                return ;
+            }
             s.add(key);
             t.next();
             if (t.getVal() === '=') {
                 t.next();
-                if (s.has(key)) {
-                    SE = 'SE';
-                    return ;
-                }
                 // доработаь с вариантами что значение будет bool
                 m.set(key, Number(parseO()));
                 return 'initialization';
@@ -317,26 +318,47 @@ function parseF() {
             if (t.getVal() === '=') {
                 t.next();
                 m.set(key, Number(parseO()));
-                return 'initialization';
+                return 'changes';
             }
+            //не работает ++, --, *=, /=
             else if (t.getVal() === '++'){
                 t.next();
                 m.set(key,m.get(key)+1);
+                return "changes";
             }
             else if (t.getVal() === '--'){
                 t.next();
-                m.set(key,m.get(key)+1);
+                m.set(key,m.get(key)-1);
+                return "changes";
+            }
+            else if (t.getVal() === '+='){
+                t.next();
+                m.set(key,m.get(key)+Number(parseE()));
+                return "changes";
+            }
+            else if (t.getVal() === '-='){
+                t.next();
+                m.set(key,m.get(key)-Number(parseE()));
+                return "changes";
             }
             else if (t.getVal() === '*='){
                 t.next();
                 m.set(key,m.get(key)*Number(parseE()));
+                return "changes";
             }
             else if (t.getVal() === '/='){
                 t.next();
                 m.set(key,m.get(key)/Number(parseE()));
+                return "changes";
             }
-            var i = m.get(key);
-            return i;
+            else if (m.has(key)) {
+                var i = m.get(key);
+                return i;
+            }
+            else {
+                SE = 'SE';
+                return;
+            }
         }
         else {
             SE = 'SE';
@@ -352,7 +374,7 @@ function parseF() {
         } else {
             SE = 'SE';
             return ;
-        }   
+        }
     }
     else if (t.getVal() === '-') {
         t.next();
@@ -365,7 +387,7 @@ function parseF() {
     else if (t.getVal()=== '!'){
         t.next();
         return !parseF();
-    } 
+    }
     else {
         SE='SE';
         return;
