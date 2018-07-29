@@ -210,19 +210,19 @@ function addWindow(trg){
 	if (obj.style.display==="none"){
 		if (trg===Ht){
 			if (iMenu.style.display==="none"){
-				main.style.width="89%";
-				main.style.left="11%";
+				main.style.width="91%";
+				main.style.left="9%";
 			}else{
-				main.style.width="68%";
-				main.style.left="11%";
+				main.style.width="75%";
+				main.style.left="9%";
 			}
 		}else{
 			if (menu.style.display==="none"){
-				main.style.width="79%";
+				main.style.width="84%";
 				main.style.left="0%";
 			}else{
-				main.style.width="68%";
-				main.style.left="11%";
+				main.style.width="75%";
+				main.style.left="9%";
 			}
 		}
 	    obj.style.display= "block";
@@ -232,7 +232,7 @@ function addWindow(trg){
 				main.style.width="100%";
 				main.style.left="0%";
 			}else{
-				main.style.width="79%";
+				main.style.width="84%";
 				main.style.left="0%";
 			}
 		}else{
@@ -240,8 +240,8 @@ function addWindow(trg){
 				main.style.width="100%";
 				main.style.left="0%";
 			}else{
-				main.style.width="89%";
-				main.style.left="11%";
+				main.style.width="91%";
+				main.style.left="9%";
 			}
 		}
  		obj.style.display= "none";

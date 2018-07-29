@@ -33,10 +33,9 @@ body{
 }
 
 main{
-		position: relative;
-		width: 100%;
-		height:92vh;
-
+	position: relative;
+	width: 100%;
+	height:92vh;
 }
 
 *{
@@ -75,17 +74,17 @@ header div{
 }
 
 #hiddenTools{
-	width: 11%;
+	width: 9%;
 	float:left;
 }
 
 #options{
-	width: 68%;
+	width: 75%;
 	float:left;
 }
 
 #hiddenInformationMenu{
-	width: 21%;
+	width: 16%;
 	float:left;
 }
 
@@ -93,7 +92,7 @@ header div{
 	/*border: 4px solid #2a3c3c;*/
 	background:#7D8596;
 	position: absolute;
-	width: 11%;
+	width: 9%;
 	height: 100%;
   	left: 0;
   	top: 0;
@@ -101,9 +100,9 @@ header div{
 }
 
 #main{
-	background:  #a5acba;
-  	left: 11%;
-	width:68%;
+	background:  #CAD3E6;
+  	left: 9%;
+	width:75%;
 	position: absolute;
   	top: 0;
 	height:100%;
@@ -112,9 +111,9 @@ header div{
 #InformationMenu{
 	background:#7D8596;
 	position: absolute;
-  	left: 79%;
+  	left: 84%;
   	top: 0;
-	width:21%;
+	width:16%;
 	height:100%;
 	display: block;
 }
@@ -122,7 +121,7 @@ header div{
 #workSpace {
 	height: 100%;
 	width: 100%;
-	background: #AFB7C7;
+	background: #D2D9E8;
   	border-spacing:2px 0px;
 }
 
@@ -137,15 +136,15 @@ header div{
 .lc {
     text-align: center;
     vertical-align: top;
-    width: 270px;
-    height:250px;
+    width: 240px ;
+	height: 220px;
 }
 
 .lv {
 	text-align: center;
     vertical-align: top;
-    width: 270px ;
-	height: 250px;
+    width: 240px ;
+	height: 220px;
 }
 
 td {
@@ -172,21 +171,25 @@ table tbody tr {
 }
 
 #main tr img{
-	margin: 50px;
+	margin: 35px;
+}
+
+#menu table{
+	border-spacing: 0px 18px;
 }
 
 .droptarget {
 	background-color: #C69795 ;
-	width: 270px ;
-	height: 250px;
+	width: 240px ;
+	height: 220px;
 	text-align: center;
     vertical-align: top;
 }
 
 .focusеtarget {
-	background-color: #92A0BC ;
-	width: 270px ;
-	height: 250px;
+	background-color: #A5B3C4 ;
+	width: 240px ;
+	height: 220px;
 	text-align: center;
     vertical-align: top;
 }
