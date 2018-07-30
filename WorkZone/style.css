@@ -51,13 +51,20 @@ header{
 	height: 8vh;
 	background-color: #2a3c3c;
 }
+
+header input{
+	height: 40px;
+	width: 40px;
+	margin: 5px;
+}
+
 header div{
 	height: 100%;
 }
 #buttons{
 	display: flex;
 	justify-content:space-around;
-	margin: 1% 32%; 
+	margin: 1% 29%; 
 	width: 50%;
 	height: 70%;
 	background-color: #1A3131;
@@ -97,6 +104,9 @@ header div{
   	left: 0;
   	top: 0;
   	display: block;
+  	transition-property: width;
+  	transition-duration: 3s;
+  	transition-timing-function: linear;
 }
 
 #main{
