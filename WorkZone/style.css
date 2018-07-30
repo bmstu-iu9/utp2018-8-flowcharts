@@ -97,7 +97,7 @@ header div{
 
 #menu{
 	/*border: 4px solid #2a3c3c;*/
-	background:#ABAFB9;
+	background:#B7BCC7;
 	position: absolute;
 	width: 9%;
 	height: 100%;
@@ -119,20 +119,20 @@ header div{
 }
 
 #InformationMenu{
-	background:#ABAFB9;
+	background:#B7BCC7;
 	position: absolute;
   	left: 84%;
   	top: 0;
 	width:16%;
 	height:100%;
 	display: flex;
-	-webkit-transition: width 1s, left 1s;
+	-webkit-transition: width 100ms, left 100ms;
 }
 
 #workSpace {
 	height: 100%;
 	width: 100%;
-	background: #D2D9E8;
+	background: #D2DCE8;
   	border-spacing:2px 0px;
 }
 
@@ -198,7 +198,7 @@ table tbody tr {
 }
 
 .focusеtarget {
-	background-color: #A5B3C4 ;
+	background-color: #C4CCD6 ;
 	width: 240px ;
 	height: 220px;
 	text-align: center;
