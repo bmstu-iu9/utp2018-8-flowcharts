@@ -213,9 +213,9 @@ function addWindow(trg){
 	main.style.width= Ww + Wi + Wt + "%";
 	main.style.left= Wt!=9? 9: 0 + "%";*/
 	trg===Hm? obj= iMenu: obj=menu;
-	if (obj.style.display==="none"){
+	if (obj.className=="hidden"){
 		if (trg===Ht){
-			if (iMenu.style.display==="none"){
+			if (iMenu.className=="hidden"){
 				main.style.width="91%";
 				main.style.left="9%";
 			}else{
@@ -223,7 +223,7 @@ function addWindow(trg){
 				main.style.left="9%";
 			}
 		}else{
-			if (menu.style.display==="none"){
+			if (menu.className=="hidden"){
 				main.style.width="84%";
 				main.style.left="0%";
 			}else{
@@ -231,10 +231,10 @@ function addWindow(trg){
 				main.style.left="9%";
 			}
 		}
-	    obj.style.display= "block";
-	} else{
+		obj.className="block";
+		} else{
     	if (trg===Ht){
-			if (iMenu.style.display==="none"){
+			if (iMenu.className=="hidden"){
 				main.style.width="100%";
 				main.style.left="0%";
 			}else{
@@ -242,7 +242,7 @@ function addWindow(trg){
 				main.style.left="0%";
 			}
 		}else{
-			if (menu.style.display==="none"){
+			if (menu.className=="hidden"){
 				main.style.width="100%";
 				main.style.left="0%";
 			}else{
@@ -250,7 +250,7 @@ function addWindow(trg){
 				main.style.left="9%";
 			}
 		}
- 		obj.style.display= "none";
+ 		obj.className="hidden";
 	}
 }
 
