@@ -6,6 +6,8 @@ let graph=[];
 let countOfVort=1;
 let targets= new Map();
 let graphIds= new Map();
+let m = new Map();
+let s = new Set();
 class vort{
 	constructor(type,pos, x, y){
 		this.parents= [];
@@ -264,11 +266,29 @@ function  hiddenVarBox(trg){
 	}
 }
 
+
+
 function getVal(){
 	let trg= document.getElementById("Plas");
 	let VarBox= document.getElementById("initVarBox");
-	res=parse(VarBox.value);
-	alert(res);
+    let prt= document.getElementById("var");
+    let lastCh= document.getElementById("addVar");
+    let elem1= document.createElement("div");
+    let elem2= document.createElement("div");
+    let hr= document.createElement("hr");
+    res=parse(VarBox.value);
+    if (res==="error"){
+        VarBox.style.background="#DEB5B1";
+        return;
+    }
+    hr.size=3;
+    hr.color="#334D4D";
+    hr.style.opacity= 0.7;
+    elem1.innerHTML = res;
+    elem2.innerHTML = m.get(res);
+    prt.insertBefore(elem1,lastCh);
+    prt.insertBefore(elem2,lastCh);
+    prt.insertBefore(hr,lastCh);
 	VarBox.value="";
 	VarBox.style.display="none";
 	trg.width=50;
@@ -278,8 +298,10 @@ function getVal(){
 
 
 
-
 ////////////////////// часть парсера //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 var oper= ["+", "=","-", "*", "/", "<", ">" , "(", ")", "?" , ":", "!", "|", "&","%" ,";", " "];
 var sOper= ["=", "|","&"];
 
@@ -396,20 +418,18 @@ class token {
 
 }
 
-var m = new Map();
-let s = new Set();
+
 
 
 var t;
 var SE = 0;
 function checkRes(result,str ){
-    var count = str.indexOf(';', 0);
-    if (result === undefined || SE === 'SE' || count !== str.length-1 || result==='NaN' ) {//кастыыль)
-        console.log('Syntax Error');
+    if (result === undefined || SE === 'SE' || result==='NaN' ) {//кастыыль)
+        //alert(result);
         return "error";
     }
     else {
-            console.log("result = " + result);
+        //alert("result = " + result);
         return  result;
     }
 }
@@ -569,7 +589,7 @@ function parseF() {
                 t.next();
                 // доработаь с вариантами что значение будет bool
                 m.set(key, Number(parseO()));
-                return 'initialization';
+                return key;
             }
             else {
                 s.add(key);
