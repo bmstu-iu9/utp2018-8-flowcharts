@@ -41,7 +41,7 @@ main{
 *{
   margin: 0;
   padding: 0;
-  color: #dbf6f1;
+  color: #BEC8DE;
 }
 header{
 	font-size: 25px;
@@ -142,7 +142,8 @@ header div{
 	margin: 12% 5%; 
 	font-size: 25px;
 	padding: 6px 0 4px 10px;
-	border: 3px solid #334D4D;
+	/*border: 3px solid #334D4D;*/
+	border: none;
 	background: #DFE0E7;
 	border-radius: 8px;
 }
@@ -164,6 +165,31 @@ header div{
 	align-items : center;
     align-content: start; 
     grid-auto-rows: 50px;
+}
+
+#addVar{
+	grid-column-start: 1;
+  	grid-column-end: 3;
+}
+
+#initVarBox{
+	color:#334D4D;
+	width:80%;
+	margin: 2px 10%;
+	font-size: 20px;
+	padding: 6px 0 4px 10px;
+	/*border: 3px solid #334D4D;*/
+	border: none;
+	display: none;
+	background: #DFE0E7;
+	border-radius: 6px;	
+	-webkit-transition: width 2s, height 1s;
+}
+
+#Plas{
+	margin: 1px;
+	-webkit-transition: width 0.7s, height 0.7s, opacity 0.4s;
+
 }
 
 #var hr{
@@ -246,3 +272,7 @@ table tbody tr {
 	text-align: center;
     vertical-align: top;
 }
+
+INPUT.text:focus {
+    border: 1px solid #7FC2E3; 
+   }

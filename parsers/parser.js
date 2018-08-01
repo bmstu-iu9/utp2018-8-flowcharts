@@ -1,5 +1,5 @@
-var oper= ["+", "=","-", "*", "/", "<", ">", ">=", "<=", "==", "(", ")", "?" , ":", "!", "||", "&&" ,";", " "/* "+=" , "-=", "++", "--", "*=", "/="" */ ];
-var sOper= ["=", "|","&"];
+oper= ["+", "=","-", "*", "/", "<", ">" , "(", ")", "?" , ":", "!", "|", "&","%" ,";", " "/* "+=" , "-=", "++", "--", "*=", "/= */ ];
+sOper= ["=", "|","&"];
 
 class Pos {
     constructor(str,pos) {
@@ -21,7 +21,7 @@ class Pos {
         return this.str[this.pos];
     }
 
-     getVal(type) {
+    getVal(type) {
         if (type === "oper") {
             let t = this;
             let res = "";
@@ -46,8 +46,8 @@ class Pos {
                     t = t.skip();
                     a = t.getChar();
                 } else {
-                    alert("error of Syntax1");
-                    return "error"; 
+                    // console.log("error of Syntax1");
+                    return "error";
                 }
             }
             this.pos = t.pos;
@@ -62,7 +62,7 @@ class Pos {
                     t = t.skip();
                     a = t.getChar();
                 } else {
-                    alert("error of Syntax2");
+                    //console.log("error of Syntax2");
                     return "error";
                 }
             }
@@ -95,10 +95,11 @@ class token {
             this.val = this.start.getVal("number");
             this.id = "number";
         } else {
-            alert("error of token3");
-            return "error"
+            //console.log("error of token3");
+            return "error";
         }
         if (this.val === "error"){
+            SE = 'SE';
             //исключение
         }
         this.tkn=this.start;
@@ -112,24 +113,12 @@ class token {
     }
 
 }
-var tmp="";
-var t = new token("lol==S235(sd+< 23 ) - 1 * sdw3;");
-while(t.getVal() != ";"){
-    tmp+=t.getVal();
-    t.next();
-}
-alert(tmp);
-
-
-var sym;
-
 
 var m = new Map();
 class map {
     constructor (key, any) {
         m.set(key, any);
     }
-
 }
 
 let s = new Set();
@@ -140,154 +129,261 @@ class set {
     }
 }
 
-new map('x', 10);
-new map('y', 2);
+s.add('sd');
+s.add('sdw3');
+s.add('z');
+new map('sd', 10);
+new map('sdw3', 2);
 new map('z', 15);
-var str = 'x/y+z';
-console.log("result = " + parse());
-
-function parse(str) {
-    var a = new token(str);
-    var n;
-    if (-1 !== this.getChar()) {
-        n = parseE();
-        console.log(n);
-        parse();
-        return n;
+var str1 = "sd+=7>2?3:4;";
+var tkn = new token(str);
+var count1 = str.indexOf(';', 0);
+var SE = 0;
+var result = parse(str);
+function checkRes(result){
+    if (result === undefined || SE === 'SE' || count1 !== str1.length-1 || result==='NaN' ) {//кастыыль)
+        console.log('Syntax Error');
+        return "error";
     }
     else {
-        //return 'Syntax Error'
-        return parseE();
+        alert(result);
+        console.log("result = " + result);
+        return  result;
     }
 }
 
-function parseEE() {
-    var a =  parseNew(parseF());
-    console.log("ans "+a);
+
+function parse(str) {
+    str1=str;
+    SE=0;
+    var tkn = new token(str);
+    if (';' !== tkn.getVal()) {
+        return checkRes(parseO());
+    }
+
 }
 
-//<E>  ::= <T> <E’>.
+function parseO() {
+    return parse_O(parseE());
+}
+
+function parse_O(n) {
+    if (tkn.getVal() === '?') {
+        if (n) {
+            tkn.next();
+            return parseO();
+        }
+        else {
+            tkn.next();
+            parseO();
+            if (tkn.getVal() === ':') {
+                tkn.next();
+                return parseO();
+            }
+            else {
+                SE = 'SE';
+                return;
+            }
+        }
+    }
+    else if ( tkn.getVal() === '<') {
+        tkn.next();
+        return parse_O(Number(n) < Number(parseE()));
+    }
+    else if (tkn.getVal() === '>') {
+        tkn.next();
+        return parse_O(Number(n) > Number(parseE()));
+    }
+    else if (tkn.getVal() === '>=') {
+        tkn.next();
+        return parse_O(Number(n) >= Number(parseE()));
+    }
+    else if (tkn.getVal() === '<=') {
+        tkn.next();
+        return parse_O(Number(n) <= Number(parseE()));
+    }
+    else if (tkn.getVal() === '==') {
+        tkn.next();
+        return parse_O(Number(n) == Number(parseE()));
+    }
+    else if (tkn.getId()==="number"|| tkn.getId()==="ident" || n==="initialization"&& tkn.getVal()!=";"){
+        SE = 'SE';
+        return;
+    }
+    return n;
+}
+
+
 function parseE() {
-    if (this.getId() === 'boolean') {
-        parseEE();
-    }
     return parse_E(parseT());
 }
 
-//<comparison> ::=
-//      <arith_expr> <comparison_op> <arith_expr>
-function parseNew(n)  {
-    if (this.getVal() === '>=') {
-        this.construct();
-        return (n >= parseF());
-    } else if (this.getVal() === '<=') {
-        this.construct();
-        return (n <= parseF());
-    }
-    else if (this.getVal() === '>') {
-        this.construct();
-        return (n > parseF());
-    }
-    else if (this.getVal() === '==') {
-        this.construct();
-        return (n === parseF());
-    }
-    else if (this.getVal() === '<') {
-        this.construct();
-        return (n < parseF());
-    }
-    return n;
-}
 
-//<arith_expr> ::=
-//         <arith_expr> + <term>
-//         | <arith_expr> - <term>
-//         | <term>.
 function parse_E(n) {
-    if (this.getVal() === '+') {
-        this.construct();
-        return parse_E(n + parseT());
+    //alert(t.getVal());
+    if (tkn.getVal() === '+') {
+        tkn.next();
+        return parse_E(Number(n) + Number(parseT()));
     }
-    if (this.getVal() === '-') {
-        this.construct();
-        return parse_E(n - parseT());
+    else if (tkn.getVal() === '-') {
+        tkn.next();
+        return parse_E(Number(n) - Number(parseT()));
+    }
+    else if (tkn.getVal() === '||'){
+        tkn.next();
+        return parse_E(n || parseO());
+    }
+    else if (tkn.getId()==="number"|| tkn.getId()==="ident"){
+        SE = 'SE';
+        return;
     }
     return n;
 }
 
-//<T>  ::= <F> <T’>.
 function parseT() {
     return parse_T(parseF());
 }
 
-//<term> ::=
-//         <term> * <factor>
-//         | <term> / <factor>
-//         | <factor>.
+
 function parse_T(n) {
-    if (this.getVal() === '*') {
-        this.construct();
-        return parse_T(n * parseF());
+    //alert(n);
+
+    if (tkn.getVal() === '*') {
+        tkn.next();
+        return parse_T(Number(n) * Number(parseF()));
+    } else if (tkn.getVal() === '%') {
+        tkn.next();
+        return parse_T(Number(n) * Number(parseF()));
     }
-    if (this.getVal() === '/') {
-        this.construct();
-        return parse_T(n / parseF());
+    else if (tkn.getVal() === '/') {
+        tkn.next();
+        return parse_T(Number(n) / Number(parseF()));
     }
-    if (this.getId() === 'boolean') {
-        parseEE();
+    else if (tkn.getVal() === '&&'){
+        tkn.next();
+        return parse_T(n && parseF());
+    }
+    else if (tkn.getId()==="number"|| tkn.getId()==="ident"){
+        SE = 'SE';
+        return;
     }
     return n;
 }
 
-//<value> ::=
-// 	var <ident> = <expr> .
-// 	| <expr> .
-// 	| <ident> = <expr> .
 function parseF() {
-    if (this.getId() === 'number') {
-        var num = this.getVal();
-        this.construct();
+    //alert(t.getVal())
+    if (tkn.getId()==="number") {
+        var num = tkn.getVal();
+        tkn.next();
         return num;
     }
-    else if (this.getId() === 'ident') {
-        if (this.getVal() === 'var') {
-            var key = this.getVal();
-            this.construct();
-            if (this.getVal() === '=') {
-                this.construct();
-                var any = this.getVal();
-                m.set(key, any);
+    else if (tkn.getId()==='boolean'){
+        if (tkn.getVal()){
+            tkn.next();
+            return true;
+        } else{
+            tkn.next();
+            return false;
+        }
+    }
+    else if (tkn.getId()==="ident") {
+        if (tkn.getVal() === 'var') {
+            tkn.next();
+            var key = tkn.getVal();
+            if (s.has(key)) {
+                SE = 'SE';
+                return ;
+            }
+            s.add(key);
+            tkn.next();
+            if (tkn.getVal() === '=') {
+                tkn.next();
+                // доработаь с вариантами что значение будет bool
+                m.set(key, Number(parseO()));
+                return 'initialization';
             }
             else {
                 s.add(key);
             }
         }
-        if (m.has(this.getVal())) {
-            var n;
-            var i = m.get(this.getVal());
-            this.construct();
-            return i;
+        else if (s.has(tkn.getVal())) {
+            var key = tkn.getVal();
+            tkn.next();
+            if (tkn.getVal() === '=') {
+                tkn.next();
+                m.set(key, Number(parseO()));
+                return 'changes';
+            }
+            //не работает ++, --, *=, /=
+            else if (tkn.getVal() === '++'){
+                tkn.next();
+                m.set(key,m.get(key)+1);
+                return "changes";
+            }
+            else if (tkn.getVal() === '--'){
+                tkn.next();
+                m.set(key,m.get(key)-1);
+                return "changes";
+            }
+            else if (tkn.getVal() === '+='){
+                tkn.next();
+                m.set(key,m.get(key)+Number(parseE()));
+                return "changes";
+            }
+            else if (tkn.getVal() === '-='){
+                tkn.next();
+                m.set(key,m.get(key)-Number(parseE()));
+                return "changes";
+            }
+            else if (tkn.getVal() === '*='){
+                tkn.next();
+                m.set(key,m.get(key)*Number(parseE()));
+                return "changes";
+            }
+            else if (tkn.getVal() === '/='){
+                tkn.next();
+                m.set(key,m.get(key)/Number(parseE()));
+                return "changes";
+            }
+            else if (m.has(key)) {
+                var i = m.get(key);
+                return i;
+            }
+            else {
+                SE = 'SE';
+                return;
+            }
         }
         else {
-            console.log('SE');
-            return;
+            SE = 'SE';
+            return ;
         }
     }
-    else if (sym === '(') {
-        this.construct();
-        var n = parseE();
-        //проверка, что есть ")"
-        // expect(Tag.RPAREN);
-        return n;
+    else if (tkn.getVal() === '(') {
+        tkn.next();
+        var n = parseO();
+        if (tkn.getVal() === ')'){
+            tkn.next();
+            return n;
+        } else {
+            SE = 'SE';
+            return ;
+        }
     }
-    if (this.getVal() === '-') {
-        // expect(Tag.DIF);
-        return -1 * parseF();
+    else if (tkn.getVal() === '-') {
+        tkn.next();
+        if (tkn.getId()==="oper"){
+            SE='SE';
+            return ;
+        }
+        else return -1 * parseF();
     }
-    if (this.getId() === 'boolean') {
-        this.construct();
-        parseEE();
+    else if (tkn.getVal()=== '!'){
+        tkn.next();
+        return !parseF();
     }
-    //не должен выводить ничего
-    return 1;
+    else {
+        SE='SE';
+        return;
+    }
 }
