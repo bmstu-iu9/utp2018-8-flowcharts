@@ -184,15 +184,15 @@ header div{
 .lc {
     text-align: center;
     vertical-align: top;
-    width: 240px ;
-	height: 220px;
+    width: 220px ;
+	height: 200px;
 }
 
 .lv {
 	text-align: center;
     vertical-align: top;
-    width: 240px ;
-	height: 220px;
+    width: 220px ;
+	height: 200px;
 }
 
 td {
@@ -233,16 +233,16 @@ table tbody tr {
 
 .droptarget {
 	background-color: #DEB5B1 ;
-	width: 240px ;
-	height: 220px;
+	width: 220px ;
+	height: 200px;
 	text-align: center;
     vertical-align: top;
 }
 
 .focusеtarget {
 	background-color: #C4CDD9 ;
-	width: 240px ;
-	height: 220px;
+	width: 220px ;
+	height: 200px;
 	text-align: center;
     vertical-align: top;
 }
