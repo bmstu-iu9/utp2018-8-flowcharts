@@ -409,8 +409,7 @@ function checkRes(result,str ){
         return "error";
     }
     else {
-        alert(result);
-        console.log("result = " + result);
+            console.log("result = " + result);
         return  result;
     }
 }
