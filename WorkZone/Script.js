@@ -420,7 +420,6 @@ function parse(str) {
     if (';' !== t.getVal()) {
         return checkRes(parseO(),str);
     }
-
 }
 
 /*
