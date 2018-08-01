@@ -139,7 +139,7 @@ header div{
 #initBox{
 	color:#334D4D;
 	width:84%;
-	margin: 12% 4%; 
+	margin: 12% 5%; 
 	font-size: 25px;
 	padding: 6px 0 4px 10px;
 	border: 3px solid #334D4D;
@@ -147,24 +147,30 @@ header div{
 	border-radius: 8px;
 }
 
-#varTable{
-	border-collapse: collapse;
-	padding: 0px 0 0px 1px;
-	font-size: 23px;
-	margin: 30px 3%;
-	width:94%;
-}
-
-#varTable tr{
-	border-collapse: collapse;
-	border: 2px solid #334D4D;
-	
-}
-
-#varTable td{
+#var div{
 	color:#334D4D;
+	font-size: 30px;
+	text-align: center;
+    vertical-align: top;
 }
 
+#var{
+	margin: 40px 0px;
+	display: grid;
+	grid-template-columns: 50% 50%;
+	grid-template-rows: 50px;
+	justify-items: center;
+	align-items : center;
+    align-content: start; 
+    grid-auto-rows: 50px;
+}
+
+#var hr{
+	width:100%;
+	grid-column-start: 1;
+  	grid-column-end: 3;
+  	border-radius: 2px;
+}
 
 #td1 TD {
 	overflow:auto;
@@ -172,6 +178,7 @@ header div{
 	padding: 10px;
     vertical-align: top;
 }
+
 
 .lc {
     text-align: center;
