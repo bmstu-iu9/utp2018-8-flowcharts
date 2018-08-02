@@ -661,11 +661,7 @@ function parseF() {
     }
     else if (t.getVal() === '-') {
         t.next();
-        if (t.getId()==="oper"){
-            SE='SE';
-            return ;
-        }
-        else return -1 * parseF();
+         return -1 * parseF();
     }
     else if (t.getVal()=== '!'){
         t.next();
