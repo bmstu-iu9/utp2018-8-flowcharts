@@ -8,6 +8,7 @@ let targets= new Map();
 let graphIds= new Map();
 let m = new Map();
 let s = new Set();
+let source = document.getElementById("body").cloneNode;
 class vort{
 	constructor(type,pos, x, y){
 		this.parents= [];
@@ -263,6 +264,7 @@ function  hiddenVarBox(trg){
 		trg.width=0;
 		trg.height=0;
 		trg.style.opacity=0;
+		VarBox.focus();
 	}
 }
 
@@ -277,7 +279,7 @@ function getVal(){
     let elem2= document.createElement("div");
     let hr= document.createElement("hr");
     res=parse(VarBox.value);
-    if (res==="error"){
+    if (res==="error" || res==="changes" || res==true || res==false){
         VarBox.style.background="#DEB5B1";
         return;
     }
@@ -296,7 +298,18 @@ function getVal(){
 	trg.style.opacity=1;
 }
 
+function returnPlas(){
+	let trg= document.getElementById("Plas");
+	let VarBox= document.getElementById("initVarBox");
+	VarBox.style.display="none";
+	trg.width=50;
+	trg.height=50;
+	trg.style.opacity=1;
+}
 
+function newFile(){
+	document.getElementById("body").parentNode.replaceChild(source,document.getElementById("body"));
+}
 
 ////////////////////// часть парсера //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -437,20 +450,12 @@ function checkRes(result,str ){
 function parse(str) {
     t= new token(str);
     SE=0;
+    result="";
     if (';' !== t.getVal()) {
         return checkRes(parseO(),str);
     }
 }
 
-/*
-<O>  ::= <E> <O'>.
-<O'> ::= == <E> <O'>.
-<E>  ::= <T> <E’>.
-<E’> ::= + <T> <E’> | - <T> <E’> | .
-<T>  ::= <F> <T’>.
-<T’> ::= * <F> <T’> | / <F> <T’> | .
-<F>  ::= <number> | <var> | ( <O> ) | - <F> | ! <F> | <bool>.
-*/
 
 function parseO() {
     return parse_O(parseE());

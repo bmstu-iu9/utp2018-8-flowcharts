@@ -1,12 +1,10 @@
  <!DOCTYPE html>
  <html>
    <head>
-     <title>BlocWork</title>
-     <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="Script.js"></script>
-    <script src="parsers/parser.js"></script>
+    <title>BlocWork</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
    </head>
-   <body>
+   <body id="body">
    	<header >
    		<div id="hiddenTools" style="text-align: center;line-height: 80px;" onclick="addWindow(this)">
    			<strong id="toolsHead" ><i>Tools</i></strong>
@@ -21,7 +19,7 @@
     			
 	   			<input type="image" src="https://png.icons8.com/ios/40/B7BCC7/save-as.png" checked/>
     			
-	   			<input type="image" src="https://png.icons8.com/dotty/40/B7BCC7/add-file.png" checked/>
+	   			<input type="image" src="https://png.icons8.com/dotty/40/B7BCC7/add-file.png" onclick="" checked/>
    			</div>
    		</div>
    		<div id="hiddenInformationMenu" style="text-align: center;line-height: 80px;" onclick="addWindow(this)">
@@ -69,7 +67,7 @@
 		    	<div id="var">
 		    		<div id="addVar" style="height: 100%">
 		    			<img src="https://png.icons8.com/ios/100/2a3c3c/plus.png" width="50" height="50" id="Plas" onclick="hiddenVarBox(this)">
-		    			<input type="text" name="инициализацияПеременных" placeholder="var [name] = [expr];" width="70%" id="initVarBox" onkeydown="if(event.keyCode==13){ getVal(this);} else {this.style.background='#DFE0E7';}">
+		    			<input type="text" name="инициализацияПеременных" onblur="returnPlas()" placeholder="var [name] = [expr];" width="70%" id="initVarBox" onkeydown="if(event.keyCode==13){ getVal(this);} else {this.style.background='#DFE0E7';}">
 		    		</div>
 		    	</div>	
 		    </div>
@@ -86,5 +84,6 @@
 			</table>
 	    </div>     
     </main>
+    <script src="Script.js"></script>
    </body>
  </html>
