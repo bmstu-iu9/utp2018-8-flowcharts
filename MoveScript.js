@@ -45,10 +45,12 @@ document.addEventListener("drop", function( event ) {
         event.target.style.background = "";
 
         var data =event.dataTransfer.getData("text/html");
-        
+        var prntNode = document.getElementById(data).parentNode;
         var nodeCopy = document.getElementById(data).cloneNode(true);
         nodeCopy.id = "newId"; /* We cannot use the same ID */
-        event.target.appendChild(nodeCopy);
+        event.target.appendChild(document.getElementById(data));
+        event.target.className = "locked"
+        prntNode.appendChild(nodeCopy);
     }
   
 }, false);
