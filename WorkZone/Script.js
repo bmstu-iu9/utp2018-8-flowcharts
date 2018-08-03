@@ -287,7 +287,10 @@ function getVal(){
     hr.color="#334D4D";
     hr.style.opacity= 0.7;
     elem1.innerHTML = res;
-    elem2.innerHTML = m.get(res);
+    let i = document.createElement("div");
+    i.innerHTML=m.get(res);
+    elem2.appendChild(i);
+    elem2.setAttribute('onclick',"reVal(this)");
     prt.insertBefore(elem1,lastCh);
     prt.insertBefore(elem2,lastCh);
     prt.insertBefore(hr,lastCh);
@@ -307,8 +310,22 @@ function returnPlas(){
 	trg.style.opacity=1;
 }
 
-function newFile(){
-	document.getElementById("body").parentNode.replaceChild(source,document.getElementById("body"));
+function reVal(trg){
+    let startVal=trg.firstChild
+    let input= document.createElement("input");
+    startVal.style.display="none";
+    input.setAttribute("type","text");
+    input.setAttribute("id","tmpInput");
+    input.setAttribute("placeholder", startVal.innerHTML);
+    input.setAttribute("onblur","reValBlur()");
+    input.setAttribute("onclick","reValBlur()");
+    trg.appendChild(input);
+    input.focus();
+}
+
+function reValBlur(){
+    event.target.parentNode.firstChild.style.display="block";
+    event.target.remove();
 }
 
 ////////////////////// часть парсера //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -436,7 +453,7 @@ class token {
 
 var t;
 var SE = 0;
-function checkRes(result,str ){
+function checkRes(result){
     if (result === undefined || SE === 'SE' || result==='NaN' ) {//кастыыль)
         //alert(result);
         return "error";
@@ -452,7 +469,7 @@ function parse(str) {
     SE=0;
     result="";
     if (';' !== t.getVal()) {
-        return checkRes(parseO(),str);
+        return checkRes(parseO());
     }
 }
 
@@ -588,13 +605,18 @@ function parseF() {
                 SE = 'SE';
                 return ;
             }
-            s.add(key);
             t.next();
             if (t.getVal() === '=') {
                 t.next();
+                let res= Number(parseO());
                 // доработаь с вариантами что значение будет bool
-                m.set(key, Number(parseO()));
-                return key;
+                if (SE!='SE'){
+                    s.add(key);
+                    m.set(key,res);
+                    return key;
+                }  else {
+                    return;
+                }
             }
             else {
                 s.add(key);

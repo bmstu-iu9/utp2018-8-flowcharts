@@ -280,3 +280,14 @@ table tbody tr {
 INPUT.text:focus {
     border: 1px solid #7FC2E3; 
    }
+
+#tmpInput{
+	color:#334D4D;
+	width:80%;
+	margin: 2px 10%;
+	font-size: 22px;
+	padding: 6px 0 4px 10px;
+	border: none;
+	background: #DFE0E7;
+	border-radius: 6px;	
+}
