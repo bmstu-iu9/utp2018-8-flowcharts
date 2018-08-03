@@ -319,6 +319,7 @@ function reVal(trg){
     input.setAttribute("placeholder", startVal.innerHTML);
     input.setAttribute("onblur","reValBlur()");
     input.setAttribute("onclick","reValBlur()");
+    input.setAttribute("onkeydown", "if(event.keyCode==13){ reGetVal();}else {this.style.background='#DFE0E7';}")
     trg.appendChild(input);
     input.focus();
 }
@@ -326,6 +327,22 @@ function reVal(trg){
 function reValBlur(){
     event.target.parentNode.firstChild.style.display="block";
     event.target.remove();
+}
+
+function reGetVal(){
+    let trg=event.target;
+    if (isNaN(trg.value)){
+        trg.style.background="#DEB5B1";
+    } else{
+        let i=0;
+        while (trg.parentNode.children[i+1]!=trg){
+            i+=3;
+        }
+        let name= trg.parentNode.parentNode.children[i];
+        m.set(name,trg.value);
+        trg.parentNode.firstChild.innerHTML=trg.value;
+        reValBlur();
+    }
 }
 
 ////////////////////// часть парсера //////////////////////////////////////////////////////////////////////////////////////////////////////////
