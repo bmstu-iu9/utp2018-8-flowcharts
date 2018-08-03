@@ -25,7 +25,7 @@ body{
 	-webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    background-color: #a5acba	;
+    background-color: #DFE0E7	;
     -webkit-appearance: none;
   	-moz-appearance: none;
   	appearance: none;
@@ -53,9 +53,9 @@ header{
 }
 
 header input{
-	height: 40px;
-	width: 40px;
-	margin: 7px;
+	height: 4vh;
+	width: 4vh;
+	margin: 1vh;
 }
 
 header div{
@@ -99,18 +99,23 @@ header div{
 	/*border: 4px solid #2a3c3c;*/
 	background:#C0C4CD;
 	position: absolute;
-	width: 9%;
+	width: 8%;
 	height: 100%;
   	left: 0;
   	top: 0;
   	display: block;
   	-webkit-transition: width 1s, left 1s;
 }
+#menu img{
+	margin: 23% 17%;
+	height: 10vh;
+	width: 65%;
+}
 
 
 #main{
-  	left: 9%;
-	width:75%;
+  	left: 8%;
+	width:76%;
 	position: absolute;
   	top: 0;
 	height:100%;
@@ -157,11 +162,11 @@ header div{
 }
 
 #var{
-	height: 700px;
-	max-height: 700px;
+	height: 71vh;
+	max-height: 71vh;
 	overflow-y:scroll;
 	overflow-x: hidden;  
-	margin: 40px 0px;
+	margin: 4vh 0px;
 	display: grid;
 	grid-template-columns: 50% 50%;
 	grid-template-rows: 50px;
@@ -276,10 +281,6 @@ table tbody tr {
 	text-align: center;
     vertical-align: top;
 }
-
-INPUT.text:focus {
-    border: 1px solid #7FC2E3; 
-   }
 
 #tmpInput{
 	color:#334D4D;

@@ -219,19 +219,19 @@ function addWindow(trg){
 	if (obj.className=="hidden"){
 		if (trg===Ht){
 			if (iMenu.className=="hidden"){
-				main.style.width="91%";
-				main.style.left="9%";
+				main.style.width="92%";
+				main.style.left="8%";
 			}else{
-				main.style.width="75%";
-				main.style.left="9%";
+				main.style.width="76%";
+				main.style.left="8%";
 			}
 		}else{
 			if (menu.className=="hidden"){
 				main.style.width="84%";
 				main.style.left="0%";
 			}else{
-				main.style.width="75%";
-				main.style.left="9%";
+				main.style.width="76%";
+				main.style.left="8%";
 			}
 		}
 		obj.className="block";
@@ -249,8 +249,8 @@ function addWindow(trg){
 				main.style.width="100%";
 				main.style.left="0%";
 			}else{
-				main.style.width="91%";
-				main.style.left="9%";
+				main.style.width="92%";
+				main.style.left="8%";
 			}
 		}
  		obj.className="hidden";
