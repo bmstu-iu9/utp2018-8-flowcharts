@@ -209,12 +209,6 @@ function addWindow(trg){
 	let iMenu =document.getElementById("InformationMenu")
 	let Hm=document.getElementById("hiddenInformationMenu");
 	let main =document.getElementById("main");
-	/*
-    let Wt =menu.style.display==="none"? (trg===Ht?9:0):(trg===Ht?0:9);
-    let Ww=75;
-    let Wi= iMenu.style.display==="none"? (trg===Hm?0:16):(trg===Hm?16:16);
-	main.style.width= Ww + Wi + Wt + "%";
-	main.style.left= Wt!=9? 9: 0 + "%";*/
 	trg===Hm? obj= iMenu: obj=menu;
 	if (obj.className=="hidden"){
 		if (trg===Ht){
@@ -296,8 +290,8 @@ function getVal(){
     prt.insertBefore(hr,lastCh);
 	VarBox.value="";
 	VarBox.style.display="none";
-	trg.width=50;
-	trg.height=50;
+	trg.width=40;
+	trg.height=40;
 	trg.style.opacity=1;
 }
 
@@ -305,8 +299,8 @@ function returnPlas(){
 	let trg= document.getElementById("Plas");
 	let VarBox= document.getElementById("initVarBox");
 	VarBox.style.display="none";
-	trg.width=50;
-	trg.height=50;
+	trg.width=40;
+	trg.height=40;
 	trg.style.opacity=1;
 }
 
