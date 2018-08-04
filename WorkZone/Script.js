@@ -8,6 +8,7 @@ let targets= new Map();
 let graphIds= new Map();
 let m = new Map();
 let s = new Set();
+let blockTriggered="NaN";
 let source = document.getElementById("body").cloneNode;
 class vort{
 	constructor(type,pos, x, y){
@@ -105,8 +106,8 @@ document.addEventListener("drop", function(event) {
         var parent=graph[targets.get(key)];
         parent.addChild(countOfVort-1);
         graphIds.set(key,countOfVort-1);
+        blockTriggered=countOfVort-1;
 		targets.delete(key);
-
 		if (newVort.x===parent.x){
 			newVort.ifRes=false;
 		}
@@ -117,6 +118,7 @@ document.addEventListener("drop", function(event) {
 		}
 
         graph.push(newVort);
+        document.getElementById("initBox").focus();
     }
 });
 
@@ -351,6 +353,39 @@ function reGetVal(){
             reValBlur();
         }
     }
+}
+
+function getValOfBlock(){
+    var input=event.target;
+    var trg=graph[blockTriggered];
+    var res=parse(input.value);
+    if (input.value===""){
+        return;
+    }
+    if (res==="error" ){
+        input.style.background="#DEB5B1";
+        return;
+    }
+    trg.value=input.value;
+    input.value=""; 
+}
+
+function changedBlock(){
+    let trg=graph[blockTriggered];
+    let cell=document.getElementById("workSpace").rows[trg.x].cells[mainColumn+trg.y];
+    cell.firstChild.style.border="4px double #977676";
+    cell.firstChild.style.background="#C0C4CD"
+}
+
+function belChenge(){
+    let trg=graph[blockTriggered];
+    let cell=document.getElementById("workSpace").rows[trg.x].cells[mainColumn+trg.y];
+    cell.firstChild.style.border="none";
+    cell.firstChild.style.background="none";
+}
+
+function buttonPlay(){
+
 }
 
 ////////////////////// часть парсера //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -724,4 +759,3 @@ function parseF() {
         return;
     }
 }
-

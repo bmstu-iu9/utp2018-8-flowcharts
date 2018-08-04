@@ -1,7 +1,7 @@
  <!DOCTYPE html>
  <html>
    <head>
-    <title>BlocWork</title>
+    <title>BlockWork</title>
     <link rel="stylesheet" type="text/css" href="style.css">
    </head>
    <body id="body">
@@ -11,7 +11,7 @@
    		</div>
    		<div id="options">
 	   		<div id="buttons">
-	   			<input type="image" src="https://png.icons8.com/ios/40/B7BCC7/play-filled.png" checked/>
+	   			<input type="image" src="https://png.icons8.com/ios/40/B7BCC7/play-filled.png" onClick="buttonPlay();" checked/>
 
 	   			<input type="image" src="https://png.icons8.com/ios/40/B7BCC7/stop-filled.png" checked/>
 
@@ -36,7 +36,7 @@
      	</div>
      	<div id="InformationMenu">
 	    	<div id="init">
-	    		<input width="100%" type="text" name="инициализацияБлока" id="initBox" placeholder="Мур?">
+	    		<input width="100%" type="text" name="инициализацияБлока" id="initBox" placeholder="Value of Block" onkeydown="if(event.keyCode==13){ getValOfBlock();} else {this.style.background='#DFE0E7';}" onblur="belChenge()" onfocus="changedBlock()">
 	    	</div>
 	    	<hr  width="99%" size="4" color="#334D4D"align="center" style="opacity:0.7;"/>
 	    	<div style="width: 90%;margin: 0% 5%; height: 100%;">
