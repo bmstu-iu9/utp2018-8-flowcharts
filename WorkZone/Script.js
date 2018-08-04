@@ -307,7 +307,12 @@ function returnPlas(){
 function reVal(trg){
     let startVal=trg.firstChild
     let input= document.createElement("input");
+    let del= document.createElement("img");
     startVal.style.display="none";
+    /*del.setAttribute("src",'https://png.icons8.com/office/40/38A77E/cancel.png');
+    del.setAttribute("width","30");
+    del.setAttribute("height","30");
+    del.id="delImg";*/
     input.setAttribute("type","text");
     input.setAttribute("id","tmpInput");
     input.setAttribute("placeholder", startVal.innerHTML);
@@ -327,15 +332,24 @@ function reGetVal(){
     let trg=event.target;
     if (isNaN(trg.value)){
         trg.style.background="#DEB5B1";
-    } else{
+    }else{
         let i=0;
         while (trg.parentNode.children[i+1]!=trg){
             i+=3;
         }
         let name= trg.parentNode.parentNode.children[i];
-        m.set(name,trg.value);
-        trg.parentNode.firstChild.innerHTML=trg.value;
-        reValBlur();
+        if (trg.value===""){
+            let per=trg.parentNode.parentNode;
+            m.delete(name.innerHTML);
+            s.delete(name.innerHTML);
+            per.children[i].remove();
+            per.children[i].remove();
+            per.children[i].remove();
+        } else{
+            m.set(name.innerHTML,trg.value);
+            trg.parentNode.firstChild.innerHTML=trg.value;
+            reValBlur();
+        }
     }
 }
 

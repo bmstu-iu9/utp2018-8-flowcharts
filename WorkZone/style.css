@@ -284,11 +284,15 @@ table tbody tr {
 
 #tmpInput{
 	color:#334D4D;
-	width:80%;
+	width:50%;
 	margin: 2px 10%;
 	font-size: 22px;
 	padding: 6px 0 4px 10px;
 	border: none;
 	background: #DFE0E7;
 	border-radius: 6px;	
+}
+
+#delImg{
+	margin: 10;
 }
