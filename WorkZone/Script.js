@@ -92,11 +92,13 @@ document.addEventListener("drop", function(event) {
         var start= data.cloneNode(true);
         data.setAttribute("draggable", "false");
         event.target.appendChild(data);
-        event.target.setAttribute('onclick',"getFocus(this)");
+        event.target.setAttribute('ondblclick',"getFocus(this)");
+        event.target.setAttribute('onclick',"cmenu()");
         var row=event.target.parentNode.rowIndex;
         var cell =event.target.cellIndex;
         event.target.className = "lv";
        	startNode.appendChild(start);
+        event.target.setAttribute("contextmenu","alert()");
 
         var key=row + " " +(cell-mainColumn);
        	var newVort = new vort(data.id,countOfVort++,row,cell-mainColumn);//поменть id у фигур
@@ -368,6 +370,7 @@ function getValOfBlock(){
     }
     trg.value=input.value;
     input.value=""; 
+    input.blur();
 }
 
 function changedBlock(){
@@ -375,6 +378,7 @@ function changedBlock(){
     let cell=document.getElementById("workSpace").rows[trg.x].cells[mainColumn+trg.y];
     cell.firstChild.style.border="4px double #977676";
     cell.firstChild.style.background="#C0C4CD"
+    event.target.value=trg.value===undefined?"":trg.value;
 }
 
 function belChenge(){
@@ -382,6 +386,12 @@ function belChenge(){
     let cell=document.getElementById("workSpace").rows[trg.x].cells[mainColumn+trg.y];
     cell.firstChild.style.border="none";
     cell.firstChild.style.background="none";
+    event.target.value="";
+    event.target.style.background="#DFE0E7";
+}
+
+function cmenu(){
+    
 }
 
 function buttonPlay(){

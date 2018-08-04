@@ -296,3 +296,34 @@ table tbody tr {
 #delImg{
 	margin: 10;
 }
+
+#submenu{
+	z-index: 1;
+	position: absolute;
+	left: 300px;
+	display: none;
+	width: 150px;
+	height: 170px;
+	list-style: none;
+	border: 3px solid #AEB7CB;
+	-webkit-transition: width 1s , height 1s,opacity 0.3s ;
+}
+
+#submenu li{
+	width: 100%;
+	height: 25%; 
+	background-color: #CDD4E3;
+	position: relative;
+}
+
+#submenu li:hover{
+	background-color: #C0C4CD;
+}
+
+#submenu li i{
+	font-family: "FontAwesome";
+	padding: 20px 5px;
+ 	color: #3B5959;
+	text-align: left;
+	font-size: 20px;
+}
