@@ -96,7 +96,6 @@ header div{
 }
 
 #menu{
-	/*border: 4px solid #2a3c3c;*/
 	background:#C0C4CD;
 	position: absolute;
 	width: 8%;
@@ -310,6 +309,7 @@ table tbody tr {
 	overflow:hidden;
 	-webkit-transition: width 1s , height 0.8s,opacity 0.5s,left 0.3s, top 0.3s;
 	border-radius: 5px;
+	box-shadow: 0 0 5px rgba(0,0,0,0.5); 
 }
 
 #submenu li{
