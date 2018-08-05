@@ -24,12 +24,20 @@ main {
 }
 
 #hello{
-	margin: 5% 15%;
+	margin: 5% 16%;
 	border: 6px solid #1D4E4E;
 	width: 60%;
 	padding: 20px 30px;
 	background: #D3D1E8;
+	border-radius: 6px;
 	opacity: 1;
 	color: #412D2D;
 	font-size: 30px;
+	box-shadow:inset 0 0 15px rgba(0,0,0,0.8); 
+}
+
+#nav{
+	position: absolute;
+	top:40%;
+	left: 44%;
 }

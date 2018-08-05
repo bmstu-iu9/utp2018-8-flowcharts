@@ -5,9 +5,14 @@
 	<link rel="stylesheet" type="text/css" href="helpPageStyle.css">
 </head>
 <body onkeydown="if(event.keyCode==13){ document.location.href = 'index.html';}">
-	<main>
+	<main id="main">
 		<div id="hello">
-			<i>Это краткий туториал по интепретатору блок-схем. В общем, Привет.<br>(наводя на элементы интерфейса вы получите информацию о них)<br>Этот проект создан для интерпретации блок схем и, возможно в дальнейшем, перевода кода в блок-схему. бла-бла-бла... <strong>НАЖМИТЕ Enter чтобы свалить с этой страницы и попробовать сделать свою блок-схему)))</strong><br>P.S если конечно что-то там в рабочем состояние</i>
+			<i>Это краткий туториал по интепретатору блок-схем. В общем, Привет.<br>(наводя на элементы интерфейса вы получите информацию о них)<br><br>Этот проект создан для интерпретации блок схем и, возможно в дальнейшем, перевода кода в блок-схему. бла-бла-бла... <strong>НАЖМИТЕ Enter чтобы свалить с этой страницы и попробовать сделать свою блок-схему)))</strong><br>P.S если конечно что-то там в рабочем состояние.<br>----------------------------------------------------1/2-----------------------------------------------------
+			</i>
+		</div>
+		<div id="nav">
+			<input type="image" src="https://png.icons8.com/flat_round/40/38A77E/left.png" width="64px" height="64px" onclick="privT()" checked/>
+			<input type="image" src="https://png.icons8.com/flat_round/40/38A77E/right.png" width="64px" height="64px" onclick="nextT()" checked/>
 		</div>
 	</main>
 	<script src="helpPageScript.js"></script>
