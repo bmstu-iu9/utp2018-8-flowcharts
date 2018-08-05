@@ -35,6 +35,9 @@ targets.set("1 0",0);
 
 
 function getFocus(trg) {
+    if (event.target.tagName!=="TD"){
+        return;
+    }
 	let row=trg.parentNode.rowIndex;
 	let cell=trg.cellIndex;
 	let paint=true;
@@ -91,9 +94,9 @@ document.addEventListener("drop", function(event) {
         var startNode= data.parentNode;
         var start= data.cloneNode(true);
         data.setAttribute("draggable", "false");
+        data.setAttribute('onclick',"cmenu()");
         event.target.appendChild(data);
-        event.target.setAttribute('ondblclick',"getFocus(this)");
-        event.target.setAttribute('onclick',"cmenu()");
+        event.target.setAttribute('onclick',"getFocus(this)");
         var row=event.target.parentNode.rowIndex;
         var cell =event.target.cellIndex;
         event.target.className = "lv";
@@ -391,7 +394,20 @@ function belChenge(){
 }
 
 function cmenu(){
-    
+    let contmenu=document.getElementById("submenu");
+    contmenu.style.display="block";
+    contmenu.style.left=Math.round(event.clientX-15)+"px";
+    contmenu.style.top=Math.round(event.clientY-90)+"px";
+    contmenu.style.width="170px";
+    contmenu.style.height="150px";
+    contmenu.style.opacity=0.9;
+}
+
+function closeMenu(){
+    let contmenu=document.getElementById("submenu");
+    contmenu.style.width="0";
+    contmenu.style.height="0";
+    contmenu.style.opacity=0;
 }
 
 function buttonPlay(){

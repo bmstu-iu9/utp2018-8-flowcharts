@@ -300,13 +300,16 @@ table tbody tr {
 #submenu{
 	z-index: 1;
 	position: absolute;
-	left: 300px;
-	display: none;
-	width: 150px;
-	height: 170px;
+	left: 750px;
+	display: hidden;
+	width: 0px;
+	height: 0px;
+	opacity: 0;
 	list-style: none;
 	border: 3px solid #AEB7CB;
-	-webkit-transition: width 1s , height 1s,opacity 0.3s ;
+	overflow:hidden;
+	-webkit-transition: width 1s , height 0.8s,opacity 0.5s,left 0.3s, top 0.3s;
+	border-radius: 5px;
 }
 
 #submenu li{
