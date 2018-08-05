@@ -1,0 +1,35 @@
+body{
+	background: url(img/пример);
+	-webkit-background-size: cover;
+    background-size: cover;
+    -webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+
+main {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0,0,0,.55);
+	z-index: 2;
+	
+
+}
+
+#hello{
+	margin: 5% 15%;
+	border: 6px solid #1D4E4E;
+	width: 60%;
+	padding: 20px 30px;
+	background: #D3D1E8;
+	opacity: 1;
+	color: #412D2D;
+	font-size: 30px;
+}

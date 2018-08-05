@@ -379,8 +379,8 @@ function getValOfBlock(){
 function changedBlock(){
     let trg=graph[blockTriggered];
     let cell=document.getElementById("workSpace").rows[trg.x].cells[mainColumn+trg.y];
-    cell.firstChild.style.border="4px double #977676";
-    cell.firstChild.style.background="#C0C4CD"
+    cell.firstChild.style.border="4px solid #977676";
+    cell.firstChild.style.background="#D1D6E1"
     event.target.value=trg.value===undefined?"":trg.value;
 }
 
@@ -395,7 +395,11 @@ function belChenge(){
 
 function cmenu(){
     let contmenu=document.getElementById("submenu");
+    let trg=event.target.parentNode;
+    let block=graph[graphIds.get(trg.parentNode.rowIndex+ " "+(trg.cellIndex-mainColumn))];
+    document.getElementById("initBox").value=block.value===undefined?"": block.value;
     contmenu.style.display="block";
+    blockTriggered=block.pos;
     contmenu.style.left=Math.round(event.clientX-15)+"px";
     contmenu.style.top=Math.round(event.clientY-90)+"px";
     contmenu.style.width="170px";
@@ -408,6 +412,11 @@ function closeMenu(){
     contmenu.style.width="0";
     contmenu.style.height="0";
     contmenu.style.opacity=0;
+}
+
+function reValBloc(){
+    document.getElementById("initBox").focus();
+    closeMenu();
 }
 
 function buttonPlay(){
