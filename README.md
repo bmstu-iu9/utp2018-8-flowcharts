@@ -11,3 +11,5 @@
 * [Бокарев Дмитрий](https://github.com/dimonbocha) - @dimonbocha
 * [Снегур Кирилл](https://github.com/kirsnegir) - @kirsnegir
 * [Лысенко Анастасия](https://github.com/LysenkoAnastasia) - @LysenkoAnastasia
+
+P.S. Желательно открывать проект в Google Chrome
