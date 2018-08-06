@@ -419,6 +419,13 @@ function reValBloc(){
     closeMenu();
 }
 
+function helpPage(){
+    let cnf=confirm("При переходе на туториал построенная ранее блок-схема удалится. Перейти?");
+    if (cnf){
+        document.location.href = 'help.html';
+    }
+}
+
 function buttonPlay(){
 
 }
