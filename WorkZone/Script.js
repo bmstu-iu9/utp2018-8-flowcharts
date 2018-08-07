@@ -9,7 +9,9 @@ let graphIds= new Map();
 let m = new Map();
 let s = new Set();
 let blockTriggered="NaN";
-let source = document.getElementById("body").cloneNode;
+let varSet = new Set();
+let errorOfBlock=false;
+
 class vort{
 	constructor(type,pos, x, y){
 		this.parents= [];
@@ -87,7 +89,7 @@ document.addEventListener("dragover", function(event) {
 
 document.addEventListener("drop", function(event) {
     event.preventDefault();
-    if ( event.target.className === "droptarget" ) {
+    if ( event.target.className === "droptarget") {
     	var table = document.getElementById("workSpace");
     	graph[0].cell= table.rows[0].cells[mainColumn];
         var data =document.getElementById(event.dataTransfer.getData("Text"));
@@ -104,7 +106,7 @@ document.addEventListener("drop", function(event) {
         event.target.setAttribute("contextmenu","alert()");
 
         var key=row + " " +(cell-mainColumn);
-       	var newVort = new vort(data.id,countOfVort++,row,cell-mainColumn);//поменть id у фигур
+       	var newVort = new vort(data.className,countOfVort++,row,cell-mainColumn);//поменть id у фигур
 		newVort.baseClass=event.target.className;
 		newVort.addParent(targets.get(key));
 		newVort.cell=event.target;
@@ -279,7 +281,7 @@ function getVal(){
     let elem1= document.createElement("div");
     let elem2= document.createElement("div");
     let hr= document.createElement("hr");
-    res=parse(VarBox.value);
+    res=parse(VarBox.value, true);
     if (res==="error" || res==="changes" || res==true || res==false){
         VarBox.style.background="#DEB5B1";
         return;
@@ -292,6 +294,7 @@ function getVal(){
     i.innerHTML=m.get(res);
     elem2.appendChild(i);
     elem2.setAttribute('onclick',"reVal(this)");
+    varSet.add(res);
     prt.insertBefore(elem1,lastCh);
     prt.insertBefore(elem2,lastCh);
     prt.insertBefore(hr,lastCh);
@@ -363,7 +366,7 @@ function reGetVal(){
 function getValOfBlock(){
     var input=event.target;
     var trg=graph[blockTriggered];
-    var res=parse(input.value);
+    var res=parse(input.value,false);
     if (input.value===""){
         return;
     }
@@ -376,11 +379,21 @@ function getValOfBlock(){
     input.blur();
 }
 
+function copySet(A,B){
+    for (let i of A){
+        B.add(i);
+    }
+}
+
 function changedBlock(){
     let trg=graph[blockTriggered];
     let cell=document.getElementById("workSpace").rows[trg.x].cells[mainColumn+trg.y];
     cell.firstChild.style.border="4px solid #977676";
-    cell.firstChild.style.background="#D1D6E1"
+    cell.firstChild.style.background="#D1D6E1";
+    if (errorOfBlock){
+        cell.firstChild.style.background="#DEB5B1";
+        errorOfBlock=false;
+    }
     event.target.value=trg.value===undefined?"":trg.value;
 }
 
@@ -427,7 +440,92 @@ function helpPage(){
 }
 
 function buttonPlay(){
+    s.clear();
+    var V =graph[1];
+    if (!V){
+        alert("error");
+        return;
+    }
+    while(V.type!="end"){
+        //alert(V.type + " " + V.x+ " " + (V.y+mainColumn));
+        if (V.childs.length==0){
+            alert("error Of End");
+            return;
+        }
+        if (!V.value){
+            alert("error Of Value");
+            return;
+        }
+        var tmpr =parse(V.value,true);
+        if (tmpr == "error"){
+            let varbox= document.getElementById("initBox");
+            blockTriggered=V.pos;
+            varbox.style.background="#DEB5B1";
+            errorOfBlock=true;
+            varbox.focus();
+            return;
+        }
+        if (V.type==="init"){
+            s.add(tmpr);
+        } else if (V.type=="if"){
+            if(tmpr){
+                if (graph[V.childs[0]].ifRes){
+                    V=graph[V.childs[0]];
+                } else {
+                    V=graph[V.childs[1]];
+                }
+            } else {
+                if (!graph[V.childs[0]].ifRes){
+                    V=graph[V.childs[0]];
+                } else {
+                    V=graph[V.childs[1]];;
+                } 
+            }
+            continue;
+        } else if (V.type == "end"){
+            break;
+        }
+        V=graph[V.childs[0]];
+    }
+    setRes();
+    return;
+}
 
+function setRes(){
+    let varTable= document.getElementById("var");
+    let elem= document.createElement("i");
+    varTable.innerHTML="";
+    elem.innerHTML="Результат вычислений:";
+    for (let item of s){
+        newSetRes(item);
+    }
+    for (let item of varSet){
+        newSetRes(item);
+    }
+    varTable.insertBefore(elem,document.getElementById("var").firstChild);
+}
+
+function newSetRes(item){
+    let prt= document.getElementById("var");
+    let elem1= document.createElement("div");
+    let elem2= document.createElement("div");
+    let hr= document.createElement("hr");
+    let place = document.getElementById("var").firstChild;
+    hr.size=3;
+    hr.color="#334D4D";
+    hr.style.opacity= 0.7;
+    elem1.innerHTML = item;
+    let i = document.createElement("div");
+    i.innerHTML=m.get(item);
+    elem2.appendChild(i);
+    prt.insertBefore(elem1,place);
+    prt.insertBefore(elem2,place);
+    prt.insertBefore(hr,place);
+}
+
+function buttonRestart() {
+    let varTable= document.getElementById("var");
+    varTable.innerHTML='<div id="addVar" style=\"height: 100%\"><input type=\"image\" src=\"https://png.icons8.com/ios/100/2a3c3c/plus.png\" width=\"40\" height=\"40\" id=\"Plas\" onclick=\"hiddenVarBox(this)\" draggable=\"false\" checked/><input type=\"text\" name=\"инициализацияПеременных\" onblur=\"returnPlas()\" placeholder=\"var [name] = [expr];\" width=\"70%\" id=\"initVarBox\" onkeydown=\"if(event.keyCode==13){ getVal(this);} else {this.style.background=\'#DFE0E7\';}\"></div>';
 }
 
 ////////////////////// часть парсера //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -552,7 +650,7 @@ class token {
 
 
 
-
+var write=true;
 var t;
 var SE = 0;
 function checkRes(result){
@@ -566,7 +664,8 @@ function checkRes(result){
     }
 }
 
-function parse(str) {
+function parse(str,wrt) {
+    write=wrt;
     t= new token(str);
     SE=0;
     result="";
@@ -703,7 +802,7 @@ function parseF() {
         if (t.getVal() === 'var') {
             t.next();
             var key = t.getVal();
-            if (s.has(key)) {
+            if (s.has(key) || varSet.has(key)) {
                 SE = 'SE';
                 return ;
             }
@@ -713,18 +812,22 @@ function parseF() {
                 let res= Number(parseO());
                 // доработаь с вариантами что значение будет bool
                 if (SE!='SE'){
-                    s.add(key);
-                    m.set(key,res);
+                    if (write){
+                        s.add(key);
+                        m.set(key,res);
+                    }
                     return key;
                 }  else {
                     return;
                 }
             }
             else {
-                s.add(key);
+                if (write){
+                    s.add(key);
+                }
             }
         }
-        else if (s.has(t.getVal())) {
+        else if (s.has(t.getVal()) || varSet.has(t.getVal())) {
             var key = t.getVal();
             t.next();
             if (t.getVal() === '=') {

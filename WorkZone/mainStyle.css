@@ -213,6 +213,13 @@ header div{
   	border-radius: 2px;
 }
 
+#var i{
+	font-size: 26px;
+	color: #334D4D;
+	grid-column-start: 1;
+  	grid-column-end: 3;
+}
+
 #td1 TD {
 	overflow:auto;
 	text-align: center;
