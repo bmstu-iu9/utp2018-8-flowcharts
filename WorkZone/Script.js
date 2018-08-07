@@ -452,12 +452,10 @@ function buttonPlay(){
             alert("error Of End");
             return;
         }
-        if (!V.value){
-            alert("error Of Value");
-            return;
+        if (V.value){
+            var tmpr =parse(V.value,true);
         }
-        var tmpr =parse(V.value,true);
-        if (tmpr == "error"){
+        if ( !V.value || tmpr == "error" ){
             let varbox= document.getElementById("initBox");
             blockTriggered=V.pos;
             varbox.style.background="#DEB5B1";
