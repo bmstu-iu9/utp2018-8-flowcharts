@@ -437,15 +437,14 @@ function helpPage(){
 }
 
 function buttonPlay(){
+    if (document.getElementById("var").firstChild.tagName=="i"){
+        return;
+    }
     s.clear();
     var V =graph[1];
     if (!V){
         alert("error");
         return;
-    }
-    let mes= "";
-    for (let i of varSet){
-        mes+= i+" "+ varMap.get(i)+ "  ";
     }
     while(V.type!="end"){
         //alert(V.type + " " + V.x+ " " + (V.y+mainColumn));
@@ -544,7 +543,8 @@ function buttonRestart() {
 
 
 var oper= ["+", "=","-", "*", "/", "<", ">" , "(", ")", "?" , ":", "!", "|", "&","%" ,";", " "];
-var sOper= ["=", "|","&"];
+var sOper= ["=", "|","&", "-","+"];
+var ssOper= ["-" ,"+"];
 
 class Pos {
     constructor(str,pos) {
@@ -572,9 +572,12 @@ class Pos {
             let res = "";
             let a = this.getChar();
             res+=a;
+            if (a==";" && this.pos!=this.str.length-1){
+                SE="SE";
+            }
             t = t.skip();
             a= t.getChar();
-            if  (sOper.some(t=>t===a)) {
+            if  (sOper.some(t=>t===a) || ssOper.some(t=>t===a) && res==a) {
                 res += a;
                 t = t.skip();
                 a = t.getChar();
@@ -841,49 +844,68 @@ function parseF() {
         else if (s.has(t.getVal()) || varSet.has(t.getVal()) || !write) {
             var key = t.getVal();
             t.next();
+            var sors; 
+            if (m.get(key)){
+                sors = m;
+            }else {
+                sors =varMap;
+            }
+
             if (t.getVal() === '=') {
                 t.next();
                 m.set(key, Number(parseO()));
                 return 'changes';
             }
-            //не работает ++, --, *=, /=
             else if (t.getVal() === '++'){
                 t.next();
-                m.set(key,m.get(key)+1);
+                if (write){
+                    m.set(key,sors.get(key)+1);
+                }
                 return "changes";
             }
             else if (t.getVal() === '--'){
                 t.next();
-                m.set(key,m.get(key)-1);
+                if (write){
+                    m.set(key,sors.get(key)-1);
+                }
                 return "changes";
             }
             else if (t.getVal() === '+='){
                 t.next();
-                m.set(key,m.get(key)+Number(parseE()));
+                let exp=parseE();
+                if (write){
+                    m.set(key,sors.get(key)+Number(exp));
+                }
                 return "changes";
             }
             else if (t.getVal() === '-='){
                 t.next();
-                m.set(key,m.get(key)-Number(parseE()));
+                let exp=parseE();
+                if (write){
+                    m.set(key,sors.get(key)-Number(exp));
+                }
                 return "changes";
             }
             else if (t.getVal() === '*='){
                 t.next();
-                m.set(key,m.get(key)*Number(parseE()));
+                let exp=parseE();
+                if (write){
+                    m.set(key,sors.get(key)*Number(exp));
+                }
                 return "changes";
             }
             else if (t.getVal() === '/='){
                 t.next();
-                m.set(key,m.get(key)/Number(parseE()));
+                let exp=parseE();
+                if (write){
+                    m.set(key,sors.get(key)/Number(exp));
+                }
                 return "changes";
             }
             else {
                 let i= 0;
                 if (write){
-                    if (m.get(key)){
-                        i = m.get(key);
-                    }
-                    else i =varMap.get(key);
+                    i=sors.get(key);
                 }
                 return i;
             }
