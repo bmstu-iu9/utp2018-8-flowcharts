@@ -370,7 +370,7 @@ function getValOfBlock(){
     if (input.value===""){
         return;
     }
-    if (res==="error" ){
+    if (res==="error" || (trg.type=="init" && (typeof(res)!=="string" || res=="changes")) || (trg.type=="act" && res!=="changes") || (trg.type=="if" && typeof(res)=="string")){
         input.style.background="#DEB5B1";
         return;
     }
@@ -454,7 +454,7 @@ function buttonPlay(){
         }
         if (V.value){
             var tmpr =parse(V.value,true);
-        }
+        } 
         if ( !V.value || tmpr == "error" ){
             let varbox= document.getElementById("initBox");
             blockTriggered=V.pos;
@@ -463,9 +463,7 @@ function buttonPlay(){
             varbox.focus();
             return;
         }
-        if (V.type==="init"){
-            s.add(tmpr);
-        } else if (V.type=="if"){
+        if (V.type=="if"){
             if(tmpr){
                 if (graph[V.childs[0]].ifRes){
                     V=graph[V.childs[0]];
@@ -523,6 +521,10 @@ function newSetRes(item){
 
 function buttonRestart() {
     let varTable= document.getElementById("var");
+    if (varTable.firstChild.tagName!=="I"){
+alert();
+        return;
+    }
     varTable.innerHTML='<div id="addVar" style=\"height: 100%\"><input type=\"image\" src=\"https://png.icons8.com/ios/100/2a3c3c/plus.png\" width=\"40\" height=\"40\" id=\"Plas\" onclick=\"hiddenVarBox(this)\" draggable=\"false\" checked/><input type=\"text\" name=\"инициализацияПеременных\" onblur=\"returnPlas()\" placeholder=\"var [name] = [expr];\" width=\"70%\" id=\"initVarBox\" onkeydown=\"if(event.keyCode==13){ getVal(this);} else {this.style.background=\'#DFE0E7\';}\"></div>';
 }
 
@@ -825,7 +827,7 @@ function parseF() {
                 }
             }
         }
-        else if (s.has(t.getVal()) || varSet.has(t.getVal())) {
+        else if (s.has(t.getVal()) || varSet.has(t.getVal()) || !write) {
             var key = t.getVal();
             t.next();
             if (t.getVal() === '=') {
