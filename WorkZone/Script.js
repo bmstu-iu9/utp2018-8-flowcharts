@@ -210,8 +210,6 @@ function addRow(){
 	}
 }
 
-
-
 function addWindow(trg){
     let obj;
 	let menu =document.getElementById("menu");
@@ -271,8 +269,6 @@ function  hiddenVarBox(trg){
 		VarBox.focus();
 	}
 }
-
-
 
 function getVal(){
 	let trg= document.getElementById("Plas");
