@@ -317,10 +317,6 @@ function reVal(trg){
     let input= document.createElement("input");
     let del= document.createElement("img");
     startVal.style.display="none";
-    /*del.setAttribute("src",'https://png.icons8.com/office/40/38A77E/cancel.png');
-    del.setAttribute("width","30");
-    del.setAttribute("height","30");
-    del.id="delImg";*/
     input.setAttribute("type","text");
     input.setAttribute("id","tmpInput");
     input.setAttribute("placeholder", startVal.innerHTML);
@@ -446,6 +442,10 @@ function buttonPlay(){
     if (!V){
         alert("error");
         return;
+    }
+    let mes= "";
+    for (let i of varSet){
+        mes+= i+" "+ varMap.get(i)+ "  ";
     }
     while(V.type!="end"){
         //alert(V.type + " " + V.x+ " " + (V.y+mainColumn));
@@ -665,7 +665,7 @@ var write=true;
 var t;
 var SE = 0;
 function checkRes(result){
-    if (result === undefined || SE === 'SE' || result==='NaN' ) {//кастыыль)
+    if (result === undefined || SE === 'SE' || result==='NaN' ) {
         //alert(result);
         return "error";
     }
@@ -877,13 +877,15 @@ function parseF() {
                 m.set(key,m.get(key)/Number(parseE()));
                 return "changes";
             }
-            else if (m.has(key)) {
-                var i = m.get(key);
-                return i;
-            }
             else {
-                SE = 'SE';
-                return;
+                let i= 0;
+                if (write){
+                    if (m.get(key)){
+                        i = m.get(key);
+                    }
+                    else i =varMap.get(key);
+                }
+                return i;
             }
         }
         else {
