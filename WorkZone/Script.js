@@ -9,6 +9,7 @@ let graphIds= new Map();
 let m = new Map();
 let s = new Set();
 let blockTriggered="NaN";
+let varMap= new Map();
 let varSet = new Set();
 let errorOfBlock=false;
 
@@ -292,6 +293,7 @@ function getVal(){
     elem1.innerHTML = res;
     let i = document.createElement("div");
     i.innerHTML=m.get(res);
+    varMap.set(res,m.get(res));
     elem2.appendChild(i);
     elem2.setAttribute('onclick',"reVal(this)");
     varSet.add(res);
@@ -352,11 +354,14 @@ function reGetVal(){
             let per=trg.parentNode.parentNode;
             m.delete(name.innerHTML);
             s.delete(name.innerHTML);
+            varSet.delete(name.innerHTML);
+            varMap.delete(name.innerHTML);
             per.children[i].remove();
             per.children[i].remove();
             per.children[i].remove();
         } else{
             m.set(name.innerHTML,trg.value);
+            varMap.set(name.innerHTML,trg.value);
             trg.parentNode.firstChild.innerHTML=trg.value;
             reValBlur();
         }
@@ -490,42 +495,52 @@ function buttonPlay(){
 function setRes(){
     let varTable= document.getElementById("var");
     let elem= document.createElement("i");
+    let hr= document.createElement("hr");
+    hr.size=3;
+    hr.color="#334D4D";
+    hr.style.opacity= 0.7;
     varTable.innerHTML="";
     elem.innerHTML="Результат вычислений:";
-    for (let item of s){
-        newSetRes(item);
-    }
+    varTable.insertBefore(elem,document.getElementById("var").firstChild);
     for (let item of varSet){
-        newSetRes(item);
+        newSetRes(item,m);
+    }
+    for (let item of s){
+        newSetRes(item,m);
     }
     varTable.insertBefore(elem,document.getElementById("var").firstChild);
 }
 
-function newSetRes(item){
+function newSetRes(item, tMap){
     let prt= document.getElementById("var");
     let elem1= document.createElement("div");
     let elem2= document.createElement("div");
     let hr= document.createElement("hr");
-    let place = document.getElementById("var").firstChild;
+    let place = document.getElementById("var").lastChild;
     hr.size=3;
     hr.color="#334D4D";
     hr.style.opacity= 0.7;
     elem1.innerHTML = item;
     let i = document.createElement("div");
-    i.innerHTML=m.get(item);
+    i.innerHTML=tMap.get(item);
     elem2.appendChild(i);
+    if (tMap==varMap){
+        elem2.setAttribute('onclick',"reVal(this)");
+    } else prt.insertBefore(hr,place);
     prt.insertBefore(elem1,place);
     prt.insertBefore(elem2,place);
-    prt.insertBefore(hr,place);
+    if (tMap!=m) prt.insertBefore(hr,place); 
 }
 
 function buttonRestart() {
     let varTable= document.getElementById("var");
     if (varTable.firstChild.tagName!=="I"){
-alert();
         return;
     }
     varTable.innerHTML='<div id="addVar" style=\"height: 100%\"><input type=\"image\" src=\"https://png.icons8.com/ios/100/2a3c3c/plus.png\" width=\"40\" height=\"40\" id=\"Plas\" onclick=\"hiddenVarBox(this)\" draggable=\"false\" checked/><input type=\"text\" name=\"инициализацияПеременных\" onblur=\"returnPlas()\" placeholder=\"var [name] = [expr];\" width=\"70%\" id=\"initVarBox\" onkeydown=\"if(event.keyCode==13){ getVal(this);} else {this.style.background=\'#DFE0E7\';}\"></div>';
+    for (let i of varSet){
+        newSetRes(i,varMap);
+    }
 }
 
 ////////////////////// часть парсера //////////////////////////////////////////////////////////////////////////////////////////////////////////
