@@ -484,6 +484,10 @@ function buttonPlay(){
         V=graph[V.childs[0]];
     }
     setRes();
+    m.clear();
+    for (let i of varSet){
+        m.set(i,varMap.get(i));
+    }
     return;
 }
 
