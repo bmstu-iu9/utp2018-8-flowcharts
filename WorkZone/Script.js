@@ -55,7 +55,6 @@ function getFocus(trg) {
 	let cell=trg.cellIndex;
 	let paint=true;
 	let V =graph[graphIds.get(row+ " "+(cell-mainColumn))];
-	alert(V.parents[0]);
     if (V.cell.className==="focusеtarget"){
 		paint=false;
 	}
@@ -125,7 +124,7 @@ document.addEventListener("drop", function(event) {
         var key=row + " " +(cell-mainColumn);
         var V=graph[graphIds.get(key)];
         var parent=graph[V.parents[0]];
-        V.type=data.id;
+        V.type=data.className;
         blockTriggered=V.pos;
 
 
@@ -497,6 +496,7 @@ function buttonPlay(){
         }
         if (V.type=="if"){
             if(tmpr){
+                alert(graph[V.childs[0]].ifRes);
                 if (graph[V.childs[0]].ifRes){
                     V=graph[V.childs[0]];
                 } else {
