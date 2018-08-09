@@ -19,8 +19,8 @@ class vort{
 		this.childs=[];
 		this.type=type;
 		this.pos=pos;
-		this.x=x;
-        this.y=y;
+		this.x=x; //row
+        this.y=y; //cell
 		this.ifRes=true;
 	}
 	addParent(parent){
@@ -31,7 +31,11 @@ class vort{
 	}
 }
 
+var firstTr=new vort("trig",1,1,0);
 var startV=new vort("start",0,0,0);
+firstTr.baseClass="droptarget";
+firstTr.parents.addParent(0);
+startV.addChild(1);
 startV.baseClass="lv";
 graph.push(startV);
 targets.set("1 0",0);
@@ -531,7 +535,7 @@ function newSetRes(item, tMap){
     if (tMap!=m) prt.insertBefore(hr,place); 
 }
 
-function buttonRestart() {
+function buttonReStart() {
     let varTable= document.getElementById("var");
     if (varTable.firstChild.tagName!=="I"){
         return;
@@ -539,6 +543,17 @@ function buttonRestart() {
     varTable.innerHTML='<div id="addVar" style=\"height: 100%\"><input type=\"image\" src=\"https://png.icons8.com/ios/100/2a3c3c/plus.png\" width=\"40\" height=\"40\" id=\"Plas\" onclick=\"hiddenVarBox(this)\" draggable=\"false\" checked/><input type=\"text\" name=\"инициализацияПеременных\" onblur=\"returnPlas()\" placeholder=\"var [name] = [expr];\" width=\"70%\" id=\"initVarBox\" onkeydown=\"if(event.keyCode==13){ getVal(this);} else {this.style.background=\'#DFE0E7\';}\"></div>';
     for (let i of varSet){
         newSetRes(i,varMap);
+    }
+}
+
+function buttonDelete(){
+    let trg=event.target.parentNode;
+    let block=graph[blockTriggered];
+    let pr = block.parents[0];
+    if (block.type=="if"){
+
+    } else{
+        
     }
 }
 
