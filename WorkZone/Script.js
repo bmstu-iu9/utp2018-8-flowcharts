@@ -55,6 +55,7 @@ function getFocus(trg) {
 	let cell=trg.cellIndex;
 	let paint=true;
 	let V =graph[graphIds.get(row+ " "+(cell-mainColumn))];
+	alert(V.parents[0]);
     if (V.cell.className==="focusеtarget"){
 		paint=false;
 	}
@@ -150,7 +151,7 @@ function changeTrigger(row, cell, type, prnt){
         let key=(row+1)+ " " +(cell-mainColumn);
         newVort.baseClass="lv";
         newVort.addParent(prnt);
-        graph[prnt].addChild(OfVort-1);
+        graph[prnt].addChild(countOfVort-1);
         newVort.cell=table.rows[row+1].cells[cell];
         newVort.cell.className="droptarget";
         graphIds.set(key,countOfVort-1);
