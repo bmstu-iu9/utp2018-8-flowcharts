@@ -330,7 +330,7 @@ table tbody tr {
 
 #submenu li{
 	width: 100%;
-	height: 25%; 
+	height: 40px; 
 	background-color: #CDD4E3;
 	position: relative;
 }

@@ -34,6 +34,8 @@ var startV=new vort("start",0,0,0);
 startV.baseClass="lv";
 startV.cell=document.getElementById("workSpace").rows[0].cells[1];
 startV.addChild(1);
+startV.cell.setAttribute('onclick',"getFocus(this)");
+graphIds.set("0 0",0);
 
 var ft=new vort("trg",1,1,0);
 ft.baseClass="lv";
@@ -57,6 +59,7 @@ function getFocus(trg) {
     if (V.cell.className==="focusеtarget"){
 		paint=false;
 	}
+    paintChilds(graph[0],false);
 	paintChilds(V,paint);
 	paintParents(V,paint);
 }
@@ -419,7 +422,7 @@ function changedBlock(){
     event.target.value=trg.value===undefined?"":trg.value;
 }
 
-function belChenge(){
+function delChenge(){
     let trg=graph[blockTriggered];
     let cell=document.getElementById("workSpace").rows[trg.x].cells[mainColumn+trg.y];
     cell.firstChild.style.border="none";
@@ -437,12 +440,26 @@ function cmenu(){
     blockTriggered=block.pos;
     contmenu.style.left=Math.round(event.clientX-15)+"px";
     contmenu.style.top=Math.round(event.clientY-90)+"px";
+    if (event.target.className=="end"){
+        if (contmenu.children.length==4){
+            contmenu.children[0].remove();
+        }
+        contmenu.style.height="120px";
+    } else {
+        if (contmenu.children.length==3){
+            let lit=document.createElement("li");
+            lit.setAttribute("onclick","reValBloc()");
+            lit.innerHTML="<i>Переобозначить</i>";
+                contmenu.insertBefore(lit,contmenu.children[0]);
+        }
+        contmenu.style.height="160px";
+    }
     contmenu.style.width="170px";
-    contmenu.style.height="150px";
     contmenu.style.opacity=0.9;
 }
 
 function closeMenu(){
+    document.getElementById("initBox").value="";
     let contmenu=document.getElementById("submenu");
     contmenu.style.width="0";
     contmenu.style.height="0";
@@ -450,7 +467,9 @@ function closeMenu(){
 }
 
 function reValBloc(){
-    document.getElementById("initBox").focus();
+    var box =document.getElementById("initBox");
+    box.value = graph[blockTriggered].value;
+    box.focus();
     closeMenu();
 }
 
@@ -473,8 +492,12 @@ function buttonPlay(){
         return;
     }
     s.clear();
-    var V =graph[1];
+    var V =graph[0];
     while(V.type!="end"){
+        if (V.type=="start"){
+            V=graph[V.childs[0]];
+            continue;
+        }
         //alert(V.type + " " + V.x+ " " + (V.y+mainColumn));
         if (V.childs.length==0){
             alert("error Of End");
@@ -495,7 +518,6 @@ function buttonPlay(){
         }
         if (V.type=="if"){
             if(tmpr){
-                alert(graph[V.childs[0]].ifRes);
                 if (graph[V.childs[0]].ifRes){
                     V=graph[V.childs[0]];
                 } else {
@@ -573,26 +595,40 @@ function buttonReStart() {
 function buttonDelete(){
     let trg=event.target.parentNode;
     let block=graph[blockTriggered];
-    let pr = block.parents[0];
+    let pr = graph[block.parents[0]];
+    blockTriggered=block.childs[0];
     if (block.type=="if"){
         alert();
-    } else{
-        dfs(graph[block.childs[0]]); 
+    } else if (block.type=="end"){
+        block.cell.innerHTML="";
+        block.cell.className="droptarget";
+        block.type="trg";
+    }else{ 
+        pr.childs[0]==block.pos?(pr.childs[0]=block.childs[0]) :(pr.childs[1]=block.childs[0]);
+        graph[block.childs[0]].parents[0]=pr.pos;
+        dfs(graph[block.childs[0]]);
+        block.childs=[];
+        block.parents=[]; 
     }
+    closeMenu();
 }
 
 function dfs(V){
     let table=document.getElementById("workSpace");
-    table.rows[V.x-1].cells[mainColumn+V.y].innerHTML=V.cell.innerHTML;
-    table.rows[V.x-1].cells[mainColumn+V.y].className=V.cell.className;
+    let pr=table.rows[V.x-1].cells[mainColumn+V.y]; 
+    pr.innerHTML=V.cell.innerHTML;
+    pr.className=V.cell.className;
+    V.cell.innerHTML="";
+    V.cell.className="lv";
+    V.cell=pr;
+    pr.setAttribute('onclick',"getFocus(this)");
+    graphIds.set((V.x-1)+ " "+(V.y),V.pos);
+    graphIds.delete((V.x)+ " "+(V.y));
+    V.x--;
     for (var i=0;i<V.childs.length;i++){
         dfs(graph[V.childs[i]]);
-    } 
-    if (i==0){
-        V.cell.innerHTML="";
-        V.cell.className="lv";
     }
-    V.x--;
+    
 }
 
 ////////////////////// часть парсера //////////////////////////////////////////////////////////////////////////////////////////////////////////
