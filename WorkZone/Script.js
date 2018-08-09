@@ -4,7 +4,6 @@ let R=0;
 let L=0;
 let graph=[];
 let countOfVort=2;
-let targets= new Map();
 let graphIds= new Map();
 let m = new Map();
 let s = new Set();
@@ -585,13 +584,15 @@ function buttonDelete(){
 function dfs(V){
     let table=document.getElementById("workSpace");
     table.rows[V.x-1].cells[mainColumn+V.y].innerHTML=V.cell.innerHTML;
+    table.rows[V.x-1].cells[mainColumn+V.y].className=V.cell.className;
     for (var i=0;i<V.childs.length;i++){
         dfs(graph[V.childs[i]]);
     } 
     if (i==0){
         V.cell.innerHTML="";
-
+        V.cell.className="lv";
     }
+    V.x--;
 }
 
 ////////////////////// часть парсера //////////////////////////////////////////////////////////////////////////////////////////////////////////
