@@ -598,7 +598,12 @@ function buttonDelete(){
     let pr = graph[block.parents[0]];
     blockTriggered=block.childs[0];
     if (block.type=="if"){
-        alert();
+        let trueCh=!block.childs[0].ifRes? block.childs[0]:block.childs[1];
+        let falseCh=block.childs[0].ifRes? block.childs[0]:block.childs[1];
+        pr.childs[0]==block.pos?(pr.childs[0]=trueCh) :(pr.childs[1]=trueCh);
+        graph[trueCh].parents[0]=pr.pos;
+        dfs(graph[trueCh]);
+        delDfs(graph[falseCh]);
     } else if (block.type=="end"){
         block.cell.innerHTML="";
         block.cell.className="droptarget";
@@ -607,10 +612,17 @@ function buttonDelete(){
         pr.childs[0]==block.pos?(pr.childs[0]=block.childs[0]) :(pr.childs[1]=block.childs[0]);
         graph[block.childs[0]].parents[0]=pr.pos;
         dfs(graph[block.childs[0]]);
-        block.childs=[];
-        block.parents=[]; 
     }
     closeMenu();
+}
+
+function delDfs(V){
+    for (let i =0; i<V.childs.length;i++){
+        delDfs(graph[V.childs[i]]);
+    }
+    V.cell.innerHTML="";
+    V.cell.className="lv";
+    graphIds.delete((V.x)+ " "+(V.y));
 }
 
 function dfs(V){
@@ -631,8 +643,8 @@ function dfs(V){
     
 }
 
-////////////////////// часть парсера //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+////////////////////// часть парсера //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 var oper= ["+", "=","-", "*", "/", "<", ">" , "(", ")", "?" , ":", "!", "|", "&","%" ,";", " "];
