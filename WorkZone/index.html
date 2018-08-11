@@ -43,7 +43,7 @@
      	</div>
      	<div id="InformationMenu">
 	    	<div id="init">
-	    		<input width="100%" type="text" name="инициализацияБлока" id="initBox" placeholder="Value of Block" onkeydown="if(event.keyCode==13){ getValOfBlock();} else {this.style.background='#DFE0E7';}" onblur="delChenge()" onfocus="changedBlock()">
+	    		<input width="100%" type="text" name="инициализацияБлока" id="initBox" placeholder="Value of Block" onkeydown="if(event.keyCode==13){ getValOfBlock();} else {this.style.background='#DFE0E7';}" onblur="delChange()" onfocus="changedBlock()">
 	    	</div>
 	    	<hr  width="99%" size="4" color="#334D4D"align="center" style="opacity:0.7;"/>
 	    	<div style="width: 90%;margin: 0% 5%; height: 100%;">
@@ -68,7 +68,7 @@
 	    </div> 
     	<ul onmouseleave="closeMenu();" id="submenu">
         	<li onclick="reValBloc();"><i>Переобозначить</i></li>
-        	<li><i>Вставить</i></li>
+        	<li onclick="buttonAddBlock()"><i>Вставить</i></li>
         	<li onclick="buttonDelete();"><i>Удалить</i></li>
         	<li style="border-bottom: none;"><i>бла-бла</i></li>
       	</ul>

@@ -21,6 +21,7 @@ class vort{
 		this.x=x;
         this.y=y;
 		this.ifRes=true;
+        this.dead=false;
 	}
 	addParent(parent){
 		this.parents.push(parent);
@@ -127,9 +128,10 @@ document.addEventListener("drop", function(event) {
         var V=graph[graphIds.get(key)];
         var parent=graph[V.parents[0]];
         V.type=data.className;
-        blockTriggered=V.pos;
-
-
+        if (V.type!="end"){
+            blockTriggered=V.pos;
+            document.getElementById("initBox").focus();
+        }
 		if (V.x===parent.x){
 			V.ifRes=false;
 		}
@@ -140,7 +142,7 @@ document.addEventListener("drop", function(event) {
 		}
 
         
-        document.getElementById("initBox").focus();
+        
     }
 });
 
@@ -412,6 +414,9 @@ function copySet(A,B){
 
 function changedBlock(){
     let trg=graph[blockTriggered];
+    if (!trg || trg.dead){
+        return;
+    }
     let cell=document.getElementById("workSpace").rows[trg.x].cells[mainColumn+trg.y];
     cell.firstChild.style.border="4px solid #977676";
     cell.firstChild.style.background="#D1D6E1";
@@ -422,7 +427,7 @@ function changedBlock(){
     event.target.value=trg.value===undefined?"":trg.value;
 }
 
-function delChenge(){
+function delChange(){
     let trg=graph[blockTriggered];
     let cell=document.getElementById("workSpace").rows[trg.x].cells[mainColumn+trg.y];
     cell.firstChild.style.border="none";
@@ -597,6 +602,7 @@ function buttonDelete(){
     let block=graph[blockTriggered];
     let pr = graph[block.parents[0]];
     blockTriggered=block.childs[0];
+    alert(block.pos);
     if (block.type=="if"){
         let trueCh=!block.childs[0].ifRes? block.childs[0]:block.childs[1];
         let falseCh=block.childs[0].ifRes? block.childs[0]:block.childs[1];
@@ -612,6 +618,7 @@ function buttonDelete(){
         pr.childs[0]==block.pos?(pr.childs[0]=block.childs[0]) :(pr.childs[1]=block.childs[0]);
         graph[block.childs[0]].parents[0]=pr.pos;
         dfs(graph[block.childs[0]]);
+        block.dead=true;
     }
     closeMenu();
 }
@@ -622,6 +629,7 @@ function delDfs(V){
     }
     V.cell.innerHTML="";
     V.cell.className="lv";
+    V.dead=true;
     graphIds.delete((V.x)+ " "+(V.y));
 }
 
@@ -641,6 +649,11 @@ function dfs(V){
         dfs(graph[V.childs[i]]);
     }
     
+}
+
+function buttonAddBlock(){
+    let table=document.getElementById("workSpace");
+
 }
 
 
