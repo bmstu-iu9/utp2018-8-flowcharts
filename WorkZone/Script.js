@@ -50,6 +50,7 @@ graph.push(ft);
 
 
 function getFocus(trg) {
+
     if (event.target.tagName!=="TD"){
         return;
     }
@@ -57,6 +58,9 @@ function getFocus(trg) {
 	let cell=trg.cellIndex;
 	let paint=true;
 	let V =graph[graphIds.get(row+ " "+(cell-mainColumn))];
+    if (V.type=="trg" && V.childs.length==1){
+        cmenu();
+    }
     if (V.cell.className==="focusеtarget"){
 		paint=false;
 	}
@@ -128,15 +132,15 @@ document.addEventListener("drop", function(event) {
         var V=graph[graphIds.get(key)];
         var parent=graph[V.parents[0]];
         V.type=data.className;
+        blockTriggered=V.pos;
         if (V.type!="end"){
-            blockTriggered=V.pos;
             document.getElementById("initBox").focus();
         }
 		if (V.x===parent.x){
 			V.ifRes=false;
 		}
-
-        changeTrigger(row, cell,data.id,V.pos);
+        if (V.childs.length==0)
+            changeTrigger(row, cell,data.id,V.pos);
         if (parent.pos!=0 && parent.cell.className==="focusеtarget" && V.ifRes){
         	V.cell.className="focusеtarget";
 		}
@@ -438,14 +442,14 @@ function delChange(){
 
 function cmenu(){
     let contmenu=document.getElementById("submenu");
-    let trg=event.target.parentNode;
+    let trg= event.target.className=="droptarget"?event.target: event.target.parentNode;
     let block=graph[graphIds.get(trg.parentNode.rowIndex+ " "+(trg.cellIndex-mainColumn))];
     document.getElementById("initBox").value=block.value===undefined?"": block.value;
     contmenu.style.display="block";
     blockTriggered=block.pos;
     contmenu.style.left=Math.round(event.clientX-15)+"px";
     contmenu.style.top=Math.round(event.clientY-90)+"px";
-    if (event.target.className=="end"){
+    if (event.target.className=="end" || event.target.className=="droptarget"){
         if (contmenu.children.length==4){
             contmenu.children[0].remove();
         }
@@ -602,7 +606,6 @@ function buttonDelete(){
     let block=graph[blockTriggered];
     let pr = graph[block.parents[0]];
     blockTriggered=block.childs[0];
-    alert(block.pos);
     if (block.type=="if"){
         let trueCh=!block.childs[0].ifRes? block.childs[0]:block.childs[1];
         let falseCh=block.childs[0].ifRes? block.childs[0]:block.childs[1];
@@ -652,9 +655,47 @@ function dfs(V){
 }
 
 function buttonAddBlock(){
-    let table=document.getElementById("workSpace");
-
+    let trg=event.target.parentNode;
+    let block=graph[blockTriggered];
+    let pr = graph[block.parents[0]];
+    blockTriggered=block.childs[0];
+    let newVort =new vort("trg",countOfVort++,block.x,block.y);
+    pr.childs[0]==block.pos?(pr.childs[0]=newVort.pos) :(pr.childs[1]=newVort.pos);   
+    block.parents[0]=newVort.pos;
+    let key=(block.x)+ " " +(block.y);
+    newVort.baseClass="lv";
+    newVort.addParent(pr.pos);
+    newVort.addChild(block.pos);
+    newVort.cell=block.cell;
+    newVort.cell.setAttribute('onclick',"getFocus(this)");
+    graphIds.set(key,countOfVort-1);
+    graph.push(newVort);
+    dfsAdd(block);
+    newVort.cell.className="droptarget";
+    closeMenu();
 }
+
+function dfsAdd(V){
+    for (var i=0;i<V.childs.length;i++){
+        dfsAdd(graph[V.childs[i]]);
+    }
+    if (i==0){
+        V.cell.setAttribute('onclick',"getFocus(this)");
+        if (V.x+1 >= document.getElementById("workSpace").rows.length-2){
+            addRow();
+        }
+    }
+    let table=document.getElementById("workSpace");
+    let nextCell=table.rows[V.x+1].cells[V.y+mainColumn];
+    nextCell.innerHTML=V.cell.innerHTML;
+    nextCell.className=V.cell.className;
+    V.cell.innerHTML="";
+    V.cell.className="lv";
+    V.cell=nextCell;
+    graphIds.set((V.x+1)+ " "+(V.y),V.pos)
+    V.x++;
+}
+
 
 
 ////////////////////// часть парсера //////////////////////////////////////////////////////////////////////////////////////////////////////////
