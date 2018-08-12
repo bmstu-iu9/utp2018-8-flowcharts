@@ -11,6 +11,9 @@ let blockTriggered="NaN";
 let varMap= new Map();
 let varSet = new Set();
 let errorOfBlock=false;
+var menuState = 0;
+var active = "context-menu--active";
+
 
 class vort{
 	constructor(type,pos, x, y){
@@ -49,11 +52,33 @@ graph.push(startV);
 graph.push(ft);
 
 
-function getFocus(trg) {
+(function () {
+  var blockContextMenu, myElement;
 
-    if (event.target.tagName!=="TD"){
-        return;
+  blockContextMenu = function (evt) {
+    evt.preventDefault();
+    let trg=event.target;
+    let cell;
+    let row;
+    if (trg.tagName=="TD"){
+        row=trg.parentNode.rowIndex;
+        cell=trg.cellIndex;
+    } else {
+        row=trg.parentNode.parentNode.rowIndex;
+        cell=trg.parentNode.cellIndex;
     }
+    let V =graph[graphIds.get(row+ " "+(cell-mainColumn))];
+    if (V.type=="trg" && V.childs.length==1 || V.type!="trg"){
+        cmenu();
+    }
+  };
+
+  myElement = document.querySelector('#Main');
+  myElement.addEventListener('contextmenu', blockContextMenu);
+})();
+
+
+function getFocus(trg) {
 	let row=trg.parentNode.rowIndex;
 	let cell=trg.cellIndex;
 	let paint=true;
@@ -119,7 +144,6 @@ document.addEventListener("drop", function(event) {
         var startNode= data.parentNode;
         var start= data.cloneNode(true);
         data.setAttribute("draggable", "false");
-        data.setAttribute('onclick',"cmenu()");
         event.target.appendChild(data);
         event.target.setAttribute('onclick',"getFocus(this)");
         var row=event.target.parentNode.rowIndex;
@@ -442,7 +466,7 @@ function delChange(){
 
 function cmenu(){
     let contmenu=document.getElementById("submenu");
-    let trg= event.target.className=="droptarget"?event.target: event.target.parentNode;
+    let trg= event.target.tagName=="TD"?event.target: event.target.parentNode;
     let block=graph[graphIds.get(trg.parentNode.rowIndex+ " "+(trg.cellIndex-mainColumn))];
     document.getElementById("initBox").value=block.value===undefined?"": block.value;
     contmenu.style.display="block";
