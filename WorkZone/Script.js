@@ -11,9 +11,7 @@ let blockTriggered="NaN";
 let varMap= new Map();
 let varSet = new Set();
 let errorOfBlock=false;
-var menuState = 0;
-var active = "context-menu--active";
-
+let zoom=5;
 
 class vort{
 	constructor(type,pos, x, y){
@@ -473,7 +471,9 @@ function cmenu(){
     blockTriggered=block.pos;
     contmenu.style.left=Math.round(event.clientX-15)+"px";
     contmenu.style.top=Math.round(event.clientY-90)+"px";
-    if (event.target.className=="end" || event.target.className=="droptarget"){
+    if (event.target.className=="start"){
+        return;
+    } else if (event.target.className=="end" || event.target.className=="droptarget"){
         if (contmenu.children.length==4){
             contmenu.children[0].remove();
         }
@@ -720,6 +720,13 @@ function dfsAdd(V){
     V.x++;
 }
 
+function reSize(){
+    let zoom=document.getElementById("zoom");
+    let cells=document.querySelectorAll("#workSpace td");
+    for (var item of cells){
+        
+    }
+}
 
 
 ////////////////////// часть парсера //////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -74,6 +74,7 @@ header div{
 	width: 50%;
 	height: 70%;
 	background-color: #1A3131;
+	border-radius: 5px;
 }
 
 #hiddenInformationMenu:hover{
@@ -104,7 +105,7 @@ header div{
 #menu{
 	background:#C0C4CD;
 	position: absolute;
-	width: 8%;
+	width: 7%;
 	height: 100%;
   	left: 0;
   	top: 0;
@@ -234,14 +235,14 @@ header div{
 .lc {
     text-align: center;
     vertical-align: top;
-    width: 220px ;
+    width: 230px ;
 	height: 200px;
 }
 
 .lv {
 	text-align: center;
     vertical-align: top;
-    width: 220px ;
+    width: 230px ;
 	height: 200px;
 }
 
@@ -270,7 +271,7 @@ table tbody tr {
 }
 
 #main tr img{
-	margin: 35px;
+	margin: 15%;
 }
 
 #menu table{
@@ -283,7 +284,7 @@ table tbody tr {
 
 .droptarget {
 	background-color: #DEB5B1 ;
-	width: 220px ;
+	width: 230px ;
 	height: 200px;
 	text-align: center;
     vertical-align: top;
@@ -291,7 +292,7 @@ table tbody tr {
 
 .focusеtarget {
 	background-color: #C4CDD9 ;
-	width: 220px ;
+	width: 230px ;
 	height: 200px;
 	text-align: center;
     vertical-align: top;

@@ -26,7 +26,7 @@
    		</div>
    	</header>
    	<main id="Main">
-   		<div id="zoomBox"><img src="img/лупа.png" height="25px" width="25px"> <input id="zoom" type="range" min="0" max="10" step="1" value="5"></div>
+   		<div id="zoomBox"><img src="img/лупа.png" height="25px" width="25px" onclick="document.getElementById('zoom').value=5; reSize();"> <input id="zoom" type="range" min="0" max="10" step="1" value="5" oninput="reSize()"></div>
 	    <div id="menu">
 			<!-- <div><img class="object" src="https://png.icons8.com/ios-glyphs/90/2a3c3c/circled.png" width="90"  draggable="true" id="oval"></div> --> 
 			act
@@ -71,7 +71,7 @@
         	<li onclick="reValBloc();"><i>Переобозначить</i></li>
         	<li onclick="buttonAddBlock()"><i>Вставить</i></li>
         	<li onclick="buttonDelete();"><i>Удалить</i></li>
-        	<li style="border-bottom: none;"><i>бла-бла</i></li>
+        	<li onclick="alert('бла-бла');closeMenu();"><i>бла-бла</i></li>
       	</ul>
     </main>
     <script src="Script.js"></script>
