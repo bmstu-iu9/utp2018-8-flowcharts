@@ -346,3 +346,39 @@ table tbody tr {
 	text-align: left;
 	font-size: 20px;
 }
+
+#zoomBox{
+	z-index: 1;
+	position: absolute;
+	top: 1%;
+	left: 74%;	
+}	
+
+#zoom {
+	padding: 12px 0px;
+    width: 135px;
+    background: url(img/opacity.png);
+    -webkit-appearance: none;
+}
+
+#zoom::-webkit-slider-runnable-track {
+	border-radius: 2px;
+	height: 3px;
+	cursor: pointer;
+    background: #3C5454;
+    opacity: 0.7;
+    box-shadow:  0 0 1px rgba(0,0,0,0.5); 
+}
+
+#zoom::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	background: #475D5D;
+	height: 16px;
+	width: 4px;
+	border-radius: 4px;
+	margin: -6px 0px;
+	background: #111;
+	opacity: 1;
+	box-shadow:  0 0 2px rgba(0,0,0,0.5); 
+}
+
