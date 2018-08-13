@@ -109,6 +109,7 @@ header div{
 	height: 100%;
   	left: 0;
   	top: 0;
+  	overflow-y: scroll;
   	display: block;
   	-webkit-transition: width 1s, left 1s;
   	color: #2a3c3c;
@@ -353,16 +354,18 @@ table tbody tr {
 	z-index: 1;
 	position: absolute;
 	top: 1%;
-	left: 74%;	
+	left: 74%;
+	width: calc(9% + 10px);	
 }	
 
 #zoom {
 	padding: 12px 0px;
-    width: 135px;
+    width: 80%;
     background: url(img/opacity.png);
     -webkit-appearance: none;
     outline: none;
 }
+
 
 #zoom::-webkit-slider-runnable-track {
 	border-radius: 2px;

@@ -177,13 +177,16 @@ document.addEventListener("drop", function(event) {
         if (parent.pos!=0 && parent.cell.className==="focusеtarget" && V.ifRes){
         	V.cell.className="focusеtarget";
 		}
+        if (V.type==="loop"){
+            V.root=findRoot(V);
+        }
     }
 });
 
 
 function changeTrigger(row, cell, type, prnt, check){
 	var table = document.getElementById("workSpace");
-	if (type !== "end" && check){
+	if (type !== "end" && check && type!== "loop"){
         let newVort = new vort("trg",countOfVort++,row+1,cell-mainColumn);//поменть id у фигур
         let key=(row+1)+ " " +(cell-mainColumn);
         newVort.baseClass="lv";
@@ -209,6 +212,13 @@ function changeTrigger(row, cell, type, prnt, check){
 	if (row >= document.getElementById("workSpace").rows.length-2){
 		addRow();
 	}
+}
+
+function findRoot(V){
+    while (V.y==graph[V.parents[0]].y && graph[V.parents[0]].type!="start" ){
+        V=graph[V.parents[0]];
+    }
+    return V.parents[0];
 }
 
 function findFreeColumn(startColumn){
@@ -690,6 +700,7 @@ function dfs(V){
 }
 
 function buttonAddBlock(){ 
+    paintChilds(graph[0]);
     let trg=event.target.parentNode;
     let block=graph[blockTriggered];
     let pr = graph[block.parents[0]];
