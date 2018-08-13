@@ -90,6 +90,8 @@ function getFocus(trg) {
     paintChilds(graph[0],false);
 	paintChilds(V,paint);
 	paintParents(V,paint);
+    blockTriggered=V.pos;
+    document.getElementById("initBox").value=V.value==undefined?"":V.value;   
 }
 
 function paintChilds(V,paint){
@@ -141,18 +143,23 @@ document.addEventListener("drop", function(event) {
         var data =document.getElementById(event.dataTransfer.getData("Text"));
         var startNode= data.parentNode;
         var start= data.cloneNode(true);
+        var row=event.target.parentNode.rowIndex;
+        var cell =event.target.cellIndex;
+        var key=row + " " +(cell-mainColumn);
+        var V=graph[graphIds.get(key)];
+        var parent=graph[V.parents[0]];
+        if (V.childs.length!=0 && data.className=="end"){
+            return;
+        }
         data.setAttribute("draggable", "false");
         event.target.appendChild(data);
         event.target.setAttribute('onclick',"getFocus(this)");
-        var row=event.target.parentNode.rowIndex;
-        var cell =event.target.cellIndex;
+        
         event.target.className = "lv";
        	startNode.appendChild(start);
         event.target.setAttribute("contextmenu","alert()");
 
-        var key=row + " " +(cell-mainColumn);
-        var V=graph[graphIds.get(key)];
-        var parent=graph[V.parents[0]];
+        
         V.type=data.className;
         blockTriggered=V.pos;
         if (V.type!="end"){
@@ -162,20 +169,19 @@ document.addEventListener("drop", function(event) {
 			V.ifRes=false;
 		}
         if (V.childs.length==0)
-            changeTrigger(row, cell,data.id,V.pos);
+            changeTrigger(row, cell,data.id,V.pos,true);
+        else if (V.type=="if")
+            changeTrigger(row, cell,data.id,V.pos,false);
         if (parent.pos!=0 && parent.cell.className==="focusеtarget" && V.ifRes){
         	V.cell.className="focusеtarget";
 		}
-
-        
-        
     }
 });
 
 
-function changeTrigger(row, cell, type, prnt){
+function changeTrigger(row, cell, type, prnt, check){
 	var table = document.getElementById("workSpace");
-	if (type !== "end"){
+	if (type !== "end" && check){
         let newVort = new vort("trg",countOfVort++,row+1,cell-mainColumn);//поменть id у фигур
         let key=(row+1)+ " " +(cell-mainColumn);
         newVort.baseClass="lv";
@@ -501,8 +507,8 @@ function closeMenu(){
 
 function reValBloc(){
     var box =document.getElementById("initBox");
-    box.value = graph[blockTriggered].value;
     box.focus();
+    box.value = graph[blockTriggered].value;
     closeMenu();
 }
 
@@ -635,6 +641,7 @@ function buttonDelete(){
         let falseCh=block.childs[0].ifRes? block.childs[0]:block.childs[1];
         pr.childs[0]==block.pos?(pr.childs[0]=trueCh) :(pr.childs[1]=trueCh);
         graph[trueCh].parents[0]=pr.pos;
+        columns[graph[falseCh].y+mainColumn]=false;
         dfs(graph[trueCh]);
         delDfs(graph[falseCh]);
     } else if (block.type=="end"){
@@ -678,7 +685,7 @@ function dfs(V){
     
 }
 
-function buttonAddBlock(){
+function buttonAddBlock(){ 
     let trg=event.target.parentNode;
     let block=graph[blockTriggered];
     let pr = graph[block.parents[0]];
@@ -716,6 +723,7 @@ function dfsAdd(V){
     V.cell.innerHTML="";
     V.cell.className="lv";
     V.cell=nextCell;
+    V.ifRes= V.y==graph[V.parents[0]].y?true:false;
     graphIds.set((V.x+1)+ " "+(V.y),V.pos)
     V.x++;
 }

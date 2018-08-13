@@ -88,12 +88,12 @@ header div{
 }
 
 #hiddenTools{
-	width: 9%;
+	width: 8%;
 	float:left;
 }
 
 #options{
-	width: 75%;
+	width: 76%;
 	float:left;
 }
 
@@ -360,6 +360,7 @@ table tbody tr {
     width: 135px;
     background: url(img/opacity.png);
     -webkit-appearance: none;
+    outline: none;
 }
 
 #zoom::-webkit-slider-runnable-track {
@@ -383,3 +384,6 @@ table tbody tr {
 	box-shadow:  0 0 2px rgba(0,0,0,0.5); 
 }
 
+#buttons input{
+	outline: none;
+}
