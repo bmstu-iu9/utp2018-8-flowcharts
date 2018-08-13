@@ -728,7 +728,10 @@ function dfsAdd(V){
     V.cell.className="lv";
     V.cell=nextCell;
     V.ifRes= V.y==graph[V.parents[0]].y?true:false;
-    graphIds.set((V.x+1)+ " "+(V.y),V.pos)
+    graphIds.set((V.x+1)+ " "+(V.y),V.pos);
+    if (graph[V.parents[0]].type=="if" && !V.ifRes){
+        graphIds.delete((V.x)+ " "+(V.y));   
+    }
     V.x++;
 }
 

@@ -31,10 +31,9 @@ main {
 
 #hello{
 	margin: 5% 16%;
-	border: 6px solid #2a3c3c;
 	width: 60%;
 	padding: 20px 30px;
-	background: #D3D1E8;
+	background: #CDCCDB;
 	border-radius: 6px;
 	opacity: 1;
 	color: #412D2D;
