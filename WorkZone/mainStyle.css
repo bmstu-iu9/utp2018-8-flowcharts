@@ -116,8 +116,8 @@ header div{
   	text-align: center;
 }
 #menu img{
-	margin: 23% 17%;
-	height: 10vh;
+	margin: 23% 0%;
+	height: 10%;
 	width: 65%;
 }
 
@@ -268,10 +268,11 @@ table tbody tr {
 	display: flex;
     align-items: center;
  	justify-content: center;
+
 }
 
 #main tr img{
-	margin: 15%;
+	margin: 21%;
 }
 
 #menu table{
@@ -284,7 +285,7 @@ table tbody tr {
 
 .droptarget {
 	background-color: #DEB5B1 ;
-	width: 230px ;
+	width: 230px;
 	height: 200px;
 	text-align: center;
     vertical-align: top;

@@ -12,6 +12,8 @@ let varMap= new Map();
 let varSet = new Set();
 let errorOfBlock=false;
 let zoom=5;
+let cellW=230;
+let cellH=200;
 
 class vort{
 	constructor(type,pos, x, y){
@@ -247,6 +249,8 @@ function addColumn(side){
 	for (var i =0;i<table.rows.length;i++){
 		var newCell= document.createElement("td");
 		newCell.className=newCellClass;
+        newCell.style.width=cellW;
+        newCell.style.height=cellH;
 		if (!side){
 			table.rows[i].appendChild(newCell);
 		} else{
@@ -730,11 +734,17 @@ function dfsAdd(V){
 
 function reSize(){
     let zoom=document.getElementById("zoom");
-    let cells=document.querySelectorAll("#workSpace td");
+    let cells=document.querySelectorAll("#workSpace TD");
+    let grad=zoom.value;
+    let cf= 1;
+    cf+=grad>=5?0.1* Math.abs(grad-5):-0.1* Math.abs(grad-5);
     for (var item of cells){
-        
+        item.style.width=cellW=(230*cf) + "px";
+        item.style.height=cellH=(200*cf) + "px";
     }
+    zoom=grad;
 }
+
 
 
 ////////////////////// часть парсера //////////////////////////////////////////////////////////////////////////////////////////////////////////
