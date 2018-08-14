@@ -68,7 +68,7 @@ graph.push(ft);
         cell=trg.parentNode.cellIndex;
     }
     let V =graph[graphIds.get(row+ " "+(cell-mainColumn))];
-    if (V.type=="trg" && V.childs.length==1 || V.type!="trg"){
+    if ( trg.tagName=="IMG" || (V.type=="trg" && V.childs.length==1) || V.type!="trg" ){
         cmenu();
     }
   };
@@ -491,7 +491,8 @@ function cmenu(){
     blockTriggered=block.pos;
     contmenu.style.left=Math.round(event.clientX-15)+"px";
     contmenu.style.top=Math.round(event.clientY-90)+"px";
-    if (event.target.className=="start"){
+
+    if (event.target.id=="start" || event.target.firstChild && event.target.firstChild.id=="start" || event.target.className=="start"){
         return;
     } else if (event.target.className=="end" || event.target.className=="droptarget"){
         if (contmenu.children.length==4){
@@ -503,7 +504,7 @@ function cmenu(){
             let lit=document.createElement("li");
             lit.setAttribute("onclick","reValBloc()");
             lit.innerHTML="<i>Переобозначить</i>";
-                contmenu.insertBefore(lit,contmenu.children[0]);
+            contmenu.insertBefore(lit,contmenu.children[0]);
         }
         contmenu.style.height="160px";
     }
@@ -759,7 +760,9 @@ function reSize(){
     zoom=grad;
 }
 
-
+function hand(){
+    let table
+}
 
 ////////////////////// часть парсера //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
