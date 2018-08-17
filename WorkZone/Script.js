@@ -15,6 +15,7 @@ let zoom=5;
 let cellW=230;
 let cellH=200;
 let inMenu=true ;
+let firstFile=0;
 let source;
 
 window.onloud=function(){
@@ -765,17 +766,36 @@ function newFile(){
     let menu=document.getElementById("newFileMenu");
     let M=document.getElementById("Main");
     let lol=document.getElementById("lol");
+    if (firstFile==1){
+        let lu=document.getElementById('newFileUl');
+        let back = document.createElement('li');
+        let hr= document.createElement("hr");
+        hr.size=3;
+        hr.color="#334D4D";
+        hr.style.opacity= 0.7;
+        hr.style.width="80%";
+        hr.style="margin: 0% 10%;";
+        menu.style.top="19%";
+        menu.style.height="70%";
+        back.innerHTML='<div>Back</div>';
+        back.setAttribute('onclick',"buttonBack()");
+        lu.appendChild(hr);
+        lu.appendChild(back);
+        let lues=document.querySelectorAll("#newFileUl li");
+        for (let item of lues){
+            item.style.height="16%";
+        }
+    }
     menu.style.opacity=1;
     M.style.opacity=0;
     document.getElementById("informationHead").style.display= "none";
     document.getElementById("toolsHead").style.display= "none";
-    setTimeout(700);
+    setTimeout(1000);
     menu.style.display= "block";
 }
 
-
-function buttonNewFile(){
-    inMenu=false;
+function buttonBack(){
+    firstFile++ ;
     let M=document.getElementById("Main");
     let menu=document.getElementById("newFileMenu");
     let lol=document.getElementById("lol");
@@ -783,6 +803,21 @@ function buttonNewFile(){
     menu.style.opacity=0;
     document.getElementById("informationHead").style.display= "block";
     document.getElementById("toolsHead").style.display= "block";
+    setTimeout(1000);
+    menu.style.display= "none";
+}
+
+
+function buttonNewFile(){
+    firstFile++;
+    let M=document.getElementById("Main");
+    let menu=document.getElementById("newFileMenu");
+    let lol=document.getElementById("lol");
+    M.style.opacity=1;
+    menu.style.opacity=0;
+    document.getElementById("informationHead").style.display= "block";
+    document.getElementById("toolsHead").style.display= "block";
+    setTimeout(1000);
     menu.style.display= "none";
     let body=document.getElementById("workSpace");
 
@@ -802,6 +837,7 @@ function buttonNewFile(){
     varSet = new Set();
     errorOfBlock=false;
     zoom=5;
+    document.getElementById("zoom").value=5;
 
     buttonReStart();
 
@@ -826,6 +862,7 @@ function buttonNewFile(){
 
 
 ////////////////////// часть парсера //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 
 var oper= ["+", "=","-", "*", "/", "<", ">" , "(", ")", "?" , ":", "!", "|", "&","%" ,";", " "];

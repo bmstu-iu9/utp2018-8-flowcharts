@@ -350,9 +350,9 @@ table tbody tr {
 	background-color: #C0C4CD;
 }
 
-#submenu li i{
+#submenu li div{
 	font-family: "FontAwesome";
-	padding: 20px 5px;
+	padding: 9px 6px;
  	color: #3B5959;
 	text-align: left;
 	font-size: 20px;
@@ -450,7 +450,6 @@ table tbody tr {
 #newFileMenu li div{
 	padding: 7% 0px;
  	color: #2a3c3c;
-	text-align: left;
 	font-size: 40px;
 	text-align:  center;
 	opacity: 0.6;
