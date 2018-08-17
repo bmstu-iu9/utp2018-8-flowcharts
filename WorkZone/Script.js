@@ -540,6 +540,9 @@ function reSetM(){
         m.set(i,varMap.get(i));
     }
 }
+// -----------------------------------DEBAG-----------------------------------
+
+let counter = 0;
 
 function buttonDebag() {
     counter = 0;
@@ -548,15 +551,11 @@ function buttonDebag() {
     document.getElementById('right').style.display = 'block';
 }
 
-function buttonRight(){
-    counter++;
-    if (document.getElementById("var").firstChild.tagName=="i"){
-        return;
-    }
-    s.clear();
+function whileForLeftOrRight() {
+    let count = counter;
     var V =graph[0];
-    let i = -1;
-    while(V.type!="end" && i++<=counter){
+    while(V.type!="end" && count>0){
+        count--;
         if (V.type=="start"){
             V=graph[V.childs[0]];
             reSetM();
@@ -600,6 +599,16 @@ function buttonRight(){
         }
         V=graph[V.childs[0]];
     }
+}
+
+function buttonRight(){
+    counter++;
+    if (document.getElementById("var").firstChild.tagName=="i"){
+        return;
+    }
+    //s.clear();
+    var V =graph[0];
+    whileForLeftOrRight();
     setRes();
     reSetM();
     return;
@@ -607,7 +616,18 @@ function buttonRight(){
 
 
 function buttonLeft(){
+    counter--;
+    if (document.getElementById("var").firstChild.tagName=="i"){
+        return;
+    }
+    s.clear();
+    whileForLeftOrRight();
+    setRes();
+    reSetM();
+    return;
 }
+
+// -----------------------------------DEBAG-----------------------------------
 
 function buttonPlay(){
     if (document.getElementById("var").firstChild.tagName=="i"){
