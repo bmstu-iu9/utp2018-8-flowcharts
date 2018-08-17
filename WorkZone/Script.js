@@ -774,9 +774,8 @@ function newFile(){
         let hr= document.createElement("hr");
         hr.size=3;
         hr.color="#334D4D";
-        hr.style.opacity= 0.7;
         hr.style.width="80%";
-        hr.style="margin: 0% 10%;";
+        hr.style="opacity: 0.7;margin: 0% 10%;";
         menu.style.top="19%";
         menu.style.height="70%";
         back.innerHTML='<div>Back</div>';
@@ -810,6 +809,7 @@ function buttonBack(){
 
 function buttonNewFile(){
     firstFile++;
+    inMenu=false;
     let M=document.getElementById("Main");
     let menu=document.getElementById("newFileMenu");
     let lol=document.getElementById("lol");
