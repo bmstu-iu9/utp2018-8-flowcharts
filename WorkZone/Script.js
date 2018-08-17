@@ -541,6 +541,23 @@ function reSetM(){
     }
 }
 
+function buttonDebag(){
+    let  cnf = confirm("хотите использовать дебаг?");
+    if (cnf) {
+        document.getElementById('bug').style.display= 'none';
+        document.getElementById('left').style.display= 'block';
+        document.getElementById('right').style.display= 'block';
+    }
+}
+
+function buttonLeft(){
+
+}
+
+function buttonRight(){
+
+}
+
 function buttonPlay(){
     if (document.getElementById("var").firstChild.tagName=="i"){
         return;
