@@ -774,6 +774,7 @@ function reSize(){
     zoom=grad;
 }
 
+
 function newFile(){
     inMenu=true;
     let menu=document.getElementById("newFileMenu");
@@ -783,6 +784,8 @@ function newFile(){
     M.style.opacity=0;
     document.getElementById("informationHead").style.display= "none";
     document.getElementById("toolsHead").style.display= "none";
+    setTimeout(700);
+    menu.style.display= "block";
 }
 
 
@@ -795,7 +798,9 @@ function buttonNewFile(){
     menu.style.opacity=0;
     document.getElementById("informationHead").style.display= "block";
     document.getElementById("toolsHead").style.display= "block";
+    menu.style.display= "none";
 }
+
 
 ////////////////////// часть парсера //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
