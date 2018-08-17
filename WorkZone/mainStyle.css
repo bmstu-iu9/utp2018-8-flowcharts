@@ -412,13 +412,14 @@ table tbody tr {
 	height: 58%;
   	left: 36%;
   	top: 21%;
-  	border-radius: 5%; 
+  	border-radius: 3%; 
   	background: #C0C4CD;
   	box-shadow: inset 0 0 20px rgba(42, 60, 60,0.5); 
   	-webkit-transition: opacity 0.7s; 
 }
 
 #newFileMenu ul{
+	list-style: none;
 	width: 100%;
 	height: 100%;
 	margin: 20px 0px;
@@ -447,7 +448,7 @@ table tbody tr {
 }
 
 #newFileMenu li div{
-	padding: 30px 0px;
+	padding: 7% 0px;
  	color: #2a3c3c;
 	text-align: left;
 	font-size: 40px;

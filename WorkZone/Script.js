@@ -15,8 +15,14 @@ let zoom=5;
 let cellW=230;
 let cellH=200;
 let inMenu=true ;
+let source;
 
-window.onloud=newFile();
+window.onloud=function(){
+    newFile();
+    if (!source){
+        source= document.getElementById('workSpaceBody').innerHTML;
+    }
+}();
 
 class vort{
 	constructor(type,pos, x, y){
@@ -36,24 +42,6 @@ class vort{
 		this.childs.push(child);
 	}
 }
-
-
-var startV=new vort("start",0,0,0);
-startV.baseClass="lv";
-startV.cell=document.getElementById("workSpace").rows[0].cells[1];
-startV.addChild(1);
-startV.cell.setAttribute('onclick',"getFocus(this)");
-graphIds.set("0 0",0);
-
-var ft=new vort("trg",1,1,0);
-ft.baseClass="lv";
-ft.cell=document.getElementById("workSpace").rows[1].cells[1];
-ft.addParent(0);
-ft.cell.className="droptarget";
-graphIds.set("1 0",1);
-
-graph.push(startV);
-graph.push(ft);
 
 
 (function () {
@@ -362,7 +350,6 @@ function getVal(){
     let elem2= document.createElement("div");
     let hr= document.createElement("hr");
     res=parse(VarBox.value, true);
-    alert (res);
     if (res==="error" || res==="changes" || res==true || res==false){
         VarBox.style.background="#DEB5B1";
         return;
@@ -651,9 +638,7 @@ function buttonReStart() {
     if (inMenu)
         return;
     let varTable= document.getElementById("var");
-    if (varTable.firstChild.tagName!=="I"){
-        return;
-    }
+    
     varTable.innerHTML='<div id="addVar" style=\"height: 100%\"><input type=\"image\" src=\"https://png.icons8.com/ios/100/2a3c3c/plus.png\" width=\"40\" height=\"40\" id=\"Plas\" onclick=\"hiddenVarBox(this)\" draggable=\"false\" checked/><input type=\"text\" name=\"инициализацияПеременных\" onblur=\"returnPlas()\" placeholder=\"var [name] = [expr];\" width=\"70%\" id=\"initVarBox\" onkeydown=\"if(event.keyCode==13){ getVal(this);} else {this.style.background=\'#DFE0E7\';}\"></div>';
     for (let i of varSet){
         newSetRes(i,varMap);
@@ -799,6 +784,44 @@ function buttonNewFile(){
     document.getElementById("informationHead").style.display= "block";
     document.getElementById("toolsHead").style.display= "block";
     menu.style.display= "none";
+    let body=document.getElementById("workSpace");
+
+    body.innerHTML='<tr><td class="lv"></td><td class="lv" id="start"><img src="img/start.png" width="60%" height="55%" class= "start"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr>'
+
+    columns = [false,true,false];
+    mainColumn=1;
+    R=0;
+    L=0;
+    graph=[];
+    countOfVort=2;
+    graphIds= new Map();
+    m = new Map();
+    s = new Set();
+    blockTriggered="NaN";
+    varMap= new Map();
+    varSet = new Set();
+    errorOfBlock=false;
+    zoom=5;
+
+    buttonReStart();
+
+    var startV=new vort("start",0,0,0);
+    startV.baseClass="lv";
+    startV.cell=document.getElementById("workSpace").rows[0].cells[1];
+    startV.addChild(1);
+    startV.cell.setAttribute('onclick',"getFocus(this)");
+    graphIds.set("0 0",0);
+
+    var ft=new vort("trg",1,1,0);
+    ft.baseClass="lv";
+    ft.cell=document.getElementById("workSpace").rows[1].cells[1];
+    ft.addParent(0);
+    ft.cell.className="droptarget";
+    graphIds.set("1 0",1);
+
+    graph.push(startV);
+    graph.push(ft);
+
 }
 
 
