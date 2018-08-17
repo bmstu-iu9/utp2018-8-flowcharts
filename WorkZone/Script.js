@@ -766,7 +766,8 @@ function newFile(){
     let menu=document.getElementById("newFileMenu");
     let M=document.getElementById("Main");
     let lol=document.getElementById("lol");
-    if (firstFile==1){
+    let lu=document.getElementById('newFileUl');
+    if (firstFile==1 && lu.children.length==7){
         let lu=document.getElementById('newFileUl');
         let back = document.createElement('li');
         let hr= document.createElement("hr");
@@ -799,7 +800,7 @@ function buttonBack(){
     let M=document.getElementById("Main");
     let menu=document.getElementById("newFileMenu");
     let lol=document.getElementById("lol");
-    M.style.opacity=1;
+    M.style.opacity=1;  
     menu.style.opacity=0;
     document.getElementById("informationHead").style.display= "block";
     document.getElementById("toolsHead").style.display= "block";
