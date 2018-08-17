@@ -541,21 +541,72 @@ function reSetM(){
     }
 }
 
-function buttonDebag(){
-    let  cnf = confirm("хотите использовать дебаг?");
-    if (cnf) {
-        document.getElementById('bug').style.display= 'none';
-        document.getElementById('left').style.display= 'block';
-        document.getElementById('right').style.display= 'block';
-    }
-}
-
-function buttonLeft(){
-
+function buttonDebag() {
+    counter = 0;
+    document.getElementById('bug').style.display = 'none';
+    document.getElementById('left').style.display = 'block';
+    document.getElementById('right').style.display = 'block';
 }
 
 function buttonRight(){
+    counter++;
+    if (document.getElementById("var").firstChild.tagName=="i"){
+        return;
+    }
+    s.clear();
+    var V =graph[0];
+    let i = -1;
+    while(V.type!="end" && i++<=counter){
+        if (V.type=="start"){
+            V=graph[V.childs[0]];
+            reSetM();
+            continue;
+        }
+        //alert(V.type + " " + V.x+ " " + (V.y+mainColumn));
+        if (V.childs.length==0){
+            alert("error Of End");
+            reSetM();
+            return;
+        }
+        if (V.value){
+            var tmpr =parse(V.value,true);
+        }
+        if ( !V.value || tmpr == "error" ){
+            let varbox= document.getElementById("initBox");
+            blockTriggered=V.pos;
+            varbox.style.background="#DEB5B1";
+            errorOfBlock=true;
+            varbox.focus();
+            reSetM();
+            return;
+        }
+        if (V.type=="if"){
+            if(tmpr){
+                if (graph[V.childs[0]].ifRes){
+                    V=graph[V.childs[0]];
+                } else {
+                    V=graph[V.childs[1]];
+                }
+            } else {
+                if (!graph[V.childs[0]].ifRes){
+                    V=graph[V.childs[0]];
+                } else {
+                    V=graph[V.childs[1]];;
+                }
+            }
+            continue;
+        } else if (V.type == "end"){
+            break;
+        }
+        V=graph[V.childs[0]];
+    }
+    setRes();
+    reSetM();
+    return;
+}
 
+
+function buttonLeft(){
 }
 
 function buttonPlay(){
@@ -653,6 +704,9 @@ function newSetRes(item, tMap){
 }
 
 function buttonReStart() {
+    document.getElementById('bug').style.display= 'block';
+    document.getElementById('left').style.display= 'none';
+    document.getElementById('right').style.display= 'none';
     let varTable= document.getElementById("var");
     if (varTable.firstChild.tagName!=="I"){
         return;
