@@ -42,6 +42,7 @@ main{
 	position: relative;
 	width: 100%;
 	height:92vh;
+	-webkit-transition: opacity 0.7s ;
 }
 
 *{
@@ -67,6 +68,8 @@ header input{
 header div{
 	height: 100%;
 }
+
+
 #buttons{
 	display: flex;
 	justify-content:space-around;
@@ -218,6 +221,10 @@ header div{
   	border-radius: 2px;
 }
 
+hr{
+	border-radius: 5px;
+}
+
 #var i{
 	font-size: 26px;
 	color: #334D4D;
@@ -356,6 +363,7 @@ table tbody tr {
 	top: 1%;
 	left: 74%;
 	width: calc(9% + 10px);	
+	-webkit-transition: left 1s;
 }	
 
 #zoom {
@@ -388,6 +396,62 @@ table tbody tr {
 	box-shadow:  0 0 2px rgba(0,0,0,0.5); 
 }
 
-#buttons input{
+#buttons input {
 	outline: none;
 }
+
+ #addVar input{
+ 	outline: none;
+ }
+
+#newFileMenu{
+	z-index: 1;
+	position: absolute;
+	width: 28%;
+	height: 58%;
+  	left: 36%;
+  	top: 21%;
+  	border-radius: 5%; 
+  	background: #C0C4CD;
+  	box-shadow: inset 0 0 20px rgba(42, 60, 60,0.5); 
+  	-webkit-transition: opacity 0.7s; 
+}
+
+#newFileMenu ul{
+	width: 100%;
+	height: 100%;
+	margin: 20px 0px;
+}
+
+#newFileMenu li{
+	margin: 2% 5%;
+	width: 90%;
+	height: 20%; 
+	border-radius: 5%; 
+	background-color: #DADCE2;
+	position: relative;
+	box-shadow: inset 0 0 45px rgba(192, 196, 205,1);
+	-webkit-transition: opacity 0.7s; 
+	transition-property: background-color;
+ 	transition-duration: 0.7s;
+
+}
+
+#newFileMenu li:hover{
+	background-color: #C0C4CD;
+}
+
+#newFileMenu li:hover div{
+	opacity: 0.9;
+}
+
+#newFileMenu li div{
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+	padding: 27px 0px;
+ 	color: #2a3c3c;
+	text-align: left;
+	font-size: 50px;
+	text-align:  center;
+	opacity: 0.6;
+	-webkit-transition: opacity 0.5s; 
+}	

@@ -14,6 +14,9 @@ let errorOfBlock=false;
 let zoom=5;
 let cellW=230;
 let cellH=200;
+let inMenu=true ;
+
+window.onloud=newFile();
 
 class vort{
 	constructor(type,pos, x, y){
@@ -33,6 +36,7 @@ class vort{
 		this.childs.push(child);
 	}
 }
+
 
 var startV=new vort("start",0,0,0);
 startV.baseClass="lv";
@@ -289,6 +293,7 @@ function addRow(){
 function addWindow(trg){
     let obj;
 	let menu =document.getElementById("menu");
+    let zm= document.getElementById('zoomBox');
 	let Ht=document.getElementById("hiddenTools");
 	let iMenu =document.getElementById("InformationMenu")
 	let Hm=document.getElementById("hiddenInformationMenu");
@@ -311,6 +316,7 @@ function addWindow(trg){
 				main.style.width="76%";
 				main.style.left="8%";
 			}
+            zm.style.left="74%";
 		}
 		obj.className="block";
 		} else{
@@ -330,6 +336,7 @@ function addWindow(trg){
 				main.style.width="92%";
 				main.style.left="8%";
 			}
+            zm.style.left="90%";
 		}
  		obj.className="hidden";
 	}
@@ -355,6 +362,7 @@ function getVal(){
     let elem2= document.createElement("div");
     let hr= document.createElement("hr");
     res=parse(VarBox.value, true);
+    alert (res);
     if (res==="error" || res==="changes" || res==true || res==false){
         VarBox.style.background="#DEB5B1";
         return;
@@ -528,6 +536,8 @@ function reValBloc(){
 }
 
 function helpPage(){
+    if (inMenu)
+        return;
     let cnf=confirm("При переходе на туториал построенная ранее блок-схема удалится. Перейти?");
     if (cnf){
         document.location.href = 'help.html';
@@ -542,6 +552,8 @@ function reSetM(){
 }
 
 function buttonPlay(){
+    if (inMenu)
+        return;
     if (document.getElementById("var").firstChild.tagName=="i"){
         return;
     }
@@ -636,6 +648,8 @@ function newSetRes(item, tMap){
 }
 
 function buttonReStart() {
+    if (inMenu)
+        return;
     let varTable= document.getElementById("var");
     if (varTable.firstChild.tagName!=="I"){
         return;
@@ -760,8 +774,27 @@ function reSize(){
     zoom=grad;
 }
 
-function hand(){
-    let table
+function newFile(){
+    inMenu=true;
+    let menu=document.getElementById("newFileMenu");
+    let M=document.getElementById("Main");
+    let lol=document.getElementById("lol");
+    menu.style.opacity=1;
+    M.style.opacity=0;
+    document.getElementById("informationHead").style.display= "none";
+    document.getElementById("toolsHead").style.display= "none";
+}
+
+
+function buttonNewFile(){
+    inMenu=false;
+    let M=document.getElementById("Main");
+    let menu=document.getElementById("newFileMenu");
+    let lol=document.getElementById("lol");
+    M.style.opacity=1;
+    menu.style.opacity=0;
+    document.getElementById("informationHead").style.display= "block";
+    document.getElementById("toolsHead").style.display= "block";
 }
 
 ////////////////////// часть парсера //////////////////////////////////////////////////////////////////////////////////////////////////////////
