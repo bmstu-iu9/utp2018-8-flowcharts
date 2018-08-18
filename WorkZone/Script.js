@@ -268,6 +268,7 @@ function addColumn(side){
 		R++;
 		columns.push(false);
 	}
+    reSize();
 }
 
 function addRow(){
@@ -277,6 +278,7 @@ function addRow(){
         let cell = row.insertCell(-1);
 		cell.className= table.rows[0].cells[0].className;
 	}
+    reSize();
 }
 
 function addWindow(trg){
@@ -804,6 +806,7 @@ function buttonBack(){
     document.getElementById("toolsHead").style.opacity="1";
     setTimeout(1000);
     menu.style.display= "none";
+    inMenu=false;
 }
 
 
