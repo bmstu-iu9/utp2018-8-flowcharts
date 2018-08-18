@@ -17,6 +17,7 @@ let cellH=200;
 let inMenu=true ;
 let firstFile=0;
 let source;
+let focusInitBox=false;
 
 window.onloud=function(){
     newFile();
@@ -85,8 +86,7 @@ function getFocus(trg) {
     paintChilds(graph[0],false);
 	paintChilds(V,paint);
 	paintParents(V,paint);
-    blockTriggered=V.pos;
-    document.getElementById("initBox").value=V.value==undefined?"":V.value;   
+    blockTriggered=V.pos;  
 }
 
 function paintChilds(V,paint){
@@ -147,9 +147,12 @@ document.addEventListener("drop", function(event) {
             return;
         }
         data.setAttribute("draggable", "false");
+        data.setAttribute("onmouseover","initBoxVal()");
         event.target.appendChild(data);
         event.target.setAttribute('onclick',"getFocus(this)");
-        
+        event.target.setAttribute("onmouseover","initBoxVal()");
+        event.target.setAttribute("onmouseout","initBoxValOff()");
+
         event.target.className = "lv";
        	startNode.appendChild(start);
         event.target.setAttribute("contextmenu","alert()");
@@ -176,6 +179,24 @@ document.addEventListener("drop", function(event) {
     }
 });
 
+function initBoxValOff(){
+    if (!focusInitBox)
+        document.getElementById('initBox').placeholder="Value of Block";
+}
+
+function initBoxVal(){
+    let trg=event.target;
+    if (trg.tagName!="TD"){
+        trg=trg.parentNode;
+    }
+    let row=trg.parentNode.rowIndex;
+    let cell=trg.cellIndex;
+    let paint=true;
+    let V =graph[graphIds.get(row+ " "+(cell-mainColumn))];
+    let box=document.getElementById('initBox'); 
+    if (!focusInitBox)
+        box.placeholder=V.value==undefined?"Value of Block":V.value;
+}
 
 function changeTrigger(row, cell, type, prnt, check){
 	var table = document.getElementById("workSpace");
@@ -457,10 +478,12 @@ function copySet(A,B){
 }
 
 function changedBlock(){
+    focusInitBox=true;
     let trg=graph[blockTriggered];
     if (!trg || trg.dead){
         return;
     }
+    event.target.placeholder=trg.value==undefined?"Value of Block":trg.value;
     let cell=document.getElementById("workSpace").rows[trg.x].cells[mainColumn+trg.y];
     cell.firstChild.style.border="4px solid #977676";
     cell.firstChild.style.background="#D1D6E1";
@@ -468,12 +491,13 @@ function changedBlock(){
         cell.firstChild.style.background="#DEB5B1";
         errorOfBlock=false;
     }
-    event.target.value=trg.value===undefined?"":trg.value;
 }
 
 function delChange(){
+    focusInitBox=false;
     let trg=graph[blockTriggered];
     let cell=document.getElementById("workSpace").rows[trg.x].cells[mainColumn+trg.y];
+    event.target.placeholder="Value of Block";
     cell.firstChild.style.border="none";
     cell.firstChild.style.background="none";
     event.target.value="";
@@ -484,7 +508,6 @@ function cmenu(){
     let contmenu=document.getElementById("submenu");
     let trg= event.target.tagName=="TD"?event.target: event.target.parentNode;
     let block=graph[graphIds.get(trg.parentNode.rowIndex+ " "+(trg.cellIndex-mainColumn))];
-    document.getElementById("initBox").value=block.value===undefined?"": block.value;
     contmenu.style.display="block";
     blockTriggered=block.pos;
     contmenu.style.left=Math.round(event.clientX-15)+"px";
@@ -520,8 +543,8 @@ function closeMenu(){
 
 function reValBloc(){
     var box =document.getElementById("initBox");
-    box.focus();
     box.value = graph[blockTriggered].value;
+    box.focus();
     closeMenu();
 }
 
