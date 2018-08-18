@@ -284,8 +284,18 @@ table tbody tr {
 	margin: 21%;
 }
 
-#menu table{
-	border-spacing: 0px 18px;
+#menu div{
+	opacity: 0.7;
+}
+
+#menu div:hover{
+	opacity: 1;	
+}
+
+#menu div:hover img{
+	height: 15%;
+	width: 68%;
+	margin: 22% 0;
 }
 
 #InformationMenu div{
