@@ -51,6 +51,7 @@ main{
   padding: 0;
   color: #BEC8DE;
 }
+
 header{
 	font-size: 25px;
 	display: flex;
@@ -94,6 +95,7 @@ header div{
 #hiddenTools{
 	width: 8%;
 	float:left;
+	overflow: hidden;
 }
 
 #options{
@@ -102,8 +104,17 @@ header div{
 }
 
 #hiddenInformationMenu{
+	overflow: hidden;
 	width: 16%;
 	float:left;
+}
+
+#toolsHead{
+	-webkit-transition:opacity 0.7s;	
+}
+
+#informationHead{
+	-webkit-transition:opacity 0.7s;	
 }
 
 #menu{
@@ -119,6 +130,7 @@ header div{
   	color: #2a3c3c;
   	font-size: 23px;
   	text-align: center;
+  	font-weight:700;
 }
 #menu img{
 	margin: 23% 0%;
@@ -277,11 +289,10 @@ table tbody tr {
 	display: flex;
     align-items: center;
  	justify-content: center;
-
 }
 
 #main tr img{
-	margin: 21%;
+	margin: 23%;
 }
 
 #menu div{
@@ -421,7 +432,7 @@ table tbody tr {
 	width: 28%;
 	height: 58%;
   	left: 36%;
-  	top: 21%;
+  	top: 19%;
   	border-radius: 2%; 
   	background: #C0C4CD;
   	-webkit-transition: opacity 0.7s; 
@@ -439,7 +450,7 @@ table tbody tr {
 	margin: 2% 5%;
 	width: 90%;
 	height: 20%; 
-	border-radius: 5%; 
+	border-radius: 6%; 
 	background-color: #DADCE2;
 	position: relative;
 	box-shadow: inset 0 0 10px rgba(192, 196, 205,1);

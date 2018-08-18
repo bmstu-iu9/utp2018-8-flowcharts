@@ -499,7 +499,7 @@ function cmenu(){
         if (contmenu.children.length==3){
             let lit=document.createElement("li");
             lit.setAttribute("onclick","reValBloc()");
-            lit.innerHTML="<i>Переобозначить</i>";
+            lit.innerHTML="<div>Переобозначить</div>";
             contmenu.insertBefore(lit,contmenu.children[0]);
         }
         contmenu.style.height="160px";
@@ -742,7 +742,7 @@ function dfsAdd(V){
     V.ifRes= V.y==graph[V.parents[0]].y?true:false;
     graphIds.set((V.x+1)+ " "+(V.y),V.pos);
     if (graph[V.parents[0]].type=="if" && !V.ifRes){
-        graphIds.delete((V.x)+ " "+(V.y));   
+        graphIds.delete((V.x)+ " " +(V.y));   
     }
     V.x++;
 }
@@ -789,8 +789,8 @@ function newFile(){
     }
     menu.style.opacity=1;
     M.style.opacity=0;
-    document.getElementById("informationHead").style.display= "none";
-    document.getElementById("toolsHead").style.display= "none";
+    document.getElementById("informationHead").style.opacity= "0";
+    document.getElementById("toolsHead").style.opacity="0";
 }
 
 function buttonBack(){
@@ -800,8 +800,8 @@ function buttonBack(){
     let lol=document.getElementById("lol");
     M.style.opacity=1;  
     menu.style.opacity=0;
-    document.getElementById("informationHead").style.display= "block";
-    document.getElementById("toolsHead").style.display= "block";
+    document.getElementById("informationHead").style.opacity= "1";
+    document.getElementById("toolsHead").style.opacity="1";
     setTimeout(1000);
     menu.style.display= "none";
 }
@@ -815,8 +815,8 @@ function buttonNewFile(){
     let lol=document.getElementById("lol");
     M.style.opacity=1;
     menu.style.opacity=0;
-    document.getElementById("informationHead").style.display= "block";
-    document.getElementById("toolsHead").style.display= "block";
+    document.getElementById("informationHead").style.opacity= "1";
+    document.getElementById("toolsHead").style.opacity="1";
     setTimeout(1000);
     menu.style.display= "none";
     let body=document.getElementById("workSpace");
@@ -857,7 +857,6 @@ function buttonNewFile(){
 
     graph.push(startV);
     graph.push(ft);
-
 }
 
 
