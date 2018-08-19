@@ -604,7 +604,7 @@ function whileForLeftOrRight(){
         }
         V=graph[V.childs[0]];
     }
-    V.cell.className = "focusetarget";
+    V.cell.className = "droptarget";
     setRes();
     reSetM();
 }
@@ -619,6 +619,7 @@ function buttonRight(){
 
 function buttonLeft(){
     graph[counter].cell.className = "lv";
+    graph[counter+1].cell.className = "lv";
     counter--;
     whileForLeftOrRight();
     return;
