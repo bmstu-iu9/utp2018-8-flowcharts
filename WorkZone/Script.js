@@ -628,7 +628,7 @@ function setRes(){
     hr.color="#334D4D";
     hr.style.opacity= 0.7;
     varTable.innerHTML="";
-    elem.innerHTML="Результат вычислений:";
+    elem.innerHTML="Resultat:";
     varTable.insertBefore(elem,document.getElementById("var").firstChild);
     for (let item of varSet){
         newSetRes(item,m);
