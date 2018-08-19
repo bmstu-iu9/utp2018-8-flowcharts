@@ -16,22 +16,22 @@ let cellW=230;
 let cellH=200;
 
 class vort{
-	constructor(type,pos, x, y){
-		this.parents= [];
-		this.childs=[];
-		this.type=type;
-		this.pos=pos;
-		this.x=x;
+    constructor(type,pos, x, y){
+        this.parents= [];
+        this.childs=[];
+        this.type=type;
+        this.pos=pos;
+        this.x=x;
         this.y=y;
-		this.ifRes=true;
+        this.ifRes=true;
         this.dead=false;
-	}
-	addParent(parent){
-		this.parents.push(parent);
-	}
-	addChild(child){
-		this.childs.push(child);
-	}
+    }
+    addParent(parent){
+        this.parents.push(parent);
+    }
+    addChild(child){
+        this.childs.push(child);
+    }
 }
 
 var startV=new vort("start",0,0,0);
@@ -53,68 +53,68 @@ graph.push(ft);
 
 
 (function () {
-  var blockContextMenu, myElement;
+    var blockContextMenu, myElement;
 
-  blockContextMenu = function (evt) {
-    evt.preventDefault();
-    let trg=event.target;
-    let cell;
-    let row;
-    if (trg.tagName=="TD"){
-        row=trg.parentNode.rowIndex;
-        cell=trg.cellIndex;
-    } else {
-        row=trg.parentNode.parentNode.rowIndex;
-        cell=trg.parentNode.cellIndex;
-    }
-    let V =graph[graphIds.get(row+ " "+(cell-mainColumn))];
-    if ( trg.tagName=="IMG" || (V.type=="trg" && V.childs.length==1) || V.type!="trg" ){
-        cmenu();
-    }
-  };
+    blockContextMenu = function (evt) {
+        evt.preventDefault();
+        let trg=event.target;
+        let cell;
+        let row;
+        if (trg.tagName=="TD"){
+            row=trg.parentNode.rowIndex;
+            cell=trg.cellIndex;
+        } else {
+            row=trg.parentNode.parentNode.rowIndex;
+            cell=trg.parentNode.cellIndex;
+        }
+        let V =graph[graphIds.get(row+ " "+(cell-mainColumn))];
+        if ( trg.tagName=="IMG" || (V.type=="trg" && V.childs.length==1) || V.type!="trg" ){
+            cmenu();
+        }
+    };
 
-  myElement = document.querySelector('#Main');
-  myElement.addEventListener('contextmenu', blockContextMenu);
+    myElement = document.querySelector('#Main');
+    myElement.addEventListener('contextmenu', blockContextMenu);
 })();
 
 
 function getFocus(trg) {
-	let row=trg.parentNode.rowIndex;
-	let cell=trg.cellIndex;
-	let paint=true;
-	let V =graph[graphIds.get(row+ " "+(cell-mainColumn))];
+    let row=trg.parentNode.rowIndex;
+    let cell=trg.cellIndex;
+    let paint=true;
+    let V =graph[graphIds.get(row+ " "+(cell-mainColumn))];
     if (V.type=="trg" && V.childs.length==1){
         cmenu();
     }
     if (V.cell.className==="focusеtarget"){
-		paint=false;
-	}
+        paint=false;
+    }
     paintChilds(graph[0],false);
-	paintChilds(V,paint);
-	paintParents(V,paint);
+    paintChilds(V,paint);
+    paintParents(V,paint);
     blockTriggered=V.pos;
-    document.getElementById("initBox").value=V.value==undefined?"":V.value;   
+    document.getElementById("initBox").value=V.value==undefined?"":V.value;
 }
 
 function paintChilds(V,paint){
     if (V.type=="trg"){
         return;
     }
-	if (paint){
+    if (paint){
         V.cell.className="focusеtarget";
     } else {
         V.cell.className=V.baseClass;
-	}
-	for (let i=0;i<V.childs.length;i++){
-		let W=graph[V.childs[i]];
-		if (W.ifRes || !paint){
+    }
+    for (let i=0;i<V.childs.length;i++){
+        let W=graph[V.childs[i]];
+        if (W.ifRes || !paint){
             paintChilds(W,paint);
-		}
-	}
+        }
+    }
 }
 
 function paintParents(V,paint){
-	if (V.type=="trg"){
+    if (V.type=="trg"){
         return;
     }
     if (paint){
@@ -140,8 +140,8 @@ document.addEventListener("dragover", function(event) {
 document.addEventListener("drop", function(event) {
     event.preventDefault();
     if ( event.target.className === "droptarget") {
-    	var table = document.getElementById("workSpace");
-    	graph[0].cell= table.rows[0].cells[mainColumn];
+        var table = document.getElementById("workSpace");
+        graph[0].cell= table.rows[0].cells[mainColumn];
         var data =document.getElementById(event.dataTransfer.getData("Text"));
         var startNode= data.parentNode;
         var start= data.cloneNode(true);
@@ -156,27 +156,27 @@ document.addEventListener("drop", function(event) {
         data.setAttribute("draggable", "false");
         event.target.appendChild(data);
         event.target.setAttribute('onclick',"getFocus(this)");
-        
+
         event.target.className = "lv";
-       	startNode.appendChild(start);
+        startNode.appendChild(start);
         event.target.setAttribute("contextmenu","alert()");
 
-        
+
         V.type=data.className;
         blockTriggered=V.pos;
         if (V.type!="end"){
             document.getElementById("initBox").focus();
         }
-		if (V.x===parent.x){
-			V.ifRes=false;
-		}
+        if (V.x===parent.x){
+            V.ifRes=false;
+        }
         if (V.childs.length==0)
             changeTrigger(row, cell,data.id,V.pos,true);
         else if (V.type=="if")
             changeTrigger(row, cell,data.id,V.pos,false);
         if (parent.pos!=0 && parent.cell.className==="focusеtarget" && V.ifRes){
-        	V.cell.className="focusеtarget";
-		}
+            V.cell.className="focusеtarget";
+        }
         if (V.type==="loop"){
             V.root=findRoot(V);
         }
@@ -185,8 +185,8 @@ document.addEventListener("drop", function(event) {
 
 
 function changeTrigger(row, cell, type, prnt, check){
-	var table = document.getElementById("workSpace");
-	if (type !== "end" && check && type!== "loop"){
+    var table = document.getElementById("workSpace");
+    if (type !== "end" && check && type!== "loop"){
         let newVort = new vort("trg",countOfVort++,row+1,cell-mainColumn);//поменть id у фигур
         let key=(row+1)+ " " +(cell-mainColumn);
         newVort.baseClass="lv";
@@ -196,9 +196,9 @@ function changeTrigger(row, cell, type, prnt, check){
         newVort.cell.className="droptarget";
         graphIds.set(key,countOfVort-1);
         graph.push(newVort);
-	}
-	if (type=== "romb"){
-		let newColumn = findFreeColumn(cell);
+    }
+    if (type=== "romb"){
+        let newColumn = findFreeColumn(cell);
         let key=row+ " " +(newColumn-mainColumn);
         let newVort = new vort("trg",countOfVort++,row,newColumn-mainColumn);//поменть id у фигур
         newVort.baseClass="lv";
@@ -209,9 +209,9 @@ function changeTrigger(row, cell, type, prnt, check){
         graphIds.set(key,countOfVort-1);
         graph.push(newVort);
     }
-	if (row >= document.getElementById("workSpace").rows.length-2){
-		addRow();
-	}
+    if (row >= document.getElementById("workSpace").rows.length-2){
+        addRow();
+    }
 }
 
 function findRoot(V){
@@ -222,133 +222,133 @@ function findRoot(V){
 }
 
 function findFreeColumn(startColumn){
-	var table = document.getElementById("workSpace");
-	if (startColumn<mainColumn || startColumn==mainColumn && R>=L){
-		for (let i=startColumn-1;i>=0;i--){
-			if (!columns[i]){
-				if(i==0){
-					addColumn(true);
-					i++;
-				}
-				columns[i]=true;
-				return i ;
-			}
-		}
-	} else {
-		for (let i=startColumn+1;i<columns.length;i++){
-			if (!columns[i]){
-				if (i== columns.length-1){
-					addColumn(false);
-				}
-				columns[i]=true;
-				return i ;
-			}
-		}
-	}
+    var table = document.getElementById("workSpace");
+    if (startColumn<mainColumn || startColumn==mainColumn && R>=L){
+        for (let i=startColumn-1;i>=0;i--){
+            if (!columns[i]){
+                if(i==0){
+                    addColumn(true);
+                    i++;
+                }
+                columns[i]=true;
+                return i ;
+            }
+        }
+    } else {
+        for (let i=startColumn+1;i<columns.length;i++){
+            if (!columns[i]){
+                if (i== columns.length-1){
+                    addColumn(false);
+                }
+                columns[i]=true;
+                return i ;
+            }
+        }
+    }
 }
 
 function addColumn(side){
-	var newCellClass;
-	var table = document.getElementById("workSpace");
-	var pos =0;
-	var cell;
-	if (!side){
-		pos=columns.length-1;
-	}
-	newCellClass ="lv";
-	for (var i =0;i<table.rows.length;i++){
-		var newCell= document.createElement("td");
-		newCell.className=newCellClass;
+    var newCellClass;
+    var table = document.getElementById("workSpace");
+    var pos =0;
+    var cell;
+    if (!side){
+        pos=columns.length-1;
+    }
+    newCellClass ="lv";
+    for (var i =0;i<table.rows.length;i++){
+        var newCell= document.createElement("td");
+        newCell.className=newCellClass;
         newCell.style.width=cellW;
         newCell.style.height=cellH;
-		if (!side){
-			table.rows[i].appendChild(newCell);
-		} else{
-			table.rows[i].insertBefore(newCell,table.rows[i].children[0]);
-		}
-	}
-	if (side){
-		columns.unshift(false);
-		mainColumn++;
-		L++;
-	}else {
-		R++;
-		columns.push(false);
-	}
+        if (!side){
+            table.rows[i].appendChild(newCell);
+        } else{
+            table.rows[i].insertBefore(newCell,table.rows[i].children[0]);
+        }
+    }
+    if (side){
+        columns.unshift(false);
+        mainColumn++;
+        L++;
+    }else {
+        R++;
+        columns.push(false);
+    }
 }
 
 function addRow(){
     let table = document.getElementById("workSpace");
     let row = table.insertRow(-1);
-	for (let i =0; i< columns.length;i++){
+    for (let i =0; i< columns.length;i++){
         let cell = row.insertCell(-1);
-		cell.className= table.rows[0].cells[0].className;
-	}
+        cell.className= table.rows[0].cells[0].className;
+    }
 }
 
 function addWindow(trg){
     let obj;
-	let menu =document.getElementById("menu");
-	let Ht=document.getElementById("hiddenTools");
-	let iMenu =document.getElementById("InformationMenu")
-	let Hm=document.getElementById("hiddenInformationMenu");
-	let main =document.getElementById("main");
-	trg===Hm? obj= iMenu: obj=menu;
-	if (obj.className=="hidden"){
-		if (trg===Ht){
-			if (iMenu.className=="hidden"){
-				main.style.width="92%";
-				main.style.left="8%";
-			}else{
-				main.style.width="76%";
-				main.style.left="8%";
-			}
-		}else{
-			if (menu.className=="hidden"){
-				main.style.width="84%";
-				main.style.left="0%";
-			}else{
-				main.style.width="76%";
-				main.style.left="8%";
-			}
-		}
-		obj.className="block";
-		} else{
-    	if (trg===Ht){
-			if (iMenu.className=="hidden"){
-				main.style.width="100%";
-				main.style.left="0%";
-			}else{
-				main.style.width="84%";
-				main.style.left="0%";
-			}
-		}else{
-			if (menu.className=="hidden"){
-				main.style.width="100%";
-				main.style.left="0%";
-			}else{
-				main.style.width="92%";
-				main.style.left="8%";
-			}
-		}
- 		obj.className="hidden";
-	}
+    let menu =document.getElementById("menu");
+    let Ht=document.getElementById("hiddenTools");
+    let iMenu =document.getElementById("InformationMenu")
+    let Hm=document.getElementById("hiddenInformationMenu");
+    let main =document.getElementById("main");
+    trg===Hm? obj= iMenu: obj=menu;
+    if (obj.className=="hidden"){
+        if (trg===Ht){
+            if (iMenu.className=="hidden"){
+                main.style.width="92%";
+                main.style.left="8%";
+            }else{
+                main.style.width="76%";
+                main.style.left="8%";
+            }
+        }else{
+            if (menu.className=="hidden"){
+                main.style.width="84%";
+                main.style.left="0%";
+            }else{
+                main.style.width="76%";
+                main.style.left="8%";
+            }
+        }
+        obj.className="block";
+    } else{
+        if (trg===Ht){
+            if (iMenu.className=="hidden"){
+                main.style.width="100%";
+                main.style.left="0%";
+            }else{
+                main.style.width="84%";
+                main.style.left="0%";
+            }
+        }else{
+            if (menu.className=="hidden"){
+                main.style.width="100%";
+                main.style.left="0%";
+            }else{
+                main.style.width="92%";
+                main.style.left="8%";
+            }
+        }
+        obj.className="hidden";
+    }
 }
 
 function  hiddenVarBox(trg){
-	let VarBox= document.getElementById("initVarBox");
-	if (VarBox.style.display!=="block"){
-		VarBox.style.display="block";
-		trg.width=0;
-		trg.height=0;
-		trg.style.opacity=0;
-		VarBox.focus();
-	}
+    let VarBox= document.getElementById("initVarBox");
+    if (VarBox.style.display!=="block"){
+        VarBox.style.display="block";
+        trg.width=0;
+        trg.height=0;
+        trg.style.opacity=0;
+        VarBox.focus();
+    }
 }
 
 function getVal(){
-	let trg= document.getElementById("Plas");
-	let VarBox= document.getElementById("initVarBox");
+    let trg= document.getElementById("Plas");
+    let VarBox= document.getElementById("initVarBox");
     let prt= document.getElementById("var");
     let lastCh= document.getElementById("addVar");
     let elem1= document.createElement("div");
@@ -372,20 +372,20 @@ function getVal(){
     prt.insertBefore(elem1,lastCh);
     prt.insertBefore(elem2,lastCh);
     prt.insertBefore(hr,lastCh);
-	VarBox.value="";
-	VarBox.style.display="none";
-	trg.width=40;
-	trg.height=40;
-	trg.style.opacity=1;
+    VarBox.value="";
+    VarBox.style.display="none";
+    trg.width=40;
+    trg.height=40;
+    trg.style.opacity=1;
 }
 
 function returnPlas(){
-	let trg= document.getElementById("Plas");
-	let VarBox= document.getElementById("initVarBox");
-	VarBox.style.display="none";
-	trg.width=40;
-	trg.height=40;
-	trg.style.opacity=1;
+    let trg= document.getElementById("Plas");
+    let VarBox= document.getElementById("initVarBox");
+    VarBox.style.display="none";
+    trg.width=40;
+    trg.height=40;
+    trg.style.opacity=1;
 }
 
 function reVal(trg){
@@ -448,7 +448,7 @@ function getValOfBlock(){
         return;
     }
     trg.value=input.value;
-    input.value=""; 
+    input.value="";
     input.blur();
 }
 
@@ -604,7 +604,7 @@ function whileForLeftOrRight(){
         }
         V=graph[V.childs[0]];
     }
-    V.cell.className = "droptarget";
+    V.cell.className = "focusetarget";
     setRes();
     reSetM();
 }
@@ -619,7 +619,7 @@ function buttonRight(){
 
 function buttonLeft(){
     graph[counter].cell.className = "lv";
-    graph[counter+1].cell.className = "lv";
+    //graph[counter+1].cell.className = "lv";
     counter--;
     whileForLeftOrRight();
     return;
@@ -646,7 +646,7 @@ function buttonPlay(){
         }
         if (V.value){
             var tmpr =parse(V.value,true);
-        } 
+        }
         if ( !V.value || tmpr == "error" ){
             let varbox= document.getElementById("initBox");
             blockTriggered=V.pos;
@@ -667,8 +667,8 @@ function buttonPlay(){
                 if (!graph[V.childs[0]].ifRes){
                     V=graph[V.childs[0]];
                 } else {
-                    V=graph[V.childs[1]];;
-                } 
+                    V=graph[V.childs[1]];
+                }
             }
             continue;
         } else if (V.type == "end"){
@@ -718,7 +718,7 @@ function newSetRes(item, tMap){
     } else prt.insertBefore(hr,place);
     prt.insertBefore(elem1,place);
     prt.insertBefore(elem2,place);
-    if (tMap!=m) prt.insertBefore(hr,place); 
+    if (tMap!=m) prt.insertBefore(hr,place);
 }
 
 function buttonReStart() {
@@ -752,7 +752,7 @@ function buttonDelete(){
         block.cell.innerHTML="";
         block.cell.className="droptarget";
         block.type="trg";
-    }else{ 
+    }else{
         pr.childs[0]==block.pos?(pr.childs[0]=block.childs[0]) :(pr.childs[1]=block.childs[0]);
         graph[block.childs[0]].parents[0]=pr.pos;
         dfs(graph[block.childs[0]]);
@@ -773,7 +773,7 @@ function delDfs(V){
 
 function dfs(V){
     let table=document.getElementById("workSpace");
-    let pr=table.rows[V.x-1].cells[mainColumn+V.y]; 
+    let pr=table.rows[V.x-1].cells[mainColumn+V.y];
     pr.innerHTML=V.cell.innerHTML;
     pr.className=V.cell.className;
     V.cell.innerHTML="";
@@ -786,17 +786,17 @@ function dfs(V){
     for (var i=0;i<V.childs.length;i++){
         dfs(graph[V.childs[i]]);
     }
-    
+
 }
 
-function buttonAddBlock(){ 
+function buttonAddBlock(){
     paintChilds(graph[0]);
     let trg=event.target.parentNode;
     let block=graph[blockTriggered];
     let pr = graph[block.parents[0]];
     blockTriggered=block.childs[0];
     let newVort =new vort("trg",countOfVort++,block.x,block.y);
-    pr.childs[0]==block.pos?(pr.childs[0]=newVort.pos) :(pr.childs[1]=newVort.pos);   
+    pr.childs[0]==block.pos?(pr.childs[0]=newVort.pos) :(pr.childs[1]=newVort.pos);
     block.parents[0]=newVort.pos;
     let key=(block.x)+ " " +(block.y);
     newVort.baseClass="lv";
@@ -831,7 +831,7 @@ function dfsAdd(V){
     V.ifRes= V.y==graph[V.parents[0]].y?true:false;
     graphIds.set((V.x+1)+ " "+(V.y),V.pos);
     if (graph[V.parents[0]].type=="if" && !V.ifRes){
-        graphIds.delete((V.x)+ " "+(V.y));   
+        graphIds.delete((V.x)+ " "+(V.y));
     }
     V.x++;
 }
@@ -1158,7 +1158,7 @@ function parseF() {
         else if (s.has(t.getVal()) || varSet.has(t.getVal()) || !write) {
             var key = t.getVal();
             t.next();
-            var sors; 
+            var sors;
             if (m.get(key)){
                 sors = m;
             }else {
@@ -1242,7 +1242,7 @@ function parseF() {
     }
     else if (t.getVal() === '-') {
         t.next();
-         return -1 * parseF();
+        return -1 * parseF();
     }
     else if (t.getVal()=== '!'){
         t.next();
