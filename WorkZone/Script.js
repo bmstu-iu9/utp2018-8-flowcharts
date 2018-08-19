@@ -540,6 +540,7 @@ function reSetM(){
         m.set(i,varMap.get(i));
     }
 }
+
 // -----------------------------------DEBAG-----------------------------------
 
 let counter = 0;
@@ -551,7 +552,11 @@ function buttonDebag() {
     document.getElementById('right').style.display = 'block';
 }
 
-function whileForLeftOrRight() {
+function whileForLeftOrRight(){
+    if (document.getElementById("var").firstChild.tagName=="i"){
+        return;
+    }
+    s.clear();
     let count = counter;
     var V =graph[0];
     while(V.type!="end" && count>0){
@@ -599,31 +604,23 @@ function whileForLeftOrRight() {
         }
         V=graph[V.childs[0]];
     }
+    V.cell.className = "focusetarget";
+    setRes();
+    reSetM();
 }
 
 function buttonRight(){
+    graph[counter].cell.className = "lv";
     counter++;
-    if (document.getElementById("var").firstChild.tagName=="i"){
-        return;
-    }
-    //s.clear();
-    var V =graph[0];
     whileForLeftOrRight();
-    setRes();
-    reSetM();
     return;
 }
 
 
 function buttonLeft(){
+    graph[counter].cell.className = "lv";
     counter--;
-    if (document.getElementById("var").firstChild.tagName=="i"){
-        return;
-    }
-    s.clear();
     whileForLeftOrRight();
-    setRes();
-    reSetM();
     return;
 }
 
