@@ -38,6 +38,7 @@ var startV=new vort("start",0,0,0);
 startV.baseClass="lv";
 startV.cell=document.getElementById("workSpace").rows[0].cells[1];
 startV.addChild(1);
+startV.addParent(0);
 startV.cell.setAttribute('onclick',"getFocus(this)");
 graphIds.set("0 0",0);
 
@@ -544,29 +545,36 @@ function reSetM(){
 // -----------------------------------DEBAG-----------------------------------
 
 let counter = 0;
+let debag=false;
+let debagBlock=0;
+let LD=false;
+let RD=true;
 
 function buttonDebag() {
+    debag=true;
     counter = 0;
+    debagBlock=0;    
     document.getElementById('bug').style.display = 'none';
     document.getElementById('left').style.display = 'block';
     document.getElementById('right').style.display = 'block';
+    graph[0].cell.firstChild.className="debagTarg"; 
+    reSetM();
+    setRes();
+    LD=false;
+    RD=true;
 }
 
 function whileForLeftOrRight(){
-    if (document.getElementById("var").firstChild.tagName=="i"){
-        return;
-    }
     s.clear();
     let count = counter;
     var V =graph[0];
-    while(V.type!="end" && count>0){
+    while(V.type!="end" && count>=0){
         count--;
         if (V.type=="start"){
             V=graph[V.childs[0]];
             reSetM();
             continue;
         }
-        //alert(V.type + " " + V.x+ " " + (V.y+mainColumn));
         if (V.childs.length==0){
             alert("error Of End");
             reSetM();
@@ -604,25 +612,42 @@ function whileForLeftOrRight(){
         }
         V=graph[V.childs[0]];
     }
-    V.cell.className = "focusetarget";
+    debagBlock=V.parents[0];
+    cleanBlock(graph[0]);
+    
+    if (count!=-1){
+        V.cell.firstChild.className="debagTarg";
+        RD=false;
+    } else {
+        graph[debagBlock].cell.firstChild.className="debagTarg";
+        RD =true;
+    }
+    if (V.type == "start"){
+        counter=0;
+        LD=false;
+    } else LD =true;
     setRes();
     reSetM();
 }
 
+function cleanBlock(V){
+    if (V.cell.firstChild) V.cell.firstChild.className="";
+    for (let i=0;i<V.childs.length;i++){ 
+        cleanBlock(graph[V.childs[i]]);
+    }
+}
+
 function buttonRight(){
-    graph[counter].cell.className = "lv";
+    if (!RD) return;
     counter++;
     whileForLeftOrRight();
-    return;
 }
 
 
 function buttonLeft(){
-    graph[counter].cell.className = "lv";
-    //graph[counter+1].cell.className = "lv";
+    if (!LD) return;
     counter--;
     whileForLeftOrRight();
-    return;
 }
 
 // -----------------------------------DEBAG-----------------------------------
@@ -689,7 +714,9 @@ function setRes(){
     hr.color="#334D4D";
     hr.style.opacity= 0.7;
     varTable.innerHTML="";
-    elem.innerHTML="Результат вычислений:";
+    if (debag){
+        elem.innerHTML="Debag result:";    
+    } else elem.innerHTML="Result:";
     varTable.insertBefore(elem,document.getElementById("var").firstChild);
     for (let item of varSet){
         newSetRes(item,m);
@@ -697,7 +724,14 @@ function setRes(){
     for (let item of s){
         newSetRes(item,m);
     }
+    if (varTable.children.length==1){
+        let lm= document.createElement("i");
+        lm.innerHTML="NaN";
+        varTable.appendChild(hr);
+        varTable.appendChild(lm);
+    }
     varTable.insertBefore(elem,document.getElementById("var").firstChild);
+
 }
 
 function newSetRes(item, tMap){
@@ -733,6 +767,7 @@ function buttonReStart() {
     for (let i of varSet){
         newSetRes(i,varMap);
     }
+    cleanBlock(graph[debagBlock]);
 }
 
 function buttonDelete(){
@@ -1138,7 +1173,6 @@ function parseF() {
             if (t.getVal() === '=') {
                 t.next();
                 let res= Number(parseO());
-                // доработаь с вариантами что значение будет bool
                 if (SE!='SE'){
                     if (write){
                         s.add(key);
@@ -1173,7 +1207,9 @@ function parseF() {
             else if (t.getVal() === '++'){
                 t.next();
                 if (write){
-                    m.set(key,sors.get(key)+1);
+                    if(sors.get(key)==undefined){
+                        m.set(key,1);
+                    } else m.set(key,1+sors.get(key));
                 }
                 return "changes";
             }
