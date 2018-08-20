@@ -611,6 +611,7 @@ function whileForLeftOrRight(){
             varbox.style.background="#DEB5B1";
             errorOfBlock=true;
             varbox.focus();
+            counter--;
             reSetM();
             return;
         }
@@ -676,6 +677,8 @@ function buttonLeft(){
 function buttonPlay(){
     if (inMenu)
         return;
+    if (debag)
+        buttonReStart();
     if (document.getElementById("var").firstChild.tagName=="i"){
         return;
     }
@@ -790,7 +793,7 @@ function buttonReStart() {
         document.getElementById('bug').style.display= 'block';
         document.getElementById('left').style.display= 'none';
         document.getElementById('right').style.display= 'none';
-        cleanBlock(graph[debagBlock]);
+        cleanBlock(graph[0]);
         debag=false;
     } 
     
