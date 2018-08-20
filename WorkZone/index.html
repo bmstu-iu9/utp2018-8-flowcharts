@@ -13,13 +13,15 @@
    		</div>
    		<div id="options" >
 	   		<div id="buttons">
-	   			<input type="image" src="https://png.icons8.com/ios/40/B7BCC7/play-filled.png" onclick="buttonPlay();" checked/>
-	   			<input type="image" src="https://png.icons8.com/ios/40/B7BCC7/stop-filled.png" onclick="buttonReStart();" checked/>
-	   			<input type="image" src="https://png.icons8.com/windows/40/B7BCC7/bug.png" checked/>
-	   			<input type="image" src="https://png.icons8.com/ios/40/B7BCC7/save-as.png" checked/>	
-	   			<input type="image" src="https://png.icons8.com/dotty/40/B7BCC7/add-file.png" onclick="newFile();" checked/>
-	   			<input type="image" src="https://png.icons8.com/material/40/B7BCC7/question-mark.png" onclick="helpPage()" checked/>
-   			</div>
+				<input type="image" src="https://png.icons8.com/ios/40/B7BCC7/play-filled.png" onclick="buttonPlay();" checked/>
+				<input type="image" src="https://png.icons8.com/ios/40/B7BCC7/stop-filled.png" onclick="buttonReStart();" checked/>
+				<input type="image" id = "left" src="https://png.icons8.com/windows/40/B7BCC7/left.png" style="display:none" onclick= "buttonLeft();" checked/>
+				<input type="image" id = "bug" src="https://png.icons8.com/windows/40/B7BCC7/bug.png" onclick="buttonDebag();" checked/>
+				<input type="image" id = "right" src="https://png.icons8.com/windows/40/B7BCC7/right.png" style="display: none" onclick="buttonRight();" checked/>
+				<input type="image" src="https://png.icons8.com/ios/40/B7BCC7/save-as.png" checked/>
+				<input type="image" src="https://png.icons8.com/dotty/40/B7BCC7/add-file.png" onclick="" checked/>
+				<input type="image" src="https://png.icons8.com/material/40/B7BCC7/question-mark.png" onclick="helpPage()" checked/>
+			</div>
    		</div>
    		<div id="hiddenInformationMenu" style="text-align: center;line-height: 8vh;" onclick="addWindow(this)">
    			<strong id="informationHead"><i>Information</i></strong>
