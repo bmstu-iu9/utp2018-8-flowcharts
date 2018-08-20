@@ -555,7 +555,7 @@ function helpPage(){
 }
 
 function reSetM(){
-    s.clear;    
+    s.clear();    
     m.clear();
     for (let i of varSet){
         m.set(i,varMap.get(i));
