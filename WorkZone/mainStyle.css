@@ -421,7 +421,6 @@ table tbody tr {
 	outline: none;
 }
 
-<<<<<<< HEAD
  #addVar input{
  	outline: none;
  }
@@ -474,10 +473,20 @@ table tbody tr {
 	text-align:  center;
 	opacity: 0.6;
 	-webkit-transition: opacity 0.5s; 
-}	
-=======
+}
 .debagTarg{
-	border-radius: 5px;
+	border-radius: 5%;
 	box-shadow:  0 0 10px rgba(0,0,0,0.7); 	
 }
->>>>>>> debag
+
+.onfocus{
+	border-radius: 5%;
+	box-shadow:  0 0 10px rgba(0,0,0,0.7); 	
+	background: #C0C4CD;
+}
+
+.errorblock{
+	border-radius: 5%;
+	box-shadow:  0 0 10px rgba(0,0,0,0.7); 	
+	background: #DEB5B1;	
+}

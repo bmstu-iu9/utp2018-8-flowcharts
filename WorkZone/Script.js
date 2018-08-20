@@ -484,10 +484,9 @@ function changedBlock(){
     }
     event.target.placeholder=trg.value==undefined?"Value of Block":trg.value;
     let cell=document.getElementById("workSpace").rows[trg.x].cells[mainColumn+trg.y];
-    cell.firstChild.style.border="4px solid #977676";
-    cell.firstChild.style.background="#D1D6E1";
+    cell.firstChild.className="onfocus";
     if (errorOfBlock){
-        cell.firstChild.style.background="#DEB5B1";
+        cell.firstChild.className="errorblock";
         errorOfBlock=false;
     }
 }
@@ -497,8 +496,7 @@ function delChange(){
     let trg=graph[blockTriggered];
     let cell=document.getElementById("workSpace").rows[trg.x].cells[mainColumn+trg.y];
     event.target.placeholder="Value of Block";
-    cell.firstChild.style.border="none";
-    cell.firstChild.style.background="none";
+    cell.firstChild.className="";
     event.target.value="";
     event.target.style.background="#DFE0E7";
 }
@@ -557,6 +555,7 @@ function helpPage(){
 }
 
 function reSetM(){
+    s.clear;    
     m.clear();
     for (let i of varSet){
         m.set(i,varMap.get(i));
@@ -598,6 +597,8 @@ function whileForLeftOrRight(){
         }
         if (V.childs.length==0){
             alert("error Of End");
+            RD=false;
+            counter--;
             reSetM();
             return;
         }
@@ -643,8 +644,7 @@ function whileForLeftOrRight(){
         graph[debagBlock].cell.firstChild.className="debagTarg";
         RD =true;
     }
-    if (V.type == "start"){
-        counter=0;
+    if (counter == 0){
         LD=false;
     } else LD =true;
     setRes();
@@ -894,6 +894,9 @@ function dfsAdd(V){
     if (graph[V.parents[0]].type=="if" && !V.ifRes){
         graphIds.delete((V.x)+ " " +(V.y));
     }
+
+    V.cell.setAttribute("onmouseover","initBoxVal()");
+    V.cell.setAttribute("onmouseout","initBoxValOff()");
     V.x++;
 }
 
@@ -1339,7 +1342,9 @@ function parseF() {
             else if (t.getVal() === '--'){
                 t.next();
                 if (write){
-                    m.set(key,sors.get(key)-1);
+                    if(sors.get(key)==undefined){
+                        m.set(key,-1);
+                    } else m.set(key,sors.get(key)-1);
                 }
                 return "changes";
             }
