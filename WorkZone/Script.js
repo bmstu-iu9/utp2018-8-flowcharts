@@ -521,13 +521,13 @@ function cmenu(){
         if (contmenu.children.length==3){
             let lit=document.createElement("li");
             lit.setAttribute("onclick","reValBloc()");
-            lit.innerHTML="<div>Переобозначить</div>";
+            lit.innerHTML="<div>| ReValue</div>";
             contmenu.insertBefore(lit,contmenu.children[0]);
         }
         contmenu.style.height="160px";
     }
     contmenu.style.width="170px";
-    contmenu.style.opacity=0.9;
+    contmenu.style.opacity=0.95;
 }
 
 function closeMenu(){
@@ -571,9 +571,13 @@ let LD=false;
 let RD=true;
 
 function buttonDebag() {
+    if (inMenu){
+        return;
+    }
     debag=true;
     counter = 0;
     debagBlock=0;    
+    document.getElementById('buttonReStart').style.display="block";
     document.getElementById('bug').style.display = 'none';
     document.getElementById('left').style.display = 'block';
     document.getElementById('right').style.display = 'block';
@@ -729,6 +733,7 @@ function buttonPlay(){
     }
     setRes();
     reSetM();
+    document.getElementById("buttonReStart").style.display="block";
     return;
 }
 
@@ -796,7 +801,7 @@ function buttonReStart() {
         cleanBlock(graph[0]);
         debag=false;
     } 
-    
+    document.getElementById('buttonReStart').style.display= 'none';
 }
 
 function buttonDelete(){

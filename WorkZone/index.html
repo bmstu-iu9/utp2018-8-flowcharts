@@ -14,7 +14,7 @@
    		<div id="options" >
 	   		<div id="buttons">
 				<input type="image" src="https://png.icons8.com/ios/40/B7BCC7/play-filled.png" onclick="buttonPlay();" checked/>
-				<input type="image" src="https://png.icons8.com/ios/40/B7BCC7/stop-filled.png" onclick="buttonReStart();" checked/>
+				<input type="image" id ="buttonReStart" src="https://png.icons8.com/ios/40/B7BCC7/stop-filled.png" style="display: none;" onclick="buttonReStart();" checked/>
 				<input type="image" id = "left" src="https://png.icons8.com/windows/40/B7BCC7/left.png" style="display:none" onclick= "buttonLeft();" checked/>
 				<input type="image" id = "bug" src="https://png.icons8.com/windows/40/B7BCC7/bug.png" onclick="buttonDebag();" checked/>
 				<input type="image" id = "right" src="https://png.icons8.com/windows/40/B7BCC7/right.png" style="display: none" onclick="buttonRight();" checked/>
@@ -85,10 +85,10 @@
 			</table>
 	    </div> 
     	<ul onmouseleave="closeMenu();" id="submenu">
-        	<li onclick="reValBloc();"><div>Переобозначить</div></li>
-        	<li onclick="buttonAddBlock()"><div>Вставить</div></li>
-        	<li onclick="buttonDelete();"><div>Удалить</div></li>
-        	<li onclick="alert('бла-бла');closeMenu();"><div>бла-бла</div></li>
+        	<li onclick="reValBloc();"><div>| ReValue</div></li>
+        	<li onclick="buttonAddBlock()"><div>| Insert</div></li>
+        	<li onclick="buttonDelete();"><div>| Delete</div></li>
+        	<li onclick="alert('бла-бла');closeMenu();"><div>| бла-бла</div></li>
       	</ul>
       	</div>
     </main>

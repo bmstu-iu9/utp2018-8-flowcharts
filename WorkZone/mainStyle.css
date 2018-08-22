@@ -376,8 +376,9 @@ table tbody tr {
 }
 
 #submenu li div{
+	overflow: hidden;
 	font-family: "FontAwesome";
-	padding: 8px 5px;
+	padding: 8px 8px;
  	color: #3B5959;
 	text-align: left;
 	font-size: 20px;
@@ -493,4 +494,8 @@ table tbody tr {
 	border-radius: 5%;
 	box-shadow:  0 0 10px rgba(0,0,0,0.7); 	
 	background: #DEB5B1;	
+}
+
+#buttons input{
+	-webkit-transition: width 0.5s,opacity 0.5s; 
 }
