@@ -477,7 +477,7 @@ table tbody tr {
 	font-size: 40px;
 	text-align:  center;
 	opacity: 0.6;
-	-webkit-transition: opacity 0.5s; 
+	-webkit-transition: opacity 0.5s; 	
 }
 .debagTarg{
 	border-radius: 5%;
