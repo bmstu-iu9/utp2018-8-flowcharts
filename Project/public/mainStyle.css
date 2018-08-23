@@ -1,4 +1,3 @@
-
 ::-webkit-scrollbar {
     width: 0px;
     height: 8px;
@@ -133,7 +132,7 @@ header div{
   	font-weight:700;
 }
 #menu img{
-	margin: 23% 0%;
+	margin: 25% 1%;
 	height: 10%;
 	width: 65%;
 }
@@ -235,7 +234,7 @@ header div{
 }
 
 hr{
-	border-radius: 5px;
+	border-radius: 2px;
 }
 
 #var i{
@@ -353,9 +352,8 @@ table tbody tr {
 	height: 0px;
 	opacity: 0;
 	list-style: none;
-	border: 3px solid #BDC4D3;
 	overflow:hidden;
-	-webkit-transition: width 1s , height 1s,opacity 0.5s,left 0.3s, top 0.3s;
+	-webkit-transition: width 0.5s , height 0.5s,opacity 0.5s,left 0.3s, top 0.3s;
 	border-radius: 5px;
 	box-shadow: 0 0 5px rgba(0,0,0,0.5); 
 }
@@ -364,16 +362,23 @@ table tbody tr {
 	width: 100%;
 	height: 40px; 
 	background-color: #CDD4E3;
-	position: relative;
+	transition-property: background-color;
+ 	transition-duration: 0.4s;
 }
 
 #submenu li:hover{
+	box-shadow:inset 0 0 5px rgba(0,0,0,0.2); 
 	background-color: #C0C4CD;
 }
 
+#submenu li:hover div{
+	color: #2E4D4D;
+}
+
 #submenu li div{
+	overflow: hidden;
 	font-family: "FontAwesome";
-	padding: 8px 5px;
+	padding: 8px 8px;
  	color: #3B5959;
 	text-align: left;
 	font-size: 20px;
@@ -456,7 +461,6 @@ table tbody tr {
 	box-shadow: inset 0 0 10px rgba(192, 196, 205,1);
 	transition-property: background-color;
  	transition-duration: 0.7s;
-
 }
 
 #newFileMenu li:hover{
@@ -474,4 +478,24 @@ table tbody tr {
 	text-align:  center;
 	opacity: 0.6;
 	-webkit-transition: opacity 0.5s; 
-}	
+}
+.debagTarg{
+	border-radius: 5%;
+	box-shadow:  0 0 10px rgba(0,0,0,0.7); 	
+}
+
+.onfocus{
+	border-radius: 5%;
+	box-shadow:  0 0 10px rgba(0,0,0,0.7); 	
+	background: #C0C4CD;
+}
+
+.errorblock{
+	border-radius: 5%;
+	box-shadow:  0 0 10px rgba(0,0,0,0.7); 	
+	background: #DEB5B1;	
+}
+
+#buttons input{
+	-webkit-transition: width 0.5s,opacity 0.5s; 
+}
