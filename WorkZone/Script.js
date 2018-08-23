@@ -140,8 +140,8 @@ document.addEventListener("drop", function(event) {
         var row=event.target.parentNode.rowIndex;
         var cell =event.target.cellIndex;
         var key=row + " " +(cell-mainColumn);
-        var V=graph[graphIds.get(key)];
-        var parent=graph[V.parents[0]];
+        let V=graph[graphIds.get(key)];
+        let parent=graph[V.parents[0]];
         if (V.childs.length!=0 && data.className=="end"){
             return;
         }
@@ -199,32 +199,95 @@ function initBoxVal(){
 
 function changeTrigger(row, cell, type, prnt, check){
     var table = document.getElementById("workSpace");
-    if (type !== "end" && check && type!== "loop"){
-        let newVort = new vort("trg",countOfVort++,row+1,cell-mainColumn);//поменть id у фигур
-        let key=(row+1)+ " " +(cell-mainColumn);
-        newVort.baseClass="lv";
-        newVort.addParent(prnt);
-        graph[prnt].addChild(countOfVort-1);
-        newVort.cell=table.rows[row+1].cells[cell];
-        newVort.cell.className="droptarget";
-        graphIds.set(key,countOfVort-1);
-        graph.push(newVort);
+    if (type !== "end" && check && type!== "loop" && type!="romb"){
+        createBlock(row+1,cell,prnt);
     }
     if (type=== "romb"){
-        let newColumn = findFreeColumn(cell);
-        let key=row+ " " +(newColumn-mainColumn);
-        let newVort = new vort("trg",countOfVort++,row,newColumn-mainColumn);//поменть id у фигур
-        newVort.baseClass="lv";
-        newVort.addParent(prnt);
-        graph[prnt].addChild(countOfVort-1);
-        newVort.cell=table.rows[row].cells[newColumn];
-        newVort.cell.className="droptarget";
-        graphIds.set(key,countOfVort-1);
-        graph.push(newVort);
+        addColumn(cell+1);
+        addColumn(cell);
+        if (cell+1<mainColumn)
+            reSetIds(row,cell-mainColumn+2,true);
+        else if (cell+1>mainColumn) 
+            reSetIds(row,cell-mainColumn,false);
+        cell++;
+        createBlock(row,cell-1,prnt);
+        createBlock(row,cell+1,prnt);
+
     }
     if (row >= document.getElementById("workSpace").rows.length-2){
         addRow();
     }
+}
+
+function reSetIds(row, cell,side){
+    var V=graph[graphIds.get(row+ " "+cell)];
+    reSetIdsChld(iFRoot(V),side,cell);
+}
+
+function iFRoot(W){
+    while(graph[W.parents[0]].y!=0){
+        W=graph[W.parents[0]];
+    }
+    return W;
+}
+
+function reSetIdsChld(V,side,C){
+    var table=document.getElementById("workSpace");
+    if (side) {
+        if (C>V.y){
+            graphIds.delete((V.x)+ " "+(V.y));
+            graphIds.set((V.x)+ " "+(V.y-2),V.pos);
+            V.y-=2;
+        }else if (C==V.y){
+            graphIds.delete((V.x)+ " "+(V.y));
+            graphIds.set((V.x)+ " "+(V.y-1),V.pos);
+            V.y--;
+        }
+    }else {
+        if (C<V.y){
+            graphIds.delete((V.x)+ " "+(V.y));
+            graphIds.set((V.x)+ " "+(V.y+2),V.pos);
+            V.y+=2;
+        }else if (C==V.y){
+            graphIds.delete((V.x)+ " "+(V.y));
+            graphIds.set((V.x)+ " "+(V.y+1),V.pos);
+            V.y++;
+        }
+    }
+    for (let i of V.childs){
+        reSetIdsChld(graph[i],side,C);
+    }
+}
+
+/*function reSetIdsPrnt(V,side){
+    if (V.type= ="if")
+        return;
+    var table=document.getElementById("workSpace");
+    graphIds.delete((V.x)+ " "+(V.y));
+    if (side) {
+        graphIds.set((V.x)+ " "+(V.y-1),V.pos);
+        V.y--;
+    }
+    else {
+        graphIds.set((V.x)+ " "+(V.y+1),V.pos);
+        V.y++;
+    }
+    for (let i in V.parents){
+        reSetIdsPrnt(graph[i],side);
+    }
+}*/
+
+function createBlock(row, cell,prnt){
+    var table = document.getElementById("workSpace");
+    let key=row+ " " +(cell-mainColumn);
+    let newVort = new vort("trg",countOfVort++,row,cell-mainColumn);
+    newVort.baseClass="lv";
+    newVort.addParent(prnt);
+    graph[prnt].addChild(countOfVort-1);
+    newVort.cell=table.rows[row].cells[cell];
+    newVort.cell.className="droptarget";
+    graphIds.set(key,countOfVort-1);
+    graph.push(newVort);
 }
 
 function findRoot(V){
@@ -234,60 +297,28 @@ function findRoot(V){
     return V.parents[0];
 }
 
-function findFreeColumn(startColumn){
+function addColumn(pos){
     var table = document.getElementById("workSpace");
-    if (startColumn<mainColumn || startColumn==mainColumn && R>=L){
-        for (let i=startColumn-1;i>=0;i--){
-            if (!columns[i]){
-                if(i==0){
-                    addColumn(true);
-                    i++;
-                }
-                columns[i]=true;
-                return i ;
-            }
-        }
-    } else {
-        for (let i=startColumn+1;i<columns.length;i++){
-            if (!columns[i]){
-                if (i== columns.length-1){
-                    addColumn(false);
-                }
-                columns[i]=true;
-                return i ;
-            }
-        }
-    }
-}
-
-function addColumn(side){
-    var newCellClass;
-    var table = document.getElementById("workSpace");
-    var pos =0;
-    var cell;
-    if (!side){
-        pos=columns.length-1;
-    }
-    newCellClass ="lv";
     for (var i =0;i<table.rows.length;i++){
         var newCell= document.createElement("td");
-        newCell.className=newCellClass;
+        newCell.className="lv";
         newCell.style.width=cellW;
         newCell.style.height=cellH;
-		if (!side){
-			table.rows[i].appendChild(newCell);
-		} else{
-			table.rows[i].insertBefore(newCell,table.rows[i].children[0]);
-		}
+		table.rows[i].insertBefore(newCell,table.rows[i].children[pos]);
 	}
-	if (side){
-		columns.unshift(false);
+	if (pos<=mainColumn){
 		mainColumn++;
-		L++;
-	}else {
-		R++;
-		columns.push(false);
-	}
+    }
+    var newColumns=[];
+    i =0;
+    for (let item in columns){
+        if (i==pos){
+            newColumns.push(true);
+        }
+        newColumns.push(item);
+        i++;
+    }
+    columns=newColumns;
     reSize();
 }
 
@@ -902,7 +933,7 @@ function dfsAdd(V){
     if (graph[V.parents[0]].type=="if" && !V.ifRes){
         graphIds.delete((V.x)+ " " +(V.y));
     }
-
+    V.cell.setAttribute('onclick',"getFocus(this)");
     V.cell.setAttribute("onmouseover","initBoxVal()");
     V.cell.setAttribute("onmouseout","initBoxValOff()");
     V.x++;
@@ -933,6 +964,7 @@ function newFile(){
         let lu=document.getElementById('newFileUl');
         let back = document.createElement('li');
         let hr= document.createElement("hr");
+        hr.size=3;
         hr.color="#334D4D";
         hr.style.width="83%";
         hr.style="opacity: 0.7;margin: 0% 10%;";
