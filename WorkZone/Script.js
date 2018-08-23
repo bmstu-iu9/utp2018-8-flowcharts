@@ -933,9 +933,8 @@ function newFile(){
         let lu=document.getElementById('newFileUl');
         let back = document.createElement('li');
         let hr= document.createElement("hr");
-        hr.size=3;
         hr.color="#334D4D";
-        hr.style.width="80%";
+        hr.style.width="83%";
         hr.style="opacity: 0.7;margin: 0% 10%;";
         menu.style.top="19%";
         menu.style.height="70%";
