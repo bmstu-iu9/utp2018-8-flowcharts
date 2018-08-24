@@ -11,7 +11,7 @@ let blockTriggered="NaN";
 let varMap= new Map();
 let varSet = new Set();
 let errorOfBlock=false;
-let zoom=5;
+let zoom=10;
 let cellW=210;
 let cellH=200;
 let inMenu=true ;
@@ -142,6 +142,13 @@ document.addEventListener("drop", function(event) {
         var key=row + " " +(cell-mainColumn);
         let V=graph[graphIds.get(key)];
         let parent=graph[V.parents[0]];
+        let mg=document.createElement("img");
+        mg.setAttribute("src","img/вниз.png");
+        mg.className="down";
+        if (parent.type=="start"){
+            mg.style.top="-45%";
+        }
+        parent.cell.appendChild(mg);
         if (V.childs.length!=0 && data.className=="end"){
             return;
         }
@@ -523,7 +530,7 @@ function cmenu(){
     contmenu.style.left=Math.round(event.clientX-15)+"px";
     contmenu.style.top=Math.round(event.clientY-90)+"px";
 
-    if (event.target.id=="start" || event.target.firstChild && event.target.firstChild.id=="start" || event.target.className=="start"){
+    if (trg.id=="start" || event.target.firstChild && event.target.firstChild.id=="start" || event.target.className=="start"){
         return;
     } else if (event.target.className=="end" || event.target.className=="droptarget"){
         if (contmenu.children.length==4){
@@ -1021,6 +1028,8 @@ function buttonNewFile(){
     startV.addChild(1);
     startV.cell.setAttribute('onclick',"getFocus(this)");
     graphIds.set("0 0",0);
+    startV.cell.firstChild.style.margin="17%";
+
 
     var ft=new vort("trg",1,1,0);
     ft.baseClass="lv";
