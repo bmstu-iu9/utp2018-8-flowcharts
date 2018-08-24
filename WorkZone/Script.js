@@ -12,7 +12,7 @@ let varMap= new Map();
 let varSet = new Set();
 let errorOfBlock=false;
 let zoom=5;
-let cellW=230;
+let cellW=210;
 let cellH=200;
 let inMenu=true ;
 let firstFile=0;
@@ -162,7 +162,7 @@ document.addEventListener("drop", function(event) {
         if (V.type!="end"){
             document.getElementById("initBox").focus();
         }
-        if (V.x===parent.x){
+        if (V.y<parent.y){
             V.ifRes=false;
         }
         if (V.childs.length==0)
@@ -210,8 +210,8 @@ function changeTrigger(row, cell, type, prnt, check){
         else if (cell+1>mainColumn) 
             reSetIds(row,cell-mainColumn,false);
         cell++;
-        createBlock(row,cell-1,prnt);
-        createBlock(row,cell+1,prnt);
+        createBlock(row+1,cell-1,prnt);
+        createBlock(row+1,cell+1,prnt);
 
     }
     if (row >= document.getElementById("workSpace").rows.length-2){
@@ -258,24 +258,6 @@ function reSetIdsChld(V,side,C){
         reSetIdsChld(graph[i],side,C);
     }
 }
-
-/*function reSetIdsPrnt(V,side){
-    if (V.type= ="if")
-        return;
-    var table=document.getElementById("workSpace");
-    graphIds.delete((V.x)+ " "+(V.y));
-    if (side) {
-        graphIds.set((V.x)+ " "+(V.y-1),V.pos);
-        V.y--;
-    }
-    else {
-        graphIds.set((V.x)+ " "+(V.y+1),V.pos);
-        V.y++;
-    }
-    for (let i in V.parents){
-        reSetIdsPrnt(graph[i],side);
-    }
-}*/
 
 function createBlock(row, cell,prnt){
     var table = document.getElementById("workSpace");
@@ -928,7 +910,7 @@ function dfsAdd(V){
     V.cell.innerHTML="";
     V.cell.className="lv";
     V.cell=nextCell;
-    V.ifRes= V.y==graph[V.parents[0]].y?true:false;
+    V.ifRes= V.y>graph[V.parents[0]].y?true:false;
     graphIds.set((V.x+1)+ " "+(V.y),V.pos);
     if (graph[V.parents[0]].type=="if" && !V.ifRes){
         graphIds.delete((V.x)+ " " +(V.y));
@@ -946,7 +928,7 @@ function reSize(){
     let cf= 1;
     cf+=grad>=5?0.1* Math.abs(grad-5):-0.1* Math.abs(grad-5);
     for (var item of cells){
-        item.style.width=cellW=(230*cf) + "px";
+        item.style.width=cellW=(210*cf) + "px";
         item.style.height=cellH=(200*cf) + "px";
     }
     zoom=grad;

@@ -255,14 +255,14 @@ hr{
 .lc {
     text-align: center;
     vertical-align: top;
-    width: 230px ;
+    width: 210px ;
 	height: 200px;
 }
 
 .lv {
 	text-align: center;
     vertical-align: top;
-    width: 230px ;
+    width: 210px ;
 	height: 200px;
 }
 
@@ -314,7 +314,7 @@ table tbody tr {
 
 .droptarget {
 	background-color: #DEB5B1 ;
-	width: 230px;
+	width: 210px;
 	height: 200px;
 	text-align: center;
     vertical-align: top;
@@ -322,7 +322,7 @@ table tbody tr {
 
 .focusеtarget {
 	background-color: #C4CDD9 ;
-	width: 230px ;
+	width: 210px ;
 	height: 200px;
 	text-align: center;
     vertical-align: top;
@@ -435,7 +435,7 @@ table tbody tr {
 	z-index: 1;
 	position: absolute;
 	width: 28%;
-	height: 60%;
+	height: 60	%;
   	left: 36%;
   	top: 19%;
   	border-radius: 2%; 
