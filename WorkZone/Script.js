@@ -143,12 +143,6 @@ document.addEventListener("drop", function(event) {
         let V=graph[graphIds.get(key)];
         let parent=graph[V.parents[0]];
         let mg=document.createElement("img");
-        mg.setAttribute("src","img/вниз.png");
-        mg.className="down";
-        if (parent.type=="start"){
-            mg.style.top="-45%";
-        }
-        parent.cell.appendChild(mg);
         if (V.childs.length!=0 && data.className=="end"){
             return;
         }
@@ -166,6 +160,14 @@ document.addEventListener("drop", function(event) {
 
         V.type=data.className;
         blockTriggered=V.pos;
+        if (parent.type!="if"){
+            mg.setAttribute("src","img/вниз.png");
+            mg.className="down";
+            if (parent.type=="start"){
+                mg.style.top="-140%";
+            }
+            V.cell.appendChild(mg);
+        }
         if (V.type!="end"){
             document.getElementById("initBox").focus();
         }
@@ -830,12 +832,12 @@ function buttonDelete(){
     let pr = graph[block.parents[0]];
     blockTriggered=block.childs[0];
     if (block.type=="if"){
-        let trueCh=!block.childs[0].ifRes? block.childs[0]:block.childs[1];
-        let falseCh=block.childs[0].ifRes? block.childs[0]:block.childs[1];
+        let trueCh=block.childs[0].ifRes? block.childs[0]:block.childs[1];
+        let falseCh=!block.childs[0].ifRes? block.childs[0]:block.childs[1];
         pr.childs[0]==block.pos?(pr.childs[0]=trueCh) :(pr.childs[1]=trueCh);
         graph[trueCh].parents[0]=pr.pos;
         columns[graph[falseCh].y+mainColumn]=false;
-        dfs(graph[trueCh]);
+        ifDfs(graph[trueCh]);
         delDfs(graph[falseCh]);
     } else if (block.type=="end"){
         block.cell.innerHTML="";
@@ -858,6 +860,23 @@ function delDfs(V){
     V.cell.className="lv";
     V.dead=true;
     graphIds.delete((V.x)+ " "+(V.y));
+}
+
+function ifDfs(V){
+    let table=document.getElementById("workSpace");
+    let pr=table.rows[V.x-1].cells[mainColumn+V.y-1];
+    pr.innerHTML=V.cell.innerHTML;
+    pr.className=V.cell.className;
+    V.cell.innerHTML="";
+    V.cell.className="lv";
+    V.cell=pr;
+    pr.setAttribute('onclick',"getFocus(this)");
+    graphIds.set((V.x-1)+ " "+(V.y-1),V.pos);
+    graphIds.delete((V.x)+ " "+(V.y));
+    V.x--;
+    for (var i=0;i<V.childs.length;i++){
+        dfs(graph[V.childs[i]]);
+    }
 }
 
 function dfs(V){
@@ -917,7 +936,7 @@ function dfsAdd(V){
     V.cell.innerHTML="";
     V.cell.className="lv";
     V.cell=nextCell;
-    V.ifRes= V.y>graph[V.parents[0]].y?true:false;
+    V.ifRes= V.y>=graph[V.parents[0]].y?true:false;
     graphIds.set((V.x+1)+ " "+(V.y),V.pos);
     if (graph[V.parents[0]].type=="if" && !V.ifRes){
         graphIds.delete((V.x)+ " " +(V.y));
