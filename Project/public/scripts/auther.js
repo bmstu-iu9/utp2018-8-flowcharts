@@ -26,27 +26,32 @@ function checkAuth (req, res) {
         const login = data.login;
         const password = data.password;
         
-        var errors = [];
+        let error = "";
         
         db.get("SELECT * FROM users WHERE login=$login", {$login: login}, function(err, row) {
             if (typeof(row) === 'undefined') {
-                errors.push('Неверный логин');
+                error = "Неверный логин!";
                 res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-                const stream = fs.createReadStream(path.resolve('public', 'auth.html'));
-                stream.pipe(res);
-                console.log(errors);
+                fs.readFile(path.resolve('public', 'regauthindex.html'), 'utf-8', function (err, data) {
+                    var loadParam = "<body onload=\"showauth('block')\">";
+                    data = data.replace("{param}", loadParam).replace("{errorAuth}", error).replace("{errorReg}", "");
+                    res.end(data);
+                })
+                console.log(error);
             } else if (row.password !== password) {
-                errors.push('Неверный пароль!')
+                error = "Неверный пароль!";
                 res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-                const stream = fs.createReadStream(path.resolve('public', 'auth.html'));
-                stream.pipe(res);
-                console.log(errors);
+                fs.readFile(path.resolve('public', 'regauthindex.html'), 'utf-8', function (err, data) {
+                    var loadParam = "<body onload=\"showauth('block')\">";
+                    data = data.replace("{param}", loadParam).replace("{errorAuth}", error).replace("{errorReg}", "")
+                                .replace("{valueAuth}", login).replace("{valueReg}", "\"\"");
+                    res.end(data);
+                })
+                console.log(error);
             } else {
-                console.log('HERE');
                 res.writeHead(200, {"Content-Type": "text/plain; charset=utf-8"});
                 str = 'Вы успешно авторизованы под ником ' + login + '!';
                 res.end(str);
-                console.log(errors);
             }
         });  
         db.close();

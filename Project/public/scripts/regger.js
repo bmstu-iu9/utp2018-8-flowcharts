@@ -27,35 +27,43 @@ function checkReg (req, res) {
         const login = data.login;
         const password = data.password;
         const rePassword = data.rePassword;
-        var errors = [];
-        if (login.length < 5) {
-            errors.push("Логин от 5 символов");
-        }
-        if (password.length < 3) {
-            errors.push("Пароль от 3 символов");
-        }
-        if (password != rePassword) {
-            errors.push('Пароли не совпадают!');
+        let error = "";
+        
+        if (login.length == 0) {
+            error = "Введите логин!";
+        } else if (login.length < 5) {
+            error = "Минимальная длина логина - 5 символов!";
+        } else if (password.length == 0) {
+            error = "Введите пароль!";
+        } else if (password.length < 3) {
+            error = "Минимальная длина пароля - 3 символа!";
+        } else if (password != rePassword) {
+            error = "Пароли не совпадают!";
         }
         
-        if (errors.length == 0) {
+        if (error == "") {
         db.get("SELECT * FROM users WHERE login=$login", {$login: login}, function(err, row) {
             if (typeof(row) === 'undefined') {
                 db.run("INSERT INTO users Values ($login, $password)", {$login: login, $password: password});
-            } else errors.push('Пользователь с таким логином уже зарегистрирован!');
+            } else error = "Пользователь с таким логином уже зарегистрирован!";
         });  
     }
         
-        //res.end(errors[0]);
-        if (errors.length > 0) {
+        if (error !== "") {
             res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-            const stream = fs.createReadStream(path.resolve('public', 'reg.html'));
-            stream.pipe(res);
+            fs.readFile(path.resolve('public', 'regauthindex.html'), 'utf-8', function (err, data) {
+                var loadParam = "<body onload=\"showreg('block')\">";
+                data = data.replace("{param}", loadParam).replace("{errorReg}", error).replace("{errorAuth}", "");
+                if (error === "Введите пароль!" || error === "Минимальная длина пароля - 3 символа!" || error === "Пароли не совпадают!") {
+                    data = data.replace("{valueReg}", login).replace("{valueAuth}", "\"\"");
+                }
+                res.end(data);
+            });
         } else {
             res.writeHead(200, {"Content-Type": "text/plain; charset=utf-8"});
             res.end('Вы успешно зарегистрированы!')
         }
-        console.log(errors);
+        console.log(error);
         db.close();
     });       
 }

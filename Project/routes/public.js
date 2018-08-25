@@ -28,7 +28,7 @@ function public(req, res) {
         default:
             contentType = 'text/plain';
     }
-
+    
     res.statusCode = 200;
     res.setHeader('Content-Type', contentType);
 

@@ -255,14 +255,14 @@ hr{
 .lc {
     text-align: center;
     vertical-align: top;
-    width: 230px ;
+    width: 210px ;
 	height: 200px;
 }
 
 .lv {
 	text-align: center;
     vertical-align: top;
-    width: 230px ;
+    width: 210px ;
 	height: 200px;
 }
 
@@ -275,7 +275,7 @@ td {
 table tbody {
  	display:block;
  	max-height:100%;
- 	max-width: 100%;
+ 	max-width: :100%;
 }
 table tbody tr {
     vertical-align: middle;
@@ -283,6 +283,7 @@ table tbody tr {
 	width:100%;
 	height: 100%;
 	table-layout:fixed;
+	z-index: 9;
 }
 #main tr{
 	display: flex;
@@ -291,7 +292,8 @@ table tbody tr {
 }
 
 #main tr img{
-	margin: 23%;
+	margin: 23% 21%;
+	z-index: 10;
 }
 
 #menu div{
@@ -314,7 +316,7 @@ table tbody tr {
 
 .droptarget {
 	background-color: #DEB5B1 ;
-	width: 230px;
+	width: 210px;
 	height: 200px;
 	text-align: center;
     vertical-align: top;
@@ -322,7 +324,7 @@ table tbody tr {
 
 .focusеtarget {
 	background-color: #C4CDD9 ;
-	width: 230px ;
+	width: 210px ;
 	height: 200px;
 	text-align: center;
     vertical-align: top;
@@ -344,7 +346,7 @@ table tbody tr {
 }
 
 #submenu{
-	z-index: 1;
+	z-index: 10;
 	position: absolute;
 	left: 750px;
 	display: hidden;
@@ -435,7 +437,7 @@ table tbody tr {
 	z-index: 1;
 	position: absolute;
 	width: 28%;
-	height: 58%;
+	height: 60	%;
   	left: 36%;
   	top: 19%;
   	border-radius: 2%; 
@@ -477,7 +479,7 @@ table tbody tr {
 	font-size: 40px;
 	text-align:  center;
 	opacity: 0.6;
-	-webkit-transition: opacity 0.5s; 
+	-webkit-transition: opacity 0.5s; 	
 }
 .debagTarg{
 	border-radius: 5%;
@@ -498,4 +500,13 @@ table tbody tr {
 
 #buttons input{
 	-webkit-transition: width 0.5s,opacity 0.5s; 
+}
+
+.down {
+	left: 0;
+	top: -47%;
+	width: 23%;
+	height: 50%;
+	position: relative;
+	z-index: 5;
 }
