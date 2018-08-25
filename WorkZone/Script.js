@@ -300,23 +300,13 @@ function addColumn(pos){
 	if (pos<=mainColumn){
 		mainColumn++;
     }
-    var newColumns=[];
-    i =0;
-    for (let item in columns){
-        if (i==pos){
-            newColumns.push(true);
-        }
-        newColumns.push(item);
-        i++;
-    }
-    columns=newColumns;
     reSize();
 }
 
 function addRow(){
     let table = document.getElementById("workSpace");
     let row = table.insertRow(-1);
-    for (let i =0; i< columns.length;i++){
+    for (let i =0; i< table.rows.length;i++){
         let cell = row.insertCell(-1);
 		cell.className= table.rows[0].cells[0].className;
 	}
@@ -836,9 +826,17 @@ function buttonDelete(){
         let falseCh=!block.childs[0].ifRes? block.childs[0]:block.childs[1];
         pr.childs[0]==block.pos?(pr.childs[0]=trueCh) :(pr.childs[1]=trueCh);
         graph[trueCh].parents[0]=pr.pos;
-        columns[graph[falseCh].y+mainColumn]=false;
         ifDfs(graph[trueCh]);
         delDfs(graph[falseCh]);
+        if (graph[trueCh].type!="trg" && pr.type!="if"){
+            let mg=document.createElement("img");
+            mg.setAttribute("src","img/вниз.png");
+            mg.className="down";
+            graph[trueCh].cell.appendChild(mg);
+        }
+        deleteColumn(graph[trueCh].y+mainColumn+1);
+        deleteColumn(graph[trueCh].y + mainColumn-1);
+        alert();
     } else if (block.type=="end"){
         block.cell.innerHTML="";
         block.cell.className="droptarget";
@@ -850,6 +848,19 @@ function buttonDelete(){
         block.dead=true;
     }
     closeMenu();
+}
+
+function deleteColumn(pos){
+    alert(pos); 
+    var table = document.getElementById("workSpace");
+    for (var i =0;i<table.rows.length;i++){
+        table.rows[i].deleteCell(pos);
+    }
+    alert();
+    if (pos<=mainColumn){
+        mainColumn--;
+    }
+    reSize();
 }
 
 function delDfs(V){
@@ -874,8 +885,9 @@ function ifDfs(V){
     graphIds.set((V.x-1)+ " "+(V.y-1),V.pos);
     graphIds.delete((V.x)+ " "+(V.y));
     V.x--;
+    V.y--;
     for (var i=0;i<V.childs.length;i++){
-        dfs(graph[V.childs[i]]);
+        ifDfs(graph[V.childs[i]]);
     }
 }
 
