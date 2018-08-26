@@ -1396,7 +1396,7 @@ function parseF() {
                 if (write){
                     if(sors.get(key)==undefined){
                         m.set(key,1);
-                    } else m.set(key,1+sors.get(key));
+                    } else m.set(key,Number(sors.get(key))+1);
                 }
                 return "changes";
             }
@@ -1405,7 +1405,7 @@ function parseF() {
                 if (write){
                     if(sors.get(key)==undefined){
                         m.set(key,-1);
-                    } else m.set(key,sors.get(key)-1);
+                    } else m.set(key,Number(sors.get(key))-1);
                 }
                 return "changes";
             }
