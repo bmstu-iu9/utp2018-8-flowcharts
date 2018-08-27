@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Вход в систему</title>
+    <link rel="stylesheet" type="text/css" href="regauthstyle.css">
+</head>
+<body>
+{param}
+<div class="reg_auth_bar">
+    <button class="regButton" onclick="showreg('block')">Зарегистрироваться</button>
+    <button class="authButton" onclick="showauth('block')">Войти</button>
+    <div id="overlapreg" onclick="showreg('none')";></div>
+    <div id="overlapauth" onclick="showauth('none')"></div>
+</div>
+
+<div id="windowreg">
+    <img class="closecross" src="closecross.png" alt="Закрыть" onclick="showreg('none')">
+    <div class="formreg">
+        <h1 style="color: #5FA5FA">Регистрация</h1><br>
+        <form action="/reg" method="POST">
+            {errorReg}
+            <input type="text" name="login" id="login" placeholder="Логин" value={valueReg} class="inputtext"><br>
+            <br>
+            <input type="text" name="password" id="password" placeholder="Пароль" class="inputtext"><br>
+            <br>
+            <input type="text" name="rePassword" id="rePassword" placeholder="Подтверждение пароля"
+                   class="inputtext"><br>
+            <br>
+            <button class="submitbutton" type="submit">Зарегистрироваться</button>
+        </form>
+        <p class="swapformtext">Уже зарегистрированы? <u style=" cursor: pointer;" onclick="showreg('none'); showauth('block')">Авторизируйтесь</u></p>
+    </div>
+</div>
+<div id="windowauth">
+    <img class="closecross" src="closecross.png" alt="Закрыть" onclick="showauth('none')">
+    <div class="formreg">
+        <h1 style="color: #5FA5FA">Авторизация</h1><br>
+        <form action="/auth" method="POST">
+            {errorAuth}
+            <input type="text" name="login" id="logincheck" placeholder="Логин" value={valueAuth} class="inputtext"><br>
+            <br>
+            <input type="text" name="password" id="passwordcheck" placeholder="Пароль" class="inputtext"><br>
+            <br>
+            <button class="submitbutton" type="submit">Войти</button>
+        </form>
+        <p class="swapformtext">Нет учетной записи? <u style=" cursor: pointer;" onclick="showreg('block'); showauth('none')">Зарегистрируйтесь</u></p>
+    </div>
+</div>
+<script >
+    function showreg(state) {
+        document.getElementById('windowreg').style.display = state;
+        document.getElementById('overlapreg').style.display = state;
+    }
+    function showauth(state) {
+        document.getElementById('windowauth').style.display = state;
+        document.getElementById('overlapauth').style.display = state;
+    }
+</script>
+</body>
+</html>

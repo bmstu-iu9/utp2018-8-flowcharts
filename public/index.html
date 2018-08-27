@@ -1,0 +1,97 @@
+ <!DOCTYPE html>
+ <html>
+   <head>
+   	<meta charset="utf-8">
+    <title>BlockWork</title>
+    <link rel="stylesheet" type="text/css" href="mainStyle.css">
+    <link rel="shortcut icon" href="img/иконка2.png" type="image/png">
+   </head>
+   <body id="body">
+   	<header >
+   		<div id="hiddenTools" style="text-align: center;line-height: 8vh;" onclick="addWindow(this)">
+   			<strong id="toolsHead" ><i>Tools</i></strong>
+   		</div>
+   		<div id="options" >
+	   		<div id="buttons">
+				<input type="image" src="https://png.icons8.com/ios/40/B7BCC7/play-filled.png" onclick="buttonPlay();" checked/>
+				<input type="image" id ="buttonReStart" src="https://png.icons8.com/ios/40/B7BCC7/stop-filled.png" style="display: none;" onclick="buttonReStart();" checked/>
+				<input type="image" id = "left" src="https://png.icons8.com/windows/40/B7BCC7/left.png" style="display:none" onclick= "buttonLeft();" checked/>
+				<input type="image" id = "bug" src="https://png.icons8.com/windows/40/B7BCC7/bug.png" onclick="buttonDebag();" checked/>
+				<input type="image" id = "right" src="https://png.icons8.com/windows/40/B7BCC7/right.png" style="display: none" onclick="buttonRight();" checked/>
+				<input type="image" src="https://png.icons8.com/ios/40/B7BCC7/save-as.png" checked/>
+				<input type="image" src="https://png.icons8.com/dotty/40/B7BCC7/add-file.png" onclick="newFile()" checked/>
+				<input type="image" src="https://png.icons8.com/material/40/B7BCC7/question-mark.png" onclick="helpPage()" checked/>
+			</div>
+   		</div>
+   		<div id="hiddenInformationMenu" style="text-align: center;line-height: 8vh;" onclick="addWindow(this)">
+   			<strong id="informationHead"><i>Information</i></strong>
+   		</div>
+   	</header>
+   	<div id="newFileMenu">
+   		<ul id='newFileUl'>
+   			<li onclick="buttonNewFile()"><div>Create new file</div></li>
+   			<hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" />
+   			<li><div>Open file</div></li>
+   			<hr width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" />
+   			<li><div>Help</div></li>
+   			<hr width="80%" style="margin: 0% 10%;" size="3	" color="#596868"align="center" />
+   			<li><div>Team</div></li>
+   		</ul>
+   	</div>
+   	<main id="Main" style="display:block">;
+   		<div id="lol">
+   		<div id="zoomBox"><img src="img/лупа.png" height="25px" width="25px" onclick="document.getElementById('zoom').value=5; reSize();"> <input id="zoom" type="range" min="0" max="10" step="1" value="5" oninput="reSize()"></div>
+	    <div id="menu">
+			<!-- <div><img class="object" src="https://png.icons8.com/ios-glyphs/90/2a3c3c/circled.png" width="90"  draggable="true" id="oval"></div> --> 
+			-act-
+			<hr  width="90%" style="margin: 0% 5%;" size="3" color="#596868"align="center" />
+			<div><img class="act" src="https://png.icons8.com/windows/96/2a3c3c/unchecked-checkbox.png" width="36%" height="38%" draggable="true" id="prm"></div>
+			-if-
+			<hr  width="90%" style="margin: 0% 5%;" size="3" color="#596868"align="center" />
+			<div><img class="if" src="https://png.icons8.com/windows/100/2a3c3c/rhombus.png" width="37%" height="37%" draggable="true" id="romb"></div>
+			-init-
+			<hr  width="90%" style="margin: 0% 5%;" size="3" color="#596868"align="center" />
+			<div><img class="init" src="https://png.icons8.com/small/80/2a3c3c/rectangle-stroked.png" width="37%" height="37%" draggable="true" id="parl"></div>
+			-loop-
+			<hr  width="90%" style="margin: 0% 5%;" size="3" color="#596868"align="center" />
+			<div><img class="loop" src="https://png.icons8.com/windows/96/2A3C3C/rotate-right.png" width="35%" height="39%" draggable="true" id="loop"></div>
+			-end-
+			<hr  width="90%" style="margin: 0% 5%;" size="3" color="#596868"align="center" />
+			<div><img class="end" src="https://png.icons8.com/ios/100/2A3C3C/logout-rounded-left.png" width="35%" height="39%" draggable="true" id="end"></div>
+     	</div>
+     	<div id="InformationMenu">
+	    	<div id="init">
+	    		<input width="100%" type="text" name="инициализацияБлока" id="initBox" placeholder="Value of Block" onkeydown="if(event.keyCode==13){ getValOfBlock();} else {this.style.background='#DFE0E7';}" onblur="delChange()" onfocus="changedBlock()">
+	    	</div>
+	    	<hr  width="99%" size="4" color="#334D4D"align="center" style="opacity:0.7;"/>
+	    	<div style="width: 90%;margin: 0% 5%; height: 100%;">
+		    	<div id="var">
+		    		<div id="addVar" style="height: 100%">
+		    			<input type="image" src="https://png.icons8.com/ios/100/2a3c3c/plus.png" style="outline: none;" width="40" height="40" id="Plas" onclick="hiddenVarBox(this)" draggable="false" checked/>
+		    			<input type="text" name="инициализацияПеременных" onblur="returnPlas()" placeholder="var [name] = [expr];" width="70%" id="initVarBox" onkeydown="if(event.keyCode==13){ getVal(this);} else {this.style.background='#DFE0E7';}">
+		    		</div>
+		    	</div>	
+		    </div>
+	    </div>
+	    <div id="main" style=" overflow-x:scroll;overflow-y:auto;">
+			<table id="workSpace"  cellspacing="0" >
+			 	<tbody id="workSpaceBody" >
+				 	<tr><td class="lv"></td><td class="lv" id="start"><img src="img/start.png" width="50%" height="50%" class= "start"></td><td class="lv"></td></tr>
+				 	<tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr>
+				 	<tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr>
+				 	<tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr>
+				 	<tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr>
+				</tbody>
+			</table>
+	    </div> 
+    	<ul onmouseleave="closeMenu();" id="submenu">
+        	<li onclick="reValBloc();"><div>| ReValue</div></li>
+        	<li onclick="buttonAddBlock()"><div>| Insert</div></li>
+        	<li onclick="buttonDelete();"><div>| Delete</div></li>
+        	<li onclick="alert('бла-бла');closeMenu();"><div>| бла-бла</div></li>
+      	</ul>
+      	</div>
+    </main>
+    <script src="Script.js"></script>
+   </body>
+ </html>
