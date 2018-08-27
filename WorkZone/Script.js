@@ -306,7 +306,7 @@ function addColumn(pos){
 function addRow(){
     let table = document.getElementById("workSpace");
     let row = table.insertRow(-1);
-    for (let i =0; i< table.rows.length;i++){
+    for (let i =0; i< table.rows[1].cells.length;i++){
         let cell = row.insertCell(-1);
 		cell.className= table.rows[0].cells[0].className;
 	}
