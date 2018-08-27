@@ -1,27 +1,28 @@
 .regButton{
-    font: 1em/1.4em Arial, sans-serif;
-    margin: 1em;
-    border-radius: 10px;
-    padding: 0.3em 20px;
+    font: 18px/25px Arial, sans-serif;
+    margin: 10px;
+    border-radius: 15px;
+    padding: 10px 20px 10px 20px;
     cursor: pointer;
 }
 
 .authButton{
-    font: 1em/1.4 Arial, sans-serif;
-    margin: 1em;
-    border-radius: 10px;
-    padding: 0.3em 20px;
+    font: 18px/25px Arial, sans-serif;
+    margin: 10px;
+    border-radius: 15px;
+    padding: 10px 20px 10px 20px;
     cursor: pointer;
 }
 
 .reg_auth_bar{
     text-align: center;
-    margin: 2em auto;
+    margin: 10px;
 }
 
 #windowreg{
-     width: 28%; height: 65%;
-     margin: 5em auto;
+     width: 400px; height: 470px;
+     text-align: center;
+     margin: 75px auto auto;
      background-color: #ffffff;
      border: 1px solid lightgrey;
      border-radius: 10px;
@@ -31,8 +32,9 @@
 }
 
 #windowauth{
-    width: 30em; height: 30em;
-    margin: 5em auto;
+    width: 400px; height: 400px;
+    text-align: center;
+    margin: 75px auto auto;
     background-color: #ffffff;
     border: 1px solid lightgrey;
     border-radius: 10px;
@@ -44,34 +46,49 @@
 
 
 .formreg{
-    width: 30em; height: auto;
-    margin: 1em auto 2em auto;
+    width: 300px; height: 400px;
+    margin: auto 45px;
     text-align: center;
 }
 
 .inputtext{
-    width: 30em;
-    height: 3em;
-    padding: 0.5em 1.5em 0.5em 1.5em;
-    margin: 0.5em;
-    border-radius: 1em;
+    width: 300px; height: 15px;
+    padding: 15px 15px 15px 10px;
+    margin: 1px 10px 1px 10px;
+    border-radius: 10px;
+    font: 13px/20px Arial, sans-serif;
     border: 1px solid lightgrey;
 }
 
+/*.wronginput{*/
+    /*width: 300px;*/
+    /*height: 3em;*/
+    /*padding: 5px 20px 5px 20px;*/
+    /*border-radius: 10px;*/
+    /*font: 13px/20px Arial, sans-serif;*/
+    /*border: 1px solid lightgrey;*/
+/*}*/
+
+
+
 .submitbutton{
-    padding: 0.4em 2em 0.4em 2em;
-    margin: 0.5em ;
+    padding: 15px 0 15px 15px;
     background: #5FA5FA;
     color: white;
-    font: 1.5em/1.7 Arial, sans-serif;
+    font: 25px/35px Arial, sans-serif;
+    padding: 10px 25px 10px 25px;
+    margin: 20px auto 0px auto;
     border: white;
     border-radius: 10px;
+    cursor: pointer;
 
 }
 
 .closecross{
-    margin: 0.5em 0 0 28em;
+    margin: 10px 0 0 350px;
+    text-align: right;
     cursor: pointer;
+
 }
 
 #overlapreg{
@@ -89,7 +106,8 @@
 }
 
 .swapformtext{
-    font: 0.7em/0.4 Arial, sans-serif;
+    font: 13px/20px Arial, sans-serif;
+    margin: 10px;
     color: grey;
 }
 
