@@ -16,6 +16,9 @@ function public(req, res) {
         case '.js':
             contentType = 'text/javascript';
             break;
+        case '.php':
+            contentType = 'text/php';
+            break;
         case '.png':
             contentType = 'img/png';
             break;
@@ -25,7 +28,7 @@ function public(req, res) {
         default:
             contentType = 'text/plain';
     }
-
+    
     res.statusCode = 200;
     res.setHeader('Content-Type', contentType);
 
