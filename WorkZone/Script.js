@@ -824,19 +824,21 @@ function buttonDelete(){
     if (block.type=="if"){
         let trueCh=block.childs[0].ifRes? block.childs[0]:block.childs[1];
         let falseCh=!block.childs[0].ifRes? block.childs[0]:block.childs[1];
+        let dif =findDif(block);
         pr.childs[0]==block.pos?(pr.childs[0]=trueCh) :(pr.childs[1]=trueCh);
         graph[trueCh].parents[0]=pr.pos;
-        ifDfs(graph[trueCh]);
         delDfs(graph[falseCh]);
+        ifDfs(graph[trueCh],dif);
         if (graph[trueCh].type!="trg" && pr.type!="if"){
             let mg=document.createElement("img");
             mg.setAttribute("src","img/вниз.png");
             mg.className="down";
             graph[trueCh].cell.appendChild(mg);
         }
-        deleteColumn(graph[trueCh].y+mainColumn+1);
-        deleteColumn(graph[trueCh].y + mainColumn-1);
-        alert();
+        for (let i=0;i<dif;i++){
+        	deleteColumn(block.cell.cellIndex-1);
+        }
+        deleteColumn(block.cell.cellIndex);
     } else if (block.type=="end"){
         block.cell.innerHTML="";
         block.cell.className="droptarget";
@@ -850,13 +852,23 @@ function buttonDelete(){
     closeMenu();
 }
 
+function findDif(V){
+	let pos =V.y;
+	while (V.type!="end" && V.type!="loop" && V.type!="trg"){
+		if (V.type="if"){
+			V= graph[!V.childs[0].ifRes? V.childs[0]:V.childs[1]];
+		} else {
+			V=graph[V.childs[0]];
+		}
+	}
+	return Math.abs(pos-V.y);
+}
+
 function deleteColumn(pos){
-    alert(pos); 
     var table = document.getElementById("workSpace");
     for (var i =0;i<table.rows.length;i++){
         table.rows[i].deleteCell(pos);
     }
-    alert();
     if (pos<=mainColumn){
         mainColumn--;
     }
@@ -867,27 +879,29 @@ function delDfs(V){
     for (let i =0; i<V.childs.length;i++){
         delDfs(graph[V.childs[i]]);
     }
-    V.cell.innerHTML="";
-    V.cell.className="lv";
     V.dead=true;
     graphIds.delete((V.x)+ " "+(V.y));
 }
 
-function ifDfs(V){
+function ifDfs(V,dif){
     let table=document.getElementById("workSpace");
-    let pr=table.rows[V.x-1].cells[mainColumn+V.y-1];
+    let pr=V.y<0 ? table.rows[V.x-1].cells[mainColumn+V.y]:table.rows[V.x-1].cells[mainColumn+V.y-dif] ;
     pr.innerHTML=V.cell.innerHTML;
     pr.className=V.cell.className;
     V.cell.innerHTML="";
     V.cell.className="lv";
     V.cell=pr;
     pr.setAttribute('onclick',"getFocus(this)");
-    graphIds.set((V.x-1)+ " "+(V.y-1),V.pos);
+    if (V.y<0){
+    	graphIds.set((V.x-1)+ " "+(V.y),V.pos);
+    } else {
+    	graphIds.set((V.x-1)+ " "+(V.y-dif),V.pos);
+    	V.y-=dif;
+    }
     graphIds.delete((V.x)+ " "+(V.y));
     V.x--;
-    V.y--;
     for (var i=0;i<V.childs.length;i++){
-        ifDfs(graph[V.childs[i]]);
+        ifDfs(graph[V.childs[i]],dif);
     }
 }
 
