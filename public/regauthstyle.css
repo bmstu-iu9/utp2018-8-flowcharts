@@ -46,13 +46,13 @@
 
 
 .formreg{
-    width: 300px; height: 400px;
+    width: 300px; height: auto;
     margin: auto 45px;
     text-align: center;
 }
 
 .inputtext{
-    width: 300px; height: 15px;
+    width: 265px; height: 15px;
     padding: 15px 15px 15px 10px;
     margin: 1px 10px 1px 10px;
     border-radius: 10px;
@@ -72,12 +72,11 @@
 
 
 .submitbutton{
-    padding: 15px 0 15px 15px;
     background: #5FA5FA;
     color: white;
     font: 25px/35px Arial, sans-serif;
     padding: 10px 25px 10px 25px;
-    margin: 20px auto 0px auto;
+    margin: 20px auto 0 auto;
     border: white;
     border-radius: 10px;
     cursor: pointer;
@@ -85,8 +84,7 @@
 }
 
 .closecross{
-    margin: 10px 0 0 350px;
-    text-align: right;
+    margin: 10px 5px 0 360px;
     cursor: pointer;
 
 }
