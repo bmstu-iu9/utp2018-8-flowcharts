@@ -828,7 +828,7 @@ function buttonDelete(){
         pr.childs[0]==block.pos?(pr.childs[0]=trueCh) :(pr.childs[1]=trueCh);
         graph[trueCh].parents[0]=pr.pos;
         delDfs(graph[falseCh]);
-        ifDfs(graph[trueCh],dif);
+        ifDfs(graph[trueCh],dif+1);
         if (graph[trueCh].type!="trg" && pr.type!="if"){
             let mg=document.createElement("img");
             mg.setAttribute("src","img/вниз.png");
@@ -885,7 +885,7 @@ function delDfs(V){
 
 function ifDfs(V,dif){
     let table=document.getElementById("workSpace");
-    let pr=V.y<0 ? table.rows[V.x-1].cells[mainColumn+V.y]:table.rows[V.x-1].cells[mainColumn+V.y-dif] ;
+    let pr=table.rows[V.x-1].cells[mainColumn+V.y];
     pr.innerHTML=V.cell.innerHTML;
     pr.className=V.cell.className;
     V.cell.innerHTML="";
