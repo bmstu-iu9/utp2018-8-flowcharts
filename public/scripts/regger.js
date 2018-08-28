@@ -29,19 +29,19 @@ function checkReg (req, res) {
         const rePassword = data.rePassword;
         let error = "";
         
-        if (login.length == 0) {
+        if (login.length === 0) {
             error = "Введите логин!";
         } else if (login.length < 5) {
             error = "Минимальная длина логина - 5 символов!";
-        } else if (password.length == 0) {
+        } else if (password.length === 0) {
             error = "Введите пароль!";
         } else if (password.length < 3) {
             error = "Минимальная длина пароля - 3 символа!";
-        } else if (password != rePassword) {
+        } else if (password !== rePassword) {
             error = "Пароли не совпадают!";
         }
         
-        if (error == "") {
+        if (error === "") {
         db.get("SELECT * FROM users WHERE login=$login", {$login: login}, function(err, row) {
             if (typeof(row) === 'undefined') {
                 db.run("INSERT INTO users Values ($login, $password)", {$login: login, $password: password});
@@ -54,11 +54,14 @@ function checkReg (req, res) {
             fs.readFile(path.resolve('public', 'regauthindex.html'), 'utf-8', function (err, data) {
                 var loadParam = "<body onload=\"showreg('block')\">";
                 data = data.replace("{param}", loadParam).replace("{errorReg}", error).replace("{errorAuth}", "");
-                if (error === "Введите пароль!" || error === "Минимальная длина пароля - 3 символа!" || error === "Пароли не совпадают!") {
-                    data = data.replace("{valueReg}", login).replace("{valueAuth}", "\"\"");
-                }
                 if (error === "Введите логин!" || error === "Минимальная длина логина - 5 символов!") {
-                    data = data.replace("{valueReg}", login).replace("{valueAuth}", "\"\"");
+                    data = data.replace("{valueReg}", "value="+login.toString())
+                        .replace("{loginBorder}", 'style=\"border: 1px solid lightcoral;\"');
+                }
+                if (error === "Введите пароль!" || error === "Минимальная длина пароля - 3 символа!" || error === "Пароли не совпадают!") {
+                    data = data.replace("{valueReg}", "value="+login.toString())
+                        .replace("{passwordBorder}", 'style=\"border: 1px solid lightcoral;\"')
+                        .replace("{rePasswordBorder}", 'style=\"border: 1px solid lightcoral;\"');
                 }
                 res.end(data);
             });
@@ -70,7 +73,5 @@ function checkReg (req, res) {
         db.close();
     });       
 }
-
-
 
 module.exports = checkReg;

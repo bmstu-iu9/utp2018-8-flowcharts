@@ -35,10 +35,11 @@ function checkAuth (req, res) {
                 res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
                 fs.readFile(path.resolve('public', 'regauthindex.html'), 'utf-8', function (err, data) {
                     var loadParam = "<body onload=\"showauth('block')\">";
-                    data = data.replace("{param}", loadParam).replace("{errorAuth}", error).replace("{errorReg}", "")
-                                .replace("{valueAuth}", login).replace("{valueReg}", "\"\"");;
+                    data = data.replace("{param}", loadParam).replace("{errorAuth}", error)
+                        .replace("{valueAuth}", "value="+login.toString())
+                        .replace("{loginCheckBorder}", 'style=\"border: 1px solid lightcoral;\"');
                     res.end(data);
-                })
+                });
                 console.log(error);
             } else if (row.password !== password) {
                 error = "Неверный пароль!";
@@ -46,9 +47,10 @@ function checkAuth (req, res) {
                 fs.readFile(path.resolve('public', 'regauthindex.html'), 'utf-8', function (err, data) {
                     var loadParam = "<body onload=\"showauth('block')\">";
                     data = data.replace("{param}", loadParam).replace("{errorAuth}", error).replace("{errorReg}", "")
-                                .replace("{valueAuth}", login).replace("{valueReg}", "\"\"");
+                        .replace("{valueAuth}", "value="+ login.toString())
+                        .replace("{passwordCheckBorder}", 'style=\"border: 1px solid lightcoral;\"');
                     res.end(data);
-                })
+                });
                 console.log(error);
             } else {
                 cookie = 'login='+login;
