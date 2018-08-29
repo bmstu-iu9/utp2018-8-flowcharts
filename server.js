@@ -38,4 +38,4 @@ http.createServer((req,res) => {
             checkAuth(req, res);
         }
     }
-}).listen(3000, () => console.log('Сервер работает'));
+}).listen(3000, () => console.log('Сервер работает на localhost:3000'));
