@@ -67,11 +67,7 @@ function checkReg (req, res) {
             fs.readFile(path.resolve('public', 'regauthindex.html'), 'utf-8', function (err, data) {
                 var loadParam = "<body onload=\"showreg('block')\">";
                 data = data.replace("{param}", loadParam).replace("{errorReg}", error).replace("{errorAuth}", "");
-                if (error === "Введите логин!") {
-                    data = data.replace("{valueReg}", "value=\"\"").replace("{valueAuth}",  "value=\"\"")
-                        .replace("{loginBorder}", 'style=\"border: 1px solid lightcoral;\"');
-                } 
-                else if (error === "Минимальная длина логина - 5 символов!") {
+                if (error === "Введите логин!" || error === "Минимальная длина логина - 5 символов!") {
                     data = data.replace("{valueReg}", "value=\""+login.toString()+"\"").replace("{valueAuth}",  "value=\"\"")
                     .replace("{loginBorder}", 'style=\"border: 1px solid lightcoral;\"');    
                 } 
