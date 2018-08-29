@@ -40,46 +40,48 @@ function checkReg (req, res) {
         } else if (password !== rePassword) {
             error = "Пароли не совпадают!";
         }
-        
-        if (error === "") {
-        db.get("SELECT * FROM users WHERE login=$login", {$login: login}, function(err, row) {
-            if (typeof(row) === 'undefined') {
-                db.run("INSERT INTO users Values ($login, $password)", {$login: login, $password: password});
-                res.writeHead(200, {"Content-Type": "text/plain; charset=utf-8"});
-                res.end('Вы успешно зарегистрированы!');    
-            } else {
-                error = "Пользователь с таким логином уже зарегистрирован!";
-                res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-                fs.readFile(path.resolve('public', 'regauthindex.html'), 'utf-8', function (err, data) {
-                    var loadParam = "<body onload=\"showreg('block')\">";
-                    data = data.replace("{param}", loadParam).replace("{errorReg}", error).replace("{errorAuth}", "")
-                            .replace("{valueReg}", "value=\""+login.toString()+"\"").replace("{valueAuth}", "\"\"")
-                            .replace("{loginBorder}", 'style=\"border: 1px solid lightcoral;\"');
-                     
-                    res.end(data);
-                });
-            }
-        });  
-    }
-        
-    else if (error !== "") {
+
+        if (error === "Введите логин!" || error === "Минимальная длина логина - 5 символов!") {
             res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
             fs.readFile(path.resolve('public', 'regauthindex.html'), 'utf-8', function (err, data) {
                 var loadParam = "<body onload=\"showreg('block')\">";
-                data = data.replace("{param}", loadParam).replace("{errorReg}", error).replace("{errorAuth}", "");
-                if (error === "Введите логин!" || error === "Минимальная длина логина - 5 символов!") {
-                    data = data.replace("{valueReg}", "value=\""+login.toString()+"\"").replace("{valueAuth}",  "value=\"\"")
-                    .replace("{loginBorder}", 'style=\"border: 1px solid lightcoral;\"');    
-                } 
-                else if (error === "Введите пароль!" || error === "Минимальная длина пароля - 3 символа!" || error === "Пароли не совпадают!") {
-                    data = data.replace("{valueReg}", "value=\""+login.toString()+"\"").replace("{valueAuth}",  "value=\"\"")
-                        .replace("{passwordBorder}", 'style=\"border: 1px solid lightcoral;\"')
-                        .replace("{rePasswordBorder}", 'style=\"border: 1px solid lightcoral;\"');
-                }
+                data =  data.replace("{param}", loadParam).replace("{errorReg}", error).replace("{errorAuth}", "")
+                            .replace("{valueReg}", "value=\""+login.toString()+"\"").replace("{valueAuth}",  "value=\"\"")
+                            .replace("{loginBorder}", 'style=\"border: 1px solid lightcoral;\"');  
                 res.end(data);
+            });      
+        } else {
+            db.get("SELECT * FROM users WHERE login=$login", {$login: login}, function(err, row) {
+                if (typeof(row) === 'undefined') {
+                    if (error === '') {
+                        db.run("INSERT INTO users Values ($login, $password)", {$login: login, $password: password});
+                        res.writeHead(200, {"Content-Type": "text/plain; charset=utf-8"});
+                        res.end('Вы успешно зарегистрированы!');
+                    } else {
+                        res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
+                        fs.readFile(path.resolve('public', 'regauthindex.html'), 'utf-8', function (err, data) {
+                            var loadParam = "<body onload=\"showreg('block')\">";
+                            data =  data.replace("{param}", loadParam).replace("{errorReg}", error).replace("{errorAuth}", "")
+                                        .replace("{valueReg}", "value=\""+login.toString()+"\"").replace("{valueAuth}",  "value=\"\"")
+                                        .replace("{passwordBorder}", 'style=\"border: 1px solid lightcoral;\"')
+                                        .replace("{rePasswordBorder}", 'style=\"border: 1px solid lightcoral;\"');
+                        res.end(data);
+                        });    
+                    }   
+                } else {
+                    error = "Пользователь с таким логином уже зарегистрирован!";
+                    res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
+                    fs.readFile(path.resolve('public', 'regauthindex.html'), 'utf-8', function (err, data) {
+                        var loadParam = "<body onload=\"showreg('block')\">";
+                        data =  data.replace("{param}", loadParam).replace("{errorReg}", error).replace("{errorAuth}", "")
+                                    .replace("{valueReg}", "value=\""+login.toString()+"\"").replace("{valueAuth}", "\"\"")
+                                    .replace("{loginBorder}", 'style=\"border: 1px solid lightcoral;\"');
+                         
+                        res.end(data);
+                    });
+                }
             });
-        }
-        console.log(error);
+        } 
         db.close();
     });       
 }
