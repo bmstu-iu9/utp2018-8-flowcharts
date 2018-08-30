@@ -833,13 +833,14 @@ function buttonDelete(){
         for (let i=0;i<findDif(graph[trueCh],false);i++){
         	addColumn(block.cell.cellIndex);
         }
-        if (block.pos> 0){
-        	fks(graph[trueCh],difF-findDif(graph[trueCh],false));
+        if (block.y>0){
+        	fix(graph[trueCh],difF-findDif(graph[trueCh],false));
         }
         ifDfs(graph[trueCh],findDif(graph[trueCh],false)+1);
         for (let i=0;i<difT-findDif(graph[trueCh],true);i++){
         	deleteColumn(block.cell.cellIndex+findDif(graph[trueCh],true)+1);	
         }
+        reIndex(block.y);
         if (graph[trueCh].type!="trg" && pr.type!="if"){
             let mg=document.createElement("img");
             mg.setAttribute("src","img/вниз.png");
@@ -859,12 +860,38 @@ function buttonDelete(){
     closeMenu();
 }
 
-function fks(V,dif){
+function fix(V,dif){
 	V.y-=dif;
 	for(let i=0;i<V.childs.length;i++){
 		fks(graph[V.childs[i]],dif);
 	}
 }
+
+
+function reIndex(side){
+	let V=graph[0];
+	while(V.type!="if"){
+		V=graph[V.childs[0]];
+	}
+	if (side<0){
+		V=graph[!graph[V.childs[0]].ifRes? V.childs[0]:V.childs[1]];
+	} else{
+		V=graph[graph[V.childs[0]].ifRes? V.childs[0]:V.childs[1]];
+	}
+	reIndRec(V);
+}
+
+function reIndRec(V){
+	V.cell.setAttribute('onclick',"getFocus(this)");
+    graphIds.delete((V.x)+ " "+(V.y));
+    graphIds.set((V.cell.parentNode.rowIndex)+ " "+(V.cell.cellIndex-mainColumn),V.pos);
+    V.x=V.cell.parentNode.rowIndex;
+    V.y=V.cell.cellIndex-mainColumn;
+    for (var i=0;i<V.childs.length;i++){
+        reIndRec(graph[V.childs[i]]);
+    }
+}
+
 
 function findDif(V,IF){
 	let pos =V.y;
