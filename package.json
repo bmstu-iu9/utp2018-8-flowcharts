@@ -1,0 +1,25 @@
+{
+  "name": "flowcharts",
+  "version": "1.0.0",
+  "description": "block-scheme workspace",
+  "main": "server.js",
+  "dependencies": {
+    "js-cookie": "^2.2.0",
+    "sqlite3": "^4.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bmstu-iu9/utp2018-8-flowcharts.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bmstu-iu9/utp2018-8-flowcharts/issues"
+  },
+  "homepage": "https://github.com/bmstu-iu9/utp2018-8-flowcharts#readme"
+}
