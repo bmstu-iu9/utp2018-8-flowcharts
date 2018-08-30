@@ -1011,7 +1011,7 @@ function newFile(){
     let lol=document.getElementById("lol");
     let lu=document.getElementById('newFileUl');
     menu.style.display= "block";
-    if (firstFile==1 && lu.children.length==7){
+    if (firstFile>=1 && lu.children.length==3){
         let lu=document.getElementById('newFileUl');
         let back = document.createElement('li');
         let hr= document.createElement("hr");
@@ -1020,12 +1020,44 @@ function newFile(){
         hr.style.width="83%";
         hr.style="opacity: 0.7;margin: 0% 10%;";
         menu.style.top="19%";
-        menu.style.height="70%";
+        menu.style.height="30%";
         back.innerHTML='<div>Back</div>';
         back.setAttribute('onclick',"buttonBack()");
         lu.appendChild(hr);
         lu.appendChild(back);
         let lues=document.querySelectorAll("#newFileUl li");
+        for (let item of lues){
+            item.style.height="26%";
+        }
+    }
+    menu.style.opacity=1;
+    M.style.opacity=0;
+    document.getElementById("informationHead").style.opacity= "0";
+    document.getElementById("toolsHead").style.opacity="0";
+}
+
+function settings() {
+    inMenu=true;
+    let menu=document.getElementById("mainMenu");
+    let M=document.getElementById("Main");
+    let lol=document.getElementById("lol");
+    let lu=document.getElementById('mainMenuUl');
+    menu.style.display= "block";
+    if (firstFile>=1 && lu.children.length==7){
+        let lu=document.getElementById('mainMenuUl');
+        let back = document.createElement('li');
+        let hr= document.createElement("hr");
+        hr.size=3;
+        hr.color="#334D4D";
+        hr.style.width="83%";
+        hr.style="opacity: 0.7;margin: 0% 10%;";
+        menu.style.top="19%";
+        menu.style.height="60%";
+        back.innerHTML='<div>Back</div>';
+        back.setAttribute('onclick',"buttonBack()");
+        lu.appendChild(hr);
+        lu.appendChild(back);
+        let lues=document.querySelectorAll("#mainMenuUl li");
         for (let item of lues){
             item.style.height="16%";
         }
@@ -1040,14 +1072,17 @@ function buttonBack(){
     firstFile++ ;
     let M=document.getElementById("Main");
     let menu=document.getElementById("newFileMenu");
+    let menu1=document.getElementById("mainMenu");
     let lol=document.getElementById("lol");
     M.style.opacity=1;  
-    menu.style.opacity=0;
+    menu.style.opacity=0; //!
+    menu1.style.opacity=0;
     document.getElementById("informationHead").style.opacity= "1";
     document.getElementById("toolsHead").style.opacity="1";
     setTimeout(1000);
-    menu.style.display= "none";
-    inMenu=false;
+    menu.style.display= "none"; //!
+    menu1.style.display="none";
+    inMenu=false; //!
 }
 
 
@@ -1055,14 +1090,17 @@ function buttonNewFile(){
     firstFile++;
     inMenu=false;
     let M=document.getElementById("Main");
-    let menu=document.getElementById("newFileMenu");
+    let menu=document.getElementById("mainMenu");
+    let menu1=document.getElementById("newFileMenu");
     let lol=document.getElementById("lol");
     M.style.opacity=1;
     menu.style.opacity=0;
+    menu1.style.opasity=0;
     document.getElementById("informationHead").style.opacity= "1";
     document.getElementById("toolsHead").style.opacity="1";
     setTimeout(1000);
     menu.style.display= "none";
+    menu1.style.display="none";
     let body=document.getElementById("workSpace");
 
     body.innerHTML='<tr><td class="lv"></td><td class="lv" id="start"><img src="img/start.png" width="60%" height="55%" class= "start"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr>'

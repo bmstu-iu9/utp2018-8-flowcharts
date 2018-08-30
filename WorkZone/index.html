@@ -21,12 +21,14 @@
 				<input type="image" src="https://png.icons8.com/ios/40/B7BCC7/save-as.png" checked/>
 				<input type="image" src="https://png.icons8.com/dotty/40/B7BCC7/add-file.png" onclick="newFile()" checked/>
 				<input type="image" src="https://png.icons8.com/material/40/B7BCC7/question-mark.png" onclick="helpPage()" checked/>
+				<input type="image" src="https://png.icons8.com/ios/48/cccccc/settings.png" onclick="settings()" checked/>
 			</div>
    		</div>
    		<div id="hiddenInformationMenu" style="text-align: center;line-height: 8vh;" onclick="addWindow(this)">
    			<strong id="informationHead"><i>Information</i></strong>
    		</div>
    	</header>
+   	<!-- Санино
    	<div id="newFileMenu">
    		<ul id='newFileUl'>
    			<li onclick="buttonNewFile()"><div>Create new file</div></li>
@@ -38,6 +40,29 @@
    			<li><div>Team</div></li>
    		</ul>
    	</div>
+   -->
+
+   	<!-- Тут моя работа -->
+   	<div id="newFileMenu">
+   		<ul id='newFileUl'>
+   			<li onclick="buttonNewFile()"><div>Create new file</div></li>
+   			<hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" />
+   			<li><div>Open file</div></li>
+   		</ul>
+   	</div>
+
+   	<div id="mainMenu">
+   		<ul id='mainMenuUl'>
+   			<li onclick="buttonNewFile()"><div>Create new file</div></li>
+   			<hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" />
+   			<li><div>Open file</div></li>
+   			<hr width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" />
+   			<li><div>Help</div></li>
+   			<hr width="80%" style="margin: 0% 10%;" size="3	" color="#596868"align="center" />
+   			<li><div>Team</div></li>
+   		</ul>
+   	</div>
+   	<!-- 				-->
    	<main id="Main" style="display:block">;
    		<div id="lol">
    		<div id="zoomBox"><img src="img/лупа.png" height="25px" width="25px" onclick="document.getElementById('zoom').value=5; reSize();"> <input id="zoom" type="range" min="0" max="10" step="1" value="5" oninput="reSize()"></div>
