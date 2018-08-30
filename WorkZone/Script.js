@@ -171,9 +171,6 @@ document.addEventListener("drop", function(event) {
         if (V.type!="end"){
             document.getElementById("initBox").focus();
         }
-        if (V.y<parent.y){
-            V.ifRes=false;
-        }
         if (V.childs.length==0)
             changeTrigger(row, cell,data.id,V.pos,true);
         else if (V.type=="if")
@@ -209,7 +206,7 @@ function initBoxVal(){
 function changeTrigger(row, cell, type, prnt, check){
     var table = document.getElementById("workSpace");
     if (type !== "end" && check && type!== "loop" && type!="romb"){
-        createBlock(row+1,cell,prnt);
+        createBlock(row+1,cell,prnt,true);
     }
     if (type=== "romb"){
         addColumn(cell+1);
@@ -219,8 +216,8 @@ function changeTrigger(row, cell, type, prnt, check){
         else if (cell+1>mainColumn) 
             reSetIds(row,cell-mainColumn,false);
         cell++;
-        createBlock(row+1,cell-1,prnt);
-        createBlock(row+1,cell+1,prnt);
+        createBlock(row+1,cell-1,prnt,false);
+        createBlock(row+1,cell+1,prnt,true);
 
     }
     if (row >= document.getElementById("workSpace").rows.length-2){
@@ -268,7 +265,7 @@ function reSetIdsChld(V,side,C){
     }
 }
 
-function createBlock(row, cell,prnt){
+function createBlock(row, cell,prnt,ifRes){
     var table = document.getElementById("workSpace");
     let key=row+ " " +(cell-mainColumn);
     let newVort = new vort("trg",countOfVort++,row,cell-mainColumn);
@@ -279,6 +276,7 @@ function createBlock(row, cell,prnt){
     newVort.cell.className="droptarget";
     graphIds.set(key,countOfVort-1);
     graph.push(newVort);
+    newVort.ifRes=ifRes;
 }
 
 function findRoot(V){
@@ -822,9 +820,10 @@ function buttonDelete(){
     let pr = graph[block.parents[0]];
     blockTriggered=block.childs[0];
     if (block.type=="if"){
-        let trueCh=block.childs[0].ifRes? block.childs[0]:block.childs[1];
-        let falseCh=!block.childs[0].ifRes? block.childs[0]:block.childs[1];
-        let dif =findDif(block);
+        let trueCh=graph[block.childs[0]].ifRes? block.childs[0]:block.childs[1];
+        let falseCh=!graph[block.childs[0]].ifRes? block.childs[0]:block.childs[1];
+        let difT =findDif(block,true);
+        let difF= findDif(bloc, false);
         pr.childs[0]==block.pos?(pr.childs[0]=trueCh) :(pr.childs[1]=trueCh);
         graph[trueCh].parents[0]=pr.pos;
         delDfs(graph[falseCh]);
@@ -835,11 +834,10 @@ function buttonDelete(){
             mg.className="down";
             graph[trueCh].cell.appendChild(mg);
         }
-        for (let i=0;i<dif;i++){
+        for (let i=0;i<dif-1;i++){
         	deleteColumn(block.cell.cellIndex-1);
         }
-        deleteColumn(block.cell.cellIndex);
-    } else if (block.type=="end"){
+    } else if (block.type=="end" || block.type=="loop"){
         block.cell.innerHTML="";
         block.cell.className="droptarget";
         block.type="trg";
@@ -852,11 +850,34 @@ function buttonDelete(){
     closeMenu();
 }
 
-function findDif(V){
+function findIfRoot(pos){
+	let W=graph[0];
+	while(W.type!="if"){
+		W= graph[W.childs[0]];
+	}
+	if (pos<0){
+		W=graph[!graph[block.childs[0]].ifRes? block.childs[0]:block.childs[1]];
+	} else {
+		W=graph[graph[block.childs[0]].ifRes? block.childs[0]:block.childs[1]];
+	}
+	while(pos<0? W.pos>pos:W.pos<pos){
+		if (W.type=="if"){
+			W=graph[graph[block.childs[0]].ifRes? block.childs[0]:block.childs[1]];
+		} else {
+			W=graph[W.childs[0]];
+		}
+	}
+}
+
+function findDif(V,IF){
 	let pos =V.y;
 	while (V.type!="end" && V.type!="loop" && V.type!="trg"){
 		if (V.type="if"){
-			V= graph[!V.childs[0].ifRes? V.childs[0]:V.childs[1]];
+			if (IF){
+				V= graph[graph[V.childs[0]].ifRes? V.childs[0]:V.childs[1]];	
+			} else{
+				V= graph[!graph[V.childs[0]].ifRes? V.childs[0]:V.childs[1]];	
+			}
 		} else {
 			V=graph[V.childs[0]];
 		}
@@ -885,19 +906,15 @@ function delDfs(V){
 
 function ifDfs(V,dif){
     let table=document.getElementById("workSpace");
-    let pr=table.rows[V.x-1].cells[mainColumn+V.y];
+    let pr=table.rows[V.x-1].cells[mainColumn+V.y-dif];
     pr.innerHTML=V.cell.innerHTML;
     pr.className=V.cell.className;
     V.cell.innerHTML="";
     V.cell.className="lv";
     V.cell=pr;
     pr.setAttribute('onclick',"getFocus(this)");
-    if (V.y<0){
-    	graphIds.set((V.x-1)+ " "+(V.y),V.pos);
-    } else {
     	graphIds.set((V.x-1)+ " "+(V.y-dif),V.pos);
     	V.y-=dif;
-    }
     graphIds.delete((V.x)+ " "+(V.y));
     V.x--;
     for (var i=0;i<V.childs.length;i++){
