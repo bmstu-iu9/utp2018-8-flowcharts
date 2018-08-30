@@ -1,0 +1,97 @@
+.regButton{
+    font: 18px/25px Arial, sans-serif;
+    margin: 10px;
+    border-radius: 15px;
+    padding: 10px 20px 10px 20px;
+    cursor: pointer;
+}
+
+.authButton{
+    font: 18px/25px Arial, sans-serif;
+    margin: 10px;
+    border-radius: 15px;
+    padding: 10px 20px 10px 20px;
+    cursor: pointer;
+}
+
+.reg_auth_bar{
+    text-align: center;
+    margin: 10px;
+}
+
+#windowreg{
+     width: 400px; height: 470px;
+     text-align: center;
+     margin: 75px auto auto;
+     background-color: #ffffff;
+     border: 1px solid lightgrey;
+     border-radius: 10px;
+     z-index: 150;
+     display: none;
+     position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+}
+
+#windowauth{
+    width: 400px; height: 400px;
+    text-align: center;
+    margin: 75px auto auto;
+    background-color: #ffffff;
+    border: 1px solid lightgrey;
+    border-radius: 10px;
+    z-index: 150;
+    display: none;
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+}
+
+.formreg{
+    width: 300px; height: auto;
+    margin: auto;
+    text-align: center;
+}
+
+.inputtext{
+    width: 265px; height: 15px;
+    padding: 15px 15px 15px 10px;
+    border-radius: 10px;
+    font: 13px/20px Arial, sans-serif;
+    border: 1px solid lightgrey;
+}
+
+.submitbutton{
+    background: #5FA5FA;
+    color: white;
+    font: 25px/35px Arial, sans-serif;
+    padding: 10px 25px 10px 25px;
+    margin: 20px 0 0;
+    border: white;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.closecross{
+    margin: 10px 5px 0 360px;
+    cursor: pointer;
+
+}
+
+#overlapreg{
+    background-color: rgba(95,165,250,0.2);
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    display: none;
+    z-index: 100;
+}
+
+#overlapauth{
+    background-color: rgba(95,165,250,0.2);
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    display: none;
+    z-index: 100;
+}
+
+.smallnote{
+    font: 13px/20px Arial, sans-serif;
+    margin: 10px;
+    color: grey;
+}
+
+
