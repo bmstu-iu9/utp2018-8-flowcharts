@@ -823,19 +823,28 @@ function buttonDelete(){
         let trueCh=graph[block.childs[0]].ifRes? block.childs[0]:block.childs[1];
         let falseCh=!graph[block.childs[0]].ifRes? block.childs[0]:block.childs[1];
         let difT =findDif(block,true);
-        let difF= findDif(bloc, false);
+        let difF= findDif(block, false);
         pr.childs[0]==block.pos?(pr.childs[0]=trueCh) :(pr.childs[1]=trueCh);
         graph[trueCh].parents[0]=pr.pos;
         delDfs(graph[falseCh]);
-        ifDfs(graph[trueCh],dif+1);
+        for (let i=0;i<difF;i++){
+        	deleteColumn(block.cell.cellIndex-1);
+        }
+        for (let i=0;i<findDif(graph[trueCh],false);i++){
+        	addColumn(block.cell.cellIndex);
+        }
+        if (block.pos> 0){
+        	fks(graph[trueCh],difF-findDif(graph[trueCh],false));
+        }
+        ifDfs(graph[trueCh],findDif(graph[trueCh],false)+1);
+        for (let i=0;i<difT-findDif(graph[trueCh],true);i++){
+        	deleteColumn(block.cell.cellIndex+findDif(graph[trueCh],true)+1);	
+        }
         if (graph[trueCh].type!="trg" && pr.type!="if"){
             let mg=document.createElement("img");
             mg.setAttribute("src","img/вниз.png");
             mg.className="down";
             graph[trueCh].cell.appendChild(mg);
-        }
-        for (let i=0;i<dif-1;i++){
-        	deleteColumn(block.cell.cellIndex-1);
         }
     } else if (block.type=="end" || block.type=="loop"){
         block.cell.innerHTML="";
@@ -850,29 +859,17 @@ function buttonDelete(){
     closeMenu();
 }
 
-function findIfRoot(pos){
-	let W=graph[0];
-	while(W.type!="if"){
-		W= graph[W.childs[0]];
-	}
-	if (pos<0){
-		W=graph[!graph[block.childs[0]].ifRes? block.childs[0]:block.childs[1]];
-	} else {
-		W=graph[graph[block.childs[0]].ifRes? block.childs[0]:block.childs[1]];
-	}
-	while(pos<0? W.pos>pos:W.pos<pos){
-		if (W.type=="if"){
-			W=graph[graph[block.childs[0]].ifRes? block.childs[0]:block.childs[1]];
-		} else {
-			W=graph[W.childs[0]];
-		}
+function fks(V,dif){
+	V.y-=dif;
+	for(let i=0;i<V.childs.length;i++){
+		fks(graph[V.childs[i]],dif);
 	}
 }
 
 function findDif(V,IF){
 	let pos =V.y;
 	while (V.type!="end" && V.type!="loop" && V.type!="trg"){
-		if (V.type="if"){
+		if (V.type=="if"){
 			if (IF){
 				V= graph[graph[V.childs[0]].ifRes? V.childs[0]:V.childs[1]];	
 			} else{
@@ -913,9 +910,9 @@ function ifDfs(V,dif){
     V.cell.className="lv";
     V.cell=pr;
     pr.setAttribute('onclick',"getFocus(this)");
-    	graphIds.set((V.x-1)+ " "+(V.y-dif),V.pos);
-    	V.y-=dif;
+    graphIds.set((V.x-1)+ " "+(V.y-dif),V.pos);
     graphIds.delete((V.x)+ " "+(V.y));
+    V.y-=dif;
     V.x--;
     for (var i=0;i<V.childs.length;i++){
         ifDfs(graph[V.childs[i]],dif);

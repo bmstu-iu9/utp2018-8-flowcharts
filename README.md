@@ -5,7 +5,7 @@
 
 Команда Разработчиков:
 
-* [Курушин Дмитрий](https://github.com/PsycholoG-ZxZ) (старший) - @PsycholoG-ZxZ 
+* [Курушин Дмитрий](https://github.com/PsycholoG-ZxZ) - @PsycholoG-ZxZ 
 * [Конюхов Александр](https://github.com/coudam) - @coudam
 * [Бакланова Анастасия](https://github.com/ansi-rius) - @ansi-rius
 * [Бокарев Дмитрий](https://github.com/dimonbocha) - @dimonbocha
