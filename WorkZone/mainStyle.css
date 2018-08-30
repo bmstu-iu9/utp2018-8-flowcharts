@@ -433,59 +433,6 @@ table tbody tr {
  	outline: none;
  }
 
-/* САНИНО
-
-#newFileMenu{
-	z-index: 1;
-	position: absolute;
-	width: 28%;
-	height: 60	%;
-  	left: 36%;
-  	top: 19%;
-  	border-radius: 2%; 
-  	background: #C0C4CD;
-  	-webkit-transition: opacity 0.7s; 
-  	box-shadow: inset 0 0 20px rgba(42, 60, 60,0.5); 
-}
-
-#newFileMenu ul{
-	list-style: none;
-	width: 100%;
-	height: 100%;
-	margin: 20px 0px;
-}
-
-#newFileMenu li{
-	margin: 2% 5%;
-	width: 90%;
-	height: 20%; 
-	border-radius: 6%; 
-	background-color: #DADCE2;
-	position: relative;
-	box-shadow: inset 0 0 10px rgba(192, 196, 205,1);
-	transition-property: background-color;
- 	transition-duration: 0.7s;
-}
-
-#newFileMenu li:hover{
-	background-color: #C0C4CD;
-}
-
-#newFileMenu li:hover div{
-	opacity: 1;
-}
-
-#newFileMenu li div{
-	padding: 7% 0px;
- 	color: #2a3c3c;
-	font-size: 40px;
-	text-align:  center;
-	opacity: 0.6;
-	-webkit-transition: opacity 0.5s; 	
-}	*/
-
-
-/*  Моя работа 				*/
 #mainMenu{
 	z-index: 1;
 	position: absolute;
@@ -534,14 +481,16 @@ table tbody tr {
 	opacity: 0.6;
 	-webkit-transition: opacity 0.5s; 	
 }
-/*/////////*/
+
 #newFileMenu{
 	z-index: 1;
+	display: none;
+	opacity: 0;
 	position: absolute;
 	width: 28%;
 	height: 30%;
   	left: 36%;
-  	top: 19%;
+  	top:  19%;
   	border-radius: 2%; 
   	background: #C0C4CD;
   	-webkit-transition: opacity 0.7s; 
@@ -584,7 +533,56 @@ table tbody tr {
 	-webkit-transition: opacity 0.5s; 	
 }
 
-/* 							*/
+#design {
+	z-index: 1;
+	display: none;
+	position: absolute;
+	width: 28%;
+	height: 40%;
+  	left: 36%;
+  	top:  19%;
+  	border-radius: 2%; 
+  	background: #C0C4CD;
+  	-webkit-transition: opacity 0.7s; 
+  	box-shadow: inset 0 0 20px rgba(42, 60, 60,0.5);
+}
+
+#design ul{
+	list-style: none;
+	width: 100%;
+	height: 100%;
+	margin: 20px 0px;
+}
+
+#design li{
+	margin: 2% 5%;
+	width: 90%;
+	height: 20%; 
+	border-radius: 6%; 
+	background-color: #DADCE2;
+	position: relative;
+	box-shadow: inset 0 0 10px rgba(192, 196, 205,1);
+	transition-property: background-color;
+ 	transition-duration: 0.7s;
+}
+
+#design li:hover{
+	background-color: #C0C4CD;
+}
+
+#design li:hover div{
+	opacity: 1;
+}
+
+#design li div{
+	padding: 7% 0px;
+ 	color: #2a3c3c;
+	font-size: 40px;
+	text-align:  center;
+	opacity: 0.6;
+	-webkit-transition: opacity 0.5s; 	
+}
+
 .debagTarg{
 	border-radius: 5%;
 	box-shadow:  0 0 10px rgba(0,0,0,0.7); 	

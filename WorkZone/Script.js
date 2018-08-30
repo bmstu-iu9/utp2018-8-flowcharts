@@ -1047,19 +1047,29 @@ function settings() {
         let lu=document.getElementById('mainMenuUl');
         let back = document.createElement('li');
         let hr= document.createElement("hr");
+        let back1 = document.createElement('li');
+        let hr1= document.createElement("hr");
         hr.size=3;
         hr.color="#334D4D";
         hr.style.width="83%";
         hr.style="opacity: 0.7;margin: 0% 10%;";
+        hr1.size=3;
+        hr1.color="#334D4D";
+        hr1.style.width="83%";
+        hr1.style="opacity: 0.7;margin: 0% 10%;";
         menu.style.top="19%";
-        menu.style.height="60%";
-        back.innerHTML='<div>Back</div>';
-        back.setAttribute('onclick',"buttonBack()");
+        menu.style.height="70%";
+        back.innerHTML='<div>Design</div>';
+        back.setAttribute('onclick',"buttonDesign()");
         lu.appendChild(hr);
         lu.appendChild(back);
+        back1.innerHTML='<div>Back</div>';
+        back1.setAttribute('onclick',"buttonBack()");
+        lu.appendChild(hr1);
+        lu.appendChild(back1);
         let lues=document.querySelectorAll("#mainMenuUl li");
         for (let item of lues){
-            item.style.height="16%";
+            item.style.height="14%";
         }
     }
     menu.style.opacity=1;
@@ -1073,18 +1083,56 @@ function buttonBack(){
     let M=document.getElementById("Main");
     let menu=document.getElementById("newFileMenu");
     let menu1=document.getElementById("mainMenu");
+    let menu2=document.getElementById("design");
     let lol=document.getElementById("lol");
     M.style.opacity=1;  
-    menu.style.opacity=0; //!
+    menu.style.opacity=0;
     menu1.style.opacity=0;
+    menu2.style.opacity=0;
     document.getElementById("informationHead").style.opacity= "1";
     document.getElementById("toolsHead").style.opacity="1";
     setTimeout(1000);
-    menu.style.display= "none"; //!
+    menu.style.display= "none";
     menu1.style.display="none";
-    inMenu=false; //!
+    menu2.style.display="none";
+    inMenu=false; 
 }
 
+function buttonDesign(){
+    inMenu=true;
+    let M=document.getElementById("Main");
+    let lol=document.getElementById("lol");
+    let menu=document.getElementById("design");
+    let menu2=document.getElementById("newFileMenu");
+    let menu1=document.getElementById("mainMenu");
+    menu.style.display="block";
+    M.style.opacity=0;
+    menu1.style.display="none";
+    menu2.style.display="none";
+    let lu=document.getElementById('design');
+    menu.style.display= "block";
+    if (firstFile>=1 && lu.children.length<=7){
+        let lu=document.getElementById('designUl');
+        let back = document.createElement('li');
+        let hr= document.createElement("hr");
+        hr.size=3;
+        hr.color="#334D4D";
+        hr.style.width="83%";
+        hr.style="opacity: 0.7;margin: 0% 10%;";
+        menu.style.top="19%";
+        menu.style.height="50%";
+        back.innerHTML='<div>Back</div>';
+        back.setAttribute('onclick',"buttonBack()");
+        lu.appendChild(hr);
+        lu.appendChild(back);
+        let lues=document.querySelectorAll("#designUl li");
+        for (let item of lues){
+            item.style.height="16%";
+        }
+    }
+    document.getElementById("informationHead").style.opacity= "0";
+    document.getElementById("toolsHead").style.opacity="0";
+}
 
 function buttonNewFile(){
     firstFile++;
