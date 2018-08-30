@@ -1,5 +1,6 @@
-var oper= ["+", "=","-", "*", "/", "<", ">" , "(", ")", "?" , ":", "!", "|", "&","%" ,";", " "/* "+=" , "-=", "++", "--", "*=", "/= */ ];
-var sOper= ["=", "|","&", "+","-", "*", "/"];
+var oper= ["+", "=","-", "*", "/", "<", ">" , "(", ")", "?" , ":", "!", "|", "&","%" ,";", " "];
+var sOper= ["=", "|","&", "-","+"];
+var ssOper= ["-" ,"+"];
 
 class Pos {
     constructor(str,pos) {
@@ -27,9 +28,12 @@ class Pos {
             let res = "";
             let a = this.getChar();
             res+=a;
+            if (a==";" && this.pos!=this.str.length-1){
+                SE="SE";
+            }
             t = t.skip();
             a= t.getChar();
-            if  (sOper.some(t=>t===a)) {
+            if  (sOper.some(t=>t===a) || ssOper.some(t=>t===a) && res==a) {
                 res += a;
                 t = t.skip();
                 a = t.getChar();
@@ -114,60 +118,32 @@ class token {
 
 }
 
-var m = new Map();
-class map {
-    constructor (key, any) {
-        m.set(key, any);
-    }
-}
 
-let s = new Set();
 
-class set {
-    constructor(name) {
-        s.add(name)
-    }
-}
-
-s.add('sd');
-s.add('sdw3');
-s.add('z');
-new map('sd', 10);
-new map('sdw3', 2);
-new map('z', 15);
-var str = "sd+=7;";
-var t = new token(str);
-var count = str.indexOf(';', 0);
+var write=true;
+var t;
 var SE = 0;
-var result = parse();
 function checkRes(result){
-    if (result === undefined || SE === 'SE' || count !== str.length-1 || result==='NaN' ) {//кастыыль)
-        console.log('Syntax Error');
+    if (result === undefined || SE === 'SE' || result==='NaN' ) {
+        //alert(result);
         return "error";
     }
     else {
-        alert(result);
-        console.log("result = " + result);
+        //alert("result = " + result);
         return  result;
     }
 }
 
-function parse() {
+function parse(str,wrt) {
+    write=wrt;
+    t= new token(str);
+    SE=0;
+    result="";
     if (';' !== t.getVal()) {
         return checkRes(parseO());
     }
-
 }
 
-/*
-<O>  ::= <E> <O'>.
-<O'> ::= == <E> <O'>.
-<E>  ::= <T> <E’>.
-<E’> ::= + <T> <E’> | - <T> <E’> | .
-<T>  ::= <F> <T’>.
-<T’> ::= * <F> <T’> | / <F> <T’> | .
-<F>  ::= <number> | <var> | ( <O> ) | - <F> | ! <F> | <bool>.
-*/
 
 function parseO() {
     return parse_O(parseE());
@@ -296,68 +272,101 @@ function parseF() {
         if (t.getVal() === 'var') {
             t.next();
             var key = t.getVal();
-            if (s.has(key)) {
+            if (s.has(key) || varSet.has(key)) {
                 SE = 'SE';
                 return ;
             }
-            s.add(key);
             t.next();
             if (t.getVal() === '=') {
                 t.next();
-                // доработаь с вариантами что значение будет bool
-                m.set(key, Number(parseO()));
-                return 'initialization';
+                let res= Number(parseO());
+                if (SE!='SE'){
+                    if (write){
+                        s.add(key);
+                        m.set(key,res);
+                    }
+                    return key;
+                }  else {
+                    return;
+                }
             }
             else {
-                s.add(key);
+                if (write){
+                    s.add(key);
+                }
             }
         }
-        else if (s.has(t.getVal())) {
+        else if (s.has(t.getVal()) || varSet.has(t.getVal()) || !write) {
             var key = t.getVal();
             t.next();
+            var sors;
+            if (m.get(key)){
+                sors = m;
+            }else {
+                sors =varMap;
+            }
+
             if (t.getVal() === '=') {
                 t.next();
                 m.set(key, Number(parseO()));
                 return 'changes';
             }
-            //не работает ++, --, *=, /=
             else if (t.getVal() === '++'){
                 t.next();
-                m.set(key,m.get(key)+1);
+                if (write){
+                    if(sors.get(key)==undefined){
+                        m.set(key,1);
+                    } else m.set(key,Number(sors.get(key))+1);
+                }
                 return "changes";
             }
             else if (t.getVal() === '--'){
                 t.next();
-                m.set(key,m.get(key)-1);
+                if (write){
+                    if(sors.get(key)==undefined){
+                        m.set(key,-1);
+                    } else m.set(key,Number(sors.get(key))-1);
+                }
                 return "changes";
             }
             else if (t.getVal() === '+='){
                 t.next();
-                m.set(key,m.get(key)+Number(parseE()));
+                let exp=parseE();
+                if (write){
+                    m.set(key,sors.get(key)+Number(exp));
+                }
                 return "changes";
             }
             else if (t.getVal() === '-='){
                 t.next();
-                m.set(key,m.get(key)-Number(parseE()));
+                let exp=parseE();
+                if (write){
+                    m.set(key,sors.get(key)-Number(exp));
+                }
                 return "changes";
             }
             else if (t.getVal() === '*='){
                 t.next();
-                m.set(key,m.get(key)*Number(parseE()));
+                let exp=parseE();
+                if (write){
+                    m.set(key,sors.get(key)*Number(exp));
+                }
                 return "changes";
             }
             else if (t.getVal() === '/='){
                 t.next();
-                m.set(key,m.get(key)/Number(parseE()));
+                let exp=parseE();
+                if (write){
+                    m.set(key,sors.get(key)/Number(exp));
+                }
                 return "changes";
             }
-            else if (m.has(key)) {
-                var i = m.get(key);
-                return i;
-            }
             else {
-                SE = 'SE';
-                return;
+                let i= 0;
+                if (write){
+                    i=sors.get(key);
+                }
+                return i;
             }
         }
         else {
@@ -378,11 +387,7 @@ function parseF() {
     }
     else if (t.getVal() === '-') {
         t.next();
-        if (t.getId()==="oper"){
-            SE='SE';
-            return ;
-        }
-        else return -1 * parseF();
+        return -1 * parseF();
     }
     else if (t.getVal()=== '!'){
         t.next();
@@ -393,4 +398,3 @@ function parseF() {
         return;
     }
 }
-
