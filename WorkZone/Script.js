@@ -83,8 +83,8 @@ function getFocus(trg) {
         paint=false;
     }
     paintChilds(graph[0],false);
-	paintChilds(V,paint);
-	paintParents(V,paint);
+    paintChilds(V,paint);
+    paintParents(V,paint);
     blockTriggered=V.pos;
 }
 
@@ -161,7 +161,7 @@ document.addEventListener("drop", function(event) {
         V.type=data.className;
         blockTriggered=V.pos;
         if (parent.type!="if"){
-            mg.setAttribute("src","./img/down.png");
+            mg.setAttribute("src","img/down.png");
             mg.className="down";
             if (parent.type=="start"){
                 mg.style.top="-140%";
@@ -171,7 +171,7 @@ document.addEventListener("drop", function(event) {
         if (V.type!="end"){
             document.getElementById("initBox").focus();
         }
-        if (V.childs.length==0)	
+        if (V.childs.length==0) 
             changeTrigger(row, cell,data.id,V.pos,true);
         else if (V.type=="if")
             changeTrigger(row, cell,data.id,V.pos,false);
@@ -293,10 +293,10 @@ function addColumn(pos){
         newCell.className="lv";
         newCell.style.width=cellW;
         newCell.style.height=cellH;
-		table.rows[i].insertBefore(newCell,table.rows[i].children[pos]);
-	}
-	if (pos<=mainColumn){
-		mainColumn++;
+        table.rows[i].insertBefore(newCell,table.rows[i].children[pos]);
+    }
+    if (pos<=mainColumn){
+        mainColumn++;
     }
     reSize();
 }
@@ -306,61 +306,61 @@ function addRow(){
     let row = table.insertRow(-1);
     for (let i =0; i< table.rows[1].cells.length;i++){
         let cell = row.insertCell(-1);
-		cell.className= table.rows[0].cells[0].className;
-	}
+        cell.className= table.rows[0].cells[0].className;
+    }
     reSize();
 }
 
 function addWindow(trg){
     let obj;
-	let menu =document.getElementById("menu");
+    let menu =document.getElementById("menu");
     let zm= document.getElementById('zoomBox');
-	let Ht=document.getElementById("hiddenTools");
-	let iMenu =document.getElementById("InformationMenu")
-	let Hm=document.getElementById("hiddenInformationMenu");
-	let main =document.getElementById("main");
-	trg===Hm? obj= iMenu: obj=menu;
-	if (obj.className=="hidden"){
-		if (trg===Ht){
-			if (iMenu.className=="hidden"){
-				main.style.width="92%";
-				main.style.left="8%";
-			}else{
-				main.style.width="76%";
-				main.style.left="8%";
-			}
-		}else{
-			if (menu.className=="hidden"){
-				main.style.width="84%";
-				main.style.left="0%";
-			}else{
-				main.style.width="76%";
-				main.style.left="8%";
-			}
+    let Ht=document.getElementById("hiddenTools");
+    let iMenu =document.getElementById("InformationMenu")
+    let Hm=document.getElementById("hiddenInformationMenu");
+    let main =document.getElementById("main");
+    trg===Hm? obj= iMenu: obj=menu;
+    if (obj.className=="hidden"){
+        if (trg===Ht){
+            if (iMenu.className=="hidden"){
+                main.style.width="92%";
+                main.style.left="8%";
+            }else{
+                main.style.width="76%";
+                main.style.left="8%";
+            }
+        }else{
+            if (menu.className=="hidden"){
+                main.style.width="84%";
+                main.style.left="0%";
+            }else{
+                main.style.width="76%";
+                main.style.left="8%";
+            }
             zm.style.left="74%";
-		}
-		obj.className="block";
-		} else{
-    	if (trg===Ht){
-			if (iMenu.className=="hidden"){
-				main.style.width="100%";
-				main.style.left="0%";
-			}else{
-				main.style.width="84%";
-				main.style.left="0%";
-			}
-		}else{
-			if (menu.className=="hidden"){
-				main.style.width="100%";
-				main.style.left="0%";
-			}else{
-				main.style.width="92%";
-				main.style.left="8%";
-			}
+        }
+        obj.className="block";
+        } else{
+        if (trg===Ht){
+            if (iMenu.className=="hidden"){
+                main.style.width="100%";
+                main.style.left="0%";
+            }else{
+                main.style.width="84%";
+                main.style.left="0%";
+            }
+        }else{
+            if (menu.className=="hidden"){
+                main.style.width="100%";
+                main.style.left="0%";
+            }else{
+                main.style.width="92%";
+                main.style.left="8%";
+            }
             zm.style.left="90%";
-		}
- 		obj.className="hidden";
-	}
+        }
+        obj.className="hidden";
+    }
 }
 
 function  hiddenVarBox(trg){
@@ -828,23 +828,23 @@ function buttonDelete(){
         graph[trueCh].parents[0]=pr.pos;
         delDfs(graph[falseCh]);
         for (let i=0;i<difF;i++){
-        	deleteColumn(block.cell.cellIndex-1);
+            deleteColumn(block.cell.cellIndex-1);
         }
         for (let i=0;i<findDif(graph[trueCh],false);i++){
-        	addColumn(block.cell.cellIndex);
+            addColumn(block.cell.cellIndex);
         }
         if (block.y>0){
-        	fix(graph[trueCh],difF-findDif(graph[trueCh],false));
-        	alert();
+            fix(graph[trueCh],difF-findDif(graph[trueCh],false));
+            alert();
         }
         ifDfs(graph[trueCh],findDif(graph[trueCh],false)+1);
         for (let i=0;i<difT-findDif(graph[trueCh],true);i++){
-        	deleteColumn(block.cell.cellIndex+findDif(graph[trueCh],true)+1);	
+            deleteColumn(block.cell.cellIndex+findDif(graph[trueCh],true)+1);   
         }
         reIndex(block.y);
         if (graph[trueCh].type!="trg" && pr.type!="if"){
             let mg=document.createElement("img");
-            mg.setAttribute("src","img/вниз.png");
+            mg.setAttribute("src","img/down.png");
             mg.className="down";
             graph[trueCh].cell.appendChild(mg);
         }
@@ -862,25 +862,25 @@ function buttonDelete(){
 }
 
 function fix(V,dif){
-	V.y-=dif;
-	for(let i=0;i<V.childs.length;i++){
-		fix(graph[V.childs[i]],dif);
-	}
+    V.y-=dif;
+    for(let i=0;i<V.childs.length;i++){
+        fix(graph[V.childs[i]],dif);
+    }
 }
 
 
 function reIndex(side){
-	let V=graph[0];
-	while(V.type!="if"){
-		V=graph[V.childs[0]];
-	}
-	reIndRec(V);
+    let V=graph[0];
+    while(V.type!="if"){
+        V=graph[V.childs[0]];
+    }
+    reIndRec(V);
 }
 
 function reIndRec(V){
-	V.cell.setAttribute('onclick',"getFocus(this)");
+    V.cell.setAttribute('onclick',"getFocus(this)");
     if (graphIds.get((V.x)+ " "+(V.y))==V.pos)
-    	graphIds.delete((V.x)+ " "+(V.y));
+        graphIds.delete((V.x)+ " "+(V.y));
     graphIds.set((V.cell.parentNode.rowIndex)+ " "+(V.cell.cellIndex-mainColumn),V.pos);
     V.x=V.cell.parentNode.rowIndex;
     V.y=V.cell.cellIndex-mainColumn;
@@ -891,19 +891,19 @@ function reIndRec(V){
 
 
 function findDif(V,IF){
-	let pos =V.y;
-	while (V.type!="end" && V.type!="loop" && V.type!="trg"){
-		if (V.type=="if"){
-			if (IF){
-				V= graph[graph[V.childs[0]].ifRes? V.childs[0]:V.childs[1]];	
-			} else{
-				V= graph[!graph[V.childs[0]].ifRes? V.childs[0]:V.childs[1]];	
-			}
-		} else {
-			V=graph[V.childs[0]];
-		}
-	}
-	return Math.abs(pos-V.y);
+    let pos =V.y;
+    while (V.type!="end" && V.type!="loop" && V.type!="trg"){
+        if (V.type=="if"){
+            if (IF){
+                V= graph[graph[V.childs[0]].ifRes? V.childs[0]:V.childs[1]];    
+            } else{
+                V= graph[!graph[V.childs[0]].ifRes? V.childs[0]:V.childs[1]];   
+            }
+        } else {
+            V=graph[V.childs[0]];
+        }
+    }
+    return Math.abs(pos-V.y);
 }
 
 function deleteColumn(pos){

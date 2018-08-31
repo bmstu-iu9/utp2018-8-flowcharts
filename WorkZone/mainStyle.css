@@ -398,7 +398,7 @@ table tbody tr {
 #zoom {
 	padding: 12px 0px;
     width: 80%;
-    background: url(img/opacity.png);
+    background: none;
     -webkit-appearance: none;
     outline: none;
 }
