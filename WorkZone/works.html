@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Проекты</title>
+    <link rel="stylesheet" type="text/css" href="workspagestyle.css">
+</head>
+<body bgcolor="#F7F7F7">
+<header>
+    <div class="conteiner">
+        <div><a href="#"><img src="img/logotype.png" alt="logo" class="headerlogotype"></a></div>
+        <div class="bar">
+            <button class="greenbottom" onclick="foo()">Новый прооект</button>
+            <a href="/">
+                <button class="bluebottom">Перейти в редактор</button>
+            </a>
+            <a href="/">
+                <button class="exit">Выйти</button>
+            </a>
+        </div>
+    </div>
+</header>
+<div class="mainworkplace" id="mainworkplace">
+    <h1 style="color: #5FA5FA">Все проекты</h1>
+    <div class="row">
+        <div id="project">HI</div>
+
+    </div>
+</div>
+<script>
+    function foo(){
+        var elem = document.createElement("p");
+        elem.innerHTML = "TITLE";
+        document.body.appendChild(elem)
+    }
+</script>
+</body>
+</html>
