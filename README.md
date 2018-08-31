@@ -5,9 +5,11 @@
 
 Команда Разработчиков:
 
-* [Курушин Дмитрий](https://github.com/PsycholoG-ZxZ) (старший) - @PsycholoG-ZxZ 
+* [Курушин Дмитрий](https://github.com/PsycholoG-ZxZ) - @PsycholoG-ZxZ 
 * [Конюхов Александр](https://github.com/coudam) - @coudam
 * [Бакланова Анастасия](https://github.com/ansi-rius) - @ansi-rius
 * [Бокарев Дмитрий](https://github.com/dimonbocha) - @dimonbocha
 * [Снегур Кирилл](https://github.com/kirsnegir) - @kirsnegir
 * [Лысенко Анастасия](https://github.com/LysenkoAnastasia) - @LysenkoAnastasia
+
+P.S. Желательно открывать проект в Google Chrome
