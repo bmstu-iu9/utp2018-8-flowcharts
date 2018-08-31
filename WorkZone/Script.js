@@ -835,6 +835,7 @@ function buttonDelete(){
         }
         if (block.y>0){
         	fix(graph[trueCh],difF-findDif(graph[trueCh],false));
+        	alert();
         }
         ifDfs(graph[trueCh],findDif(graph[trueCh],false)+1);
         for (let i=0;i<difT-findDif(graph[trueCh],true);i++){
@@ -863,7 +864,7 @@ function buttonDelete(){
 function fix(V,dif){
 	V.y-=dif;
 	for(let i=0;i<V.childs.length;i++){
-		fks(graph[V.childs[i]],dif);
+		fix(graph[V.childs[i]],dif);
 	}
 }
 
@@ -878,7 +879,7 @@ function reIndex(side){
 
 function reIndRec(V){
 	V.cell.setAttribute('onclick',"getFocus(this)");
-    alert((V.x)+ " "+(V.y)	 + " // "+ (V.cell.parentNode.rowIndex)+ " "+(V.cell.cellIndex-mainColumn));
+    //alert((V.x)+ " "+(V.y)	 + " // "+ (V.cell.parentNode.rowIndex)+ " "+(V.cell.cellIndex-mainColumn));
     graphIds.delete((V.x)+ " "+(V.y));
     graphIds.set((V.cell.parentNode.rowIndex)+ " "+(V.cell.cellIndex-mainColumn),V.pos);
     V.x=V.cell.parentNode.rowIndex;
