@@ -143,7 +143,7 @@ document.addEventListener("drop", function(event) {
         let V=graph[graphIds.get(key)];
         let parent=graph[V.parents[0]];
         let mg=document.createElement("img");
-        if (V.childs.length!=0 && data.className=="end"){
+        if (V.childs.length!=0 && (data.className=="end" || data.className=="if")){
             return;
         }
         data.setAttribute("draggable", "false");
@@ -171,7 +171,7 @@ document.addEventListener("drop", function(event) {
         if (V.type!="end"){
             document.getElementById("initBox").focus();
         }
-        if (V.childs.length==0)
+        if (V.childs.length==0)	
             changeTrigger(row, cell,data.id,V.pos,true);
         else if (V.type=="if")
             changeTrigger(row, cell,data.id,V.pos,false);
