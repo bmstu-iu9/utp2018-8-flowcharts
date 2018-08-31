@@ -873,16 +873,12 @@ function reIndex(side){
 	while(V.type!="if"){
 		V=graph[V.childs[0]];
 	}
-	if (side<0){
-		V=graph[!graph[V.childs[0]].ifRes? V.childs[0]:V.childs[1]];
-	} else{
-		V=graph[graph[V.childs[0]].ifRes? V.childs[0]:V.childs[1]];
-	}
 	reIndRec(V);
 }
 
 function reIndRec(V){
 	V.cell.setAttribute('onclick',"getFocus(this)");
+    alert((V.x)+ " "+(V.y)	 + " // "+ (V.cell.parentNode.rowIndex)+ " "+(V.cell.cellIndex-mainColumn));
     graphIds.delete((V.x)+ " "+(V.y));
     graphIds.set((V.cell.parentNode.rowIndex)+ " "+(V.cell.cellIndex-mainColumn),V.pos);
     V.x=V.cell.parentNode.rowIndex;
