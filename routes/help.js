@@ -5,7 +5,7 @@ function help (req, res) {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/html');
 
-    const stream = fs.createReadStream(path.resolve('public', 'help.html'));
+    const stream = fs.createReadStream(path.resolve('WorkZone', 'help.html'));
 
     stream.pipe(res);
 }

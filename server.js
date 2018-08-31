@@ -7,8 +7,8 @@ const notFound =  require('./routes/notFound');
 const help = require('./routes/help');
 const reg = require('./routes/reg');
 const auth = require('./routes/auth');
-const checkReg = require('./public/scripts/regger');
-const checkAuth = require('./public/scripts/auther');
+const checkReg = require('./Workzone/scripts/regger');
+const checkAuth = require('./Workzone/scripts/auther');
 const works = require('./routes/works');
 
 http.createServer((req,res) => {
