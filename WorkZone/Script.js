@@ -879,8 +879,8 @@ function reIndex(side){
 
 function reIndRec(V){
 	V.cell.setAttribute('onclick',"getFocus(this)");
-    //alert((V.x)+ " "+(V.y)	 + " // "+ (V.cell.parentNode.rowIndex)+ " "+(V.cell.cellIndex-mainColumn));
-    graphIds.delete((V.x)+ " "+(V.y));
+    if (graphIds.get((V.x)+ " "+(V.y))==V.pos)
+    	graphIds.delete((V.x)+ " "+(V.y));
     graphIds.set((V.cell.parentNode.rowIndex)+ " "+(V.cell.cellIndex-mainColumn),V.pos);
     V.x=V.cell.parentNode.rowIndex;
     V.y=V.cell.cellIndex-mainColumn;
