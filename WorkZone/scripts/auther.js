@@ -33,7 +33,7 @@ function checkAuth (req, res) {
             if (typeof(row) === 'undefined') {
                 error = "Неверный логин!";
                 res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-                fs.readFile(path.resolve('public', 'regauthindex.html'), 'utf-8', function (err, data) {
+                fs.readFile(path.resolve('WorkZone', 'regauthindex.html'), 'utf-8', function (err, data) {
                     var loadParam = "<body onload=\"showauth('block')\">";
                     data = data.replace("{param}", loadParam).replace("{errorAuth}", error).replace("{errorReg}", "")
                         .replace("{valueAuth}", "value=\""+login.toString()+"\"").replace("{valueReg}", "value=\"\"")
@@ -44,7 +44,7 @@ function checkAuth (req, res) {
             } else if (row.password !== password) {
                 error = "Неверный пароль!";
                 res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-                fs.readFile(path.resolve('public', 'regauthindex.html'), 'utf-8', function (err, data) {
+                fs.readFile(path.resolve('WorkZone', 'regauthindex.html'), 'utf-8', function (err, data) {
                     var loadParam = "<body onload=\"showauth('block')\">";
                     data = data.replace("{param}", loadParam).replace("{errorAuth}", error).replace("{errorReg}", "")
                         .replace("{valueAuth}", "value=\""+login.toString()+"\"").replace("{valueReg}", "value=\"\"")
@@ -58,7 +58,7 @@ function checkAuth (req, res) {
                     "Content-Type": "text/html; charset=utf-8",
                     "Set-Cookie": cookie
                 });
-                fs.readFile(path.resolve('public', 'index.html'), 'utf-8', function (err, data) {
+                fs.readFile(path.resolve('Workzone', 'index.html'), 'utf-8', function (err, data) {
                     res.end(data);
                 })
             }
