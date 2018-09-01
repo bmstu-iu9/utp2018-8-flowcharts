@@ -1125,6 +1125,13 @@ function buttonNewFile(){
     graph.push(ft);
 }
 
+function saveFile() {
+    var xhr = new XMLHttpRequest();
+    body = "title=new&content=kirya_hui_sosi";
+    xhr.open('POST', '/save');
+    xhr.send(body);
+}
+
 
 ////////////////////// часть парсера //////////////////////////////////////////////////////////////////////////////////////////////////////////
 

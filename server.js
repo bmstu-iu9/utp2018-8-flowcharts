@@ -9,6 +9,7 @@ const reg = require('./routes/reg');
 const auth = require('./routes/auth');
 const checkReg = require('./Workzone/scripts/regger');
 const checkAuth = require('./Workzone/scripts/auther');
+const save = require('./Workzone/scripts/saver');
 const works = require('./routes/works');
 
 http.createServer((req,res) => {
@@ -36,6 +37,8 @@ http.createServer((req,res) => {
             checkReg(req, res); 
         } else if (req.url === '/auth') {
             checkAuth(req, res);
+        } else if (req.url === '/save') {
+            save(req,res);
         }
     }
 }).listen(3000, () => console.log('Сервер работает на localhost:3000'));
