@@ -18,6 +18,7 @@ let inMenu=true ;
 let firstFile=0;
 let source;
 let focusInitBox=false;
+let Tutor = false;
 
 window.onloud=function(){
     newFile();
@@ -121,7 +122,7 @@ function paintParents(V,paint){
 }
 
 document.addEventListener("dragstart", function(event) {
-    event.dataTransfer.setData("Text", event.target.id);
+    	event.dataTransfer.setData("Text", event.target.id);
 });
 
 
@@ -131,7 +132,7 @@ document.addEventListener("dragover", function(event) {
 
 document.addEventListener("drop", function(event) {
     event.preventDefault();
-    if ( event.target.className === "droptarget") {
+    if ( event.target.className === "droptarget")  {
         var table = document.getElementById("workSpace");
         graph[0].cell= table.rows[0].cells[mainColumn];
         var data =document.getElementById(event.dataTransfer.getData("Text"));
@@ -560,8 +561,57 @@ function helpPage(){
         return;
     let cnf=confirm("При переходе на туториал построенная ранее блок-схема удалится. Перейти?");
     if (cnf){
-        document.location.href = 'help.html';
-    }
+
+		var old = document.getElementById("Glasshead");
+		old.style.display = 'block';
+		old = document.getElementById("Glassmenu");
+		old.style.display = 'block';
+		old = document.getElementById("Glassmain");
+		old.style.display = 'block';
+		old = document.getElementById("Glassinp");
+		old.style.display = 'block';
+		old = document.getElementById("GlassInpPerem");
+		old.style.display = 'block';
+		
+		document.getElementById("Glasshead").onclick = function () {
+			document.getElementById('ModalWindHead').style.display = "block";
+		
+		}
+		document.getElementById("Glassmain").onclick = function () {
+			document.getElementById('ModalWindMain').style.display = "block";
+		}
+		
+		document.getElementById("Glassinp").onclick = function () {
+			document.getElementById('ModalWindInp').style.display = "block";
+		}
+		
+		document.getElementById("GlassInpPerem").onclick = function () {
+			document.getElementById('ModalWindInpPerem').style.display = "block";
+		}
+		
+		document.getElementById("Glassmenu").onclick = function () {
+			document.getElementById('ModalWindMenu').style.display = "block";
+		}
+		window.onclick = function(event) {
+			if ((event.target == document.getElementById('ModalWindHead'))) {
+				document.getElementById('ModalWindHead').style.display = "none";																			   
+			}
+			if (event.target == document.getElementById('ModalWindMenu')){
+				document.getElementById('ModalWindMenu').style.display = "none";	
+			}
+			if (event.target == document.getElementById('ModalWindInpPerem')){
+				document.getElementById('ModalWindInpPerem').style.display = "none";
+			}
+			if (event.target == document.getElementById('ModalWindMain')){
+				document.getElementById('ModalWindMain').style.display = "none";
+			}
+			if (event.target == document.getElementById('ModalWindInp')){
+				document.getElementById('ModalWindInp').style.display = "none";
+			}		
+		}
+		
+		
+	}
 }
 
 function reSetM(){
