@@ -559,58 +559,53 @@ function reValBloc(){
 function helpPage(){
     if (inMenu)
         return;
-    let cnf=confirm("При переходе на туториал построенная ранее блок-схема удалится. Перейти?");
-    if (cnf){
 
-		var old = document.getElementById("Glasshead");
-		old.style.display = 'block';
-		old = document.getElementById("Glassmenu");
-		old.style.display = 'block';
-		old = document.getElementById("Glassmain");
-		old.style.display = 'block';
-		old = document.getElementById("Glassinp");
-		old.style.display = 'block';
-		old = document.getElementById("GlassInpPerem");
-		old.style.display = 'block';
-		
-		document.getElementById("Glasshead").onclick = function () {
-			document.getElementById('ModalWindHead').style.display = "block";
-		
+	var old = document.getElementById("Glasshead");
+	old.style.display = 'block';
+	old = document.getElementById("Glassmenu");
+	old.style.display = 'block';
+	old = document.getElementById("Glassmain");
+	old.style.display = 'block';
+	old = document.getElementById("Glassinp");
+	old.style.display = 'block';
+	old = document.getElementById("GlassInpPerem");
+	old.style.display = 'block';
+	
+	document.getElementById("Glasshead").onclick = function () {
+		document.getElementById('ModalWindHead').style.display = "block";
+	
+	}
+	document.getElementById("Glassmain").onclick = function () {
+		document.getElementById('ModalWindMain').style.display = "block";
+	}
+	
+	document.getElementById("Glassinp").onclick = function () {
+		document.getElementById('ModalWindInp').style.display = "block";
+	}
+	
+	document.getElementById("GlassInpPerem").onclick = function () {
+		document.getElementById('ModalWindInpPerem').style.display = "block";
+	}
+	
+	document.getElementById("Glassmenu").onclick = function () {
+		document.getElementById('ModalWindMenu').style.display = "block";
+	}
+	window.onclick = function(event) {
+		if ((event.target == document.getElementById('ModalWindHead'))) {
+			document.getElementById('ModalWindHead').style.display = "none";																			   
 		}
-		document.getElementById("Glassmain").onclick = function () {
-			document.getElementById('ModalWindMain').style.display = "block";
+		if (event.target == document.getElementById('ModalWindMenu')){
+			document.getElementById('ModalWindMenu').style.display = "none";	
 		}
-		
-		document.getElementById("Glassinp").onclick = function () {
-			document.getElementById('ModalWindInp').style.display = "block";
+		if (event.target == document.getElementById('ModalWindInpPerem')){
+			document.getElementById('ModalWindInpPerem').style.display = "none";
 		}
-		
-		document.getElementById("GlassInpPerem").onclick = function () {
-			document.getElementById('ModalWindInpPerem').style.display = "block";
+		if (event.target == document.getElementById('ModalWindMain')){
+			document.getElementById('ModalWindMain').style.display = "none";
 		}
-		
-		document.getElementById("Glassmenu").onclick = function () {
-			document.getElementById('ModalWindMenu').style.display = "block";
-		}
-		window.onclick = function(event) {
-			if ((event.target == document.getElementById('ModalWindHead'))) {
-				document.getElementById('ModalWindHead').style.display = "none";																			   
-			}
-			if (event.target == document.getElementById('ModalWindMenu')){
-				document.getElementById('ModalWindMenu').style.display = "none";	
-			}
-			if (event.target == document.getElementById('ModalWindInpPerem')){
-				document.getElementById('ModalWindInpPerem').style.display = "none";
-			}
-			if (event.target == document.getElementById('ModalWindMain')){
-				document.getElementById('ModalWindMain').style.display = "none";
-			}
-			if (event.target == document.getElementById('ModalWindInp')){
-				document.getElementById('ModalWindInp').style.display = "none";
-			}		
-		}
-		
-		
+		if (event.target == document.getElementById('ModalWindInp')){
+			document.getElementById('ModalWindInp').style.display = "none";
+		}		
 	}
 }
 

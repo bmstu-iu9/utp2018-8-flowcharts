@@ -613,81 +613,55 @@ table tbody tr {
 	z-index: 5;
 }
 
+.Glass{
+	position: absolute;
+	opacity: 0.7;
+	z-index : 15;	
+	display : none;
+	background: #0C1414;
+}
+
+.Glass:hover {
+	box-shadow:inset 0 0 50px rgba(0,0,0,1);
+	opacity: 0.3;
+}
 
 #Glasshead{
-	position: absolute;
 	left: 0%;
 	top : 0%;
 	height : 8%;
 	width: 100%;
-	opacity: 0;
-	z-index : 15;	
-	display : none;
-	background: #FFFF;
-}
-
-#Glasshead:hover {
-	opacity : 0.2;
 }
 
 #Glassmenu{
-	position: absolute;
 	left: 0;
 	top : 0;
 	height : 100%;
 	width: 8%;
-	opacity: 0;
-	z-index : 15;	
-	display : none;
-	background: #FFFF;
-}
-#Glassmenu:hover {
-	opacity : 0.4;
 }
 
 #Glassmain{
-	position: absolute;
 	left: 0;
 	top : 0;
 	height : 112%;
 	width: 100%;
-	opacity: 0;
-	z-index : 15;	
-	display : none;
-	background: #FFFF;
 }
-#Glassmain:hover {
-	opacity : 0.4;
+
+#Glassmain{
 }
 
 #Glassinp{
-	background: #FFFF;
-	position: absolute;
 	left: 0%;
 	top : 0;
 	height : 12%;
 	width: 100%;
-	opacity: 0;
-	z-index : 15;	
-	display : none;
-}
-#Glassinp:hover {
-	opacity : 0.4;
 }
 
 #GlassInpPerem{
-	position: absolute;
 	left: 0%;
 	top : 12%;
 	height : 100%;
 	width: 90%;
-	opacity: 0;
-	z-index : 15;	
-	display : none;
-	background: #FFFF;
-}
-#GlassInpPerem:hover {
-	opacity : 0.4;
 }
 
 .modal{
@@ -698,15 +672,16 @@ table tbody tr {
 	top: -81.969px;
 	width: 100%;
 	height: 110%;
-	background-color: rgba(0,0,0,0.8);
+	background-color: rgba(0,0,0,0.5);
 }
 
 .modal-content{
 	color: #412D2D;
 	font-size: 30px;
-	box-shadow:inset 0 0 15px rgba(0,0,0,0.55); 
+	box-shadow:inset 0 0 15px rgba(0,0,0,0.3); 
 	margin: 15% auto;
 	padding: 20px;
+	border-radius: 7%;
 	border : 1px solid #888;
 	width: 80%;
 }
