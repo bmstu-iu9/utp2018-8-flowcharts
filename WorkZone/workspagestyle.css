@@ -1,0 +1,91 @@
+header{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: white;
+}
+
+.headerlogotype{
+    float: left;
+    height: 70px;
+    margin-left: 20px;
+    text-align: center;
+}
+
+.defaulttext{
+    vertical-align: middle;
+    width: auto;
+    height: auto;
+    float: left;
+    font: 18px/22px Arial, sans-serif;
+}
+
+h1{
+    vertical-align: middle;
+    float: left;
+    font: 45px/60px Arial, sans-serif;
+    margin: 20px;
+}
+
+.bar{
+    float: right;
+    margin-right: 20px;
+}
+
+.bluebottom{
+    background: white;
+    color: #5FA5FA;
+    font: 18px/22px Arial, sans-serif;
+    padding: 10px 25px 10px 25px;
+    margin: 0 10px;
+    border: 1px solid #5FA5FA;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.greenbottom{
+    background: #43e43e;
+    color: white;
+    font: 18px/22px Arial, sans-serif;
+    padding: 10px 25px 10px 25px;
+    margin: 0 10px;
+    border: 1px solid #43e43e;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.exit{
+    font: 18px/22px Arial, sans-serif;
+    margin: 10px;
+    border-radius: 10px;
+    border-color: white;
+    padding: 10px 20px 10px 20px;
+    cursor: pointer;
+    color: lightcoral;
+}
+
+
+.mainworkplace{
+    text-align: center;
+    padding: 100px;
+}
+
+.row{
+    text-align: left;
+    min-width: 120px;
+    margin: 100px 10px;
+}
+
+#project{
+    background: white;
+    color: darkslategray;
+    font: 18px/22px Arial, sans-serif;
+    padding: 25px;
+    max-width: 220px;
+    border: 1px solid lightgrey;
+    border-radius: 10px;
+    cursor: pointer;
+
+}
