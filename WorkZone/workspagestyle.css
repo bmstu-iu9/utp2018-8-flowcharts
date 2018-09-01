@@ -46,12 +46,12 @@ h1{
 }
 
 .greenbottom{
-    background: #43e43e;
+    background: #00ce6f;
     color: white;
     font: 18px/22px Arial, sans-serif;
     padding: 10px 25px 10px 25px;
     margin: 0 10px;
-    border: 1px solid #43e43e;
+    border: 1px solid #00ce6f;
     border-radius: 10px;
     cursor: pointer;
 }
@@ -63,6 +63,7 @@ h1{
     border-color: white;
     padding: 10px 20px 10px 20px;
     cursor: pointer;
+    background-color: white;
     color: lightcoral;
 }
 
@@ -78,12 +79,18 @@ h1{
     margin: 100px 10px;
 }
 
-#project{
+#projectplace{
+
+}
+
+.project{
+    display: inline-block;
     background: white;
     color: darkslategray;
     font: 18px/22px Arial, sans-serif;
     padding: 25px;
     max-width: 220px;
+    margin: 20px 40px;
     border: 1px solid lightgrey;
     border-radius: 10px;
     cursor: pointer;
