@@ -559,10 +559,7 @@ function reValBloc(){
 function helpPage(){
     if (inMenu)
         return;
-	let cnf=confirm("Включить обучающий режим?");
-    if (cnf){
-        document.getElementById('ModalWind').style.display = "block";
-	}
+    document.getElementById('ModalWind').style.display = "block";
 	var old = document.getElementById("Glasshead");
 	old.style.display = 'block';
 	old = document.getElementById("Glassmenu");
@@ -617,7 +614,7 @@ function helpPage(){
 	}
 	function KeyPress(e) {
       var eobj = window.event? event : e
-      if (eobj.keyCode == 49 && eobj.ctrlKey) {
+      if (eobj.keyCode == 13 ) {
 		  alert("Теперь вы готовы к освоению блок-схем");
 		  document.getElementById("Glasshead").style.display = "none";
 		  
