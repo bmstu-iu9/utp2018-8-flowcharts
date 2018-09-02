@@ -163,7 +163,7 @@ header div{
 	height: 100%;
 	width: 100%;
 	background: #DFE0E7;
-  	border-spacing:2px 0px;
+  	border-spacing:2px 0px; 
 }
 
 #initBox{
@@ -540,13 +540,10 @@ table tbody tr {
 }
 
 #Glassmain{
-	left: 0;
-	top : 0;
-	height : 112%;
-	width: 100%;
-}
-
-#Glassmain{
+	left: 8%;
+	width:76%;
+	top: 0;
+	height : 100%;
 }
 
 #Glassinp{
