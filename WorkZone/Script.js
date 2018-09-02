@@ -19,6 +19,9 @@ let firstFile=0;
 let source;
 let focusInitBox=false;
 let Tutor = false;
+let mousedown=false;
+let MDL;
+let MDT;
 
 window.onloud=function(){
     newFile();
@@ -1175,7 +1178,7 @@ function buttonNewFile(){
     menu1.style.display="none";
     let body=document.getElementById("workSpace");
 
-    body.innerHTML='<tr><td class="lv"></td><td class="lv" id="start"><img src="img/start.png" width="60%" height="55%" class= "start"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr>'
+    body.innerHTML='<tr><td class="lv"></td><td class="lv" id="start"><img src="img/start.png" width="60%" height="55%" class= "start"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr>'
 
     columns = [false,true,false];
     mainColumn=1;
@@ -1221,6 +1224,25 @@ function saveFile() {
     xhr.send(body);
 }
 
+function mouseDown(){
+    mousedown=false;
+    MDT=event.pageY;
+    MDL=event.pageX;
+}
+
+function mouseUp(){
+    mousedown=false;
+}
+
+let supTable=document.getElementById("main");
+
+function hand(e){
+    //document.getElementById("initBox").placeholder= e.pageX + " " + e.pageY;
+    if (mousedown){
+        supTable.scrollLeft-=event.pageX-MDL/0.5;
+        supTable.scrollTop-=event.pageY-MDT/0.5;
+    }
+}
 
 ////////////////////// часть парсера //////////////////////////////////////////////////////////////////////////////////////////////////////////
 

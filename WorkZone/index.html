@@ -3,7 +3,7 @@
    <head>
    	<meta charset="utf-8">
     <title>BlockWork</title>
-    <link rel="stylesheet" id="CSSsource" type="text/css" href="mainStyle.css">
+    <link rel="stylesheet" type="text/css" href="mainStyle.css">
     <link rel="shortcut icon" href="img/temmie.png" type="image/png">
    </head>
    <body id="body">
@@ -38,7 +38,7 @@
    			<hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" />
    			<li><div>Open file</div></li>
 	        <hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" />
-	        <li><div>Log in</div></li>
+	        <li><div>log in</div></li>
    		</ul>
    	</div>
 
@@ -48,7 +48,7 @@
    			<hr width="80%" style="margin: 0% 10%;" size="3	" color="#596868"align="center" />
    			<li><div>Team</div></li>
 	        <hr width="80%" style="margin: 0% 10%;" size="3 " color="#596868"align="center" />
-	        <li onclick="buttonDesign()"><div>Themes</div></li>
+	        <li onclick="buttonDesign()"><div>Design</div></li>
 	        <hr width="80%" style="margin: 0% 10%;" size="3 " color="#596868"align="center" />
 	        <li onclick="buttonBack()"><div>Back</div></li>
    		</ul>
@@ -56,17 +56,19 @@
 
    	<div id="design" class="Menu">
    		<ul id='designUl'>
-   			<li onclick="document.getElementById('CSSsource').href='mainStyle.css'"><div>Green</div></li>
+   			<li onclick="document.getElementById('CSSsource').href='mainStyle.css'"><div>Grey</div></li>
    			<hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" />
    			<li onclick="document.getElementById('CSSsource').href='blueStyle.css'"><div>Blue</div></li>
    			<hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" />
-   			<li onclick="document.getElementById('CSSsource').href='darkStyle.css'"><div>Dark</div></li>
+   			<li><div>Developing</div></li>
    			<hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" />
+   			<li><div>Developing</div></li>
+	        <hr width="80%" style="margin: 0% 10%;" size="3 " color="#596868"align="center" />
 	        <li onclick="buttonBack()"><div>Back</div></li>
    		</ul>
    	</div>
 
-   	<main id="Main" style="display:block">;
+   	<main id="Main" style="display:block" >
    		<div id="zoomBox"><img src="img/lupa.png" height="25px" width="25px" onclick="document.getElementById('zoom').value=5; reSize();"> <input id="zoom" type="range" min="0" max="10" step="1" value="5" oninput="reSize()"></div>
 	   
 		<div id = "Glassmenu" class="Glass" onclick = "Tutmenu"> </div>
@@ -75,7 +77,7 @@
 			<div class = "modal-content">
 				<i>
 				Добро пожаловать! Вы попали на обучающую страничку, которая поможет вам разобраться с принципом работы интерпритатора блок-схем. Чтобы получить справку, наведите на интересующую область и нажмите на нее.
-					Чтобы выйти из режима обучения просто нажмите Enter. Удачи!
+					Чтобы выйти из режима обучения просто нажмите сочетание клавиш Enter. Удачи!
 				</i>			
 			</div>
 		</div>
@@ -169,13 +171,9 @@
 		    </div>
 	    </div>
 		<div id = "Glassmain" class="Glass" > </div>
-	    <div id="main" style=" overflow-x:scroll;overflow-y:auto;">
-			<table id="workSpace"  cellspacing="0" >
-			 	<tbody id="workSpaceBody" >
-				 	<tr><td class="lv"></td><td class="lv" id="start"><img src="img/start.png" width="50%" height="50%" class= "start"></td><td class="lv"></td></tr>
-				 	<tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr>
-				 	<tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr>
-				</tbody>
+	    <div id="main" style=" overflow:auto;" >
+			<table id="workSpace"  cellspacing="0"  onmousedown="mouseDown()" onmouseup="mouseUp()" onmouseover="hand(event)">
+			 	<tbody id="workSpaceBody" ></tbody>
 			</table>
 	    </div> 
     	<ul onmouseleave="closeMenu();" id="submenu">
