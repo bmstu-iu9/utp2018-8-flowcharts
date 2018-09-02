@@ -74,8 +74,8 @@ header div{
 #buttons{
 	display: flex;
 	justify-content:space-around;
-	margin: 1% 29%; 
-	width: 50%;
+	margin: 1% 25%; 
+	width: 60%;
 	height: 70%;
 	background-color: #1A3131;
 	border-radius: 5px;
@@ -433,11 +433,11 @@ table tbody tr {
  	outline: none;
  }
 
-#mainMenu{
+.Menu{
+	display: none;
 	z-index: 1;
 	position: absolute;
 	width: 28%;
-	height: 50%;
   	left: 36%;
   	top: 19%;
   	border-radius: 2%; 
@@ -446,14 +446,14 @@ table tbody tr {
   	box-shadow: inset 0 0 20px rgba(42, 60, 60,0.5); 
 }
 
-#mainMenu ul{
+.Menu ul{
 	list-style: none;
 	width: 100%;
 	height: 100%;
 	margin: 20px 0px;
 }
 
-#mainMenu li{
+.Menu li{
 	margin: 2% 5%;
 	width: 90%;
 	height: 20%; 
@@ -465,116 +465,15 @@ table tbody tr {
  	transition-duration: 0.7s;
 }
 
-#mainMenu li:hover{
+.Menu li:hover{
 	background-color: #C0C4CD;
 }
 
-#mainMenu li:hover div{
+.Menu li:hover div{
 	opacity: 1;
 }
 
-#mainMenu li div{
-	padding: 7% 0px;
- 	color: #2a3c3c;
-	font-size: 40px;
-	text-align:  center;
-	opacity: 0.6;
-	-webkit-transition: opacity 0.5s; 	
-}
-
-#newFileMenu{
-	z-index: 1;
-	display: none;
-	opacity: 0;
-	position: absolute;
-	width: 28%;
-	height: 30%;
-  	left: 36%;
-  	top:  19%;
-  	border-radius: 2%; 
-  	background: #C0C4CD;
-  	-webkit-transition: opacity 0.7s; 
-  	box-shadow: inset 0 0 20px rgba(42, 60, 60,0.5); 
-}
-
-#newFileMenu ul{
-	list-style: none;
-	width: 100%;
-	height: 100%;
-	margin: 20px 0px;
-}
-
-#newFileMenu li{
-	margin: 2% 5%;
-	width: 90%;
-	height: 20%; 
-	border-radius: 6%; 
-	background-color: #DADCE2;
-	position: relative;
-	box-shadow: inset 0 0 10px rgba(192, 196, 205,1);
-	transition-property: background-color;
- 	transition-duration: 0.7s;
-}
-
-#newFileMenu li:hover{
-	background-color: #C0C4CD;
-}
-
-#newFileMenu li:hover div{
-	opacity: 1;
-}
-
-#newFileMenu li div{
-	padding: 7% 0px;
- 	color: #2a3c3c;
-	font-size: 40px;
-	text-align:  center;
-	opacity: 0.6;
-	-webkit-transition: opacity 0.5s; 	
-}
-
-#design {
-	z-index: 1;
-	display: none;
-	position: absolute;
-	width: 28%;
-	height: 40%;
-  	left: 36%;
-  	top:  19%;
-  	border-radius: 2%; 
-  	background: #C0C4CD;
-  	-webkit-transition: opacity 0.7s; 
-  	box-shadow: inset 0 0 20px rgba(42, 60, 60,0.5);
-}
-
-#design ul{
-	list-style: none;
-	width: 100%;
-	height: 100%;
-	margin: 20px 0px;
-}
-
-#design li{
-	margin: 2% 5%;
-	width: 90%;
-	height: 20%; 
-	border-radius: 6%; 
-	background-color: #DADCE2;
-	position: relative;
-	box-shadow: inset 0 0 10px rgba(192, 196, 205,1);
-	transition-property: background-color;
- 	transition-duration: 0.7s;
-}
-
-#design li:hover{
-	background-color: #C0C4CD;
-}
-
-#design li:hover div{
-	opacity: 1;
-}
-
-#design li div{
+.Menu li div{
 	padding: 7% 0px;
  	color: #2a3c3c;
 	font-size: 40px;

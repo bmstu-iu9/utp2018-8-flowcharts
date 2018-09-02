@@ -9,9 +9,6 @@
    <body id="body">
    	<header >
 		<div id = "Glasshead" class="Glass" > </div>
-		
-		
-		
    		<div id="hiddenTools" style="text-align: center;line-height: 8vh;" onclick="addWindow(this)">
    			<strong id="toolsHead" ><i>Tools</i></strong>
    		</div>
@@ -24,8 +21,9 @@
 				<input type="image" id = "right" src="https://png.icons8.com/windows/40/B7BCC7/right.png" style="display: none" onclick="buttonRight();" checked/>
 				<input type="image" src="https://png.icons8.com/ios/40/B7BCC7/save-as.png" onclick="saveFile()" checked/>
 				<input type="image" src="https://png.icons8.com/dotty/40/B7BCC7/add-file.png" onclick="newFile()" checked/>
+        <input type="image" src="https://png.icons8.com/ios/48/cccccc/settings.png" onclick="settings()" checked/>
 				<input type="image" src="https://png.icons8.com/material/40/B7BCC7/question-mark.png" onclick="helpPage()" checked/>
-				<input type="image" src="https://png.icons8.com/ios/48/cccccc/settings.png" onclick="settings()" checked/>
+
 			</div>
    		</div>
    		<div id="hiddenInformationMenu" style="text-align: center;line-height: 8vh;" onclick="addWindow(this)">
@@ -34,39 +32,44 @@
    	</header>
 	   
  
-   	<div id="newFileMenu">
+   	<div id="newFileMenu" class="Menu">
    		<ul id='newFileUl'>
    			<li onclick="buttonNewFile()"><div>Create new file</div></li>
    			<hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" />
    			<li><div>Open file</div></li>
+	        <hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" />
+	        <li><div>log in</div></li>
    		</ul>
    	</div>
-   	<div id="mainMenu">
+
+   	<div id="mainMenu" class="Menu">
    		<ul id='mainMenuUl'>
-   			<li onclick="buttonNewFile()"><div>Create new file</div></li>
-   			<hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" />
-   			<li><div>Open file</div></li>
-   			<hr width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" />
    			<li><div>Help</div></li>
    			<hr width="80%" style="margin: 0% 10%;" size="3	" color="#596868"align="center" />
    			<li><div>Team</div></li>
+	        <hr width="80%" style="margin: 0% 10%;" size="3 " color="#596868"align="center" />
+	        <li onclick="buttonDesign()"><div>Design</div></li>
+	        <hr width="80%" style="margin: 0% 10%;" size="3 " color="#596868"align="center" />
+	        <li onclick="buttonBack()"><div>Back</div></li>
    		</ul>
    	</div>
-   	<div id="design">
+
+   	<div id="design" class="Menu">
    		<ul id='designUl'>
    			<li onclick="document.getElementById('CSSsource').href='mainStyle.css'"><div>Grey</div></li>
    			<hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" />
    			<li onclick="document.getElementById('CSSsource').href='blueStyle.css'"><div>Blue</div></li>
    			<hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" />
-   			<li><div>Any other</div></li>
+   			<li><div>Developing</div></li>
    			<hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" />
-   			<li><div>Any other other</div></li>
+   			<li><div>Developing</div></li>
+	        <hr width="80%" style="margin: 0% 10%;" size="3 " color="#596868"align="center" />
+	        <li onclick="buttonBack()"><div>Back</div></li>
    		</ul>
    	</div>
-   	<!-- 				-->
+
    	<main id="Main" style="display:block">;
-   		<!-- <div id="lol"> -->
-   		<div id="zoomBox"><img src="img/лупа.png" height="25px" width="25px" onclick="document.getElementById('zoom').value=5; reSize();"> <input id="zoom" type="range" min="0" max="10" step="1" value="5" oninput="reSize()"></div>
+   		<div id="zoomBox"><img src="img/lupa.png" height="25px" width="25px" onclick="document.getElementById('zoom').value=5; reSize();"> <input id="zoom" type="range" min="0" max="10" step="1" value="5" oninput="reSize()"></div>
 	   
 		<div id = "Glassmenu" class="Glass" onclick = "Tutmenu"> </div>
 		
@@ -133,7 +136,6 @@
 		</div>
 		
 		<div id="menu">
-			<!-- <div><img class="object" src="https://png.icons8.com/ios-glyphs/90/2a3c3c/circled.png" width="90"  draggable="true" id="oval"></div> --> 
 			-act-
 			<hr  width="90%" style="margin: 0% 5%;" size="3" color="#596868"align="center" />
 			<div><img class="act" src="https://png.icons8.com/windows/96/2a3c3c/unchecked-checkbox.png" width="36%" height="38%" draggable="true" id="prm"></div>
@@ -148,7 +150,7 @@
 			<div><img class="loop" src="https://png.icons8.com/windows/96/2A3C3C/rotate-right.png" width="35%" height="39%" draggable="true" id="loop"></div>
 			-end-
 			<hr  width="90%" style="margin: 0% 5%;" size="3" color="#596868"align="center" />
-			<div><img class="end" src="https://png.icons8.com/ios/100/2A3C3C/logout-rounded-left.png" width="35%" height="39%" draggable="true" id="end"></div>
+			<div><img class="end" src="img/exit.png" width="39%" height="39%" draggable="true" id="end"></div>
      	</div>
      	<div id="InformationMenu" onclick = "TutMenu">
 			<div id = "Glassinp" onclick = "Tutinp" class="Glass" > </div>
