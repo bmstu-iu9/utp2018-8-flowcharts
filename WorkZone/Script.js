@@ -14,10 +14,11 @@ let errorOfBlock=false;
 let zoom=10;
 let cellW=210;
 let cellH=200;
-let inMenu=true ;
+let inMenu=false;
 let firstFile=0;
 let source;
 let focusInitBox=false;
+let Tutor = false;
 
 window.onloud=function(){
     newFile();
@@ -83,8 +84,8 @@ function getFocus(trg) {
         paint=false;
     }
     paintChilds(graph[0],false);
-	paintChilds(V,paint);
-	paintParents(V,paint);
+    paintChilds(V,paint);
+    paintParents(V,paint);
     blockTriggered=V.pos;
 }
 
@@ -121,7 +122,7 @@ function paintParents(V,paint){
 }
 
 document.addEventListener("dragstart", function(event) {
-    event.dataTransfer.setData("Text", event.target.id);
+    	event.dataTransfer.setData("Text", event.target.id);
 });
 
 
@@ -131,7 +132,7 @@ document.addEventListener("dragover", function(event) {
 
 document.addEventListener("drop", function(event) {
     event.preventDefault();
-    if ( event.target.className === "droptarget") {
+    if ( event.target.className === "droptarget")  {
         var table = document.getElementById("workSpace");
         graph[0].cell= table.rows[0].cells[mainColumn];
         var data =document.getElementById(event.dataTransfer.getData("Text"));
@@ -161,7 +162,7 @@ document.addEventListener("drop", function(event) {
         V.type=data.className;
         blockTriggered=V.pos;
         if (parent.type!="if"){
-            mg.setAttribute("src","./img/down.png");
+            mg.setAttribute("src","img/down.png");
             mg.className="down";
             if (parent.type=="start"){
                 mg.style.top="-140%";
@@ -171,7 +172,7 @@ document.addEventListener("drop", function(event) {
         if (V.type!="end"){
             document.getElementById("initBox").focus();
         }
-        if (V.childs.length==0)	
+        if (V.childs.length==0) 
             changeTrigger(row, cell,data.id,V.pos,true);
         else if (V.type=="if")
             changeTrigger(row, cell,data.id,V.pos,false);
@@ -293,10 +294,10 @@ function addColumn(pos){
         newCell.className="lv";
         newCell.style.width=cellW;
         newCell.style.height=cellH;
-		table.rows[i].insertBefore(newCell,table.rows[i].children[pos]);
-	}
-	if (pos<=mainColumn){
-		mainColumn++;
+        table.rows[i].insertBefore(newCell,table.rows[i].children[pos]);
+    }
+    if (pos<=mainColumn){
+        mainColumn++;
     }
     reSize();
 }
@@ -306,61 +307,61 @@ function addRow(){
     let row = table.insertRow(-1);
     for (let i =0; i< table.rows[1].cells.length;i++){
         let cell = row.insertCell(-1);
-		cell.className= table.rows[0].cells[0].className;
-	}
+        cell.className= table.rows[0].cells[0].className;
+    }
     reSize();
 }
 
 function addWindow(trg){
     let obj;
-	let menu =document.getElementById("menu");
+    let menu =document.getElementById("menu");
     let zm= document.getElementById('zoomBox');
-	let Ht=document.getElementById("hiddenTools");
-	let iMenu =document.getElementById("InformationMenu")
-	let Hm=document.getElementById("hiddenInformationMenu");
-	let main =document.getElementById("main");
-	trg===Hm? obj= iMenu: obj=menu;
-	if (obj.className=="hidden"){
-		if (trg===Ht){
-			if (iMenu.className=="hidden"){
-				main.style.width="92%";
-				main.style.left="8%";
-			}else{
-				main.style.width="76%";
-				main.style.left="8%";
-			}
-		}else{
-			if (menu.className=="hidden"){
-				main.style.width="84%";
-				main.style.left="0%";
-			}else{
-				main.style.width="76%";
-				main.style.left="8%";
-			}
+    let Ht=document.getElementById("hiddenTools");
+    let iMenu =document.getElementById("InformationMenu")
+    let Hm=document.getElementById("hiddenInformationMenu");
+    let main =document.getElementById("main");
+    trg===Hm? obj= iMenu: obj=menu;
+    if (obj.className=="hidden"){
+        if (trg===Ht){
+            if (iMenu.className=="hidden"){
+                main.style.width="92%";
+                main.style.left="8%";
+            }else{
+                main.style.width="76%";
+                main.style.left="8%";
+            }
+        }else{
+            if (menu.className=="hidden"){
+                main.style.width="84%";
+                main.style.left="0%";
+            }else{
+                main.style.width="76%";
+                main.style.left="8%";
+            }
             zm.style.left="74%";
-		}
-		obj.className="block";
-		} else{
-    	if (trg===Ht){
-			if (iMenu.className=="hidden"){
-				main.style.width="100%";
-				main.style.left="0%";
-			}else{
-				main.style.width="84%";
-				main.style.left="0%";
-			}
-		}else{
-			if (menu.className=="hidden"){
-				main.style.width="100%";
-				main.style.left="0%";
-			}else{
-				main.style.width="92%";
-				main.style.left="8%";
-			}
+        }
+        obj.className="block";
+        } else{
+        if (trg===Ht){
+            if (iMenu.className=="hidden"){
+                main.style.width="100%";
+                main.style.left="0%";
+            }else{
+                main.style.width="84%";
+                main.style.left="0%";
+            }
+        }else{
+            if (menu.className=="hidden"){
+                main.style.width="100%";
+                main.style.left="0%";
+            }else{
+                main.style.width="92%";
+                main.style.left="8%";
+            }
             zm.style.left="90%";
-		}
- 		obj.className="hidden";
-	}
+        }
+        obj.className="hidden";
+    }
 }
 
 function  hiddenVarBox(trg){
@@ -558,10 +559,77 @@ function reValBloc(){
 function helpPage(){
     if (inMenu)
         return;
-    let cnf=confirm("При переходе на туториал построенная ранее блок-схема удалится. Перейти?");
-    if (cnf){
-        document.location.href = 'help.html';
-    }
+    document.getElementById('ModalWind').style.display = "block";
+	var old = document.getElementById("Glasshead");
+	old.style.display = 'block';
+	old = document.getElementById("Glassmenu");
+	old.style.display = 'block';
+	old = document.getElementById("Glassmain");
+	old.style.display = 'block';
+	old = document.getElementById("Glassinp");
+	old.style.display = 'block';
+	old = document.getElementById("GlassInpPerem");
+	old.style.display = 'block';
+	
+	document.getElementById("Glasshead").onclick = function () {
+		document.getElementById('ModalWindHead').style.display = "block";
+	}
+	document.getElementById("Glassmain").onclick = function () {
+		document.getElementById('ModalWindMain').style.display = "block";
+	}
+	
+	document.getElementById("Glassinp").onclick = function () {
+		document.getElementById('ModalWindInp').style.display = "block";
+	}
+	
+	document.getElementById("GlassInpPerem").onclick = function () {
+		document.getElementById('ModalWindInpPerem').style.display = "block";
+	}
+	
+	document.getElementById("Glassmenu").onclick = function () {
+		document.getElementById('ModalWindMenu').style.display = "block";
+	}
+	window.onclick = function(event) {
+		if ((event.target == document.getElementById('ModalWindHead'))) {
+			document.getElementById('ModalWindHead').style.display = "none";																			   
+		}
+		if (event.target == document.getElementById('ModalWindMenu')){
+			document.getElementById('ModalWindMenu').style.display = "none";	
+		}
+		if (event.target == document.getElementById('ModalWindInpPerem')){
+			document.getElementById('ModalWindInpPerem').style.display = "none";
+		}
+		if (event.target == document.getElementById('ModalWindMain')){
+			document.getElementById('ModalWindMain').style.display = "none";
+		}
+		if (event.target == document.getElementById('ModalWindInp')){
+			document.getElementById('ModalWindInp').style.display = "none";
+		}
+		if (event.target == document.getElementById('ModalWind')){
+			document.getElementById('ModalWind').style.display = "none";
+		}
+		
+	
+	}
+	function KeyPress(e) {
+        var eobj = window.event? event : e
+        if (eobj.keyCode == 13 ) {
+            //alert("Теперь вы готовы к освоению блок-схем");
+            document.getElementById("Glasshead").style.display = "none";
+            document.getElementById('ModalWindMenu').style.display = "none";
+            document.getElementById("Glassmain").style.display = "none";
+            document.getElementById('ModalWindHead').style.display = "none";
+            document.getElementById("Glassinp").style.display = "none";
+            document.getElementById('ModalWindInpPerem').style.display = "none";
+            document.getElementById("GlassInpPerem").style.display = "none";
+            document.getElementById('ModalWindMain').style.display = "none";
+            document.getElementById("Glassmenu").style.display = "none";
+            document.getElementById('ModalWindInp').style.display = "none";
+            document.getElementById('ModalWind').style.display = "none";
+        }
+}
+
+document.onkeydown = KeyPress;
 }
 
 function reSetM(){
@@ -828,23 +896,23 @@ function buttonDelete(){
         graph[trueCh].parents[0]=pr.pos;
         delDfs(graph[falseCh]);
         for (let i=0;i<difF;i++){
-        	deleteColumn(block.cell.cellIndex-1);
+            deleteColumn(block.cell.cellIndex-1);
         }
         for (let i=0;i<findDif(graph[trueCh],false);i++){
-        	addColumn(block.cell.cellIndex);
+            addColumn(block.cell.cellIndex);
         }
         if (block.y>0){
-        	fix(graph[trueCh],difF-findDif(graph[trueCh],false));
-        	alert();
+            fix(graph[trueCh],difF-findDif(graph[trueCh],false));
+            alert();
         }
         ifDfs(graph[trueCh],findDif(graph[trueCh],false)+1);
         for (let i=0;i<difT-findDif(graph[trueCh],true);i++){
-        	deleteColumn(block.cell.cellIndex+findDif(graph[trueCh],true)+1);	
+            deleteColumn(block.cell.cellIndex+findDif(graph[trueCh],true)+1);   
         }
         reIndex(block.y);
         if (graph[trueCh].type!="trg" && pr.type!="if"){
             let mg=document.createElement("img");
-            mg.setAttribute("src","img/вниз.png");
+            mg.setAttribute("src","img/down.png");
             mg.className="down";
             graph[trueCh].cell.appendChild(mg);
         }
@@ -862,25 +930,25 @@ function buttonDelete(){
 }
 
 function fix(V,dif){
-	V.y-=dif;
-	for(let i=0;i<V.childs.length;i++){
-		fix(graph[V.childs[i]],dif);
-	}
+    V.y-=dif;
+    for(let i=0;i<V.childs.length;i++){
+        fix(graph[V.childs[i]],dif);
+    }
 }
 
 
 function reIndex(side){
-	let V=graph[0];
-	while(V.type!="if"){
-		V=graph[V.childs[0]];
-	}
-	reIndRec(V);
+    let V=graph[0];
+    while(V.type!="if"){
+        V=graph[V.childs[0]];
+    }
+    reIndRec(V);
 }
 
 function reIndRec(V){
-	V.cell.setAttribute('onclick',"getFocus(this)");
+    V.cell.setAttribute('onclick',"getFocus(this)");
     if (graphIds.get((V.x)+ " "+(V.y))==V.pos)
-    	graphIds.delete((V.x)+ " "+(V.y));
+        graphIds.delete((V.x)+ " "+(V.y));
     graphIds.set((V.cell.parentNode.rowIndex)+ " "+(V.cell.cellIndex-mainColumn),V.pos);
     V.x=V.cell.parentNode.rowIndex;
     V.y=V.cell.cellIndex-mainColumn;
@@ -891,19 +959,19 @@ function reIndRec(V){
 
 
 function findDif(V,IF){
-	let pos =V.y;
-	while (V.type!="end" && V.type!="loop" && V.type!="trg"){
-		if (V.type=="if"){
-			if (IF){
-				V= graph[graph[V.childs[0]].ifRes? V.childs[0]:V.childs[1]];	
-			} else{
-				V= graph[!graph[V.childs[0]].ifRes? V.childs[0]:V.childs[1]];	
-			}
-		} else {
-			V=graph[V.childs[0]];
-		}
-	}
-	return Math.abs(pos-V.y);
+    let pos =V.y;
+    while (V.type!="end" && V.type!="loop" && V.type!="trg"){
+        if (V.type=="if"){
+            if (IF){
+                V= graph[graph[V.childs[0]].ifRes? V.childs[0]:V.childs[1]];    
+            } else{
+                V= graph[!graph[V.childs[0]].ifRes? V.childs[0]:V.childs[1]];   
+            }
+        } else {
+            V=graph[V.childs[0]];
+        }
+    }
+    return Math.abs(pos-V.y);
 }
 
 function deleteColumn(pos){
@@ -1026,13 +1094,14 @@ function reSize(){
 
 
 function newFile(){
+    if (inMenu)
+        return;
     inMenu=true;
     let menu=document.getElementById("newFileMenu");
     let M=document.getElementById("Main");
-    let lol=document.getElementById("lol");
     let lu=document.getElementById('newFileUl');
     menu.style.display= "block";
-    if (firstFile==1 && lu.children.length==7){
+    if (firstFile>=1 && lu.children.length==5){
         let lu=document.getElementById('newFileUl');
         let back = document.createElement('li');
         let hr= document.createElement("hr");
@@ -1041,16 +1110,29 @@ function newFile(){
         hr.style.width="83%";
         hr.style="opacity: 0.7;margin: 0% 10%;";
         menu.style.top="19%";
-        menu.style.height="70%";
         back.innerHTML='<div>Back</div>';
         back.setAttribute('onclick',"buttonBack()");
         lu.appendChild(hr);
         lu.appendChild(back);
         let lues=document.querySelectorAll("#newFileUl li");
         for (let item of lues){
-            item.style.height="16%";
+            item.style.height="26%";
         }
     }
+    menu.style.opacity=1;
+    M.style.opacity=0;
+    document.getElementById("informationHead").style.opacity= "0";
+    document.getElementById("toolsHead").style.opacity="0";
+}
+
+function settings() {
+    if (inMenu)
+        return;
+    inMenu=true;
+    let menu=document.getElementById("mainMenu");
+    let M=document.getElementById("Main");
+    let lu=document.getElementById('mainMenuUl');
+    menu.style.display= "block";
     menu.style.opacity=1;
     M.style.opacity=0;
     document.getElementById("informationHead").style.opacity= "0";
@@ -1060,30 +1142,37 @@ function newFile(){
 function buttonBack(){
     firstFile++ ;
     let M=document.getElementById("Main");
-    let menu=document.getElementById("newFileMenu");
-    let lol=document.getElementById("lol");
+    let menu=event.target.parentNode.parentNode.parentNode;
     M.style.opacity=1;  
     menu.style.opacity=0;
     document.getElementById("informationHead").style.opacity= "1";
     document.getElementById("toolsHead").style.opacity="1";
-    setTimeout(1000);
     menu.style.display= "none";
-    inMenu=false;
+    inMenu=false; 
 }
 
+function buttonDesign(){
+    let M=document.getElementById("Main");
+    let menu=document.getElementById("design");
+    let menu1=event.target.parentNode.parentNode.parentNode;
+    menu1.style.opacity=0;
+    menu1.style.display= "none";
+    menu.style.opacity=1;
+    M.style.opacity=0;
+    menu.style.display= "block";
+}
 
 function buttonNewFile(){
     firstFile++;
     inMenu=false;
     let M=document.getElementById("Main");
-    let menu=document.getElementById("newFileMenu");
-    let lol=document.getElementById("lol");
+    let menu1=document.getElementById("newFileMenu");
     M.style.opacity=1;
-    menu.style.opacity=0;
+    menu1.style.opasity=0;
     document.getElementById("informationHead").style.opacity= "1";
     document.getElementById("toolsHead").style.opacity="1";
     setTimeout(1000);
-    menu.style.display= "none";
+    menu1.style.display="none";
     let body=document.getElementById("workSpace");
 
     body.innerHTML='<tr><td class="lv"></td><td class="lv" id="start"><img src="img/start.png" width="60%" height="55%" class= "start"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr>'
@@ -1123,6 +1212,13 @@ function buttonNewFile(){
 
     graph.push(startV);
     graph.push(ft);
+}
+
+function saveFile() {
+    var xhr = new XMLHttpRequest();
+    body = "title=new&content=kirya_hui_sosi";
+    xhr.open('POST', '/save');
+    xhr.send(body);
 }
 
 

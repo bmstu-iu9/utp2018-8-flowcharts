@@ -3,11 +3,12 @@
    <head>
    	<meta charset="utf-8">
     <title>BlockWork</title>
-    <link rel="stylesheet" type="text/css" href="mainStyle.css">
-    <link rel="shortcut icon" href="img/иконка2.png" type="image/png">
+    <link rel="stylesheet" id="CSSsource" type="text/css" href="mainStyle.css">
+    <link rel="shortcut icon" href="img/temmie.png" type="image/png">
    </head>
    <body id="body">
    	<header >
+		<div id = "Glasshead" class="Glass" > </div>
    		<div id="hiddenTools" style="text-align: center;line-height: 8vh;" onclick="addWindow(this)">
    			<strong id="toolsHead" ><i>Tools</i></strong>
    		</div>
@@ -18,31 +19,123 @@
 				<input type="image" id = "left" src="https://png.icons8.com/windows/40/B7BCC7/left.png" style="display:none" onclick= "buttonLeft();" checked/>
 				<input type="image" id = "bug" src="https://png.icons8.com/windows/40/B7BCC7/bug.png" onclick="buttonDebag();" checked/>
 				<input type="image" id = "right" src="https://png.icons8.com/windows/40/B7BCC7/right.png" style="display: none" onclick="buttonRight();" checked/>
-				<input type="image" src="https://png.icons8.com/ios/40/B7BCC7/save-as.png" checked/>
+				<input type="image" src="https://png.icons8.com/ios/40/B7BCC7/save-as.png" onclick="saveFile()" checked/>
 				<input type="image" src="https://png.icons8.com/dotty/40/B7BCC7/add-file.png" onclick="newFile()" checked/>
+        <input type="image" src="https://png.icons8.com/ios/48/cccccc/settings.png" onclick="settings()" checked/>
 				<input type="image" src="https://png.icons8.com/material/40/B7BCC7/question-mark.png" onclick="helpPage()" checked/>
+
 			</div>
    		</div>
    		<div id="hiddenInformationMenu" style="text-align: center;line-height: 8vh;" onclick="addWindow(this)">
    			<strong id="informationHead"><i>Information</i></strong>
    		</div>
    	</header>
-   	<div id="newFileMenu">
+	   
+ 
+   	<div id="newFileMenu" class="Menu">
    		<ul id='newFileUl'>
    			<li onclick="buttonNewFile()"><div>Create new file</div></li>
    			<hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" />
    			<li><div>Open file</div></li>
-   			<hr width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" />
+	        <hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" />
+	        <li><div>log in</div></li>
+   		</ul>
+   	</div>
+
+   	<div id="mainMenu" class="Menu">
+   		<ul id='mainMenuUl'>
    			<li><div>Help</div></li>
    			<hr width="80%" style="margin: 0% 10%;" size="3	" color="#596868"align="center" />
    			<li><div>Team</div></li>
+	        <hr width="80%" style="margin: 0% 10%;" size="3 " color="#596868"align="center" />
+	        <li onclick="buttonDesign()"><div>Design</div></li>
+	        <hr width="80%" style="margin: 0% 10%;" size="3 " color="#596868"align="center" />
+	        <li onclick="buttonBack()"><div>Back</div></li>
    		</ul>
    	</div>
+
+   	<div id="design" class="Menu">
+   		<ul id='designUl'>
+   			<li onclick="document.getElementById('CSSsource').href='mainStyle.css'"><div>Grey</div></li>
+   			<hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" />
+   			<li onclick="document.getElementById('CSSsource').href='blueStyle.css'"><div>Blue</div></li>
+   			<hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" />
+   			<li><div>Developing</div></li>
+   			<hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" />
+   			<li><div>Developing</div></li>
+	        <hr width="80%" style="margin: 0% 10%;" size="3 " color="#596868"align="center" />
+	        <li onclick="buttonBack()"><div>Back</div></li>
+   		</ul>
+   	</div>
+
    	<main id="Main" style="display:block">;
-   		<div id="lol">
-   		<div id="zoomBox"><img src="./img/lupa.png" height="25px" width="25px" onclick="document.getElementById('zoom').value=5; reSize();"> <input id="zoom" type="range" min="0" max="10" step="1" value="5" oninput="reSize()"></div>
-	    <div id="menu">
-			<!-- <div><img class="object" src="https://png.icons8.com/ios-glyphs/90/2a3c3c/circled.png" width="90"  draggable="true" id="oval"></div> --> 
+   		<div id="zoomBox"><img src="img/lupa.png" height="25px" width="25px" onclick="document.getElementById('zoom').value=5; reSize();"> <input id="zoom" type="range" min="0" max="10" step="1" value="5" oninput="reSize()"></div>
+	   
+		<div id = "Glassmenu" class="Glass" onclick = "Tutmenu"> </div>
+		
+		<div id = "ModalWind" class = "modal">
+			<div class = "modal-content">
+				<i>
+				Добро пожаловать! Вы попали на обучающую страничку, которая поможет вам разобраться с принципом работы интерпритатора блок-схем. Чтобы получить справку, наведите на интересующую область и нажмите на нее.
+					Чтобы выйти из режима обучения просто нажмите Enter. Удачи!
+				</i>			
+			</div>
+		</div>
+		
+		<div id = "ModalWindHead" class = "modal">
+			<div class = "modal-content">
+				<i>
+				Функциональная панель содержит в себе кнопки скрывающие интерфейс выбора фигур и интерфейс ввода (конпки "Tools" и "Information" соответственно)
+					В центре находятся кнопки (слева направо) : кнопка запуска, "дебаг", сохранение, создание новой страницы, режим обучения, настройки.
+					
+				</i>			
+			</div>
+		</div>
+		
+		<div id = "ModalWindMenu" class = "modal">
+			<div class = "modal-content">
+				<i>
+				Данный интерфейс представляет из себя палитру с фигурами, которые будут являться компонентами вашей блок-схемы.
+					Чтобы задействовать любую из фигур, просто перетяните ее в подсвеченное поле.
+					Все фигуры соответствуют каноническим элементам языка блок-схем.
+				</i>			
+			</div>
+		</div>
+		
+		<div id = "ModalWindInp" class = "modal">
+			<div class = "modal-content">
+				<i>
+				Данное поле позволяет вам связать объект на "рабочем столе" и переменные.
+					Именно в это поле вводится все желаемые действия, условия и т.п.
+				</i>			
+			</div>
+		</div>
+		
+		<div id = "ModalWindInpPerem" class = "modal">
+			<div class = "modal-content">
+				<i>
+				Данное поле дает возможность для создания переменных и присвоения им определенного значения.
+					Для создания переменной, нажмите на "+".
+					Обратите внимание на пример внутри поля ввода, именно по этому образцу нужно записвать создаваемую переменную.
+					Чтобы изменить значение переменной, кликните на старое значение и введите новое.
+				</i>			
+			</div>
+		</div>
+		
+		<div id = "ModalWindMain" class = "modal">
+			<div class = "modal-content">
+				<i>
+					Это рабочее поле, именно на него необходимо переносить объекты из палитры (она расположена слева)
+					Активные поля ( это те в которые вы можете переместить объект из палитры) подсвечены.
+					Начальный элемент сразу находится на поле, после него вы сразу же можете приступать создавать "начинку" вашей схемы.
+					При нажатии на один из объектов на поле, вам будет показана вся цепочка ведущая к этому элементу.
+					В углу рабочего поля находится "ползунок", перемещая который вы сможете изменить масштаб поля.
+					Помните что всякая блок-схема должна завершаться соответствующим объектом.
+				</i>			
+			</div>
+		</div>
+		
+		<div id="menu">
 			-act-
 			<hr  width="90%" style="margin: 0% 5%;" size="3" color="#596868"align="center" />
 			<div><img class="act" src="https://png.icons8.com/windows/96/2a3c3c/unchecked-checkbox.png" width="36%" height="38%" draggable="true" id="prm"></div>
@@ -57,9 +150,13 @@
 			<div><img class="loop" src="https://png.icons8.com/windows/96/2A3C3C/rotate-right.png" width="35%" height="39%" draggable="true" id="loop"></div>
 			-end-
 			<hr  width="90%" style="margin: 0% 5%;" size="3" color="#596868"align="center" />
-			<div><img class="end" src="https://png.icons8.com/ios/100/2A3C3C/logout-rounded-left.png" width="35%" height="39%" draggable="true" id="end"></div>
+			<div><img class="end" src="img/exit.png" width="39%" height="39%" draggable="true" id="end"></div>
      	</div>
-     	<div id="InformationMenu">
+     	<div id="InformationMenu" onclick = "TutMenu">
+			<div id = "Glassinp" onclick = "Tutinp" class="Glass" > </div>
+			<div id = "GlassInpPerem" onclick = "TutInpPerem" class="Glass" > </div>
+			
+			
 	    	<div id="init">
 	    		<input width="100%" type="text" name="инициализацияБлока" id="initBox" placeholder="Value of Block" onkeydown="if(event.keyCode==13){ getValOfBlock();} else {this.style.background='#DFE0E7';}" onblur="delChange()" onfocus="changedBlock()">
 	    	</div>
@@ -73,10 +170,11 @@
 		    	</div>	
 		    </div>
 	    </div>
+		<div id = "Glassmain" class="Glass" > </div>
 	    <div id="main" style=" overflow-x:scroll;overflow-y:auto;">
 			<table id="workSpace"  cellspacing="0" >
 			 	<tbody id="workSpaceBody" >
-				 	<tr><td class="lv"></td><td class="lv" id="start"><img src="./img/start.png" width="50%" height="50%" class= "start"></td><td class="lv"></td></tr>
+				 	<tr><td class="lv"></td><td class="lv" id="start"><img src="img/start.png" width="50%" height="50%" class= "start"></td><td class="lv"></td></tr>
 				 	<tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr>
 				 	<tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr>
 				</tbody>
@@ -90,6 +188,6 @@
       	</ul>
       	</div>
     </main>
-    <script src="Script.js"></script>
+    <script src="Script.js" id = "basic"></script>
    </body>
  </html>

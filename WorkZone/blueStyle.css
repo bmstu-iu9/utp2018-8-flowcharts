@@ -4,17 +4,17 @@
 }
 
 ::-webkit-scrollbar-track {
-    background: #C2C8D5; 
+    background: #B7C7DC; /* цвет скролла внеш */
     border-radius: 3px;
 }
  
 ::-webkit-scrollbar-thumb {
-    background: #888; 
+    background: #7AA3D1; /* цвет самого скролла */
     border-radius: 3px;
 }
 
 ::-webkit-transition-scrollbar-thumb:hover {
-    background: #555; 
+    background: #555;
 }
 
 
@@ -30,7 +30,7 @@ body{
 	-webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    background-color: #DFE0E7	;
+    background-color: #B0C4DE; /* фон заставки */
     -webkit-appearance: none;
   	-moz-appearance: none;
   	appearance: none;
@@ -48,7 +48,7 @@ main{
 *{
   margin: 0;
   padding: 0;
-  color: #BEC8DE;
+  color: #E0FFFF; /* надписи сверху на панеле */
 }
 
 header{
@@ -57,7 +57,7 @@ header{
 	width: 100%;
 	justify-content:center;
 	height: 8vh;
-	background-color: #2a3c3c;
+	background-color: #3E6788; /*панель инструментов внеш*/
 }
 
 header input{
@@ -74,10 +74,10 @@ header div{
 #buttons{
 	display: flex;
 	justify-content:space-around;
-	margin: 1% 25%; 
+	margin: 1% 26%; 
 	width: 60%;
 	height: 70%;
-	background-color: #1A3131;
+	background-color: #1F4C71; /* панель инструментов внутр */
 	border-radius: 5px;
 }
 
@@ -117,7 +117,7 @@ header div{
 }
 
 #menu{
-	background:#C0C4CD;
+	background:#B7C7DC; /* фон менюшки с фигурами */
 	position: absolute;
 	width: 8%;
 	height: 100%;
@@ -126,7 +126,7 @@ header div{
   	overflow-y: scroll;
   	display: block;
   	-webkit-transition: width 1s, left 1s;
-  	color: #2a3c3c;
+  	color: #4F7595; /* предназначения фигур */
   	font-size: 23px;
   	text-align: center;
   	font-weight:700;
@@ -148,7 +148,7 @@ header div{
 }
 
 #InformationMenu{
-	background:#C0C4CD;
+	background:#B7C7DC; /* фон меню справа */
 	position: absolute;
   	left: 84%;
   	top: 0;
@@ -162,24 +162,24 @@ header div{
 #workSpace {
 	height: 100%;
 	width: 100%;
-	background: #DFE0E7;
-  	border-spacing:2px 0px; 
+	background: #D7DEEF; /* фон рабочего поля */
+  	border-spacing:2px 0px;
 }
 
 #initBox{
-	color:#334D4D;
+	color:#4F7595; /* курсор в окне ввода */
 	width:84%;
 	margin: 12% 6%; 
 	font-size: 25px;
 	padding: 6px 0 4px 10px;
 	/*border: 3px solid #334D4D;*/
 	border: none;
-	background: #DFE0E7;
+	background: #DFE0E7; /* фон окна ввода */
 	border-radius: 8px;
 }
 
 #var div{
-	color:#334D4D;
+	color:#4F7595; /*  */
 	font-size: 32px;
 	text-align: center;
     vertical-align: top;
@@ -207,7 +207,7 @@ header div{
 }
 
 #initVarBox{
-	color:#334D4D;
+	color:#4F7595;
 	width:80%;
 	margin: 2px 10%;
 	font-size: 22px;
@@ -215,7 +215,7 @@ header div{
 	/*border: 3px solid #334D4D;*/
 	border: none;
 	display: none;
-	background: #DFE0E7;
+	background: #DFE0E7; /* фон окошка ввода внизу */
 	border-radius: 6px;	
 	-webkit-transition: width 2s, height 1s;
 }
@@ -239,7 +239,7 @@ hr{
 
 #var i{
 	font-size: 26px;
-	color: #334D4D;
+	color: #4F7595; /*  */
 	grid-column-start: 1;
   	grid-column-end: 3;
 }
@@ -269,7 +269,7 @@ hr{
 td {
 	/*border: 4px solid #2a3c3c;*/
     text-align: center;
-	border: 1px solid #AFB6BF;
+	border: 1px solid #B7C7DC; /* фон решетки */
 }
 
 table tbody {
@@ -315,7 +315,8 @@ table tbody tr {
 }
 
 .droptarget {
-	background-color: #DEB5B1 ;
+	background-color: #AFCCE9 ; /* триггер */
+	border: 1px solid #2668A6; /* обводка триггера */
 	width: 210px;
 	height: 200px;
 	text-align: center;
@@ -323,7 +324,7 @@ table tbody tr {
 }
 
 .focusеtarget {
-	background-color: #C4CDD9 ;
+	background-color: #BDD1E5 ; /* подсветка дерева */
 	width: 210px ;
 	height: 200px;
 	text-align: center;
@@ -331,13 +332,13 @@ table tbody tr {
 }
 
 #tmpInput{
-	color:#334D4D;
+	color:#4F7595; 
 	width:50%;
 	margin: 2px 10%;
 	font-size: 22px;
 	padding: 6px 0 4px 10px;
 	border: none;
-	background: #DFE0E7;
+	background: #DFE0E7; 
 	border-radius: 6px;	
 }
 
@@ -363,25 +364,25 @@ table tbody tr {
 #submenu li{
 	width: 100%;
 	height: 40px; 
-	background-color: #CDD4E3;
+	background-color: #BEC7DD; /*  */
 	transition-property: background-color;
  	transition-duration: 0.4s;
 }
 
 #submenu li:hover{
 	box-shadow:inset 0 0 5px rgba(0,0,0,0.2); 
-	background-color: #C0C4CD;
+	background-color: #B3B6E8; /*  */
 }
 
 #submenu li:hover div{
-	color: #2E4D4D;
+	color: #2E4D4D; /*  */
 }
 
 #submenu li div{
 	overflow: hidden;
 	font-family: "FontAwesome";
 	padding: 8px 8px;
- 	color: #3B5959;
+ 	color: #3B5959; /*  */
 	text-align: left;
 	font-size: 20px;
 }
@@ -398,7 +399,7 @@ table tbody tr {
 #zoom {
 	padding: 12px 0px;
     width: 80%;
-    background: none;
+    background: url(img/opacity.png);
     -webkit-appearance: none;
     outline: none;
 }
@@ -408,19 +409,19 @@ table tbody tr {
 	border-radius: 2px;
 	height: 3px;
 	cursor: pointer;
-    background: #3C5454;
+    background: #3B6F9B; /* полоска зума */
     opacity: 0.7;
     box-shadow:  0 0 1px rgba(0,0,0,0.5); 
 }
 
 #zoom::-webkit-slider-thumb {
 	-webkit-appearance: none;
-	background: #475D5D;
+	background: #475D5D; /*  */
 	height: 16px;
 	width: 4px;
 	border-radius: 4px;
 	margin: -6px 0px;
-	background: #111;
+	background: #111; /*  */
 	opacity: 1;
 	box-shadow:  0 0 2px rgba(0,0,0,0.5); 
 }
@@ -441,7 +442,7 @@ table tbody tr {
   	left: 36%;
   	top: 19%;
   	border-radius: 2%; 
-  	background: #C0C4CD;
+  	background: #97A9BF; /* обводка главного меню */
   	-webkit-transition: opacity 0.7s; 
   	box-shadow: inset 0 0 20px rgba(42, 60, 60,0.5); 
 }
@@ -458,15 +459,14 @@ table tbody tr {
 	width: 90%;
 	height: 20%; 
 	border-radius: 6%; 
-	background-color: #DADCE2;
+	background-color: #B5C7D9; /* внутри кнопок глав меню */
 	position: relative;
-	box-shadow: inset 0 0 10px rgba(192, 196, 205,1);
 	transition-property: background-color;
  	transition-duration: 0.7s;
 }
 
 .Menu li:hover{
-	background-color: #C0C4CD;
+	background-color: #97AABF; /* при наводе на кнопку */
 }
 
 .Menu li:hover div{
@@ -475,9 +475,9 @@ table tbody tr {
 
 .Menu li div{
 	padding: 7% 0px;
- 	color: #2a3c3c;
+ 	color: #44658D; /* цвет букв */
 	font-size: 40px;
-	text-align:  center;
+	text-align: center;
 	opacity: 0.6;
 	-webkit-transition: opacity 0.5s; 	
 }
@@ -490,13 +490,13 @@ table tbody tr {
 .onfocus{
 	border-radius: 5%;
 	box-shadow:  0 0 10px rgba(0,0,0,0.7); 	
-	background: #C0C4CD;
+	background: #C0C4CD; /*  */
 }
 
 .errorblock{
 	border-radius: 5%;
 	box-shadow:  0 0 10px rgba(0,0,0,0.7); 	
-	background: #DEB5B1;	
+	background: #DEB5B1; /*  */
 }
 
 #buttons input{
@@ -511,76 +511,3 @@ table tbody tr {
 	position: relative;
 	z-index: 5;
 }
-
-.Glass{
-	position: absolute;
-	opacity: 0.7;
-	z-index : 15;	
-	display : none;
-	background: #0C1414;
-}
-
-.Glass:hover {
-	box-shadow:inset 0 0 50px rgba(0,0,0,1);
-	opacity: 0.3;
-}
-
-#Glasshead{
-	left: 0%;
-	top : 0%;
-	height : 8%;
-	width: 100%;
-}
-
-#Glassmenu{
-	left: 0;
-	top : 0;
-	height : 100%;
-	width: 8%;
-}
-
-#Glassmain{
-	left: 8%;
-	width:76%;
-	top: 0;
-	height : 100%;
-}
-
-#Glassinp{
-	left: 0%;
-	top : 0;
-	height : 12%;
-	width: 100%;
-}
-
-#GlassInpPerem{
-	left: 0%;
-	top : 12%;
-	height : 100%;
-	width: 90%;
-}
-
-.modal{
-	display: none;
-	position: absolute;
-	z-index: 20;
-	left: 0%;
-	top: -81.969px;
-	width: 100%;
-	height: 110%;
-	background-color: rgba(0,0,0,0.5);
-}
-
-.modal-content{
-	color: #412D2D;
-	font-size: 30px;
-	box-shadow:inset 0 0 15px rgba(0,0,0,0.3); 
-	margin: 15% auto;
-	padding: 20px;
-	border-radius: 7%;
-	border : 1px solid #888;
-	width: 80%;
-}
-	
-
-
