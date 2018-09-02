@@ -18,6 +18,7 @@ let inMenu=true ;
 let firstFile=0;
 let source;
 let focusInitBox=false;
+let Tutor = false;
 
 window.onloud=function(){
     newFile();
@@ -121,7 +122,7 @@ function paintParents(V,paint){
 }
 
 document.addEventListener("dragstart", function(event) {
-    event.dataTransfer.setData("Text", event.target.id);
+    	event.dataTransfer.setData("Text", event.target.id);
 });
 
 
@@ -131,7 +132,7 @@ document.addEventListener("dragover", function(event) {
 
 document.addEventListener("drop", function(event) {
     event.preventDefault();
-    if ( event.target.className === "droptarget") {
+    if ( event.target.className === "droptarget")  {
         var table = document.getElementById("workSpace");
         graph[0].cell= table.rows[0].cells[mainColumn];
         var data =document.getElementById(event.dataTransfer.getData("Text"));
@@ -558,10 +559,77 @@ function reValBloc(){
 function helpPage(){
     if (inMenu)
         return;
-    let cnf=confirm("При переходе на туториал построенная ранее блок-схема удалится. Перейти?");
-    if (cnf){
-        document.location.href = 'help.html';
-    }
+    document.getElementById('ModalWind').style.display = "block";
+	var old = document.getElementById("Glasshead");
+	old.style.display = 'block';
+	old = document.getElementById("Glassmenu");
+	old.style.display = 'block';
+	old = document.getElementById("Glassmain");
+	old.style.display = 'block';
+	old = document.getElementById("Glassinp");
+	old.style.display = 'block';
+	old = document.getElementById("GlassInpPerem");
+	old.style.display = 'block';
+	
+	document.getElementById("Glasshead").onclick = function () {
+		document.getElementById('ModalWindHead').style.display = "block";
+	
+	}
+	document.getElementById("Glassmain").onclick = function () {
+		document.getElementById('ModalWindMain').style.display = "block";
+	}
+	
+	document.getElementById("Glassinp").onclick = function () {
+		document.getElementById('ModalWindInp').style.display = "block";
+	}
+	
+	document.getElementById("GlassInpPerem").onclick = function () {
+		document.getElementById('ModalWindInpPerem').style.display = "block";
+	}
+	
+	document.getElementById("Glassmenu").onclick = function () {
+		document.getElementById('ModalWindMenu').style.display = "block";
+	}
+	window.onclick = function(event) {
+		if ((event.target == document.getElementById('ModalWindHead'))) {
+			document.getElementById('ModalWindHead').style.display = "none";																			   
+		}
+		if (event.target == document.getElementById('ModalWindMenu')){
+			document.getElementById('ModalWindMenu').style.display = "none";	
+		}
+		if (event.target == document.getElementById('ModalWindInpPerem')){
+			document.getElementById('ModalWindInpPerem').style.display = "none";
+		}
+		if (event.target == document.getElementById('ModalWindMain')){
+			document.getElementById('ModalWindMain').style.display = "none";
+		}
+		if (event.target == document.getElementById('ModalWindInp')){
+			document.getElementById('ModalWindInp').style.display = "none";
+		}
+		if (event.target == document.getElementById('ModalWind')){
+			document.getElementById('ModalWind').style.display = "none";
+		}
+		
+	
+	}
+	function KeyPress(e) {
+      var eobj = window.event? event : e
+      if (eobj.keyCode == 13 ) {
+		  alert("Теперь вы готовы к освоению блок-схем");
+		  document.getElementById("Glasshead").style.display = "none";
+		  
+		  document.getElementById("Glassmain").style.display = "none";
+		  
+		  document.getElementById("Glassinp").style.display = "none";
+		  
+		  document.getElementById("GlassInpPerem").style.display = "none";
+		  
+		  document.getElementById("Glassmenu").style.display = "none";
+		  
+	  }
+}
+
+document.onkeydown = KeyPress;
 }
 
 function reSetM(){
@@ -1032,7 +1100,7 @@ function newFile(){
     let lol=document.getElementById("lol");
     let lu=document.getElementById('newFileUl');
     menu.style.display= "block";
-    if (firstFile==1 && lu.children.length==7){
+    if (firstFile>=1 && lu.children.length==3){
         let lu=document.getElementById('newFileUl');
         let back = document.createElement('li');
         let hr= document.createElement("hr");
@@ -1041,14 +1109,56 @@ function newFile(){
         hr.style.width="83%";
         hr.style="opacity: 0.7;margin: 0% 10%;";
         menu.style.top="19%";
-        menu.style.height="70%";
+        menu.style.height="30%";
         back.innerHTML='<div>Back</div>';
         back.setAttribute('onclick',"buttonBack()");
         lu.appendChild(hr);
         lu.appendChild(back);
         let lues=document.querySelectorAll("#newFileUl li");
         for (let item of lues){
-            item.style.height="16%";
+            item.style.height="26%";
+        }
+    }
+    menu.style.opacity=1;
+    M.style.opacity=0;
+    document.getElementById("informationHead").style.opacity= "0";
+    document.getElementById("toolsHead").style.opacity="0";
+}
+
+function settings() {
+    inMenu=true;
+    let menu=document.getElementById("mainMenu");
+    let M=document.getElementById("Main");
+    let lol=document.getElementById("lol");
+    let lu=document.getElementById('mainMenuUl');
+    menu.style.display= "block";
+    if (firstFile>=1 && lu.children.length==7){
+        let lu=document.getElementById('mainMenuUl');
+        let back = document.createElement('li');
+        let hr= document.createElement("hr");
+        let back1 = document.createElement('li');
+        let hr1= document.createElement("hr");
+        hr.size=3;
+        hr.color="#334D4D";
+        hr.style.width="83%";
+        hr.style="opacity: 0.7;margin: 0% 10%;";
+        hr1.size=3;
+        hr1.color="#334D4D";
+        hr1.style.width="83%";
+        hr1.style="opacity: 0.7;margin: 0% 10%;";
+        menu.style.top="19%";
+        menu.style.height="70%";
+        back.innerHTML='<div>Design</div>';
+        back.setAttribute('onclick',"buttonDesign()");
+        lu.appendChild(hr);
+        lu.appendChild(back);
+        back1.innerHTML='<div>Back</div>';
+        back1.setAttribute('onclick',"buttonBack()");
+        lu.appendChild(hr1);
+        lu.appendChild(back1);
+        let lues=document.querySelectorAll("#mainMenuUl li");
+        for (let item of lues){
+            item.style.height="14%";
         }
     }
     menu.style.opacity=1;
@@ -1061,29 +1171,73 @@ function buttonBack(){
     firstFile++ ;
     let M=document.getElementById("Main");
     let menu=document.getElementById("newFileMenu");
+    let menu1=document.getElementById("mainMenu");
+    let menu2=document.getElementById("design");
     let lol=document.getElementById("lol");
     M.style.opacity=1;  
     menu.style.opacity=0;
+    menu1.style.opacity=0;
+    menu2.style.opacity=0;
     document.getElementById("informationHead").style.opacity= "1";
     document.getElementById("toolsHead").style.opacity="1";
     setTimeout(1000);
     menu.style.display= "none";
-    inMenu=false;
+    menu1.style.display="none";
+    menu2.style.display="none";
+    inMenu=false; 
 }
 
+function buttonDesign(){
+    inMenu=true;
+    let M=document.getElementById("Main");
+    let lol=document.getElementById("lol");
+    let menu=document.getElementById("design");
+    let menu2=document.getElementById("newFileMenu");
+    let menu1=document.getElementById("mainMenu");
+    menu.style.display="block";
+    M.style.opacity=0;
+    menu1.style.display="none";
+    menu2.style.display="none";
+    let lu=document.getElementById('design');
+    menu.style.display= "block";
+    if (firstFile>=1 && lu.children.length<=7){
+        let lu=document.getElementById('designUl');
+        let back = document.createElement('li');
+        let hr= document.createElement("hr");
+        hr.size=3;
+        hr.color="#334D4D";
+        hr.style.width="83%";
+        hr.style="opacity: 0.7;margin: 0% 10%;";
+        menu.style.top="19%";
+        menu.style.height="50%";
+        back.innerHTML='<div>Back</div>';
+        back.setAttribute('onclick',"buttonBack()");
+        lu.appendChild(hr);
+        lu.appendChild(back);
+        let lues=document.querySelectorAll("#designUl li");
+        for (let item of lues){
+            item.style.height="16%";
+        }
+    }
+    document.getElementById("informationHead").style.opacity= "0";
+    document.getElementById("toolsHead").style.opacity="0";
+}
 
 function buttonNewFile(){
     firstFile++;
     inMenu=false;
     let M=document.getElementById("Main");
-    let menu=document.getElementById("newFileMenu");
+    let menu=document.getElementById("mainMenu");
+    let menu1=document.getElementById("newFileMenu");
     let lol=document.getElementById("lol");
     M.style.opacity=1;
     menu.style.opacity=0;
+    menu1.style.opasity=0;
     document.getElementById("informationHead").style.opacity= "1";
     document.getElementById("toolsHead").style.opacity="1";
     setTimeout(1000);
     menu.style.display= "none";
+    menu1.style.display="none";
     let body=document.getElementById("workSpace");
 
     body.innerHTML='<tr><td class="lv"></td><td class="lv" id="start"><img src="img/start.png" width="60%" height="55%" class= "start"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr>'
