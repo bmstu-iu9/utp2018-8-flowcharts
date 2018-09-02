@@ -559,7 +559,10 @@ function reValBloc(){
 function helpPage(){
     if (inMenu)
         return;
-
+	let cnf=confirm("Включить обучающий режим?");
+    if (cnf){
+        document.getElementById('ModalWind').style.display = "block";
+	}
 	var old = document.getElementById("Glasshead");
 	old.style.display = 'block';
 	old = document.getElementById("Glassmenu");
@@ -605,8 +608,31 @@ function helpPage(){
 		}
 		if (event.target == document.getElementById('ModalWindInp')){
 			document.getElementById('ModalWindInp').style.display = "none";
-		}		
+		}
+		if (event.target == document.getElementById('ModalWind')){
+			document.getElementById('ModalWind').style.display = "none";
+		}
+		
+	
 	}
+	function KeyPress(e) {
+      var eobj = window.event? event : e
+      if (eobj.keyCode == 49 && eobj.ctrlKey) {
+		  alert("Теперь вы готовы к освоению блок-схем");
+		  document.getElementById("Glasshead").style.display = "none";
+		  
+		  document.getElementById("Glassmain").style.display = "none";
+		  
+		  document.getElementById("Glassinp").style.display = "none";
+		  
+		  document.getElementById("GlassInpPerem").style.display = "none";
+		  
+		  document.getElementById("Glassmenu").style.display = "none";
+		  
+	  }
+}
+
+document.onkeydown = KeyPress;
 }
 
 function reSetM(){
