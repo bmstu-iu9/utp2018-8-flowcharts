@@ -30,7 +30,7 @@ body{
 	-webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    background-color: #B0C4DE; /* фон заставки */
+    background-color: #5F6571; /* фон заставки */
     -webkit-appearance: none;
   	-moz-appearance: none;
   	appearance: none;
@@ -48,7 +48,7 @@ main{
 *{
   margin: 0;
   padding: 0;
-  color: #E0FFFF; /* надписи сверху на панеле */
+  color: #BBC0CF; /* надписи сверху на панеле */
 }
 
 header{
@@ -57,7 +57,7 @@ header{
 	width: 100%;
 	justify-content:center;
 	height: 8vh;
-	background-color: #3E6788; /*панель инструментов внеш*/
+	background-color: #343B45; /*панель инструментов внеш*/
 }
 
 header input{
@@ -77,7 +77,7 @@ header div{
 	margin: 1% 26%; 
 	width: 60%;
 	height: 70%;
-	background-color: #1F4C71; /* панель инструментов внутр */
+	background-color: #272C34; /* панель инструментов внутр */
 	border-radius: 5px;
 }
 
@@ -117,7 +117,7 @@ header div{
 }
 
 #menu{
-	background:#B7C7DC; /* фон менюшки с фигурами */
+	background:#6F7788; /* фон менюшки с фигурами */
 	position: absolute;
 	width: 8%;
 	height: 100%;
@@ -126,7 +126,7 @@ header div{
   	overflow-y: scroll;
   	display: block;
   	-webkit-transition: width 1s, left 1s;
-  	color: #4F7595; /* предназначения фигур */
+  	color: #BBC0CF; /* предназначения фигур */
   	font-size: 23px;
   	text-align: center;
   	font-weight:700;
@@ -148,7 +148,7 @@ header div{
 }
 
 #InformationMenu{
-	background:#B7C7DC; /* фон меню справа */
+	background:#6F7788; /* фон меню справа */
 	position: absolute;
   	left: 84%;
   	top: 0;
@@ -162,7 +162,7 @@ header div{
 #workSpace {
 	height: 100%;
 	width: 100%;
-	background: #D7DEEF; /* фон рабочего поля */
+	background: #A7ADBF; /* фон рабочего поля */
   	border-spacing:2px 0px;
 }
 
@@ -179,7 +179,7 @@ header div{
 }
 
 #var div{
-	color:#4F7595; /*  */
+	color:#BBC0CF; /*  */
 	font-size: 32px;
 	text-align: center;
     vertical-align: top;
@@ -269,7 +269,7 @@ hr{
 td {
 	/*border: 4px solid #2a3c3c;*/
     text-align: center;
-	border: 1px solid #B7C7DC; /* фон решетки */
+	border: 1px solid #5D6373; /* фон решетки */
 }
 
 table tbody {
@@ -315,8 +315,8 @@ table tbody tr {
 }
 
 .droptarget {
-	background-color: #AFCCE9 ; /* триггер */
-	border: 1px solid #2668A6; /* обводка триггера */
+	background-color: #5C8EAA ; /* триггер */
+	border: 1px solid #0000B5; /* обводка триггера */
 	width: 210px;
 	height: 200px;
 	text-align: center;
@@ -324,7 +324,7 @@ table tbody tr {
 }
 
 .focusеtarget {
-	background-color: #BDD1E5 ; /* подсветка дерева */
+	background-color: #A5B7CD ; /* подсветка дерева */
 	width: 210px ;
 	height: 200px;
 	text-align: center;
@@ -442,9 +442,9 @@ table tbody tr {
   	left: 36%;
   	top: 19%;
   	border-radius: 2%; 
-  	background: #97A9BF; /* обводка главного меню */
+  	background: #272C34; /* обводка главного меню */
   	-webkit-transition: opacity 0.7s; 
-  	box-shadow: inset 0 0 20px rgba(42, 60, 60,0.5); 
+  	box-shadow: inset 0 0 20px rgba(40, 42, 59, 1); 
 }
 
 .Menu ul{
@@ -459,14 +459,15 @@ table tbody tr {
 	width: 90%;
 	height: 20%; 
 	border-radius: 6%; 
-	background-color: #B5C7D9; /* внутри кнопок глав меню */
+	background-color: #414654; /* внутри кнопок глав меню */
 	position: relative;
+	box-shadow: inset 0 0 20px rgba(30, 32, 48, 1); 
 	transition-property: background-color;
  	transition-duration: 0.7s;
 }
 
 .Menu li:hover{
-	background-color: #97AABF; /* при наводе на кнопку */
+	background-color: #414B6C; /* при наводе на кнопку */
 }
 
 .Menu li:hover div{
@@ -475,7 +476,7 @@ table tbody tr {
 
 .Menu li div{
 	padding: 7% 0px;
- 	color: #44658D; /* цвет букв */
+ 	color: #BAC0CF; /* цвет букв */
 	font-size: 40px;
 	text-align: center;
 	opacity: 0.6;
