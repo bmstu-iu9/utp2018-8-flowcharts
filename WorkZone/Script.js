@@ -303,6 +303,7 @@ function addColumn(pos){
         mainColumn++;
     }
     reSize();
+    resetGrid();
 }
 
 function addRow(){
@@ -313,6 +314,7 @@ function addRow(){
         cell.className= table.rows[0].cells[0].className;
     }
     reSize();
+    resetGrid();
 }
 
 function addWindow(trg){
@@ -1266,27 +1268,27 @@ function customize(){
     menu.style.display= "block";
 }
 
-let grid = false;
+let grid = true;
 
 function gridSwitch(){
-    table=document.getElementById("workSpace");
     sw=document.getElementById("switch");
-    if (grid){
+    if (!grid){
         sw.src="img/switch.png";
-        for (let i of table.rows){
-            for (let j of i.cells){
-                j.style.border= "1px solid #AFB6BF";
-            }
-        }
     } else{
         sw.src="img/switchON.png";
-        for (let i of table.rows){
-            for (let j of i.cells){
-                j.style.border= "none";
-            }
+    }        
+    grid=!grid;
+    resetGrid();
+}
+
+function resetGrid(){
+    table=document.getElementById("workSpace");
+    let bord=grid?"1px solid #AFB6BF":"none";
+    for (let i of table.rows){
+        for (let j of i.cells){
+            j.style.border= bord;
         }
     }
-    grid=!grid;
 }
 
 ////////////////////// часть парсера //////////////////////////////////////////////////////////////////////////////////////////////////////////
