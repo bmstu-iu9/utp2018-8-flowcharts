@@ -58,10 +58,12 @@ function checkAuth (req, res) {
             } else {
                 var id = getRandom();
                 db.run("INSERT INTO sessions Values ($id, $login)", {$id: id, $login: login});
-                cookie = 'session_id='+id;
+                var date = new Date;
+                date.setDate(date.getDate() + 30);
+                cookie = "session_id="+id+";Expires="+date.toUTCString();              
                 res.writeHead(200, {
                     "Content-Type": "text/html; charset=utf-8",
-                    "Set-Cookie": cookie
+                    "Set-Cookie": cookie 
                 });
                 fs.readFile(path.resolve('Workzone', 'index.html'), 'utf-8', function (err, data) {
                     res.end(data);
