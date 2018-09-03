@@ -131,6 +131,7 @@ header div{
   	text-align: center;
   	font-weight:700;
 }
+
 #menu img{
 	margin: 25% 1%;
 	height: 10%;
@@ -389,7 +390,7 @@ table tbody tr {
 }
 
 #zoomBox{
-	z-index: 20;
+	z-index: 20	;
 	position: absolute;
 	top: 1%;
 	left: 74%;

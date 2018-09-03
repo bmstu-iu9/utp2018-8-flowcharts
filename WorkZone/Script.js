@@ -1232,18 +1232,31 @@ function mouseDown(){
 
 function mouseUp(){
     mousedown=false;
+    supTable.style.cursor= "default";
 }
 
 let supTable=document.getElementById("main");
 
 function hand(){
-    
     if (mousedown){
         supTable.scrollLeft-=(event.pageX-MDL)*0.85;
         supTable.scrollTop-=(event.pageY-MDT)*0.85;
         MDT=event.pageY;
         MDL=event.pageX;
+        supTable.style.cursor= "move";
     }
+}
+
+function greenT(){
+    document.getElementById('CSSsource').href='mainStyle.css';
+}
+
+function blueT(){
+    document.getElementById('CSSsource').href='blueStyle.css';
+}
+
+function darkT(){
+    document.getElementById('CSSsource').href='darkStyle.css';
 }
 
 

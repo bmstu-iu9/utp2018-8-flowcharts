@@ -21,7 +21,7 @@
 				<input type="image" id = "right" src="https://png.icons8.com/windows/40/B7BCC7/right.png" style="display: none" onclick="buttonRight();" checked/>
 				<input type="image" src="https://png.icons8.com/ios/40/B7BCC7/save-as.png" onclick="saveFile()" checked/>
 				<input type="image" src="https://png.icons8.com/dotty/40/B7BCC7/add-file.png" onclick="newFile()" checked/>
-        <input type="image" src="https://png.icons8.com/ios/48/cccccc/settings.png" onclick="settings()" checked/>
+       			<input type="image" src="https://png.icons8.com/ios/48/cccccc/settings.png" onclick="settings()" checked/>
 				<input type="image" src="https://png.icons8.com/material/40/B7BCC7/question-mark.png" onclick="helpPage()" checked/>
 
 			</div>
@@ -54,11 +54,11 @@
 
    	<div id="design" class="Menu">
    		<ul id='designUl'>
-   			<li onclick="document.getElementById('CSSsource').href='mainStyle.css'"><div>Green</div></li>
+   			<li onclick="greenT()"><div>Green</div></li>
    			<hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" />
-   			<li onclick="document.getElementById('CSSsource').href='blueStyle.css'"><div>Blue</div></li>
+   			<li onclick="blueT()"><div>Blue</div></li>
    			<hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" />
-   			<li onclick="document.getElementById('CSSsource').href='darkStyle.css'"><div>Dark</div></li>
+   			<li onclick="darkT()"><div>Dark</div></li>
 	        <hr width="80%" style="margin: 0% 10%;" size="3 " color="#596868"align="center" />
 	        <li onclick="buttonBack()"><div>Back</div></li>
    		</ul>
@@ -167,7 +167,7 @@
 		    </div>
 	    </div>
 		<div id = "Glassmain" class="Glass" > </div>
-	    <div id="main" style=" overflow:auto;" onmousemove="hand()">
+	    <div id="main" style=" overflow:auto;" onmousemove="hand();">
 			<table id="workSpace"  cellspacing="0"  onmousedown="mouseDown()" onmouseup="mouseUp()">
 			 	<tbody id="workSpaceBody" ></tbody>
 			</table>
