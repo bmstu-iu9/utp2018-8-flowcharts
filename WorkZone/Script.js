@@ -1155,13 +1155,11 @@ function buttonBack(){
 }
 
 function buttonDesign(){
-    let M=document.getElementById("Main");
     let menu=document.getElementById("design");
     let menu1=event.target.parentNode.parentNode.parentNode;
     menu1.style.opacity=0;
     menu1.style.display= "none";
     menu.style.opacity=1;
-    M.style.opacity=0;
     menu.style.display= "block";
 }
 
@@ -1259,6 +1257,37 @@ function darkT(){
     document.getElementById('CSSsource').href='darkStyle.css';
 }
 
+function customize(){
+    let menu=document.getElementById("Сustomization");
+    let menu1=event.target.parentNode.parentNode.parentNode;
+    menu1.style.opacity=0;
+    menu1.style.display= "none";
+    menu.style.opacity=1;
+    menu.style.display= "block";
+}
+
+let grid = false;
+
+function gridSwitch(){
+    table=document.getElementById("workSpace");
+    sw=document.getElementById("switch");
+    if (grid){
+        sw.src="img/switch.png";
+        for (let i of table.rows){
+            for (let j of i.cells){
+                j.style.border= "1px solid #AFB6BF";
+            }
+        }
+    } else{
+        sw.src="img/switchON.png";
+        for (let i of table.rows){
+            for (let j of i.cells){
+                j.style.border= "none";
+            }
+        }
+    }
+    grid=!grid;
+}
 
 ////////////////////// часть парсера //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
