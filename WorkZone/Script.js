@@ -1249,14 +1249,26 @@ function hand(){
 
 function greenT(){
     document.getElementById('CSSsource').href='mainStyle.css';
+    let hrs= document.querySelectorAll("hr");
+    for (let i of hrs){
+        i.color="#596868";
+    }
 }
 
 function blueT(){
     document.getElementById('CSSsource').href='blueStyle.css';
+    let hrs= document.querySelectorAll("hr");
+    for (let i of hrs){
+        i.color="#3E6788";
+    }
 }
 
 function darkT(){
     document.getElementById('CSSsource').href='darkStyle.css';
+    let hrs= document.querySelectorAll("hr");
+    for (let i of hrs){
+        i.color="#343B45";
+    }
 }
 
 function customize(){
