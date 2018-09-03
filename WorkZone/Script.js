@@ -1219,7 +1219,7 @@ function buttonNewFile(){
 
 function saveFile() {
     var xhr = new XMLHttpRequest();
-    body = "title=new&content=kirya_hui_sosi";
+    body = "title=new&content=info";
     xhr.open('POST', '/save');
     xhr.send(body);
 }
