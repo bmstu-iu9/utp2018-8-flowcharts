@@ -30,8 +30,6 @@
    			<strong id="informationHead"><i>Information</i></strong>
    		</div>
    	</header>
-	   
- 
    	<div id="newFileMenu" class="Menu">
    		<ul id='newFileUl'>
    			<li onclick="buttonNewFile()"><div>Create new file</div></li>
@@ -169,8 +167,8 @@
 		    </div>
 	    </div>
 		<div id = "Glassmain" class="Glass" > </div>
-	    <div id="main" style=" overflow:auto;" >
-			<table id="workSpace"  cellspacing="0"  onmousedown="mouseDown()" onmouseup="mouseUp()" onmouseover="hand(event)">
+	    <div id="main" style=" overflow:auto;" onmousemove="hand()">
+			<table id="workSpace"  cellspacing="0"  onmousedown="mouseDown()" onmouseup="mouseUp()">
 			 	<tbody id="workSpaceBody" ></tbody>
 			</table>
 	    </div> 

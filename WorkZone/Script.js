@@ -1225,7 +1225,7 @@ function saveFile() {
 }
 
 function mouseDown(){
-    mousedown=false;
+    mousedown=true;
     MDT=event.pageY;
     MDL=event.pageX;
 }
@@ -1236,13 +1236,16 @@ function mouseUp(){
 
 let supTable=document.getElementById("main");
 
-function hand(e){
-    //document.getElementById("initBox").placeholder= e.pageX + " " + e.pageY;
+function hand(){
+    
     if (mousedown){
-        supTable.scrollLeft-=event.pageX-MDL/0.5;
-        supTable.scrollTop-=event.pageY-MDT/0.5;
+        supTable.scrollLeft-=(event.pageX-MDL)*0.85;
+        supTable.scrollTop-=(event.pageY-MDT)*0.85;
+        MDT=event.pageY;
+        MDL=event.pageX;
     }
 }
+
 
 ////////////////////// часть парсера //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
