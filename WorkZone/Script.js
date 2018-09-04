@@ -1247,12 +1247,15 @@ function hand(){
     }
 }
 
+let them=1;
+
 function greenT(){
     document.getElementById('CSSsource').href='mainStyle.css';
     let hrs= document.querySelectorAll("hr");
     for (let i of hrs){
         i.color="#596868";
     }
+    them=1;
 }
 
 function blueT(){
@@ -1261,6 +1264,7 @@ function blueT(){
     for (let i of hrs){
         i.color="#3E6788";
     }
+    them=2;
 }
 
 function darkT(){
@@ -1269,6 +1273,7 @@ function darkT(){
     for (let i of hrs){
         i.color="#343B45";
     }
+    them=3;
 }
 
 function customize(){
@@ -1295,7 +1300,13 @@ function gridSwitch(){
 
 function resetGrid(){
     table=document.getElementById("workSpace");
-    let bord=grid?"1px solid #AFB6BF":"none";
+    let color="#AFB6BF";
+    if (them==2){
+        color="#929FB0";
+    } else if (them==3){
+        color="#5D6373";
+    }
+    let bord=grid?"1px solid "+color :"none";
     for (let i of table.rows){
         for (let j of i.cells){
             j.style.border= bord;
