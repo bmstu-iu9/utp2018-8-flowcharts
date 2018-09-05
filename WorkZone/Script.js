@@ -1460,6 +1460,7 @@ function parse(str,wrt) {
     t= new token(str);
     SE=0;
     result="";
+    mess=NaN;
     if (';' !== t.getVal()) {
         return checkRes(parseO());
     }
@@ -1523,7 +1524,7 @@ function parseE() {
 
 
 function parse_E(n) {
-    //alert(n);
+    alert(n);
     if (t.getVal() === '+') {
         t.next();
         let ttt=Number(parseT());
@@ -1552,6 +1553,7 @@ function parseT() {
 
 function parse_T(n) {
     if (t.getVal()==";"){
+        alert(n);
         return mess=="changes"?mess:n;
     }
     if (t.getVal() === '*') {
@@ -1647,7 +1649,7 @@ function parseF() {
                 return "changes";
             }
             else if (t.getVal() === '-='){
-                mess="changes";
+                mess=mess?mess:"changes";
                 t.next();
                 let exp=parseE();
                 if (write){
@@ -1683,6 +1685,7 @@ function parseF() {
                         m.set(key,Number(sors.get(key))+1);
                     }
                 }
+                
                 return (write?(m.get(key)-1):1);
             }
             else if (t.getVal() === '--'){
