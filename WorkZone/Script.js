@@ -1,4 +1,4 @@
-let columns = [false,true,false];
+﻿let columns = [false,true,false];
 let mainColumn=1;
 let R=0;
 let L=0;
@@ -125,7 +125,7 @@ function paintParents(V,paint){
 }
 
 document.addEventListener("dragstart", function(event) {
-    	event.dataTransfer.setData("Text", event.target.id);
+    event.dataTransfer.setData("Text", event.target.id);
 });
 
 
@@ -175,7 +175,7 @@ document.addEventListener("drop", function(event) {
         if (V.type!="end"){
             document.getElementById("initBox").focus();
         }
-        if (V.childs.length==0) 
+        if (V.childs.length==0)
             changeTrigger(row, cell,data.id,V.pos,true);
         else if (V.type=="if")
             changeTrigger(row, cell,data.id,V.pos,false);
@@ -202,7 +202,7 @@ function initBoxVal(){
     let cell=trg.cellIndex;
     let paint=true;
     let V =graph[graphIds.get(row+ " "+(cell-mainColumn))];
-    let box=document.getElementById('initBox'); 
+    let box=document.getElementById('initBox');
     if (!focusInitBox)
         box.placeholder=V.value==undefined?"Value of Block":V.value;
 }
@@ -217,7 +217,7 @@ function changeTrigger(row, cell, type, prnt, check){
         addColumn(cell);
         if (cell+1<mainColumn)
             reSetIds(row,cell-mainColumn+2,true);
-        else if (cell+1>mainColumn) 
+        else if (cell+1>mainColumn)
             reSetIds(row,cell-mainColumn,false);
         cell++;
         createBlock(row+1,cell-1,prnt,false);
@@ -346,7 +346,7 @@ function addWindow(trg){
             zm.style.left="74%";
         }
         obj.className="block";
-        } else{
+    } else{
         if (trg===Ht){
             if (iMenu.className=="hidden"){
                 main.style.width="100%";
@@ -565,58 +565,58 @@ function helpPage(){
     if (inMenu)
         return;
     document.getElementById('ModalWind').style.display = "block";
-	var old = document.getElementById("Glasshead");
-	old.style.display = 'block';
-	old = document.getElementById("Glassmenu");
-	old.style.display = 'block';
-	old = document.getElementById("Glassmain");
-	old.style.display = 'block';
-	old = document.getElementById("Glassinp");
-	old.style.display = 'block';
-	old = document.getElementById("GlassInpPerem");
-	old.style.display = 'block';
-	
-	document.getElementById("Glasshead").onclick = function () {
-		document.getElementById('ModalWindHead').style.display = "block";
-	}
-	document.getElementById("Glassmain").onclick = function () {
-		document.getElementById('ModalWindMain').style.display = "block";
-	}
-	
-	document.getElementById("Glassinp").onclick = function () {
-		document.getElementById('ModalWindInp').style.display = "block";
-	}
-	
-	document.getElementById("GlassInpPerem").onclick = function () {
-		document.getElementById('ModalWindInpPerem').style.display = "block";
-	}
-	
-	document.getElementById("Glassmenu").onclick = function () {
-		document.getElementById('ModalWindMenu').style.display = "block";
-	}
-	window.onclick = function(event) {
-		if ((event.target == document.getElementById('ModalWindHead'))) {
-			document.getElementById('ModalWindHead').style.display = "none";																			   
-		}
-		if (event.target == document.getElementById('ModalWindMenu')){
-			document.getElementById('ModalWindMenu').style.display = "none";	
-		}
-		if (event.target == document.getElementById('ModalWindInpPerem')){
-			document.getElementById('ModalWindInpPerem').style.display = "none";
-		}
-		if (event.target == document.getElementById('ModalWindMain')){
-			document.getElementById('ModalWindMain').style.display = "none";
-		}
-		if (event.target == document.getElementById('ModalWindInp')){
-			document.getElementById('ModalWindInp').style.display = "none";
-		}
-		if (event.target == document.getElementById('ModalWind')){
-			document.getElementById('ModalWind').style.display = "none";
-		}
-		
-	
-	}
-	function KeyPress(e) {
+    var old = document.getElementById("Glasshead");
+    old.style.display = 'block';
+    old = document.getElementById("Glassmenu");
+    old.style.display = 'block';
+    old = document.getElementById("Glassmain");
+    old.style.display = 'block';
+    old = document.getElementById("Glassinp");
+    old.style.display = 'block';
+    old = document.getElementById("GlassInpPerem");
+    old.style.display = 'block';
+
+    document.getElementById("Glasshead").onclick = function () {
+        document.getElementById('ModalWindHead').style.display = "block";
+    }
+    document.getElementById("Glassmain").onclick = function () {
+        document.getElementById('ModalWindMain').style.display = "block";
+    }
+
+    document.getElementById("Glassinp").onclick = function () {
+        document.getElementById('ModalWindInp').style.display = "block";
+    }
+
+    document.getElementById("GlassInpPerem").onclick = function () {
+        document.getElementById('ModalWindInpPerem').style.display = "block";
+    }
+
+    document.getElementById("Glassmenu").onclick = function () {
+        document.getElementById('ModalWindMenu').style.display = "block";
+    }
+    window.onclick = function(event) {
+        if ((event.target == document.getElementById('ModalWindHead'))) {
+            document.getElementById('ModalWindHead').style.display = "none";
+        }
+        if (event.target == document.getElementById('ModalWindMenu')){
+            document.getElementById('ModalWindMenu').style.display = "none";
+        }
+        if (event.target == document.getElementById('ModalWindInpPerem')){
+            document.getElementById('ModalWindInpPerem').style.display = "none";
+        }
+        if (event.target == document.getElementById('ModalWindMain')){
+            document.getElementById('ModalWindMain').style.display = "none";
+        }
+        if (event.target == document.getElementById('ModalWindInp')){
+            document.getElementById('ModalWindInp').style.display = "none";
+        }
+        if (event.target == document.getElementById('ModalWind')){
+            document.getElementById('ModalWind').style.display = "none";
+        }
+
+
+    }
+    function KeyPress(e) {
         var eobj = window.event? event : e
         if (eobj.keyCode == 13 ) {
             //alert("Теперь вы готовы к освоению блок-схем");
@@ -632,13 +632,13 @@ function helpPage(){
             document.getElementById('ModalWindInp').style.display = "none";
             document.getElementById('ModalWind').style.display = "none";
         }
-}
+    }
 
-document.onkeydown = KeyPress;
+    document.onkeydown = KeyPress;
 }
 
 function reSetM(){
-    s.clear();    
+    s.clear();
     m.clear();
     for (let i of varSet){
         m.set(i,varMap.get(i));
@@ -659,12 +659,12 @@ function buttonDebag() {
     }
     debag=true;
     counter = 0;
-    debagBlock=0;    
+    debagBlock=0;
     document.getElementById('buttonReStart').style.display="block";
     document.getElementById('bug').style.display = 'none';
     document.getElementById('left').style.display = 'block';
     document.getElementById('right').style.display = 'block';
-    graph[0].cell.firstChild.className="debagTarg"; 
+    graph[0].cell.firstChild.className="debagTarg";
     reSetM();
     setRes();
     LD=false;
@@ -724,7 +724,7 @@ function whileForLeftOrRight(){
     }
     debagBlock=V.parents[0];
     cleanBlock(graph[0]);
-    
+
     if (count!=-1){
         V.cell.firstChild.className="debagTarg";
         RD=false;
@@ -741,7 +741,7 @@ function whileForLeftOrRight(){
 
 function cleanBlock(V){
     if (V.cell.firstChild) V.cell.firstChild.className="";
-    for (let i=0;i<V.childs.length;i++){ 
+    for (let i=0;i<V.childs.length;i++){
         cleanBlock(graph[V.childs[i]]);
     }
 }
@@ -827,7 +827,7 @@ function setRes(){
     hr.style.opacity= 0.7;
     varTable.innerHTML="";
     if (debag){
-        elem.innerHTML="Debag result:";    
+        elem.innerHTML="Debag result:";
     } else elem.innerHTML="Result:";
     varTable.insertBefore(elem,document.getElementById("var").firstChild);
     for (let item of varSet){
@@ -883,7 +883,7 @@ function buttonReStart() {
         document.getElementById('right').style.display= 'none';
         cleanBlock(graph[0]);
         debag=false;
-    } 
+    }
     document.getElementById('buttonReStart').style.display= 'none';
 }
 
@@ -912,7 +912,7 @@ function buttonDelete(){
         }
         ifDfs(graph[trueCh],findDif(graph[trueCh],false)+1);
         for (let i=0;i<difT-findDif(graph[trueCh],true);i++){
-            deleteColumn(block.cell.cellIndex+findDif(graph[trueCh],true)+1);   
+            deleteColumn(block.cell.cellIndex+findDif(graph[trueCh],true)+1);
         }
         reIndex(block.y);
         if (graph[trueCh].type!="trg" && pr.type!="if"){
@@ -968,9 +968,9 @@ function findDif(V,IF){
     while (V.type!="end" && V.type!="loop" && V.type!="trg"){
         if (V.type=="if"){
             if (IF){
-                V= graph[graph[V.childs[0]].ifRes? V.childs[0]:V.childs[1]];    
+                V= graph[graph[V.childs[0]].ifRes? V.childs[0]:V.childs[1]];
             } else{
-                V= graph[!graph[V.childs[0]].ifRes? V.childs[0]:V.childs[1]];   
+                V= graph[!graph[V.childs[0]].ifRes? V.childs[0]:V.childs[1]];
             }
         } else {
             V=graph[V.childs[0]];
@@ -1148,12 +1148,12 @@ function buttonBack(){
     firstFile++ ;
     let M=document.getElementById("Main");
     let menu=event.target.parentNode.parentNode.parentNode;
-    M.style.opacity=1;  
+    M.style.opacity=1;
     menu.style.opacity=0;
     document.getElementById("informationHead").style.opacity= "1";
     document.getElementById("toolsHead").style.opacity="1";
     menu.style.display= "none";
-    inMenu=false; 
+    inMenu=false;
 }
 
 function buttonDesign(){
@@ -1293,7 +1293,7 @@ function gridSwitch(){
         sw.src="img/switch.png";
     } else{
         sw.src="img/switchON.png";
-    }        
+    }
     grid=!grid;
     resetGrid();
 }
@@ -1683,7 +1683,7 @@ function parseF() {
                         m.set(key,Number(sors.get(key))+1);
                     }
                 }
-                return (write?(m.get(key)-1):1);
+                return (write?(m.get(key)):1);
             }
             else if (t.getVal() === '--'){
                 t.next();
@@ -1693,7 +1693,7 @@ function parseF() {
                         m.set(key,-1);
                     } else m.set(key,Number(sors.get(key))-1);
                 }
-                return (write?(m.get(key)+1):1);
+                return (write?(m.get(key)):1);
             }
             else {
                 let i= 0;
@@ -1738,7 +1738,6 @@ function parseF() {
                 m.set(key,Number(sors.get(key))+1);
             }
         }
-
         return (write?(m.get(key)):1);
     }
     else if (t.getVal() === '--'){
