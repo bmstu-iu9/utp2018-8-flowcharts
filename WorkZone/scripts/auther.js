@@ -1,7 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
-const Cookies = require('js-cookie');
 
 function parseBody(body) {
     const result = {};
@@ -13,6 +12,10 @@ function parseBody(body) {
     });
 
     return result;
+}
+
+function getRandom() {
+    return Math.floor(Math.random() * 9732712) + 101;
 }
 
 function checkAuth (req, res) {
@@ -53,10 +56,14 @@ function checkAuth (req, res) {
                 });
                 console.log(error);
             } else {
-                cookie = 'login='+login;
+                var id = getRandom();
+                db.run("INSERT INTO sessions Values ($id, $login)", {$id: id, $login: login});
+                var date = new Date;
+                date.setDate(date.getDate() + 30);
+                cookie = "session_id="+id+";Expires="+date.toUTCString();              
                 res.writeHead(200, {
                     "Content-Type": "text/html; charset=utf-8",
-                    "Set-Cookie": cookie
+                    "Set-Cookie": cookie 
                 });
                 fs.readFile(path.resolve('Workzone', 'index.html'), 'utf-8', function (err, data) {
                     res.end(data);

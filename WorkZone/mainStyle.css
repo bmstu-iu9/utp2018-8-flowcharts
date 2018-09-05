@@ -131,6 +131,7 @@ header div{
   	text-align: center;
   	font-weight:700;
 }
+
 #menu img{
 	margin: 25% 1%;
 	height: 10%;
@@ -145,7 +146,9 @@ header div{
   	top: 0;
 	height:100%;
 	-webkit-transition: width 1s, left 1s;
+	z-index: 10;
 }
+
 
 #InformationMenu{
 	background:#C0C4CD;
@@ -387,7 +390,7 @@ table tbody tr {
 }
 
 #zoomBox{
-	z-index: 1;
+	z-index: 20	;
 	position: absolute;
 	top: 1%;
 	left: 74%;
@@ -435,7 +438,7 @@ table tbody tr {
 
 .Menu{
 	display: none;
-	z-index: 1;
+	z-index: 20;
 	position: absolute;
 	width: 28%;
   	left: 36%;
@@ -581,6 +584,3 @@ table tbody tr {
 	border : 1px solid #888;
 	width: 80%;
 }
-	
-
-

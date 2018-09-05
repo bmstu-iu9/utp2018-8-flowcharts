@@ -55,6 +55,7 @@ function checkReg (req, res) {
                 if (typeof(row) === 'undefined') {
                     if (error === '') {
                         db.run("INSERT INTO users Values ($login, $password)", {$login: login, $password: password});
+                        fs.mkdirSync("./usersProjects/"+login);
                         res.writeHead(200, {"Content-Type": "text/plain; charset=utf-8"});
                         res.end('Вы успешно зарегистрированы!');
                     } else {

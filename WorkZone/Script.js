@@ -1,4 +1,4 @@
-let columns = [false,true,false];
+﻿let columns = [false,true,false];
 let mainColumn=1;
 let R=0;
 let L=0;
@@ -19,6 +19,9 @@ let firstFile=0;
 let source;
 let focusInitBox=false;
 let Tutor = false;
+let mousedown=false;
+let MDL;
+let MDT;
 
 window.onloud=function(){
     newFile();
@@ -122,7 +125,7 @@ function paintParents(V,paint){
 }
 
 document.addEventListener("dragstart", function(event) {
-    	event.dataTransfer.setData("Text", event.target.id);
+    event.dataTransfer.setData("Text", event.target.id);
 });
 
 
@@ -172,7 +175,7 @@ document.addEventListener("drop", function(event) {
         if (V.type!="end"){
             document.getElementById("initBox").focus();
         }
-        if (V.childs.length==0) 
+        if (V.childs.length==0)
             changeTrigger(row, cell,data.id,V.pos,true);
         else if (V.type=="if")
             changeTrigger(row, cell,data.id,V.pos,false);
@@ -199,7 +202,7 @@ function initBoxVal(){
     let cell=trg.cellIndex;
     let paint=true;
     let V =graph[graphIds.get(row+ " "+(cell-mainColumn))];
-    let box=document.getElementById('initBox'); 
+    let box=document.getElementById('initBox');
     if (!focusInitBox)
         box.placeholder=V.value==undefined?"Value of Block":V.value;
 }
@@ -214,7 +217,7 @@ function changeTrigger(row, cell, type, prnt, check){
         addColumn(cell);
         if (cell+1<mainColumn)
             reSetIds(row,cell-mainColumn+2,true);
-        else if (cell+1>mainColumn) 
+        else if (cell+1>mainColumn)
             reSetIds(row,cell-mainColumn,false);
         cell++;
         createBlock(row+1,cell-1,prnt,false);
@@ -300,6 +303,7 @@ function addColumn(pos){
         mainColumn++;
     }
     reSize();
+    resetGrid();
 }
 
 function addRow(){
@@ -310,6 +314,7 @@ function addRow(){
         cell.className= table.rows[0].cells[0].className;
     }
     reSize();
+    resetGrid();
 }
 
 function addWindow(trg){
@@ -341,7 +346,7 @@ function addWindow(trg){
             zm.style.left="74%";
         }
         obj.className="block";
-        } else{
+    } else{
         if (trg===Ht){
             if (iMenu.className=="hidden"){
                 main.style.width="100%";
@@ -560,58 +565,58 @@ function helpPage(){
     if (inMenu)
         return;
     document.getElementById('ModalWind').style.display = "block";
-	var old = document.getElementById("Glasshead");
-	old.style.display = 'block';
-	old = document.getElementById("Glassmenu");
-	old.style.display = 'block';
-	old = document.getElementById("Glassmain");
-	old.style.display = 'block';
-	old = document.getElementById("Glassinp");
-	old.style.display = 'block';
-	old = document.getElementById("GlassInpPerem");
-	old.style.display = 'block';
-	
-	document.getElementById("Glasshead").onclick = function () {
-		document.getElementById('ModalWindHead').style.display = "block";
-	}
-	document.getElementById("Glassmain").onclick = function () {
-		document.getElementById('ModalWindMain').style.display = "block";
-	}
-	
-	document.getElementById("Glassinp").onclick = function () {
-		document.getElementById('ModalWindInp').style.display = "block";
-	}
-	
-	document.getElementById("GlassInpPerem").onclick = function () {
-		document.getElementById('ModalWindInpPerem').style.display = "block";
-	}
-	
-	document.getElementById("Glassmenu").onclick = function () {
-		document.getElementById('ModalWindMenu').style.display = "block";
-	}
-	window.onclick = function(event) {
-		if ((event.target == document.getElementById('ModalWindHead'))) {
-			document.getElementById('ModalWindHead').style.display = "none";																			   
-		}
-		if (event.target == document.getElementById('ModalWindMenu')){
-			document.getElementById('ModalWindMenu').style.display = "none";	
-		}
-		if (event.target == document.getElementById('ModalWindInpPerem')){
-			document.getElementById('ModalWindInpPerem').style.display = "none";
-		}
-		if (event.target == document.getElementById('ModalWindMain')){
-			document.getElementById('ModalWindMain').style.display = "none";
-		}
-		if (event.target == document.getElementById('ModalWindInp')){
-			document.getElementById('ModalWindInp').style.display = "none";
-		}
-		if (event.target == document.getElementById('ModalWind')){
-			document.getElementById('ModalWind').style.display = "none";
-		}
-		
-	
-	}
-	function KeyPress(e) {
+    var old = document.getElementById("Glasshead");
+    old.style.display = 'block';
+    old = document.getElementById("Glassmenu");
+    old.style.display = 'block';
+    old = document.getElementById("Glassmain");
+    old.style.display = 'block';
+    old = document.getElementById("Glassinp");
+    old.style.display = 'block';
+    old = document.getElementById("GlassInpPerem");
+    old.style.display = 'block';
+
+    document.getElementById("Glasshead").onclick = function () {
+        document.getElementById('ModalWindHead').style.display = "block";
+    }
+    document.getElementById("Glassmain").onclick = function () {
+        document.getElementById('ModalWindMain').style.display = "block";
+    }
+
+    document.getElementById("Glassinp").onclick = function () {
+        document.getElementById('ModalWindInp').style.display = "block";
+    }
+
+    document.getElementById("GlassInpPerem").onclick = function () {
+        document.getElementById('ModalWindInpPerem').style.display = "block";
+    }
+
+    document.getElementById("Glassmenu").onclick = function () {
+        document.getElementById('ModalWindMenu').style.display = "block";
+    }
+    window.onclick = function(event) {
+        if ((event.target == document.getElementById('ModalWindHead'))) {
+            document.getElementById('ModalWindHead').style.display = "none";
+        }
+        if (event.target == document.getElementById('ModalWindMenu')){
+            document.getElementById('ModalWindMenu').style.display = "none";
+        }
+        if (event.target == document.getElementById('ModalWindInpPerem')){
+            document.getElementById('ModalWindInpPerem').style.display = "none";
+        }
+        if (event.target == document.getElementById('ModalWindMain')){
+            document.getElementById('ModalWindMain').style.display = "none";
+        }
+        if (event.target == document.getElementById('ModalWindInp')){
+            document.getElementById('ModalWindInp').style.display = "none";
+        }
+        if (event.target == document.getElementById('ModalWind')){
+            document.getElementById('ModalWind').style.display = "none";
+        }
+
+
+    }
+    function KeyPress(e) {
         var eobj = window.event? event : e
         if (eobj.keyCode == 13 ) {
             //alert("Теперь вы готовы к освоению блок-схем");
@@ -627,13 +632,13 @@ function helpPage(){
             document.getElementById('ModalWindInp').style.display = "none";
             document.getElementById('ModalWind').style.display = "none";
         }
-}
+    }
 
-document.onkeydown = KeyPress;
+    document.onkeydown = KeyPress;
 }
 
 function reSetM(){
-    s.clear();    
+    s.clear();
     m.clear();
     for (let i of varSet){
         m.set(i,varMap.get(i));
@@ -654,12 +659,12 @@ function buttonDebag() {
     }
     debag=true;
     counter = 0;
-    debagBlock=0;    
+    debagBlock=0;
     document.getElementById('buttonReStart').style.display="block";
     document.getElementById('bug').style.display = 'none';
     document.getElementById('left').style.display = 'block';
     document.getElementById('right').style.display = 'block';
-    graph[0].cell.firstChild.className="debagTarg"; 
+    graph[0].cell.firstChild.className="debagTarg";
     reSetM();
     setRes();
     LD=false;
@@ -719,7 +724,7 @@ function whileForLeftOrRight(){
     }
     debagBlock=V.parents[0];
     cleanBlock(graph[0]);
-    
+
     if (count!=-1){
         V.cell.firstChild.className="debagTarg";
         RD=false;
@@ -736,7 +741,7 @@ function whileForLeftOrRight(){
 
 function cleanBlock(V){
     if (V.cell.firstChild) V.cell.firstChild.className="";
-    for (let i=0;i<V.childs.length;i++){ 
+    for (let i=0;i<V.childs.length;i++){
         cleanBlock(graph[V.childs[i]]);
     }
 }
@@ -759,12 +764,10 @@ function buttonLeft(){
 function buttonPlay(){
     if (inMenu)
         return;
-    if (debag)
-        buttonReStart();
+    buttonReStart();
     if (document.getElementById("var").firstChild.tagName=="i"){
         return;
     }
-    s.clear();
     var V =graph[0];
     while(V.type!="end"){
         if (V.type=="start"){
@@ -824,7 +827,7 @@ function setRes(){
     hr.style.opacity= 0.7;
     varTable.innerHTML="";
     if (debag){
-        elem.innerHTML="Debag result:";    
+        elem.innerHTML="Debag result:";
     } else elem.innerHTML="Result:";
     varTable.insertBefore(elem,document.getElementById("var").firstChild);
     for (let item of varSet){
@@ -867,6 +870,8 @@ function newSetRes(item, tMap){
 function buttonReStart() {
     if (inMenu)
         return;
+    s.clear();
+    m.clear();
     let varTable= document.getElementById("var");
     varTable.innerHTML='<div id="addVar" style=\"height: 100%\"><input type=\"image\" src=\"https://png.icons8.com/ios/100/2a3c3c/plus.png\" width=\"40\" height=\"40\" id=\"Plas\" onclick=\"hiddenVarBox(this)\" draggable=\"false\" checked/><input type=\"text\" name=\"инициализацияПеременных\" onblur=\"returnPlas()\" placeholder=\"var [name] = [expr];\" width=\"70%\" id=\"initVarBox\" onkeydown=\"if(event.keyCode==13){ getVal(this);} else {this.style.background=\'#DFE0E7\';}\"></div>';
     for (let i of varSet){
@@ -878,7 +883,7 @@ function buttonReStart() {
         document.getElementById('right').style.display= 'none';
         cleanBlock(graph[0]);
         debag=false;
-    } 
+    }
     document.getElementById('buttonReStart').style.display= 'none';
 }
 
@@ -907,7 +912,7 @@ function buttonDelete(){
         }
         ifDfs(graph[trueCh],findDif(graph[trueCh],false)+1);
         for (let i=0;i<difT-findDif(graph[trueCh],true);i++){
-            deleteColumn(block.cell.cellIndex+findDif(graph[trueCh],true)+1);   
+            deleteColumn(block.cell.cellIndex+findDif(graph[trueCh],true)+1);
         }
         reIndex(block.y);
         if (graph[trueCh].type!="trg" && pr.type!="if"){
@@ -963,9 +968,9 @@ function findDif(V,IF){
     while (V.type!="end" && V.type!="loop" && V.type!="trg"){
         if (V.type=="if"){
             if (IF){
-                V= graph[graph[V.childs[0]].ifRes? V.childs[0]:V.childs[1]];    
+                V= graph[graph[V.childs[0]].ifRes? V.childs[0]:V.childs[1]];
             } else{
-                V= graph[!graph[V.childs[0]].ifRes? V.childs[0]:V.childs[1]];   
+                V= graph[!graph[V.childs[0]].ifRes? V.childs[0]:V.childs[1]];
             }
         } else {
             V=graph[V.childs[0]];
@@ -1143,22 +1148,20 @@ function buttonBack(){
     firstFile++ ;
     let M=document.getElementById("Main");
     let menu=event.target.parentNode.parentNode.parentNode;
-    M.style.opacity=1;  
+    M.style.opacity=1;
     menu.style.opacity=0;
     document.getElementById("informationHead").style.opacity= "1";
     document.getElementById("toolsHead").style.opacity="1";
     menu.style.display= "none";
-    inMenu=false; 
+    inMenu=false;
 }
 
 function buttonDesign(){
-    let M=document.getElementById("Main");
     let menu=document.getElementById("design");
     let menu1=event.target.parentNode.parentNode.parentNode;
     menu1.style.opacity=0;
     menu1.style.display= "none";
     menu.style.opacity=1;
-    M.style.opacity=0;
     menu.style.display= "block";
 }
 
@@ -1175,7 +1178,7 @@ function buttonNewFile(){
     menu1.style.display="none";
     let body=document.getElementById("workSpace");
 
-    body.innerHTML='<tr><td class="lv"></td><td class="lv" id="start"><img src="img/start.png" width="60%" height="55%" class= "start"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr>'
+    body.innerHTML='<tr><td class="lv"></td><td class="lv" id="start"><img src="img/start.png" width="60%" height="55%" class= "start"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr>'
 
     columns = [false,true,false];
     mainColumn=1;
@@ -1216,11 +1219,100 @@ function buttonNewFile(){
 
 function saveFile() {
     var xhr = new XMLHttpRequest();
-    body = "title=new&content=kirya_hui_sosi";
+    body = "title=new&content=info";
     xhr.open('POST', '/save');
     xhr.send(body);
 }
 
+function mouseDown(){
+    mousedown=true;
+    MDT=event.pageY;
+    MDL=event.pageX;
+}
+
+function mouseUp(){
+    mousedown=false;
+    supTable.style.cursor= "default";
+}
+
+let supTable=document.getElementById("main");
+
+function hand(){
+    if (mousedown){
+        supTable.scrollLeft-=(event.pageX-MDL)*0.85;
+        supTable.scrollTop-=(event.pageY-MDT)*0.85;
+        MDT=event.pageY;
+        MDL=event.pageX;
+        supTable.style.cursor= "move";
+    }
+}
+
+let them=1;
+
+function greenT(){
+    document.getElementById('CSSsource').href='mainStyle.css';
+    let hrs= document.querySelectorAll("hr");
+    for (let i of hrs){
+        i.color="#596868";
+    }
+    them=1;
+}
+
+function blueT(){
+    document.getElementById('CSSsource').href='blueStyle.css';
+    let hrs= document.querySelectorAll("hr");
+    for (let i of hrs){
+        i.color="#3E6788";
+    }
+    them=2;
+}
+
+function darkT(){
+    document.getElementById('CSSsource').href='darkStyle.css';
+    let hrs= document.querySelectorAll("hr");
+    for (let i of hrs){
+        i.color="#343B45";
+    }
+    them=3;
+}
+
+function customize(){
+    let menu=document.getElementById("Сustomization");
+    let menu1=event.target.parentNode.parentNode.parentNode;
+    menu1.style.opacity=0;
+    menu1.style.display= "none";
+    menu.style.opacity=1;
+    menu.style.display= "block";
+}
+
+let grid = true;
+
+function gridSwitch(){
+    sw=document.getElementById("switch");
+    if (!grid){
+        sw.src="img/switch.png";
+    } else{
+        sw.src="img/switchON.png";
+    }
+    grid=!grid;
+    resetGrid();
+}
+
+function resetGrid(){
+    table=document.getElementById("workSpace");
+    let color="#AFB6BF";
+    if (them==2){
+        color="#929FB0";
+    } else if (them==3){
+        color="#5D6373";
+    }
+    let bord=grid?"1px solid "+color :"none";
+    for (let i of table.rows){
+        for (let j of i.cells){
+            j.style.border= bord;
+        }
+    }
+}
 
 ////////////////////// часть парсера //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -1351,6 +1443,7 @@ class token {
 var write=true;
 var t;
 var SE = 0;
+var mess=NaN;
 function checkRes(result){
     if (result === undefined || SE === 'SE' || result==='NaN' ) {
         //alert(result);
@@ -1367,6 +1460,7 @@ function parse(str,wrt) {
     t= new token(str);
     SE=0;
     result="";
+    mess=NaN;
     if (';' !== t.getVal()) {
         return checkRes(parseO());
     }
@@ -1430,10 +1524,12 @@ function parseE() {
 
 
 function parse_E(n) {
-    //alert(t.getVal());
+    //alert(n);
     if (t.getVal() === '+') {
         t.next();
-        return parse_E(Number(n) + Number(parseT()));
+        let ttt=Number(parseT());
+        //alert(n+  " "+ttt);
+        return parse_E(Number(n) + ttt);
     }
     else if (t.getVal() === '-') {
         t.next();
@@ -1456,8 +1552,10 @@ function parseT() {
 
 
 function parse_T(n) {
-    //alert(n);
-
+    if (t.getVal()==";"){
+        //alert(n);
+        return mess=="changes"?mess:n;
+    }
     if (t.getVal() === '*') {
         t.next();
         return parse_T(Number(n) * Number(parseF()));
@@ -1500,6 +1598,7 @@ function parseF() {
         if (t.getVal() === 'var') {
             t.next();
             var key = t.getVal();
+            mess=key;
             if (s.has(key) || varSet.has(key)) {
                 SE = 'SE';
                 return ;
@@ -1535,29 +1634,13 @@ function parseF() {
             }
 
             if (t.getVal() === '=') {
+                mess=mess?mess:"changes";
                 t.next();
                 m.set(key, Number(parseO()));
                 return 'changes';
             }
-            else if (t.getVal() === '++'){
-                t.next();
-                if (write){
-                    if(sors.get(key)==undefined){
-                        m.set(key,1);
-                    } else m.set(key,Number(sors.get(key))+1);
-                }
-                return "changes";
-            }
-            else if (t.getVal() === '--'){
-                t.next();
-                if (write){
-                    if(sors.get(key)==undefined){
-                        m.set(key,-1);
-                    } else m.set(key,Number(sors.get(key))-1);
-                }
-                return "changes";
-            }
             else if (t.getVal() === '+='){
+                mess=mess?mess:"changes";
                 t.next();
                 let exp=parseE();
                 if (write){
@@ -1566,6 +1649,7 @@ function parseF() {
                 return "changes";
             }
             else if (t.getVal() === '-='){
+                mess=mess?mess:"changes";
                 t.next();
                 let exp=parseE();
                 if (write){
@@ -1574,6 +1658,7 @@ function parseF() {
                 return "changes";
             }
             else if (t.getVal() === '*='){
+                mess=mess?mess:"changes";
                 t.next();
                 let exp=parseE();
                 if (write){
@@ -1582,12 +1667,35 @@ function parseF() {
                 return "changes";
             }
             else if (t.getVal() === '/='){
+                mess=mess?mess:"changes";
                 t.next();
                 let exp=parseE();
                 if (write){
                     m.set(key,sors.get(key)/Number(exp));
                 }
                 return "changes";
+            }
+            else if (t.getVal() === '++'){
+                t.next();
+                mess?mess:mess="changes";
+                if (write){
+                    if(sors.get(key)==undefined){
+                        m.set(key,1);
+                    } else {
+                        m.set(key,Number(sors.get(key))+1);
+                    }
+                }
+                return (write?(m.get(key)-1):1);
+            }
+            else if (t.getVal() === '--'){
+                t.next();
+                mess=mess?mess:"changes";
+                if (write){
+                    if(sors.get(key)==undefined){
+                        m.set(key,-1);
+                    } else m.set(key,Number(sors.get(key))-1);
+                }
+                return (write?(m.get(key)+1):1);
             }
             else {
                 let i= 0;
@@ -1612,6 +1720,45 @@ function parseF() {
             SE = 'SE';
             return ;
         }
+    }
+    else if (t.getVal() === '++')
+    {
+        t.next();
+        let key=t.getVal();
+        t.next();
+        var sors;
+        if (m.get(key)){
+            sors = m;
+        }else {
+            sors =varMap;
+        }
+        mess?mess:mess="changes";
+        if (write){
+            if(sors.get(key)==undefined){
+                m.set(key,1);
+            } else {
+                m.set(key,Number(sors.get(key))+1);
+            }
+        }
+        return (write?(m.get(key)):1);
+    }
+    else if (t.getVal() === '--'){
+        t.next();
+        let key=t.getVal();
+        t.next();
+        var sors;
+        if (m.get(key)){
+            sors = m;
+        }else {
+            sors =varMap;
+        }
+        mess=mess?mess:"changes";
+        if (write){
+            if(sors.get(key)==undefined){
+                m.set(key,-1);
+            } else m.set(key,Number(sors.get(key))-1);
+        }
+        return (write?(m.get(key)):1);
     }
     else if (t.getVal() === '-') {
         t.next();

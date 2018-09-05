@@ -34,22 +34,21 @@ function save (req, res) {
     req.setEncoding('utf-8');
     req.on('data', data => body += data);
     req.on('end', () => {
-        
-        //const data = parseBody(body);
-        
-        var cookies = parseCookies(req);
-        title = 'new';
-        const path = './usersProjects/' + cookies.login + '/' + title + '.txt';
-        fs.writeFile(path, body, (err) => {
-            if (err) throw err;
-            
-            db.run("INSERT INTO projects Values ($login, $title)", {$login: cookies.login, $title: title});
-            
-            db.close();
-        });
-
-        
-        
+        var cookies = parseCookies(req); 
+        db.get("SELECT * FROM sessions WHERE id=$id", {$id: cookies.session_id}, function(err, row) {
+            if (typeof(row) === 'undefined') {
+                console.log('NO SESSION');
+            } else {
+                login = row.login;
+                title = 'new';
+                const path = './usersProjects/' + login + '/' + title + '.txt';
+                fs.writeFile(path, body, (err) => {
+                    if (err) throw err;
+                    db.run("INSERT INTO projects Values ($login, $title)", {$login: login, $title: title});
+                    db.close();
+                });
+            }
+        });  
     });       
 }
 
