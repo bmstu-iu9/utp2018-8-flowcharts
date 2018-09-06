@@ -556,7 +556,7 @@ function closeMenu(){
 
 function reValBloc(){
     var box =document.getElementById("initBox");
-    box.value = graph[blockTriggered].value;
+    //box.value = graph[blockTriggered].value;
     box.focus();
     closeMenu();
 }
@@ -1278,6 +1278,24 @@ function darkT(){
 
 function customize(){
     let menu=document.getElementById("Сustomization");
+    let menu1=event.target.parentNode.parentNode.parentNode;
+    menu1.style.opacity=0;
+    menu1.style.display= "none";
+    menu.style.opacity=1;
+    menu.style.display= "block";
+}
+
+function login(){
+    let menu=document.getElementById("Login");
+    let menu1=event.target.parentNode.parentNode.parentNode;
+    menu1.style.opacity=0;
+    menu1.style.display= "none";
+    menu.style.opacity=1;
+    menu.style.display= "block";
+}
+
+function reg(){
+    let menu=document.getElementById("Reg");
     let menu1=event.target.parentNode.parentNode.parentNode;
     menu1.style.opacity=0;
     menu1.style.display= "none";
