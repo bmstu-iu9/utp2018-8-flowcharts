@@ -1,5 +1,5 @@
 ::-webkit-scrollbar {
-    width: 0px;
+    width: 5px;
     height: 8px;
 }
 
@@ -536,6 +536,7 @@ table tbody tr {
 	font-size: 40px;
 	text-align:  center;
 	opacity: 0.6;
+	transition-duration: 0.7s;
 }
 
 .reg .txt {
@@ -548,6 +549,31 @@ table tbody tr {
 	box-shadow: inset 0 0 10px rgba(192, 196, 205,1);
 	transition-property: background-color;
  	transition-duration: 0.7s;
+}
+
+.submitbutton{
+	text-decoration: none;
+	margin: 2% 5%;
+	width: 90%;
+	height: 20%; 
+	border-radius: 6%; 
+	background-color: #DADCE2;
+	position: relative;
+	box-shadow: inset 0 0 10px rgba(192, 196, 205,1);
+	transition-property: background-color;
+ 	transition-duration: 0.7s;	
+ 	padding: 7% 0px;
+ 	color: #2a3c3c;
+	font-size: 40px;
+	text-align:  center;
+	opacity: 0.6;
+	-webkit-transition: opacity 0.5s; 
+	outline: none; 
+}
+
+.submitbutton :hover{
+	background-color: #C0C4CD;
+	opacity: 1;
 }
 
 

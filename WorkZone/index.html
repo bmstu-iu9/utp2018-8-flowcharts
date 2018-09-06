@@ -44,11 +44,13 @@
    		<ul>
    			<li onclick="backGO()" class="txt" onclick="">BlockWork</li>
    			<hr width="80%" style="margin: 0% 10%;" size="3	" color="#596868"align="center" />
-   			<li style="opacity: 1;"><input type="text" name="log" id="log" placeholder="UserName" required></li>
-   			<li style="opacity: 1;"><input type="password" name="pass" id="pass" placeholder="Password" required></li>
-   			<li class="txt" onclick="reg()" style="font-size: 30px; padding: 3% 0px; width: 72%; margin: 5% 14%">Registration</li>
-   			<hr width="80%" style="margin: 0% 10%;" size="3	" color="#596868"align="center" />
-   			<li onclick="" class="txt">GO</li>
+   			<form action="/auth" method="POST">
+	   			<li style="opacity: 1;"><input type="text" name="log" id="log"  {valueAuth} {loginCheckBorder} placeholder="UserName" required></li>
+	   			<li style="opacity: 1;"><input type="password" name="pass" id="pass" placeholder="Password"  {passwordCheckBorder} required></li>
+	   			<li class="txt" onclick="reg()" style="font-size: 30px; padding: 3% 0px; width: 72%; margin: 5% 14%">Registration</li>
+	   			<hr width="80%" style="margin: 0% 10%;" size="3	" color="#596868"align="center" />
+	   			<button class="submitbutton" type="submit">GO</button>
+   			</form>
    		</ul>
    	</div>
 
@@ -56,12 +58,14 @@
    		<ul>
    			<li onclick="backGO()" class="txt" onclick="">BlockWork</li>
    			<hr width="80%" style="margin: 0% 10%;" size="3	" color="#596868"align="center" />
-   			<li style="opacity: 1;"><input type="text" name="log" id="log" placeholder="Name" required></li>
-   			<li style="opacity: 1;"><input type="password" name="pass" id="pass" placeholder="Password" required></li>
-   			<li style="opacity: 1;"><input type="password" name="pass" id="pass" placeholder="RePassword" required></li>
-   			<li class="txt" onclick="login()" style="font-size: 30px; padding: 3% 0px; width: 72%; margin: 5% 14%">Login</li>
-   			<hr width="80%" style="margin: 0% 10%;" size="3	" color="#596868"align="center" />
-   			<li onclick="" class="txt">GO</li>
+   			<form action="/reg" method="POST" class="formreg">
+	   			<li style="opacity: 1;"><input type="text" name="log"  {valueReg} {loginBorder} id="log" placeholder="Name" required></li>
+	   			<li style="opacity: 1;"><input type="password" name="pass" {passwordBorder} id="pass" placeholder="Password" required></li>
+	   			<li style="opacity: 1;"><input type="password" name="repass" {rePasswordBorder}  id="pass" placeholder="RePassword" required></li>
+	   			<li class="txt" onclick="login()" style="font-size: 30px; padding: 3% 0px; width: 72%; margin: 5% 14%">Login</li>
+	   			<hr width="80%" style="margin: 0% 10%;" size="3	" color="#596868"align="center" />
+	   			<button class="submitbutton" type="submit">GO</button>
+   			</form>
    		</ul>
    	</div>
 
@@ -180,9 +184,9 @@
 			<hr  width="90%" style="margin: 0% 5%;" size="3" color="#596868"align="center" />
 			<div><img class="if" src="https://png.icons8.com/windows/100/2a3c3c/rhombus.png" width="37%" height="37%" draggable="true" id="romb"></div>
 			-init-
-			<hr  width="90%" style="margin: 0% 5%;" size="3" color="#596868"align="center" />
+			<hr  width="90%"  style="margin: 0% 5%;" size="3" color="#596868"align="center" />
 			<div><img class="init" src="https://png.icons8.com/small/80/2a3c3c/rectangle-stroked.png" width="37%" height="37%" draggable="true" id="parl"></div>
-			-loop-
+			-goto-
 			<hr  width="90%" style="margin: 0% 5%;" size="3" color="#596868"align="center" />
 			<div><img class="loop" src="https://png.icons8.com/windows/96/2A3C3C/rotate-right.png" width="35%" height="39%" draggable="true" id="loop"></div>
 			-end-
