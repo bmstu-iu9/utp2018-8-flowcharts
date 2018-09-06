@@ -1276,6 +1276,8 @@ function darkT(){
     them=3;
 }
 
+// сделать этим функции в одной!!!
+
 function customize(){
     let menu=document.getElementById("Сustomization");
     let menu1=event.target.parentNode.parentNode.parentNode;
@@ -1287,7 +1289,9 @@ function customize(){
 
 function login(){
     let menu=document.getElementById("Login");
-    let menu1=event.target.parentNode.parentNode.parentNode;
+    let menu1=event.target.parentNode.parentNode;
+    if (menu1.tagName!="DIV")
+        menu1=menu1.parentNode;
     menu1.style.opacity=0;
     menu1.style.display= "none";
     menu.style.opacity=1;
@@ -1296,11 +1300,22 @@ function login(){
 
 function reg(){
     let menu=document.getElementById("Reg");
-    let menu1=event.target.parentNode.parentNode.parentNode;
+    let menu1=event.target.parentNode.parentNode;
+    if (menu1.tagName!="DIV")
+        menu1=menu1.parentNode;
     menu1.style.opacity=0;
     menu1.style.display= "none";
     menu.style.opacity=1;
     menu.style.display= "block";
+}
+
+function backGO(){
+    let menu=document.getElementById("newFileMenu");
+    let menu1=event.target.parentNode.parentNode;
+    menu1.style.opacity=0;
+    menu1.style.display= "none";
+    menu.style.opacity=1;
+    menu.style.display= "block";   
 }
 
 let grid = true;
