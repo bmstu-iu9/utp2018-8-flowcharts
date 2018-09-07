@@ -920,7 +920,7 @@ function buttonDelete(){
         reIndex(block.y);
         if (graph[trueCh].type!="trg" && pr.type!="if"){
             let mg=document.createElement("img");
-            mg.setAttribute("src","img/down.png");
+            mg.setAttribute("src","WorkZone/img/down.png");
             mg.className="down";
             graph[trueCh].cell.appendChild(mg);
         }
