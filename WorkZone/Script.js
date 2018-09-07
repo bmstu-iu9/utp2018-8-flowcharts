@@ -1501,7 +1501,6 @@ function parse(str,wrt) {
     }
 }
 
-
 function parseO() {
     return parse_O(parseE());
 }
@@ -1756,44 +1755,53 @@ function parseF() {
             return ;
         }
     }
-    else if (t.getVal() === '++')
-    {
+    else if (t.getVal() === '++') {
         t.next();
-        let key=t.getVal();
-        t.next();
-        var sors;
-        if (m.get(key)){
-            sors = m;
-        }else {
-            sors =varMap;
-        }
-        mess?mess:mess="changes";
-        if (write){
-            if(sors.get(key)==undefined){
-                m.set(key,1);
+        if (t.getId() !== "ident") {
+            let key = t.getVal();
+            t.next();
+            var sors;
+            if (m.get(key)) {
+                sors = m;
             } else {
-                m.set(key,Number(sors.get(key))+1);
+                sors = varMap;
             }
+            mess ? mess : mess = "changes";
+            if (write) {
+                if (sors.get(key) == undefined) {
+                    m.set(key, 1);
+                } else {
+                    m.set(key, Number(sors.get(key)) + 1);
+                }
+            }
+            return (write ? (m.get(key)) : 1);
+        } else {
+            SE ="SE";
+            return;
         }
-        return (write?(m.get(key)):1);
     }
-    else if (t.getVal() === '--'){
+    else if (t.getVal() === '--') {
         t.next();
-        let key=t.getVal();
-        t.next();
-        var sors;
-        if (m.get(key)){
-            sors = m;
+        if (t.getId() === "ident") {
+            let key = t.getVal();
+            t.next();
+            var sors;
+            if (m.get(key)) {
+                sors = m;
+            } else {
+                sors = varMap;
+            }
+            mess = mess ? mess : "changes";
+            if (write) {
+                if (sors.get(key) == undefined) {
+                    m.set(key, -1);
+                } else m.set(key, Number(sors.get(key)) - 1);
+            }
+            return (write ? (m.get(key)) : 1);
         }else {
-            sors =varMap;
+            SE = "SE";
+            return;
         }
-        mess=mess?mess:"changes";
-        if (write){
-            if(sors.get(key)==undefined){
-                m.set(key,-1);
-            } else m.set(key,Number(sors.get(key))-1);
-        }
-        return (write?(m.get(key)):1);
     }
     else if (t.getVal() === '-') {
         t.next();
