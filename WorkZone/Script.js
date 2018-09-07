@@ -40,6 +40,7 @@ class vort{
         this.y=y;
         this.ifRes=true;
         this.dead=false;
+        this.value="";
     }
     addParent(parent){
         this.parents.push(parent);
@@ -165,7 +166,7 @@ document.addEventListener("drop", function(event) {
         V.type=data.className;
         blockTriggered=V.pos;
         if (parent.type!="if"){
-            mg.setAttribute("src","img/down.png");
+            mg.setAttribute("src","WorkZone/img/down.png");
             mg.className="down";
             if (parent.type=="start"){
                 mg.style.top="-140%";
@@ -224,7 +225,7 @@ function changeTrigger(row, cell, type, prnt, check){
         createBlock(row+1,cell+1,prnt,true);
 
     }
-    if (row >= document.getElementById("workSpace").rows.length-2){
+    if (row +1>= document.getElementById("workSpace").rows.length-2){
         addRow();
     }
 }
@@ -418,7 +419,7 @@ function returnPlas(){
     let VarBox= document.getElementById("initVarBox");
     VarBox.style.display="none";
     trg.width=40;
-    trg.height=40;
+    trg.height=40;  
     trg.style.opacity=1;
 }
 
@@ -556,7 +557,7 @@ function closeMenu(){
 
 function reValBloc(){
     var box =document.getElementById("initBox");
-    box.value = graph[blockTriggered].value;
+    //box.value = graph[blockTriggered].value;
     box.focus();
     closeMenu();
 }
@@ -857,7 +858,9 @@ function newSetRes(item, tMap){
     hr.style.opacity= 0.7;
     elem1.innerHTML = item;
     let i = document.createElement("div");
-    i.innerHTML=tMap.get(item);
+    let rs=tMap.get(item);
+    if (rs==undefined) rs=varMap.get(item);
+    i.innerHTML=rs;
     elem2.appendChild(i);
     if (tMap==varMap){
         elem2.setAttribute('onclick',"reVal(this)");
@@ -1156,14 +1159,6 @@ function buttonBack(){
     inMenu=false;
 }
 
-function buttonDesign(){
-    let menu=document.getElementById("design");
-    let menu1=event.target.parentNode.parentNode.parentNode;
-    menu1.style.opacity=0;
-    menu1.style.display= "none";
-    menu.style.opacity=1;
-    menu.style.display= "block";
-}
 
 function buttonNewFile(){
     firstFile++;
@@ -1178,7 +1173,7 @@ function buttonNewFile(){
     menu1.style.display="none";
     let body=document.getElementById("workSpace");
 
-    body.innerHTML='<tr><td class="lv"></td><td class="lv" id="start"><img src="img/start.png" width="60%" height="55%" class= "start"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr>'
+    body.innerHTML='<tr><td class="lv"></td><td class="lv" id="start"><img src="WorkZone/img/start.png" width="60%" height="55%" class= "start"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr>'
 
     columns = [false,true,false];
     mainColumn=1;
@@ -1250,7 +1245,7 @@ function hand(){
 let them=1;
 
 function greenT(){
-    document.getElementById('CSSsource').href='mainStyle.css';
+    document.getElementById('CSSsource').href='WorkZone/mainStyle.css';
     let hrs= document.querySelectorAll("hr");
     for (let i of hrs){
         i.color="#596868";
@@ -1259,7 +1254,7 @@ function greenT(){
 }
 
 function blueT(){
-    document.getElementById('CSSsource').href='blueStyle.css';
+    document.getElementById('CSSsource').href='WorkZone/blueStyle.css';
     let hrs= document.querySelectorAll("hr");
     for (let i of hrs){
         i.color="#3E6788";
@@ -1268,13 +1263,15 @@ function blueT(){
 }
 
 function darkT(){
-    document.getElementById('CSSsource').href='darkStyle.css';
+    document.getElementById('CSSsource').href='WorkZone/darkStyle.css';
     let hrs= document.querySelectorAll("hr");
     for (let i of hrs){
         i.color="#343B45";
     }
     them=3;
 }
+
+// сделать этим функции в одной!!!
 
 function customize(){
     let menu=document.getElementById("Сustomization");
@@ -1285,14 +1282,55 @@ function customize(){
     menu.style.display= "block";
 }
 
+function buttonDesign(){
+    let menu=document.getElementById("design");
+    let menu1=event.target.parentNode.parentNode.parentNode;
+    menu1.style.opacity=0;
+    menu1.style.display= "none";
+    menu.style.opacity=1;
+    menu.style.display= "block";
+}
+
+
+function login(){
+    let menu=document.getElementById("Login");
+    let menu1=event.target.parentNode.parentNode;
+    if (menu1.tagName!="DIV")
+        menu1=menu1.parentNode;
+    menu1.style.opacity=0;
+    menu1.style.display= "none";
+    menu.style.opacity=1;
+    menu.style.display= "block";
+}
+
+function reg(){
+    let menu=document.getElementById("Reg");
+    let menu1=event.target.parentNode.parentNode;
+    if (menu1.tagName!="DIV")
+        menu1=menu1.parentNode;
+    menu1.style.opacity=0;
+    menu1.style.display= "none";
+    menu.style.opacity=1;
+    menu.style.display= "block";
+}
+
+function backGO(){
+    let menu=document.getElementById("newFileMenu");
+    let menu1=event.target.parentNode.parentNode;
+    menu1.style.opacity=0;
+    menu1.style.display= "none";
+    menu.style.opacity=1;
+    menu.style.display= "block";   
+}
+
 let grid = true;
 
 function gridSwitch(){
     sw=document.getElementById("switch");
     if (!grid){
-        sw.src="img/switch.png";
+        sw.src="WorkZone/img/switch.png";
     } else{
-        sw.src="img/switchON.png";
+        sw.src="WorkZone/img/switchON.png";
     }
     grid=!grid;
     resetGrid();
@@ -1466,7 +1504,6 @@ function parse(str,wrt) {
     }
 }
 
-
 function parseO() {
     return parse_O(parseE());
 }
@@ -1553,8 +1590,11 @@ function parseT() {
 
 function parse_T(n) {
     if (t.getVal()==";"){
-        //alert(n);
-        return mess=="changes"?mess:n;
+        if (n=="changes")
+            return n;
+        else{
+            return mess=="changes"?mess:n;
+        }
     }
     if (t.getVal() === '*') {
         t.next();
@@ -1634,13 +1674,11 @@ function parseF() {
             }
 
             if (t.getVal() === '=') {
-                mess=mess?mess:"changes";
                 t.next();
                 m.set(key, Number(parseO()));
                 return 'changes';
             }
             else if (t.getVal() === '+='){
-                mess=mess?mess:"changes";
                 t.next();
                 let exp=parseE();
                 if (write){
@@ -1649,7 +1687,6 @@ function parseF() {
                 return "changes";
             }
             else if (t.getVal() === '-='){
-                mess=mess?mess:"changes";
                 t.next();
                 let exp=parseE();
                 if (write){
@@ -1658,7 +1695,6 @@ function parseF() {
                 return "changes";
             }
             else if (t.getVal() === '*='){
-                mess=mess?mess:"changes";
                 t.next();
                 let exp=parseE();
                 if (write){
@@ -1667,7 +1703,6 @@ function parseF() {
                 return "changes";
             }
             else if (t.getVal() === '/='){
-                mess=mess?mess:"changes";
                 t.next();
                 let exp=parseE();
                 if (write){
@@ -1721,44 +1756,54 @@ function parseF() {
             return ;
         }
     }
-    else if (t.getVal() === '++')
-    {
+    else if (t.getVal() === '++') {
         t.next();
-        let key=t.getVal();
-        t.next();
-        var sors;
-        if (m.get(key)){
-            sors = m;
-        }else {
-            sors =varMap;
-        }
-        mess?mess:mess="changes";
-        if (write){
-            if(sors.get(key)==undefined){
-                m.set(key,1);
+        if (t.getId() == "ident") {
+            let key = t.getVal();
+            t.next();
+            var sors;
+            if (m.get(key)) {
+                sors = m;
             } else {
-                m.set(key,Number(sors.get(key))+1);
+                sors = varMap;
             }
+            mess ? mess : mess = "changes";
+            if (write) {
+                if (sors.get(key) == undefined) {
+                    m.set(key, 1);
+                } else {
+                    m.set(key, Number(sors.get(key)) + 1);
+                }
+            }
+
+            return (write ? (m.get(key)) : 1);
+        } else {
+            SE ="SE";
+            return;
         }
-        return (write?(m.get(key)):1);
     }
-    else if (t.getVal() === '--'){
+    else if (t.getVal() === '--') {
         t.next();
-        let key=t.getVal();
-        t.next();
-        var sors;
-        if (m.get(key)){
-            sors = m;
+        if (t.getId() === "ident") {
+            let key = t.getVal();
+            t.next();
+            var sors;
+            if (m.get(key)) {
+                sors = m;
+            } else {
+                sors = varMap;
+            }
+            mess = mess ? mess : "changes";
+            if (write) {
+                if (sors.get(key) == undefined) {
+                    m.set(key, -1);
+                } else m.set(key, Number(sors.get(key)) - 1);
+            }
+            return (write ? (m.get(key)) : 1);
         }else {
-            sors =varMap;
+            SE = "SE";
+            return;
         }
-        mess=mess?mess:"changes";
-        if (write){
-            if(sors.get(key)==undefined){
-                m.set(key,-1);
-            } else m.set(key,Number(sors.get(key))-1);
-        }
-        return (write?(m.get(key)):1);
     }
     else if (t.getVal() === '-') {
         t.next();

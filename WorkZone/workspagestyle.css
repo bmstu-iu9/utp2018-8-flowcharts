@@ -15,12 +15,9 @@ header{
 }
 
 .defaulttext{
-    vertical-align: middle;
-    width: auto;
-    height: auto;
-    float: left;
-    font: 18px/22px Arial, sans-serif;
-}
+     color: lightgrey;
+     font: 15px/20px Arial, sans-serif;
+ }
 
 h1{
     vertical-align: middle;
@@ -79,20 +76,23 @@ h1{
     margin: 100px 10px;
 }
 
-#projectplace{
-
-}
 
 .project{
     display: inline-block;
+    text-align: center;
     background: white;
     color: darkslategray;
     font: 18px/22px Arial, sans-serif;
     padding: 25px;
-    max-width: 220px;
+    width: 220px;
     margin: 20px 40px;
     border: 1px solid lightgrey;
     border-radius: 10px;
     cursor: pointer;
 
+}
+
+.projecttitle{
+    color: darkslategray;
+    font: 18px/22px Arial, sans-serif;
 }

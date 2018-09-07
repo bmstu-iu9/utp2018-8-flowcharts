@@ -40,11 +40,13 @@ function save (req, res) {
                 console.log('NO SESSION');
             } else {
                 login = row.login;
-                title = 'new';
+                title = 'и даже на нью троку переходит )00))';
+                var curdt = new Date();
+                lastupdate = "last updated in: " + curdt.getDate() +"."+ curdt.getMonth() +"."+ curdt.getFullYear() + "   "  + curdt.getHours()+":"+curdt.getMinutes();
                 const path = './usersProjects/' + login + '/' + title + '.txt';
                 fs.writeFile(path, body, (err) => {
                     if (err) throw err;
-                    db.run("INSERT INTO projects Values ($login, $title)", {$login: login, $title: title});
+                    db.run("INSERT INTO projects Values ($login, $title, $lastupdate)", {$login: login, $title: title, $lastupdate: lastupdate});
                     db.close();
                 });
             }
