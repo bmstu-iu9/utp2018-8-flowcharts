@@ -538,7 +538,7 @@ function cmenu(){
         if (contmenu.children.length==3){
             let lit=document.createElement("li");
             lit.setAttribute("onclick","reValBloc()");
-            lit.innerHTML="<div>| ReValue</div>";
+            lit.innerHTML="<div> > ReValue</div>";
             contmenu.insertBefore(lit,contmenu.children[0]);
         }
         contmenu.style.height="160px";
