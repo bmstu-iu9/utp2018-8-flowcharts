@@ -225,7 +225,7 @@ function changeTrigger(row, cell, type, prnt, check){
         createBlock(row+1,cell+1,prnt,true);
 
     }
-    if (row >= document.getElementById("workSpace").rows.length-2){
+    if (row +1>= document.getElementById("workSpace").rows.length-2){
         addRow();
     }
 }
@@ -419,7 +419,7 @@ function returnPlas(){
     let VarBox= document.getElementById("initVarBox");
     VarBox.style.display="none";
     trg.width=40;
-    trg.height=40;
+    trg.height=40;  
     trg.style.opacity=1;
 }
 
