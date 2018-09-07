@@ -1587,8 +1587,11 @@ function parseT() {
 
 function parse_T(n) {
     if (t.getVal()==";"){
-        //alert(n);
-        return mess=="changes"?mess:n;
+        if (n=="changes")
+            return n;
+        else{
+            return mess=="changes"?mess:n;
+        }
     }
     if (t.getVal() === '*') {
         t.next();
@@ -1668,13 +1671,11 @@ function parseF() {
             }
 
             if (t.getVal() === '=') {
-                mess=mess?mess:"changes";
                 t.next();
                 m.set(key, Number(parseO()));
                 return 'changes';
             }
             else if (t.getVal() === '+='){
-                mess=mess?mess:"changes";
                 t.next();
                 let exp=parseE();
                 if (write){
@@ -1683,7 +1684,6 @@ function parseF() {
                 return "changes";
             }
             else if (t.getVal() === '-='){
-                mess=mess?mess:"changes";
                 t.next();
                 let exp=parseE();
                 if (write){
@@ -1692,7 +1692,6 @@ function parseF() {
                 return "changes";
             }
             else if (t.getVal() === '*='){
-                mess=mess?mess:"changes";
                 t.next();
                 let exp=parseE();
                 if (write){
@@ -1701,7 +1700,6 @@ function parseF() {
                 return "changes";
             }
             else if (t.getVal() === '/='){
-                mess=mess?mess:"changes";
                 t.next();
                 let exp=parseE();
                 if (write){
