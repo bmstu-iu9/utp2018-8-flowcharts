@@ -40,6 +40,7 @@ class vort{
         this.y=y;
         this.ifRes=true;
         this.dead=false;
+        this.value="";
     }
     addParent(parent){
         this.parents.push(parent);
@@ -857,7 +858,9 @@ function newSetRes(item, tMap){
     hr.style.opacity= 0.7;
     elem1.innerHTML = item;
     let i = document.createElement("div");
-    i.innerHTML=tMap.get(item);
+    let rs=tMap.get(item);
+    if (rs==undefined) rs=varMap.get(item);
+    i.innerHTML=rs;
     elem2.appendChild(i);
     if (tMap==varMap){
         elem2.setAttribute('onclick',"reVal(this)");
@@ -1755,7 +1758,7 @@ function parseF() {
     }
     else if (t.getVal() === '++') {
         t.next();
-        if (t.getId() !== "ident") {
+        if (t.getId() == "ident") {
             let key = t.getVal();
             t.next();
             var sors;
@@ -1772,6 +1775,7 @@ function parseF() {
                     m.set(key, Number(sors.get(key)) + 1);
                 }
             }
+
             return (write ? (m.get(key)) : 1);
         } else {
             SE ="SE";
