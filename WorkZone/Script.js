@@ -40,6 +40,7 @@ class vort{
         this.y=y;
         this.ifRes=true;
         this.dead=false;
+		this.value = "";
     }
     addParent(parent){
         this.parents.push(parent);
@@ -1207,6 +1208,140 @@ function buttonNewFile(){
 
     graph.push(startV);
     graph.push(ft);
+}
+
+
+// ДИЧЬ ДИМИНА КЛЕВАЯ КЛАССНАЯ
+
+function SaveDataStr() {
+	var str = "";
+	var key;
+	for ( key of varMap) {
+		str += key + " ";
+	}
+	str += ";\n";
+	
+	for ( key of graphIds) {
+		str += key + " ";
+	}
+	str += ";\n";
+	for (var i of graph) {
+		for (var j of i.parents){
+			str += j + " ";
+		}
+		str += "|";
+	}
+	str += ";\n";
+	for (var i of graph) {
+		for (var j of i.childs){
+			str += j + " ";
+		}
+		str += "|";
+	}
+	str += ";\n";
+	
+	for (var i of graph) {
+		str += i.type + " ";
+	}
+	str += ";\n";
+	
+	
+	for (var i of graph) {
+		str += i.pos + " ";
+	}
+	str += ";\n";
+	
+	for (var i of graph) {
+		str += i.x + " ";
+	}
+	str += ";\n";
+	
+	for (var i of graph) {
+		str += i.y + " ";
+	}
+	str += ";\n";
+	
+	for (var i of graph) {
+		str += i.ifRes + " ";
+	}
+	str += ";\n";
+	
+	for (var i of graph) {
+		str += i.dead + " ";
+	}
+	str += ";\n";
+	
+	
+	for (var i of graph) {
+		str += i.value + " ";
+	}
+	str += ";\n";
+	for (var i of table.rows) {
+		for (var j of i.cells){
+			str += j.className + " ";
+		}
+		
+	}
+	str += ";\n";
+	
+	alert(str);
+	alert(str.charAt(1));
+	//return str;
+	
+	//table.rows[row].cells[cell]
+
+}
+
+function Priem(str) {
+	var sim = "";
+	var len = str.length;
+	var cnt = 0;
+	var key = "";
+	var val = "";
+	var s = "";
+	while (str.charAt(cnt) != ";")
+	{
+		while (str.charAt(cnt) != ","){
+			key += str.charAt(cnt);
+			cnt++;
+		}
+		cnt++;
+		while (str.charAt(cnt) != " "){
+			val += str.charAt(cnt);
+			cnt++;
+		}
+		cnt++;
+		varMap.set(key, Number(val));
+		key = "";
+		val = "";
+	}
+	cnt += 2;
+	while (str.charAt(cnt) != ";")
+	{
+	}
+	cnt += 2;
+	while (str.charAt(cnt) != ";")
+	{
+		while (str.charAt(cnt) != "|"){
+			if (str.charAt(cnt) != " ")
+				s += str.charAt(cnt);
+			cnt++;
+		}
+		graph.parents.push(Number(s));
+		s = "";
+	}
+	s = "";
+	cnt += 2;
+	while (str.charAt(cnt) != ";")
+	{
+		while (str.charAt(cnt) != "|"){
+			if (str.charAt(cnt) != " ")
+				s += str.charAt(cnt);
+			cnt++;
+		}
+		graph.childs.push(Number(s));
+		s = "";
+	}
 }
 
 function saveFile() {
