@@ -419,7 +419,7 @@ function returnPlas(){
     let VarBox= document.getElementById("initVarBox");
     VarBox.style.display="none";
     trg.width=40;
-    trg.height=40;  
+    trg.height=40;
     trg.style.opacity=1;
 }
 
@@ -1320,7 +1320,7 @@ function backGO(){
     menu1.style.opacity=0;
     menu1.style.display= "none";
     menu.style.opacity=1;
-    menu.style.display= "block";   
+    menu.style.display= "block";
 }
 
 let grid = true;
@@ -1676,9 +1676,8 @@ function parseF() {
             if (t.getVal() === '=') {
                 t.next();
                 m.set(key, Number(parseO()));
-                //alert(t.getVal());
-                if (t.getVal() !== ';') {
-                    SE="SE";
+                if (t.getVal() !== ";") {
+                    SE ="SE";
                     return;
                 }
                 return 'changes';
@@ -1717,7 +1716,7 @@ function parseF() {
             }
             else if (t.getVal() === '++'){
                 t.next();
-                mess?mess:mess="changes";F
+                mess?mess:mess="changes";
                 if (write){
                     if(sors.get(key)==undefined){
                         m.set(key,1);
