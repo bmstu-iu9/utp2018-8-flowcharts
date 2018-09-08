@@ -1647,6 +1647,10 @@ function parseF() {
             if (t.getVal() === '=') {
                 t.next();
                 let res= Number(parseO());
+                //alert(t.getVal());
+                if (t.getVal() !== ";") {
+                    SE = "SE";
+                }
                 if (SE!='SE'){
                     if (write){
                         s.add(key);
