@@ -1673,6 +1673,11 @@ function parseF() {
             if (t.getVal() === '=') {
                 t.next();
                 m.set(key, Number(parseO()));
+                //alert(t.getVal());
+                if (t.getVal() !== ';') {
+                    SE="SE";
+                    return;
+                }
                 return 'changes';
             }
             else if (t.getVal() === '+='){
@@ -1709,7 +1714,7 @@ function parseF() {
             }
             else if (t.getVal() === '++'){
                 t.next();
-                mess?mess:mess="changes";
+                mess?mess:mess="changes";F
                 if (write){
                     if(sors.get(key)==undefined){
                         m.set(key,1);
