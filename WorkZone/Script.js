@@ -22,6 +22,8 @@ let Tutor = false;
 let mousedown=false;
 let MDL;
 let MDT;
+let gotoMod=false;
+
 
 window.onloud=function(){
     newFile();
@@ -41,12 +43,19 @@ class vort{
         this.ifRes=true;
         this.dead=false;
         this.value="";
+        this.color=0;
     }
     addParent(parent){
         this.parents.push(parent);
     }
     addChild(child){
         this.childs.push(child);
+    }
+}
+
+function reColor(){
+    for (let i of graph){
+        i.color=0;
     }
 }
 
@@ -80,7 +89,33 @@ function getFocus(trg) {
     let row=trg.parentNode.rowIndex;
     let cell=trg.cellIndex;
     let paint=true;
-    let V =graph[graphIds.get(row+ " "+(cell-mainColumn))];
+    let V =graph[graphIds.get(row+ " "+(cell-mainColumn))];    
+    if (gotoMod){
+        var W=graph[blockTriggered];
+        if (W.childs.length){
+            let i;
+            var U=graph[W.childs[0]];
+            for (i=0;i<U.parents.length;i++){
+                if (U.parents[i]==W.pos)
+                    break;
+            }
+            W.childs[0]=V.pos;
+            // добавить перента
+            U.childs.splice(i,1);
+        } else {
+            W.addChild(V.pos);
+            V.addParent(W.pos);
+        }  
+        if (trg.tagName!="IMG")
+            trg=trg.firstChild;
+        if (trg.className!=="down"&& trg.className!="loop"){
+            trg.style.width="39%";
+            trg.style.height="39%";
+        }
+        W.value="goto (" + V.x+ "," + (V.y+mainColumn)+ ");";
+        gotoMod=false;
+        return;
+    }
     if (V.type=="trg" && V.childs.length==1){
         cmenu();
     }
@@ -103,6 +138,7 @@ function paintChilds(V,paint){
         V.cell.className=V.baseClass;
     }
     for (let i=0;i<V.childs.length;i++){
+        if (V.type=="loop") break;
         let W=graph[V.childs[i]];
         if (W.ifRes || !paint){
             paintChilds(W,paint);
@@ -120,6 +156,7 @@ function paintParents(V,paint){
         V.cell.className=V.baseClass;
     }
     for (let i=0;i<V.parents.length;i++){
+        if (V.type=="loop") break;
         let W=graph[V.parents[i]];
         paintParents(W,paint);
     }
@@ -166,14 +203,16 @@ document.addEventListener("drop", function(event) {
         V.type=data.className;
         blockTriggered=V.pos;
         if (parent.type!="if"){
-            mg.setAttribute("src","/img/down.png");
+            mg.setAttribute("src","img/down.png");
             mg.className="down";
             if (parent.type=="start"){
                 mg.style.top="-140%";
             }
             V.cell.appendChild(mg);
         }
-        if (V.type!="end"){
+        if (V.type=="loop"){
+            gotoMod=true;
+        } else if (V.type!="end"){
             document.getElementById("initBox").focus();
         }
         if (V.childs.length==0)
@@ -183,19 +222,33 @@ document.addEventListener("drop", function(event) {
         if (parent.pos!=0 && parent.cell.className==="focusеtarget" && V.ifRes){
             V.cell.className="focusеtarget";
         }
-        if (V.type==="loop"){
-            V.root=findRoot(V);
-        }
     }
 });
 
 function initBoxValOff(){
     if (!focusInitBox)
         document.getElementById('initBox').placeholder="Value of Block";
+    if (gotoMod){
+        trg=event.target;
+        if (trg.tagName!="IMG")
+            trg=trg.firstChild;
+        if (trg.className!=="down"&& trg.className!="loop"){
+            trg.style.width="39%";
+            trg.style.height="39%";
+        }
+    }
 }
 
 function initBoxVal(){
     let trg=event.target;
+    if (gotoMod){
+        if (trg.tagName!="IMG")
+            trg=trg.firstChild;
+        if (trg.className!=="down" && trg.className!="loop" && trg.className!="onfocus"){
+            trg.style.width="50%";
+            trg.style.height="50%";
+        }
+    }
     if (trg.tagName!="TD"){
         trg=trg.parentNode;
     }
@@ -205,7 +258,7 @@ function initBoxVal(){
     let V =graph[graphIds.get(row+ " "+(cell-mainColumn))];
     let box=document.getElementById('initBox');
     if (!focusInitBox)
-        box.placeholder=V.value==undefined?"Value of Block":V.value;
+        box.placeholder=V.value==""?"Value of Block":V.value;
 }
 
 function changeTrigger(row, cell, type, prnt, check){
@@ -282,13 +335,6 @@ function createBlock(row, cell,prnt,ifRes){
     graphIds.set(key,countOfVort-1);
     graph.push(newVort);
     newVort.ifRes=ifRes;
-}
-
-function findRoot(V){
-    while (V.y==graph[V.parents[0]].y && graph[V.parents[0]].type!="start" ){
-        V=graph[V.parents[0]];
-    }
-    return V.parents[0];
 }
 
 function addColumn(pos){
@@ -426,7 +472,6 @@ function returnPlas(){
 function reVal(trg){
     let startVal=trg.firstChild
     let input= document.createElement("input");
-    let del= document.createElement("img");
     startVal.style.display="none";
     input.setAttribute("type","text");
     input.setAttribute("id","tmpInput");
@@ -487,11 +532,6 @@ function getValOfBlock(){
     input.blur();
 }
 
-function copySet(A,B){
-    for (let i of A){
-        B.add(i);
-    }
-}
 
 function changedBlock(){
     focusInitBox=true;
@@ -499,7 +539,7 @@ function changedBlock(){
     if (!trg || trg.dead){
         return;
     }
-    event.target.placeholder=trg.value==undefined?"Value of Block":trg.value;
+    event.target.placeholder=trg.value==""?"Value of Block":trg.value;
     let cell=document.getElementById("workSpace").rows[trg.x].cells[mainColumn+trg.y];
     cell.firstChild.className="onfocus";
     if (errorOfBlock){
@@ -522,6 +562,15 @@ function cmenu(){
     let contmenu=document.getElementById("submenu");
     let trg= event.target.tagName=="TD"?event.target: event.target.parentNode;
     let block=graph[graphIds.get(trg.parentNode.rowIndex+ " "+(trg.cellIndex-mainColumn))];
+    if (gotoMod){
+        if (trg.tagName!="IMG")
+            trg=trg.firstChild;
+        if (trg.className!=="down"&& trg.className!="loop"){
+            trg.style.width="39%";
+            trg.style.height="39%";
+        }
+        gotoMod=false;
+    }
     contmenu.style.display="block";
     blockTriggered=block.pos;
     contmenu.style.left=Math.round(event.clientX-15)+"px";
@@ -550,14 +599,17 @@ function cmenu(){
 function closeMenu(){
     document.getElementById("initBox").value="";
     let contmenu=document.getElementById("submenu");
+    mousedown=false;
     contmenu.style.width="0";
     contmenu.style.height="0";
     contmenu.style.opacity=0;
 }
 
 function reValBloc(){
+    if (graph[blockTriggered].type=="loop"){
+        gotoMod=true;
+    }
     var box =document.getElementById("initBox");
-    //box.value = graph[blockTriggered].value;
     box.focus();
     closeMenu();
 }
@@ -743,6 +795,8 @@ function whileForLeftOrRight(){
 function cleanBlock(V){
     if (V.cell.firstChild) V.cell.firstChild.className="";
     for (let i=0;i<V.childs.length;i++){
+        if (V.type=="loop")
+            break;
         cleanBlock(graph[V.childs[i]]);
     }
 }
@@ -911,16 +965,16 @@ function buttonDelete(){
         }
         if (block.y>0){
             fix(graph[trueCh],difF-findDif(graph[trueCh],false));
-            alert();
         }
         ifDfs(graph[trueCh],findDif(graph[trueCh],false)+1);
         for (let i=0;i<difT-findDif(graph[trueCh],true);i++){
             deleteColumn(block.cell.cellIndex+findDif(graph[trueCh],true)+1);
         }
         reIndex(block.y);
+        alert();
         if (graph[trueCh].type!="trg" && pr.type!="if"){
             let mg=document.createElement("img");
-            mg.setAttribute("src","/img/down.png");
+            mg.setAttribute("src","img/down.png");
             mg.className="down";
             graph[trueCh].cell.appendChild(mg);
         }
@@ -939,6 +993,8 @@ function buttonDelete(){
 
 function fix(V,dif){
     V.y-=dif;
+    if (V.type=="loop")
+            return;
     for(let i=0;i<V.childs.length;i++){
         fix(graph[V.childs[i]],dif);
     }
@@ -948,6 +1004,8 @@ function fix(V,dif){
 function reIndex(side){
     let V=graph[0];
     while(V.type!="if"){
+        if (V.type=="loop")
+            break;
         V=graph[V.childs[0]];
     }
     reIndRec(V);
@@ -960,6 +1018,8 @@ function reIndRec(V){
     graphIds.set((V.cell.parentNode.rowIndex)+ " "+(V.cell.cellIndex-mainColumn),V.pos);
     V.x=V.cell.parentNode.rowIndex;
     V.y=V.cell.cellIndex-mainColumn;
+    if (V.type=="loop")
+            return;
     for (var i=0;i<V.childs.length;i++){
         reIndRec(graph[V.childs[i]]);
     }
@@ -995,6 +1055,8 @@ function deleteColumn(pos){
 
 function delDfs(V){
     for (let i =0; i<V.childs.length;i++){
+        if (V.type=="loop")
+            break;
         delDfs(graph[V.childs[i]]);
     }
     V.dead=true;
@@ -1014,6 +1076,8 @@ function ifDfs(V,dif){
     graphIds.delete((V.x)+ " "+(V.y));
     V.y-=dif;
     V.x--;
+    if (V.type=="loop")
+            return;
     for (var i=0;i<V.childs.length;i++){
         ifDfs(graph[V.childs[i]],dif);
     }
@@ -1031,6 +1095,8 @@ function dfs(V){
     graphIds.set((V.x-1)+ " "+(V.y),V.pos);
     graphIds.delete((V.x)+ " "+(V.y));
     V.x--;
+    if (V.type=="loop")
+            return;
     for (var i=0;i<V.childs.length;i++){
         dfs(graph[V.childs[i]]);
     }
@@ -1061,6 +1127,8 @@ function buttonAddBlock(){
 
 function dfsAdd(V){
     for (var i=0;i<V.childs.length;i++){
+        if (V.type=="loop")
+            break;
         dfsAdd(graph[V.childs[i]]);
     }
     if (i==0){
@@ -1173,7 +1241,7 @@ function buttonNewFile(){
     menu1.style.display="none";
     let body=document.getElementById("workSpace");
 
-    body.innerHTML='<tr><td class="lv"></td><td class="lv" id="start"><img src="/img/start.png" width="60%" height="55%" class= "start"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr>'
+    body.innerHTML='<tr><td class="lv"></td><td class="lv" id="start"><img src="img/start.png" width="60%" height="55%" class= "start"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr>'
 
     columns = [false,true,false];
     mainColumn=1;
@@ -1328,9 +1396,9 @@ let grid = true;
 function gridSwitch(){
     sw=document.getElementById("switch");
     if (!grid){
-        sw.src="/img/switch.png";
+        sw.src="img/switch.png";
     } else{
-        sw.src="/img/switchON.png";
+        sw.src="img/switchON.png";
     }
     grid=!grid;
     resetGrid();
@@ -1351,6 +1419,8 @@ function resetGrid(){
         }
     }
 }
+
+
 
 ////////////////////// часть парсера //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
