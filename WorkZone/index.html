@@ -5,6 +5,7 @@
     <title>BlockWork</title>
     <link rel="stylesheet"  id="CSSsource" type="text/css" href="mainStyle.css">
     <link rel="shortcut icon" href="img/temmie.png" type="image/png">
+	   {param}
    </head>
    <body id="body">
    	<header >
@@ -36,39 +37,55 @@
    			<hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" />
    			<li><div>Open file</div></li>
 	        <hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" />
-	        <li onclick="login();"><div>Log in</div></li>
+	        <li onclick="login(); "><div>Log in</div></li>
    		</ul>
    	</div>
 
-   	<div id="Login" class="reg">
+   	<div id="Loginform" class="reg">
    		<ul>
-   			<li onclick="backGO()" class="txt" onclick="">BlockWork</li>
+   			<li onclick="backGO()" class="txt" >BlockWork</li>
    			<hr width="80%" style="margin: 0% 10%;" size="3	" color="#596868"align="center" />
-   			<form action="/auth" method="POST">
-	   			<li style="opacity: 1;"><input type="text" name="log" id="log"  {valueAuth} {loginCheckBorder} placeholder="UserName" required></li>
-	   			<li style="opacity: 1;"><input type="password" name="pass" id="pass" placeholder="Password"  {passwordCheckBorder} required></li>
-	   			<li class="txt" onclick="reg()" style="font-size: 30px; padding: 3% 0px; width: 72%; margin: 5% 14%">Registration</li>
-	   			<hr width="80%" style="margin: 0% 10%;" size="3	" color="#596868"align="center" />
-	   			<button class="submitbutton" type="submit">GO</button>
-   			</form>
+			<li>
+				<div class="formreg">
+					<h3 style="color: #596868; margin-top: 10px">Авторизация</h3><br>
+					<form action="/auth" method="POST">
+						<p style="margin-top: -20px">{errorAuth}</p>
+						<input type="text" name="login" id="logincheck" placeholder="Логин" {valueAuth} {loginCheckBorder}  class="inputtext"><br>
+						<br>
+						<input type="password" name="password" id="passwordcheck" placeholder="Пароль" {passwordCheckBorder} class="inputtext"><br>
+						<br>
+						<button class="submitbutton" type="submit">Войти</button>
+					</form>
+					<h5 style="color:#596868;">Нет учетной записи? <u style=" cursor: pointer; color: #5FA5FA" onclick="reg()">Зарегистрируйтесь</u></h5>
+				</div>
+			</li>
    		</ul>
    	</div>
 
-   	<div id="Reg" class="reg" style="top: 15%">
+   	<div id="Regform" class="reg" style="top: 15%">
    		<ul>
-   			<li onclick="backGO()" class="txt" onclick="">BlockWork</li>
+   			<li onclick="backGO()" class="txt" >BlockWork</li>
    			<hr width="80%" style="margin: 0% 10%;" size="3	" color="#596868"align="center" />
-   			<form action="/reg" method="POST" class="formreg">
-	   			<li style="opacity: 1;"><input type="text" name="log"  {valueReg} {loginBorder} id="log" placeholder="Name" required></li>
-	   			<li style="opacity: 1;"><input type="password" name="pass" {passwordBorder} id="pass" placeholder="Password" required></li>
-	   			<li style="opacity: 1;"><input type="password" name="repass" {rePasswordBorder}  id="pass" placeholder="RePassword" required></li>
-	   			<li class="txt" onclick="login()" style="font-size: 30px; padding: 3% 0px; width: 72%; margin: 5% 14%">Login</li>
-	   			<hr width="80%" style="margin: 0% 10%;" size="3	" color="#596868"align="center" />
-	   			<button class="submitbutton" type="submit">GO</button>
-   			</form>
+   			<li>
+				<div class="formreg">
+					<h3 style="color: #596868; margin-top: 10px">Регистрация</h3><br>
+					<form action="/reg" method="POST">
+						<p style="margin-top: -20px">{errorReg}</p>
+						<input type="text" name="login" id="login" placeholder="Логин" {valueReg} {loginBorder} class="inputtext"><br>
+						<br>
+						<input type="password" name="password" id="password" placeholder="Пароль" {passwordBorder} class="inputtext"><br>
+						<br>
+						<input type="password" name="rePassword" id="rePassword" placeholder="Подтверждение пароля" {rePasswordBorder} class="inputtext"><br>
+						<br>
+						<button class="submitbutton" type="submit">Зарегистрироваться</button>
+					</form>
+					<h5 style="color:#596868;">Уже зарегистрированы? <u style=" cursor: pointer; color: #5FA5FA" onclick="login()">Авторизируйтесь</u></h5>
+				</div>
+
+			</li>
    		</ul>
    	</div>
-   	
+
 
    	<div id="mainMenu" class="Menu">
    		<ul id='mainMenuUl'>

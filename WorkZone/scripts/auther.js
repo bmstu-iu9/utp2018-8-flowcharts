@@ -36,8 +36,8 @@ function checkAuth (req, res) {
             if (typeof(row) === 'undefined') {
                 error = "Неверный логин!";
                 res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-                fs.readFile(path.resolve('WorkZone', 'regauthindex.html'), 'utf-8', function (err, data) {
-                    var loadParam = "<body onload=\"showauth('block')\">";
+                fs.readFile(path.resolve('WorkZone', 'index.html'), 'utf-8', function (err, data) {
+                    var loadParam = "<body onload=\"login()\">";
                     data = data.replace("{param}", loadParam).replace("{errorAuth}", error).replace("{errorReg}", "")
                         .replace("{valueAuth}", "value=\""+login.toString()+"\"").replace("{valueReg}", "value=\"\"")
                         .replace("{loginCheckBorder}", 'style=\"border: 1px solid lightcoral;\"');
@@ -47,8 +47,8 @@ function checkAuth (req, res) {
             } else if (row.password !== password) {
                 error = "Неверный пароль!";
                 res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-                fs.readFile(path.resolve('WorkZone', 'regauthindex.html'), 'utf-8', function (err, data) {
-                    var loadParam = "<body onload=\"showauth('block')\">";
+                fs.readFile(path.resolve('WorkZone', 'index.html'), 'utf-8', function (err, data) {
+                    var loadParam = "<body onload=\"login()\">";
                     data = data.replace("{param}", loadParam).replace("{errorAuth}", error).replace("{errorReg}", "")
                         .replace("{valueAuth}", "value=\""+login.toString()+"\"").replace("{valueReg}", "value=\"\"")
                         .replace("{passwordCheckBorder}", 'style=\"border: 1px solid lightcoral;\"');
@@ -65,7 +65,7 @@ function checkAuth (req, res) {
                     "Content-Type": "text/html; charset=utf-8",
                     "Set-Cookie": cookie 
                 });
-                fs.readFile(path.resolve('Workzone', 'index.html'), 'utf-8', function (err, data) {
+                fs.readFile(path.resolve('Workzone', 'works.html'), 'utf-8', function (err, data) {
                     res.end(data);
                 })
             }

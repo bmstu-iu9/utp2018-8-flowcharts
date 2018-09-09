@@ -6,7 +6,7 @@ const sqlite3 = require('sqlite3').verbose();
 function parseBody(body) {
     const result = {};
     const keyValuePairs = body.split('&');
-    
+
     keyValuePairs.forEach(keyValue => {
         const [key, value] = keyValue.split('=');
         result[key] = value;
@@ -22,13 +22,13 @@ function checkReg (req, res) {
     req.setEncoding('utf-8');
     req.on('data', data => body += data);
     req.on('end', () => {
-        
+
         const data = parseBody(body);
         const login = data.login;
         const password = data.password;
         const rePassword = data.rePassword;
         let error = "";
-        
+
         if (login.length === 0) {
             error = "Введите логин!";
         } else if (login.length < 5) {
@@ -46,10 +46,10 @@ function checkReg (req, res) {
             fs.readFile(path.resolve('Workzone', 'regauthindex.html'), 'utf-8', function (err, data) {
                 var loadParam = "<body onload=\"showreg('block')\">";
                 data =  data.replace("{param}", loadParam).replace("{errorReg}", error).replace("{errorAuth}", "")
-                            .replace("{valueReg}", "value=\""+login.toString()+"\"").replace("{valueAuth}",  "value=\"\"")
-                            .replace("{loginBorder}", 'style=\"border: 1px solid lightcoral;\"');  
+                    .replace("{valueReg}", "value=\""+login.toString()+"\"").replace("{valueAuth}",  "value=\"\"")
+                    .replace("{loginBorder}", 'style=\"border: 1px solid lightcoral;\"');
                 res.end(data);
-            });      
+            });
         } else {
             db.get("SELECT * FROM users WHERE login=$login", {$login: login}, function(err, row) {
                 if (typeof(row) === 'undefined') {
@@ -63,28 +63,28 @@ function checkReg (req, res) {
                         fs.readFile(path.resolve('WorkZone', 'regauthindex.html'), 'utf-8', function (err, data) {
                             var loadParam = "<body onload=\"showreg('block')\">";
                             data =  data.replace("{param}", loadParam).replace("{errorReg}", error).replace("{errorAuth}", "")
-                                        .replace("{valueReg}", "value=\""+login.toString()+"\"").replace("{valueAuth}",  "value=\"\"")
-                                        .replace("{passwordBorder}", 'style=\"border: 1px solid lightcoral;\"')
-                                        .replace("{rePasswordBorder}", 'style=\"border: 1px solid lightcoral;\"');
-                        res.end(data);
-                        });    
-                    }   
+                                .replace("{valueReg}", "value=\""+login.toString()+"\"").replace("{valueAuth}",  "value=\"\"")
+                                .replace("{passwordBorder}", 'style=\"border: 1px solid lightcoral;\"')
+                                .replace("{rePasswordBorder}", 'style=\"border: 1px solid lightcoral;\"');
+                            res.end(data);
+                        });
+                    }
                 } else {
                     error = "Пользователь с таким логином уже зарегистрирован!";
                     res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
                     fs.readFile(path.resolve('Workzone', 'regauthindex.html'), 'utf-8', function (err, data) {
                         var loadParam = "<body onload=\"showreg('block')\">";
                         data =  data.replace("{param}", loadParam).replace("{errorReg}", error).replace("{errorAuth}", "")
-                                    .replace("{valueReg}", "value=\""+login.toString()+"\"").replace("{valueAuth}", "\"\"")
-                                    .replace("{loginBorder}", 'style=\"border: 1px solid lightcoral;\"');
-                         
+                            .replace("{valueReg}", "value=\""+login.toString()+"\"").replace("{valueAuth}", "\"\"")
+                            .replace("{loginBorder}", 'style=\"border: 1px solid lightcoral;\"');
+
                         res.end(data);
                     });
                 }
             });
-        } 
+        }
         db.close();
-    });       
+    });
 }
 
 module.exports = checkReg;

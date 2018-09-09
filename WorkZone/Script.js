@@ -1293,7 +1293,7 @@ function buttonDesign(){
 
 
 function login(){
-    let menu=document.getElementById("Login");
+    let menu=document.getElementById("Loginform");
     let menu1=event.target.parentNode.parentNode;
     if (menu1.tagName!="DIV")
         menu1=menu1.parentNode;
@@ -1304,7 +1304,7 @@ function login(){
 }
 
 function reg(){
-    let menu=document.getElementById("Reg");
+    let menu=document.getElementById("Regform");
     let menu1=event.target.parentNode.parentNode;
     if (menu1.tagName!="DIV")
         menu1=menu1.parentNode;
