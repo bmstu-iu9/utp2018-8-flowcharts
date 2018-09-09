@@ -3,6 +3,8 @@ const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
 
 
+
+
 function parseBody(body) {
     const result = {};
     const keyValuePairs = body.split('&');
@@ -40,9 +42,9 @@ function save (req, res) {
                 console.log('NO SESSION');
             } else {
                 login = row.login;
-                title = 'и даже на нью троку переходит )00))';
+                title = 'Рабочий кла$$ =))))';
                 var curdt = new Date();
-                lastupdate = "last updated in: " + curdt.getDate() +"."+ curdt.getMonth() +"."+ curdt.getFullYear() + "   "  + curdt.getHours()+":"+curdt.getMinutes();
+                lastupdate = "last updated in: " + curdt.toDateString();
                 const path = './usersProjects/' + login + '/' + title + '.txt';
                 fs.writeFile(path, body, (err) => {
                     if (err) throw err;
