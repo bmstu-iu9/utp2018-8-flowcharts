@@ -203,7 +203,7 @@ document.addEventListener("drop", function(event) {
         V.type=data.className;
         blockTriggered=V.pos;
         if (parent.type!="if"){
-            mg.setAttribute("src","img/down.png");
+            mg.setAttribute("src","WorkZone/img/down.png");
             mg.className="down";
             if (parent.type=="start"){
                 mg.style.top="-140%";
@@ -987,7 +987,7 @@ function buttonDelete(){
         reIndex(block.y);
         if (graph[trueCh].type!="trg" && pr.type!="if"){
             let mg=document.createElement("img");
-            mg.setAttribute("src","img/down.png");
+            mg.setAttribute("src","WorkZone/img/down.png");
             mg.className="down";
             graph[trueCh].cell.appendChild(mg);
         }
@@ -1254,7 +1254,7 @@ function buttonNewFile(){
     menu1.style.display="none";
     let body=document.getElementById("workSpace");
 
-    body.innerHTML='<tr><td class="lv"></td><td class="lv" id="start"><img src="img/start.png" width="60%" height="55%" class= "start"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr>'
+    body.innerHTML='<tr><td class="lv"></td><td class="lv" id="start"><img src="WorkZone/img/start.png" width="60%" height="55%" class= "start"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr><tr><td class="lv"></td><td class="lv"></td><td class="lv"></td></tr>'
 
     columns = [false,true,false];
     mainColumn=1;
@@ -1326,7 +1326,7 @@ function hand(){
 let them=1;
 
 function greenT(){
-    document.getElementById('CSSsource').href='/mainStyle.css';
+    document.getElementById('CSSsource').href='WorkZone/mainStyle.css';
     let hrs= document.querySelectorAll("hr");
     for (let i of hrs){
         i.color="#596868";
@@ -1335,7 +1335,7 @@ function greenT(){
 }
 
 function blueT(){
-    document.getElementById('CSSsource').href='/blueStyle.css';
+    document.getElementById('CSSsource').href='WorkZone/blueStyle.css';
     let hrs= document.querySelectorAll("hr");
     for (let i of hrs){
         i.color="#3E6788";
@@ -1344,7 +1344,7 @@ function blueT(){
 }
 
 function darkT(){
-    document.getElementById('CSSsource').href='/darkStyle.css';
+    document.getElementById('CSSsource').href='WorkZone/darkStyle.css';
     let hrs= document.querySelectorAll("hr");
     for (let i of hrs){
         i.color="#343B45";
@@ -1407,9 +1407,9 @@ let grid = true;
 function gridSwitch(){
     sw=document.getElementById("switch");
     if (!grid){
-        sw.src="img/switch.png";
+        sw.src="WorkZone/img/switch.png";
     } else{
-        sw.src="img/switchON.png";
+        sw.src="WorkZone/img/switchON.png";
     }
     grid=!grid;
     resetGrid();
