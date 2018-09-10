@@ -100,8 +100,8 @@ function getFocus(trg) {
                     break;
             }
             W.childs[0]=V.pos;
-            // добавить перента
-            U.childs.splice(i,1);
+            V.addParent(W.pos);
+            U.parents.splice(i,1);
         } else {
             W.addChild(V.pos);
             V.addParent(W.pos);
@@ -735,6 +735,11 @@ function whileForLeftOrRight(){
             reSetM();
             continue;
         }
+        if (V.type=="loop"){
+            alert(V.childs[0]);
+            V=graph[V.childs[0]];
+            continue
+        }
         if (V.childs.length==0){
             alert("error Of End");
             RD=false;
@@ -829,7 +834,10 @@ function buttonPlay(){
             V=graph[V.childs[0]];
             continue;
         }
-        //alert(V.type + " " + V.x+ " " + (V.y+mainColumn));
+        if (V.type=="loop"){
+            V=graph[V.childs[0]];
+            continue
+        }
         if (V.childs.length==0){
             alert("error Of End");
             reSetM();
@@ -1427,8 +1435,8 @@ function resetGrid(){
 
 
 var oper= ["+", "=","-", "*", "/", "<", ">" , "(", ")", "?" , ":", "!", "|", "&","%" ,";", " "];
-var sOper= ["=", "|","&", "-","+"];
-var ssOper= ["-" ,"+"];
+var sOper= ["="];
+var ssOper= ["-" ,"+","|","&"];
 
 class Pos {
     constructor(str,pos) {
