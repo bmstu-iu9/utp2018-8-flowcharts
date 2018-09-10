@@ -268,17 +268,28 @@ function reSetIdsChld(V,side,C){
     for (let i of V.childs){
         reSetIdsChld(graph[i],side,C);
     }
-}
+}	
 
 function createBlock(row, cell,prnt,ifRes){
     var table = document.getElementById("workSpace");
-    let key=row+ " " +(cell-mainColumn);
+	let key=row+ " " +(cell-mainColumn);
     let newVort = new vort("trg",countOfVort++,row,cell-mainColumn);
     newVort.baseClass="lv";
     newVort.addParent(prnt);
-    graph[prnt].addChild(countOfVort-1);
+	graph[prnt].addChild(countOfVort-1);
     newVort.cell=table.rows[row].cells[cell];
     newVort.cell.className="droptarget";
+    graphIds.set(key,countOfVort-1);
+    graph.push(newVort);
+    newVort.ifRes=ifRes;
+}
+
+function createBlockV2(row, cell,prnt,ifRes){
+    var table = document.getElementById("workSpace");
+	let key=row+ " " +(cell-mainColumn);
+    let newVort = new vort("trg",countOfVort++,row,cell-mainColumn);
+    newVort.baseClass="lv";
+	newVort.cell=table.rows[row].cells[cell];
     graphIds.set(key,countOfVort-1);
     graph.push(newVort);
     newVort.ifRes=ifRes;
@@ -1211,20 +1222,48 @@ function buttonNewFile(){
 }
 
 
-// ДИЧЬ ДИМИНА КЛЕВАЯ КЛАССНАЯ
+// ДИЧЬ КЛЕВАЯ КЛАССНАЯ (с) ДИМА К.
 
 function SaveDataStr() {
 	var str = "";
 	var key;
+	
+	str += document.getElementById("workSpace").innerHTML;
+	
+	str += "@\n";
+	str += mainColumn;
+	
+	str += "@\n";
+	
+	
 	for ( key of varMap) {
 		str += key + " ";
 	}
 	str += ";\n";
 	
+	
+	
+	//инфа для вершин
+	
+	for (var i of graph) {
+		str += i.x + " " + (i.y + mainColumn) + " " ;
+		if (i.parents[0] != undefined){
+			str += i.parents[0] + " ";
+		}
+		else
+		{
+			str += " ";
+		}
+		str += i.ifRes + ",";
+	}
+	str += "!\n";
+	
 	for ( key of graphIds) {
 		str += key + " ";
 	}
+	
 	str += ";\n";
+	
 	for (var i of graph) {
 		for (var j of i.parents){
 			str += j + " ";
@@ -1240,12 +1279,13 @@ function SaveDataStr() {
 	}
 	str += ";\n";
 	
+	
 	for (var i of graph) {
 		str += i.type + " ";
 	}
 	str += ";\n";
-	
-	
+	/*
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	for (var i of graph) {
 		str += i.pos + " ";
 	}
@@ -1261,10 +1301,8 @@ function SaveDataStr() {
 	}
 	str += ";\n";
 	
-	for (var i of graph) {
-		str += i.ifRes + " ";
-	}
-	str += ";\n";
+	*/
+	
 	
 	for (var i of graph) {
 		str += i.dead + " ";
@@ -1275,30 +1313,46 @@ function SaveDataStr() {
 	for (var i of graph) {
 		str += i.value + " ";
 	}
+	
 	str += ";\n";
-	for (var i of table.rows) {
-		for (var j of i.cells){
-			str += j.className + " ";
-		}
-		
-	}
-	str += ";\n";
+	
+	
 	
 	alert(str);
-	alert(str.charAt(1));
-	//return str;
-	
-	//table.rows[row].cells[cell]
-
+	return str;
 }
 
-function Priem(str) {
-	var sim = "";
+function priem() {
+	var str = SaveDataStr();
 	var len = str.length;
 	var cnt = 0;
 	var key = "";
 	var val = "";
-	var s = "";
+	var crewKol = 0;
+	//  = "";
+	
+	while (str.charAt(cnt) != "@")
+	{
+		val +=str.charAt(cnt);
+		cnt++;
+	}
+	document.getElementById("workSpace").innerHTML = val;
+	val ="";
+	cnt +=2;
+	while (str.charAt(cnt) != "@")
+	{
+		val +=str.charAt(cnt);
+		cnt++;
+	}
+	mainColumn = Number(val);
+	//alert(val);
+	
+	varMap.clear();
+	graph = [];
+	
+	val = "";
+	cnt +=2;
+	
 	while (str.charAt(cnt) != ";")
 	{
 		while (str.charAt(cnt) != ","){
@@ -1314,12 +1368,85 @@ function Priem(str) {
 		varMap.set(key, Number(val));
 		key = "";
 		val = "";
+	
 	}
+	key = "";
+	val = "";
+	
 	cnt += 2;
+	
+	countOfVort = crewKol;
+	while (str.charAt(cnt) != "!")
+	{
+		var xx = "";
+		var yy= "";
+		var prntx = "";
+		var ress = "";
+	
+			while (str.charAt(cnt) != " ")
+			{
+				xx +=str.charAt(cnt);
+				cnt++;
+			}
+			cnt++;
+			while (str.charAt(cnt) != " ")
+			{
+				yy += str.charAt(cnt);
+				cnt++;
+			}
+			cnt++;
+			while (str.charAt(cnt) != " ")
+			{
+				prntx += str.charAt(cnt);
+				cnt++;
+			}
+			cnt++;
+			while (str.charAt(cnt) != ",")
+			{
+				ress += str.charAt(cnt);
+				cnt++;
+			}
+			cnt++;
+		var ifRess = (ress == "true");
+		if (prntx == ""){
+			var ifPrntx = -1;
+		}
+		else{
+			var ifPrntx = Number(prntx);
+		}
+		createBlockV2(Number(xx), Number(yy), 0, ifRess);
+			graph[crewKol].parents = [];
+		crewKol++;
+		countOfVort = crewKol;	
+	}
+	cnt+=2;
+	graphIds.clear();	
+	
+	
+	
+	
 	while (str.charAt(cnt) != ";")
 	{
+		while (str.charAt(cnt) != ","){
+			key += str.charAt(cnt);
+			cnt++;
+			
+		}
+		cnt++;
+		while (str.charAt(cnt) != " "){
+			val += str.charAt(cnt);
+			cnt++;
+		}
+		cnt++;
+		graphIds.set(key, Number(val));
+		key = "";
+		val = "";
 	}
+	
+	
+	
 	cnt += 2;
+	var countV =0;
 	while (str.charAt(cnt) != ";")
 	{
 		while (str.charAt(cnt) != "|"){
@@ -1327,11 +1454,17 @@ function Priem(str) {
 				s += str.charAt(cnt);
 			cnt++;
 		}
-		graph.parents.push(Number(s));
+		cnt++;
+		graph[countV].parents.push(Number(s));
 		s = "";
+		countV++;
 	}
+	countV = 0;
 	s = "";
+	
 	cnt += 2;
+	
+	
 	while (str.charAt(cnt) != ";")
 	{
 		while (str.charAt(cnt) != "|"){
@@ -1339,9 +1472,27 @@ function Priem(str) {
 				s += str.charAt(cnt);
 			cnt++;
 		}
-		graph.childs.push(Number(s));
+		cnt++;
+		graph[countV].childs.push(Number(s));
+		countV++;
 		s = "";
 	}
+	countV= 0;
+	
+	val ="";
+	//document.getElementById("workSpace").innerHTML = "";
+	while (str.charAt(cnt) != ";")
+	{
+		while (str.charAt(cnt) != " "){
+			val += str.charAt(cnt);
+			cnt++;
+		}
+		cnt++;
+		graph[countV].cell.className=val;
+		val ="";
+	}
+	
+	cnt += 2;
 }
 
 function saveFile() {
