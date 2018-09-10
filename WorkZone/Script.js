@@ -725,14 +725,14 @@ function buttonDebag() {
 }
 
 function whileForLeftOrRight(){
-    s.clear();
+    reSetM();
     let count = counter;
     var V =graph[0];
     while(V.type!="end" && count>=0){
         count--;
         if (V.type=="start"){
             V=graph[V.childs[0]];
-            reSetM();
+            //reSetM();
             continue;
         }
         if (V.type=="loop"){
@@ -744,7 +744,7 @@ function whileForLeftOrRight(){
             alert("error Of End");
             RD=false;
             counter--;
-            reSetM();
+            //reSetM();
             return;
         }
         if (V.value){
@@ -757,7 +757,7 @@ function whileForLeftOrRight(){
             errorOfBlock=true;
             varbox.focus();
             counter--;
-            reSetM();
+            //reSetM();
             return;
         }
         if (V.type=="if"){
@@ -840,7 +840,7 @@ function buttonPlay(){
         }
         if (V.childs.length==0){
             alert("error Of End");
-            reSetM();
+            //reSetM();
             return;
         }
         if (V.value){
@@ -852,7 +852,7 @@ function buttonPlay(){
             varbox.style.background="#DEB5B1";
             errorOfBlock=true;
             varbox.focus();
-            reSetM();
+            //reSetM();
             return;
         }
         if (V.type=="if"){
@@ -1347,8 +1347,6 @@ function darkT(){
     them=3;
 }
 
-// сделать этим функции в одной!!!
-
 function customize(){
     let menu=document.getElementById("Сustomization");
     let menu1=event.target.parentNode.parentNode.parentNode;
@@ -1434,7 +1432,7 @@ function resetGrid(){
 
 
 
-var oper= ["+", "=","-", "*", "/", "<", ">" , "(", ")", "?" , ":", "!", "|", "&","%" ,";", " "];
+var oper= ["+", "=","-", "*", "/", "<", ">" , "(", ")", "?" , "^", ":", "!", "|", "&","%" ,";", " "];
 var sOper= ["="];
 var ssOper= ["-" ,"+","|","&"];
 
@@ -1689,6 +1687,10 @@ function parse_T(n) {
         t.next();
         return parse_T(n && parseF());
     }
+    else if (t.getVal() === '^'){
+        t.next();
+        return parse_T(Math.pow(n ,parseF()));
+    }
     else if (t.getId()==="number"|| t.getId()==="ident"){
         SE = 'SE';
         return;
@@ -1717,10 +1719,6 @@ function parseF() {
             t.next();
             var key = t.getVal();
             mess=key;
-            if (s.has(key) || varSet.has(key)) {
-                SE = 'SE';
-                return ;
-            }
             t.next();
             if (t.getVal() === '=') {
                 t.next();
@@ -1749,7 +1747,7 @@ function parseF() {
             var key = t.getVal();
             t.next();
             var sors;
-            if (m.get(key)){
+            if (m.has(key)){
                 sors = m;
             }else {
                 sors =varMap;
@@ -1800,10 +1798,10 @@ function parseF() {
                 t.next();
                 mess?mess:mess="changes";
                 if (write){
-                    if(sors.get(key)==undefined){
+                    if(sors.get(key)==undefined ){
                         m.set(key,1);
                     } else {
-                        m.set(key,Number(sors.get(key))+1);
+                        m.set(key,(Number(sors.get(key))+1));
                     }
                 }
                 return (write?(m.get(key)-1):1);
@@ -1848,7 +1846,7 @@ function parseF() {
             let key = t.getVal();
             t.next();
             var sors;
-            if (m.get(key)) {
+            if (m.has(key)) {
                 sors = m;
             } else {
                 sors = varMap;
@@ -1874,7 +1872,7 @@ function parseF() {
             let key = t.getVal();
             t.next();
             var sors;
-            if (m.get(key)) {
+            if (m.has(key)) {
                 sors = m;
             } else {
                 sors = varMap;
