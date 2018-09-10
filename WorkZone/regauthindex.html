@@ -15,10 +15,10 @@
 </div>
 
 <div id="windowreg">
-    <div>
-        <img class="closecross" src="./img/closecross.png" alt="Закрыть" onclick="showreg('none')">
+    <img class="closecross" src="./img/closecross.png" alt="Закрыть" onclick="showreg('none')">
+    <div class="formreg">
         <h1 style="color: #5FA5FA; margin-top: 10px;">Регистрация</h1><br>
-        <form action="/reg" method="POST" class="formreg">
+        <form action="/reg" method="POST">
             <p class="smallnote" style="margin-top: -20px">{errorReg}</p>
             <input type="text" name="login" id="login" placeholder="Логин" {valueReg} {loginBorder} class="inputtext"><br>
             <br>
