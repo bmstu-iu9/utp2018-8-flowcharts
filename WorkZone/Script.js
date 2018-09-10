@@ -736,7 +736,6 @@ function whileForLeftOrRight(){
             continue;
         }
         if (V.type=="loop"){
-            alert(V.childs[0]);
             V=graph[V.childs[0]];
             continue
         }
@@ -828,8 +827,10 @@ function buttonPlay(){
     if (document.getElementById("var").firstChild.tagName=="i"){
         return;
     }
+    infinitLoop=0;
     var V =graph[0];
     while(V.type!="end"){
+        infinitLoop++;
         if (V.type=="start"){
             V=graph[V.childs[0]];
             continue;
@@ -874,6 +875,11 @@ function buttonPlay(){
             break;
         }
         V=graph[V.childs[0]];
+        if (infinitLoop>100){
+            alert("error of loop");
+            buttonReStart();
+            return;
+        }
     }
     setRes();
     reSetM();
@@ -979,7 +985,6 @@ function buttonDelete(){
             deleteColumn(block.cell.cellIndex+findDif(graph[trueCh],true)+1);
         }
         reIndex(block.y);
-        alert();
         if (graph[trueCh].type!="trg" && pr.type!="if"){
             let mg=document.createElement("img");
             mg.setAttribute("src","img/down.png");
