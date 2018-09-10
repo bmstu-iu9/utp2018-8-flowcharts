@@ -1719,6 +1719,10 @@ function parseF() {
             t.next();
             var key = t.getVal();
             mess=key;
+            if (varSet.has(key)) {
+                SE = 'SE';
+                return ;
+            }
             t.next();
             if (t.getVal() === '=') {
                 t.next();
