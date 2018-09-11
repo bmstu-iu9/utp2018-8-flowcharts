@@ -1348,7 +1348,6 @@ function priem() {
 	var val = "";
 	var crewKol = 0;
 	//  = "";
-	alert("XYI");
 	while (str.charAt(cnt) != "@")
 	{
 		val +=str.charAt(cnt);
