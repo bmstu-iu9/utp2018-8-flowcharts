@@ -1318,7 +1318,7 @@ function SaveDataStr() {
 	
 	
 	
-	alert(str);
+	console.log(str);
 	return str;
 }
 
@@ -1415,14 +1415,17 @@ function priem() {
 			var ifPrntx = Number(prntx);
 		}
 		createBlockV2(Number(xx), Number(yy), 0, ifRess);
-			graph[crewKol].parents = [];
+			
 		crewKol++;
 		countOfVort = crewKol;	
 	}
 	cnt+=2;
 	graphIds.clear();	
 	
-	
+	for (var i of graph) {
+			i.parents = [];
+			i.childs = [];
+	}
 	
 	
 	while (str.charAt(cnt) != ";")
@@ -1456,6 +1459,9 @@ function priem() {
 		}
 		cnt++;
 		graph[countV].parents.push(Number(s));
+				if (s == "")
+			graph[countV].parents = [];
+		alert("!" + countV);
 		s = "";
 		countV++;
 	}
@@ -1463,7 +1469,6 @@ function priem() {
 	s = "";
 	
 	cnt += 2;
-	
 	
 	while (str.charAt(cnt) != ";")
 	{
@@ -1474,12 +1479,16 @@ function priem() {
 		}
 		cnt++;
 		graph[countV].childs.push(Number(s));
+		if (s == "")
+			graph[countV].childs = [];
 		countV++;
 		s = "";
 	}
 	countV= 0;
 	
 	val ="";
+	cnt+=2;
+	
 	//document.getElementById("workSpace").innerHTML = "";
 	while (str.charAt(cnt) != ";")
 	{
@@ -1488,10 +1497,11 @@ function priem() {
 			cnt++;
 		}
 		cnt++;
-		graph[countV].cell.className=val;
+		graph[countV].type=val;
+		countV++;
+		alert(val);
 		val ="";
 	}
-	
 	cnt += 2;
 }
 
