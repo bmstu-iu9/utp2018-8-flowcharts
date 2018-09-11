@@ -138,7 +138,6 @@ header div{
 	width: 65%;
 }
 
-
 #main{
   	left: 8%;
 	width:76%;
@@ -148,7 +147,6 @@ header div{
 	-webkit-transition: width 1s, left 1s;
 	z-index: 10;
 }
-
 
 #InformationMenu{
 	background:#C0C4CD;
@@ -253,7 +251,6 @@ hr{
 	padding: 10px;
     vertical-align: top;
 }
-
 
 .lc {
     text-align: center;
@@ -432,9 +429,9 @@ table tbody tr {
 	outline: none;
 }
 
- #addVar input{
- 	outline: none;
- }
+#addVar input{
+    outline: none;
+}
 
 .Menu{
 	display: none;
@@ -601,9 +598,9 @@ table tbody tr {
 
 .down {
 	left: 0;
-	top: -140%;
+	top: -160%;
 	width: 17%;
-	height: 50%;
+	height: 83%;
 	position: relative;
 	z-index: 5;
 }

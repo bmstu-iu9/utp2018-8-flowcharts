@@ -206,7 +206,8 @@ document.addEventListener("drop", function(event) {
             mg.setAttribute("src","WorkZone/img/down.png");
             mg.className="down";
             if (parent.type=="start"){
-                mg.style.top="-140%";
+                mg.style.top="-149%";
+                mg.style.height="70%";
             }
             V.cell.appendChild(mg);
         }
