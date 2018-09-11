@@ -1319,12 +1319,7 @@ function getCookie (cookieName) {
 }
 
 function goWorks() {
-    if (getCookie("session_id")){
-        document.location.href = '/works'
-    } else {
-        login();
-    }
-
+    document.location.href = '/works'
 }
 
 function changeLogIn() {
