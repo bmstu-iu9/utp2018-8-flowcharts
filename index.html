@@ -46,12 +46,11 @@
    			<hr width="80%" style="margin: 0% 10%;" size="3	" color="#596868"align="center" />
 			<li>
 				<div class="formreg">
-					<h3 style="color: #596868; margin-top: 10px">Log In</h3><br>
 					<form action="/auth" method="POST">
-						<p style="margin-top: -20px; color:red;">{errorAuth}</p>
-						<input type="text" name="login" id="logincheck" placeholder="Username" {valueAuth} {loginCheckBorder}  class="inputtext"><br>
+						<p style="margin-top: -20px; color:red;display: none;">{errorAuth}</p>
+						<input type="text" name="login" id="logincheck" placeholder="Username" {valueAuth} {loginCheckBorder}  class="inputtext" required><br>
 						<br>
-						<input type="password" name="password" id="passwordcheck" placeholder="Password" {passwordCheckBorder} class="inputtext"><br>
+						<input type="password" name="password" id="passwordcheck" placeholder="Password" {passwordCheckBorder} class="inputtext" required><br>
 						<br>
 						<button class="submitbutton" type="submit">Log In</button>
 					</form>
@@ -67,14 +66,13 @@
    			<hr width="80%" style="margin: 0% 10%;" size="3	" color="#596868"align="center" />
    			<li>
 				<div class="formreg">
-					<h3 style="color: #596868; margin-top: 10px">Sign Up</h3><br>
 					<form action="/reg" method="POST">
-						<p style="margin-top: -20px; color:red;">{errorReg}</p>
-						<input type="text" name="login" id="login" placeholder="Username" {valueReg} {loginBorder} class="inputtext"><br>
+						<p style="margin-top: -20px; color:red; display: none;">{errorReg}</p>
+						<input type="text" name="login" id="login" placeholder="Username" {valueReg} {loginBorder} class="inputtext" required><br>
 						<br>
-						<input type="password" name="password" id="password" placeholder="Password" {passwordBorder} class="inputtext"><br>
+						<input type="password" name="password" id="password" placeholder="Password" {passwordBorder} class="inputtext" required><br>
 						<br>
-						<input type="password" name="rePassword" id="rePassword" placeholder="Repeat your password" {rePasswordBorder} class="inputtext"><br>
+						<input type="password" name="rePassword" id="rePassword" placeholder="Re Password" {rePasswordBorder} class="inputtext" required><br>
 						<br>
 						<button class="submitbutton" type="submit">Sign Up</button>
 					</form>
