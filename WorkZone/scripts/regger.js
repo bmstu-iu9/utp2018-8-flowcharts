@@ -43,7 +43,7 @@ function checkReg (req, res) {
 
         if (error === "Введите логин!" || error === "Минимальная длина логина - 5 символов!") {
             res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-            fs.readFile(path.resolve('Workzone', 'regauthindex.html'), 'utf-8', function (err, data) {
+            fs.readFile('index.html', 'utf-8', function (err, data) {
                 var loadParam = "<body onload=\"showreg('block')\">";
                 data =  data.replace("{param}", loadParam).replace("{errorReg}", error).replace("{errorAuth}", "")
                     .replace("{valueReg}", "value=\""+login.toString()+"\"").replace("{valueAuth}",  "value=\"\"")
@@ -60,7 +60,7 @@ function checkReg (req, res) {
                         res.end('Вы успешно зарегистрированы!');
                     } else {
                         res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-                        fs.readFile(path.resolve('WorkZone', 'regauthindex.html'), 'utf-8', function (err, data) {
+                        fs.readFile('index.html', 'utf-8', function (err, data) {
                             var loadParam = "<body onload=\"showreg('block')\">";
                             data =  data.replace("{param}", loadParam).replace("{errorReg}", error).replace("{errorAuth}", "")
                                 .replace("{valueReg}", "value=\""+login.toString()+"\"").replace("{valueAuth}",  "value=\"\"")
@@ -72,7 +72,7 @@ function checkReg (req, res) {
                 } else {
                     error = "Пользователь с таким логином уже зарегистрирован!";
                     res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-                    fs.readFile(path.resolve('Workzone', 'regauthindex.html'), 'utf-8', function (err, data) {
+                    fs.readFile('index.html', 'utf-8', function (err, data) {
                         var loadParam = "<body onload=\"showreg('block')\">";
                         data =  data.replace("{param}", loadParam).replace("{errorReg}", error).replace("{errorAuth}", "")
                             .replace("{valueReg}", "value=\""+login.toString()+"\"").replace("{valueAuth}", "\"\"")
