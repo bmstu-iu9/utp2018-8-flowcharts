@@ -24,14 +24,6 @@ let MDL;
 let MDT;
 let gotoMod=false;
 
-
-window.onloud=function(){
-    newFile();
-    if (!source){
-        source= document.getElementById('workSpaceBody').innerHTML;
-    }
-}();
-
 class vort{
     constructor(type,pos, x, y){
         this.parents= [];
@@ -1301,6 +1293,48 @@ function saveFile() {
     xhr.send(body);
 }
 
+function getCookie (cookieName) {
+  var result = document.cookie.match ('(^|;) ?' + cookieName + '=([^;]*)(;|$)');
+  if (result) {
+      return (unescape (result[2]));
+  } else return null;
+}
+
+function changeLogIn() {
+    if (getCookie("session_id")) {
+        var li = document.getElementById("newFileMenu").children[0].children[4];
+        var id = getCookie("session_id");
+        li.outerHTML = '<li id="logInOut" onclick="logOut();"><div>Log Out<br>Logged in as '+id+'</div></li>';
+    } else {
+        var li = document.getElementById("newFileMenu").children[0].children[4];
+        li.outerHTML = '<li id="logInOut" onclick="login();"><div>Log in</div></li>';
+    }
+}
+
+function setCookie(name, value, days) {
+    days = days || 30;
+    var last_date = new Date();
+    last_date.setDate(last_date.getDate() + days);
+    var value = escape(value) + ((days==null) ? "" : "; expires="+last_date.toUTCString());
+    document.cookie = name + "=" + value;
+}
+
+function deleteCookie(name) {
+    setCookie(name,0,-1);
+}
+
+function logOut() {
+    if (getCookie("session_id")) {
+        var body = getCookie("session_id");
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/deleteSession');
+        xhr.send(body);
+        
+        deleteCookie("session_id");
+        changeLogIn();
+    }
+}
+
 function mouseDown(){
     mousedown=true;
     MDT=event.pageY;
@@ -1392,6 +1426,24 @@ function reg(){
     menu1.style.display= "none";
     menu.style.opacity=1;
     menu.style.display= "block";
+}
+
+function reLogin(){
+    let menu=document.getElementById("Loginform");
+    menu.style.opacity=1;
+    menu.style.display= "block";
+    let menu2=document.getElementById("Regform");
+    menu2.style.opacity=0;
+    menu2.style.display= "none";
+}
+
+function reReg(){
+    let menu=document.getElementById("Regform");
+    menu.style.opacity=1;
+    menu.style.display= "block";
+    let menu2=document.getElementById("Loginform");
+    menu2.style.opacity=0;
+    menu2.style.display= "none";
 }
 
 function backGO(){

@@ -32,7 +32,7 @@ function public(req, res) {
     res.statusCode = 200;
     res.setHeader('Content-Type', contentType);
 
-    const stream = fs.createReadStream(path.resolve('Workzone', filename));
+    const stream = fs.createReadStream(path.resolve(filename));
 
     stream.pipe(res);
     stream.on('error', error => {
