@@ -6,7 +6,7 @@
     <link rel="stylesheet"  id="CSSsource" type="text/css" href="./WorkZone/mainStyle.css">
     <link rel="shortcut icon" href="./WorkZone/img/temmie.png" type="image/png">
    </head>
-   <body id="body">
+   <body id="body" onload = "newFile(); {param}">
    	<header >
 		<div id = "Glasshead" class="Glass" > </div>
    		<div id="hiddenTools" style="text-align: center;line-height: 8vh;" onclick="addWindow(this)">
@@ -48,14 +48,14 @@
 				<div class="formreg">
 					<h3 style="color: #596868; margin-top: 10px">Авторизация</h3><br>
 					<form action="/auth" method="POST">
-						<p style="margin-top: -20px">{errorAuth}</p>
+						<p style="margin-top: -20px; color:red;">{errorAuth}</p>
 						<input type="text" name="login" id="logincheck" placeholder="Логин" {valueAuth} {loginCheckBorder}  class="inputtext"><br>
 						<br>
 						<input type="password" name="password" id="passwordcheck" placeholder="Пароль" {passwordCheckBorder} class="inputtext"><br>
 						<br>
 						<button class="submitbutton" type="submit">Войти</button>
 					</form>
-					<h5 style="color:#596868;">Нет учетной записи? <u style=" cursor: pointer; color: #5FA5FA" onclick="reg()">Зарегистрируйтесь</u></h5>
+					<h5 style="color:#596868;">Нет учетной записи? <u style=" cursor: pointer; color: #5FA5FA" onclick="reReg()">Зарегистрируйтесь</u></h5>
 				</div>
 			</li>
    		</ul>
@@ -69,7 +69,7 @@
 				<div class="formreg">
 					<h3 style="color: #596868; margin-top: 10px">Регистрация</h3><br>
 					<form action="/reg" method="POST">
-						<p style="margin-top: -20px">{errorReg}</p>
+						<p style="margin-top: -20px; color:red;">{errorReg}</p>
 						<input type="text" name="login" id="login" placeholder="Логин" {valueReg} {loginBorder} class="inputtext"><br>
 						<br>
 						<input type="password" name="password" id="password" placeholder="Пароль" {passwordBorder} class="inputtext"><br>
@@ -78,9 +78,8 @@
 						<br>
 						<button class="submitbutton" type="submit">Зарегистрироваться</button>
 					</form>
-					<h5 style="color:#596868;">Уже зарегистрированы? <u style=" cursor: pointer; color: #5FA5FA" onclick="login()">Авторизируйтесь</u></h5>
+					<h5 style="color:#596868;">Уже зарегистрированы? <u style=" cursor: pointer; color: #5FA5FA" onclick="reLogin()">Авторизируйтесь</u></h5>
 				</div>
-
 			</li>
    		</ul>
    	</div>

@@ -44,7 +44,7 @@ function checkReg (req, res) {
         if (error === "Введите логин!" || error === "Минимальная длина логина - 5 символов!") {
             res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
             fs.readFile('index.html', 'utf-8', function (err, data) {
-                var loadParam = "<body onload=\"showreg('block')\">";
+                var loadParam = "reReg();";
                 data =  data.replace("{param}", loadParam).replace("{errorReg}", error).replace("{errorAuth}", "")
                     .replace("{valueReg}", "value=\""+login.toString()+"\"").replace("{valueAuth}",  "value=\"\"")
                     .replace("{loginBorder}", 'style=\"border: 1px solid lightcoral;\"');
@@ -61,7 +61,7 @@ function checkReg (req, res) {
                     } else {
                         res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
                         fs.readFile('index.html', 'utf-8', function (err, data) {
-                            var loadParam = "<body onload=\"showreg('block')\">";
+                            var loadParam = "reReg();";
                             data =  data.replace("{param}", loadParam).replace("{errorReg}", error).replace("{errorAuth}", "")
                                 .replace("{valueReg}", "value=\""+login.toString()+"\"").replace("{valueAuth}",  "value=\"\"")
                                 .replace("{passwordBorder}", 'style=\"border: 1px solid lightcoral;\"')
@@ -73,7 +73,7 @@ function checkReg (req, res) {
                     error = "Пользователь с таким логином уже зарегистрирован!";
                     res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
                     fs.readFile('index.html', 'utf-8', function (err, data) {
-                        var loadParam = "<body onload=\"showreg('block')\">";
+                        var loadParam = "reReg();";
                         data =  data.replace("{param}", loadParam).replace("{errorReg}", error).replace("{errorAuth}", "")
                             .replace("{valueReg}", "value=\""+login.toString()+"\"").replace("{valueAuth}", "\"\"")
                             .replace("{loginBorder}", 'style=\"border: 1px solid lightcoral;\"');

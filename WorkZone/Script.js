@@ -25,12 +25,12 @@ let MDT;
 let gotoMod=false;
 
 
-window.onloud=function(){
-    newFile();
-    if (!source){
-        source= document.getElementById('workSpaceBody').innerHTML;
-    }
-}();
+// window.onload=function(){
+//     newFile();
+//     if (!source){
+//         source= document.getElementById('workSpaceBody').innerHTML;
+//     }
+// }();
 
 class vort{
     constructor(type,pos, x, y){
@@ -1391,6 +1391,24 @@ function reg(){
     menu1.style.display= "none";
     menu.style.opacity=1;
     menu.style.display= "block";
+}
+
+function reLogin(){
+    let menu=document.getElementById("Loginform");
+    menu.style.opacity=1;
+    menu.style.display= "block";
+    let menu2=document.getElementById("Regform");
+    menu2.style.opacity=0;
+    menu2.style.display= "none";
+}
+
+function reReg(){
+    let menu=document.getElementById("Regform");
+    menu.style.opacity=1;
+    menu.style.display= "block";
+    let menu2=document.getElementById("Loginform");
+    menu2.style.opacity=0;
+    menu2.style.display= "none";
 }
 
 function backGO(){

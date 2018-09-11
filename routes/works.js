@@ -37,7 +37,7 @@ function works(req, res) {
                         data = data.replace("{projects}", projects);
                         res.end(data);
                     });
-                }, 10)
+                }, 100)
             }
         });
     });
