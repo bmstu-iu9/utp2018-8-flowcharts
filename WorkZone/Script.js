@@ -1505,6 +1505,15 @@ function priem() {
 	cnt += 2;
 }
 
+function buttonSave(){
+    var type = 'data:application/octet-stream;base64, ';
+    var text = SaveDataStr();
+    var base = btoa(text);
+    var res = type + base;
+    document.getElementById('buttonSave').href = res;
+    location.href=document.getElementById('buttonSave').href;
+}
+
 function saveFile() {
     var xhr = new XMLHttpRequest();
     body = "title=new&content=info";
