@@ -476,6 +476,11 @@ table tbody tr {
 	opacity: 1;
 }
 
+.Menu a{
+	font-size: 30;
+	color: #2a3c3c;
+}
+
 .Menu li div{
 	padding: 7% 0px;
  	color: #2a3c3c;
