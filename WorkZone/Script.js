@@ -1423,6 +1423,15 @@ function buttonDesign(){
     menu.style.display= "block";
 }
 
+function buttonTeam(){
+    let menu=document.getElementById("team");
+    let menu1=event.target.parentNode.parentNode.parentNode;
+    menu1.style.opacity=0;
+    menu1.style.display= "none";
+    menu.style.opacity=1;
+    menu.style.display= "block";
+}
+
 
 function login(){
     let menu=document.getElementById("Loginform");
