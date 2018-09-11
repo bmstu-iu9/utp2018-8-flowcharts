@@ -827,6 +827,11 @@ function buttonPlay(){
     infinitLoop=0;
     var V =graph[0];
     while(V.type!="end"){
+        if (infinitLoop>100){
+            alert("error of loop");
+            buttonReStart();
+            return;
+        }
         if (V.dead){
             alert("any block is already dead");
             return;
@@ -876,11 +881,6 @@ function buttonPlay(){
             break;
         }
         V=graph[V.childs[0]];
-        if (infinitLoop>100){
-            alert("error of loop");
-            buttonReStart();
-            return;
-        }
     }
     setRes();
     reSetM();
