@@ -1322,15 +1322,33 @@ function SaveDataStr() {
 	return str;
 }
 
+
 function priem() {
-	var str = SaveDataStr();
+	alert("1");
+	var file = document.getElementById('uploadData').files[0];
+	
+	var reader = new FileReader();
+	reader.onload = function(e) {
+		var contents = e.target.result;
+    	console.log("Содержимое файла: " + contents);
+};
+	reader.onerror = function(event) {
+    console.error("Файл не может быть прочитан! код " + event.target.error.code);
+	};
+ 	
+	reader.readAsText(file);
+	alert("!" + reader.readyState);
+	
+	
+	var str = reader.result;
+	alert(str);
 	var len = str.length;
 	var cnt = 0;
 	var key = "";
 	var val = "";
 	var crewKol = 0;
 	//  = "";
-	
+	alert("XYI");
 	while (str.charAt(cnt) != "@")
 	{
 		val +=str.charAt(cnt);
@@ -1469,6 +1487,8 @@ function priem() {
 	s = "";
 	
 	cnt += 2;
+	
+	//alert('&!');
 	
 	while (str.charAt(cnt) != ";")
 	{
