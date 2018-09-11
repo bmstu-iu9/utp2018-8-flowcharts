@@ -1322,7 +1322,7 @@ function changeLogIn() {
     if (getCookie("session_id")) {
         var li = document.getElementById("newFileMenu").children[0].children[4];
         var id = getCookie("session_id");
-        li.outerHTML = '<li id="logInOut" onclick="logOut();"><div>Log Out<br>Logged in as '+id+'</div></li>';
+        li.outerHTML = '<li id="logInOut" onclick="logOut();"><div>Log Out<br></div></li>';
     } else {
         var li = document.getElementById("newFileMenu").children[0].children[4];
         li.outerHTML = '<li id="logInOut" onclick="login();"><div>Log in</div></li>';

@@ -47,10 +47,10 @@
 			<li>
 				<div class="formreg">
 					<form action="/auth" method="POST">
-						<p style="margin-top: -20px; color:red;display: none;">{errorAuth}</p>
-						<input type="text" name="login" id="logincheck" placeholder="Username" {valueAuth} {loginCheckBorder}  class="inputtext" required><br>
+						<p style="margin-top: -20px; color:red;">{errorAuth}</p>
+						<input type="text" name="login" id="logincheck" placeholder="Username" {valueAuth} {loginCheckBorder}  class="inputtext"><br>
 						<br>
-						<input type="password" name="password" id="passwordcheck" placeholder="Password" {passwordCheckBorder} class="inputtext" required><br>
+						<input type="password" name="password" id="passwordcheck" placeholder="Password" {passwordCheckBorder} class="inputtext"><br>
 						<br>
 						<button class="submitbutton" type="submit">Log In</button>
 					</form>
@@ -67,12 +67,12 @@
    			<li>
 				<div class="formreg">
 					<form action="/reg" method="POST">
-						<p style="margin-top: -20px; color:red; display: none;">{errorReg}</p>
-						<input type="text" name="login" id="login" placeholder="Username" {valueReg} {loginBorder} class="inputtext" required><br>
+						<p style="margin-top: -20px; color:red;">{errorReg}</p>
+						<input type="text" name="login" id="login" placeholder="Username" {valueReg} {loginBorder} class="inputtext"><br>
 						<br>
-						<input type="password" name="password" id="password" placeholder="Password" {passwordBorder} class="inputtext" required><br>
+						<input type="password" name="password" id="password" placeholder="Password" {passwordBorder} class="inputtext"><br>
 						<br>
-						<input type="password" name="rePassword" id="rePassword" placeholder="Re Password" {rePasswordBorder} class="inputtext" required><br>
+						<input type="password" name="rePassword" id="rePassword" placeholder="Re Password" {rePasswordBorder} class="inputtext"><br>
 						<br>
 						<button class="submitbutton" type="submit">Sign Up</button>
 					</form>
