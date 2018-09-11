@@ -10,12 +10,11 @@
     <div class="conteiner">
         <div><a href="#"><img src="./WorkZone/img/logotype.png" alt="logo" class="headerlogotype"></a></div>
         <div class="bar">
-            <button class="greenbottom" onclick="createNewProjectNote()">Новый прооект</button>
             <a href="/">
                 <button class="bluebottom">Перейти в редактор</button>
             </a>
-            <a href="/">
-                <button class="exit" onclick="">Выйти</button>
+            <a>
+                <button class="exit" onclick="logOutFromProjects()">Выйти</button>
             </a>
         </div>
     </div>
@@ -27,16 +26,7 @@
         <div id="end_Of_ProjectList"></div>
     </div>
 </div>
-<script>
-    var end_Of_ProjectList = null;
-
-    function createNewProjectNote(){
-        var newProject = document.createElement("div");
-        newProject.className = "project";
-        newProject.innerHTML = "HI AGAIN";
-        end_Of_ProjectList = document.getElementById("end_Of_ProjectList");
-        document.getElementById("projectplace").insertBefore(newProject, end_Of_ProjectList);
-    }
+<script src="./WorkZone/Script.js" id = "basic">
 </script>
 </body>
 </html>

@@ -18,12 +18,6 @@ function getRandom() {
     return Math.floor(Math.random() * 9732712) + 101;
 }
 
-// function openWorks() {
-//     var xhr = new XMLHttpRequest();
-//     xhr.open('GET', '/works');
-//     xhr.send();
-// }
-
 function checkAuth (req, res) {
     
     var db = new sqlite3.Database('./data.db');
@@ -72,10 +66,7 @@ function checkAuth (req, res) {
                     "Content-Type": "text/html; charset=utf-8",
                     "Set-Cookie": cookie 
                 });
-                fs.readFile(path.resolve('Workzone', 'works.html'), 'utf-8', function (err, data) {
-                    res.end(data);
-                })
-                // openWorks();
+                res.end("<script>document.location.href = \"/works\"</script>");
             }
         });  
         db.close();
