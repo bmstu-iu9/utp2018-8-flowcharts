@@ -20,10 +20,10 @@ http.createServer((req,res) => {
                 public(req, res);
             } else if (req.url === '/') {
                 home(req, res); 
-            } else if (req.url === '/reg') {
-                reg(req, res); 
-            } else if (req.url === '/auth') {
-                auth(req, res); 
+            // } else if (req.url === '/reg') {
+            //     reg(req, res);
+            // } else if (req.url === '/auth') {
+            //     auth(req, res);
             } else if (req.url === '/works') {
                 works(req, res); 
             } else {

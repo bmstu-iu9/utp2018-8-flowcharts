@@ -1,39 +1,39 @@
 ::-webkit-scrollbar {
-    width: 0px;
-    height: 8px;
+	width: 0px;
+	height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #C2C8D5; 
-    border-radius: 3px;
+	background: #C2C8D5;
+	border-radius: 3px;
 }
- 
+
 ::-webkit-scrollbar-thumb {
-    background: #888; 
-    border-radius: 3px;
+	background: #888;
+	border-radius: 3px;
 }
 
 ::-webkit-transition-scrollbar-thumb:hover {
-    background: #555; 
+	background: #555;
 }
 
 
 html, body {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
 }
 
 body{
 	width: 100%;
 	height: 100%;
 	-webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    background-color: #DFE0E7	;
-    -webkit-appearance: none;
-  	-moz-appearance: none;
-  	appearance: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	background-color: #DFE0E7	;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
 
 }
 
@@ -46,9 +46,9 @@ main{
 }
 
 *{
-  margin: 0;
-  padding: 0;
-  color: #BEC8DE;
+	margin: 0;
+	padding: 0;
+	color: #BEC8DE;
 }
 
 header{
@@ -74,7 +74,7 @@ header div{
 #buttons{
 	display: flex;
 	justify-content:space-around;
-	margin: 1% 25%; 
+	margin: 1% 25%;
 	width: 60%;
 	height: 70%;
 	background-color: #1A3131;
@@ -109,11 +109,11 @@ header div{
 }
 
 #toolsHead{
-	-webkit-transition:opacity 0.7s;	
+	-webkit-transition:opacity 0.7s;
 }
 
 #informationHead{
-	-webkit-transition:opacity 0.7s;	
+	-webkit-transition:opacity 0.7s;
 }
 
 #menu{
@@ -121,15 +121,15 @@ header div{
 	position: absolute;
 	width: 8%;
 	height: 100%;
-  	left: 0;
-  	top: 0;
-  	overflow-y: scroll;
-  	display: block;
-  	-webkit-transition: width 1s, left 1s;
-  	color: #2a3c3c;
-  	font-size: 23px;
-  	text-align: center;
-  	font-weight:700;
+	left: 0;
+	top: 0;
+	overflow-y: scroll;
+	display: block;
+	-webkit-transition: width 1s, left 1s;
+	color: #2a3c3c;
+	font-size: 23px;
+	text-align: center;
+	font-weight:700;
 }
 
 #menu img{
@@ -139,10 +139,10 @@ header div{
 }
 
 #main{
-  	left: 8%;
+	left: 8%;
 	width:76%;
 	position: absolute;
-  	top: 0;
+	top: 0;
 	height:100%;
 	-webkit-transition: width 1s, left 1s;
 	z-index: 10;
@@ -151,8 +151,8 @@ header div{
 #InformationMenu{
 	background:#C0C4CD;
 	position: absolute;
-  	left: 84%;
-  	top: 0;
+	left: 84%;
+	top: 0;
 	width:16%;
 	height:100%;
 	display: flex;
@@ -164,13 +164,13 @@ header div{
 	height: 100%;
 	width: 100%;
 	background: #DFE0E7;
-  	border-spacing:2px 0px; 
+	border-spacing:2px 0px;
 }
 
 #initBox{
 	color:#334D4D;
 	width:84%;
-	margin: 12% 6%; 
+	margin: 12% 6%;
 	font-size: 25px;
 	padding: 6px 0 4px 10px;
 	/*border: 3px solid #334D4D;*/
@@ -183,28 +183,28 @@ header div{
 	color:#334D4D;
 	font-size: 32px;
 	text-align: center;
-    vertical-align: top;
-    font-weight: 550;
+	vertical-align: top;
+	font-weight: 550;
 }
 
 #var{
 	height: 71vh;
 	max-height: 71vh;
 	overflow-y:scroll;
-	overflow-x: hidden;  
+	overflow-x: hidden;
 	margin: 4vh 0px;
 	display: grid;
 	grid-template-columns: 50% 50%;
 	grid-template-rows: 50px;
 	justify-items: center;
 	align-items : center;
-    align-content: start; 
-    grid-auto-rows: 50px;
+	align-content: start;
+	grid-auto-rows: 50px;
 }
 
 #addVar{
 	grid-column-start: 1;
-  	grid-column-end: 3;
+	grid-column-end: 3;
 }
 
 #initVarBox{
@@ -217,7 +217,7 @@ header div{
 	border: none;
 	display: none;
 	background: #DFE0E7;
-	border-radius: 6px;	
+	border-radius: 6px;
 	-webkit-transition: width 2s, height 1s;
 }
 
@@ -230,8 +230,8 @@ header div{
 #var hr{
 	width:100%;
 	grid-column-start: 1;
-  	grid-column-end: 3;
-  	border-radius: 2px;
+	grid-column-end: 3;
+	border-radius: 2px;
 }
 
 hr{
@@ -242,43 +242,43 @@ hr{
 	font-size: 26px;
 	color: #334D4D;
 	grid-column-start: 1;
-  	grid-column-end: 3;
+	grid-column-end: 3;
 }
 
 #td1 TD {
 	overflow:auto;
 	text-align: center;
 	padding: 10px;
-    vertical-align: top;
+	vertical-align: top;
 }
 
 .lc {
-    text-align: center;
-    vertical-align: top;
-    width: 210px ;
+	text-align: center;
+	vertical-align: top;
+	width: 210px ;
 	height: 200px;
 }
 
 .lv {
 	text-align: center;
-    vertical-align: top;
-    width: 210px ;
+	vertical-align: top;
+	width: 210px ;
 	height: 200px;
 }
 
 td {
 	/*border: 4px solid #2a3c3c;*/
-    text-align: center;
+	text-align: center;
 	border: 1px solid #AFB6BF;
 }
 
 table tbody {
- 	display:block;
- 	max-height:100%;
- 	max-width: :100%;
+	display:block;
+	max-height:100%;
+	max-width: :100%;
 }
 table tbody tr {
-    vertical-align: middle;
+	vertical-align: middle;
 	display:table;
 	width:100%;
 	height: 100%;
@@ -287,8 +287,8 @@ table tbody tr {
 }
 #main tr{
 	display: flex;
-    align-items: center;
- 	justify-content: center;
+	align-items: center;
+	justify-content: center;
 }
 
 #main tr img{
@@ -301,7 +301,7 @@ table tbody tr {
 }
 
 #menu div:hover{
-	opacity: 1;	
+	opacity: 1;
 }
 
 #menu div:hover img{
@@ -319,7 +319,7 @@ table tbody tr {
 	width: 210px;
 	height: 200px;
 	text-align: center;
-    vertical-align: top;
+	vertical-align: top;
 }
 
 .focusеtarget {
@@ -327,7 +327,7 @@ table tbody tr {
 	width: 210px ;
 	height: 200px;
 	text-align: center;
-    vertical-align: top;
+	vertical-align: top;
 }
 
 #tmpInput{
@@ -338,7 +338,7 @@ table tbody tr {
 	padding: 6px 0 4px 10px;
 	border: none;
 	background: #DFE0E7;
-	border-radius: 6px;	
+	border-radius: 6px;
 }
 
 #delImg{
@@ -357,19 +357,19 @@ table tbody tr {
 	overflow:hidden;
 	-webkit-transition: width 0.5s , height 0.5s,opacity 0.5s,left 0.3s, top 0.3s;
 	border-radius: 5px;
-	box-shadow: 0 0 5px rgba(0,0,0,0.5); 
+	box-shadow: 0 0 5px rgba(0,0,0,0.5);
 }
 
 #submenu li{
 	width: 100%;
-	height: 40px; 
+	height: 40px;
 	background-color: #CDD4E3;
 	transition-property: background-color;
- 	transition-duration: 0.4s;
+	transition-duration: 0.4s;
 }
 
 #submenu li:hover{
-	box-shadow:inset 0 0 5px rgba(0,0,0,0.2); 
+	box-shadow:inset 0 0 5px rgba(0,0,0,0.2);
 	background-color: #C0C4CD;
 }
 
@@ -381,7 +381,7 @@ table tbody tr {
 	overflow: hidden;
 	font-family: "FontAwesome";
 	padding: 8px 8px;
- 	color: #3B5959;
+	color: #3B5959;
 	text-align: left;
 	font-size: 20px;
 }
@@ -391,16 +391,16 @@ table tbody tr {
 	position: absolute;
 	top: 1%;
 	left: 74%;
-	width: calc(9% + 10px);	
+	width: calc(9% + 10px);
 	-webkit-transition: left 1s;
-}	
+}
 
 #zoom {
 	padding: 12px 0px;
-    width: 80%;
-    background: none;
-    -webkit-appearance: none;
-    outline: none;
+	width: 80%;
+	background: none;
+	-webkit-appearance: none;
+	outline: none;
 }
 
 
@@ -408,9 +408,9 @@ table tbody tr {
 	border-radius: 2px;
 	height: 3px;
 	cursor: pointer;
-    background: #3C5454;
-    opacity: 0.7;
-    box-shadow:  0 0 1px rgba(0,0,0,0.5); 
+	background: #3C5454;
+	opacity: 0.7;
+	box-shadow:  0 0 1px rgba(0,0,0,0.5);
 }
 
 #zoom::-webkit-slider-thumb {
@@ -422,7 +422,7 @@ table tbody tr {
 	margin: -6px 0px;
 	background: #111;
 	opacity: 1;
-	box-shadow:  0 0 2px rgba(0,0,0,0.5); 
+	box-shadow:  0 0 2px rgba(0,0,0,0.5);
 }
 
 #buttons input {
@@ -430,7 +430,7 @@ table tbody tr {
 }
 
 #addVar input{
-    outline: none;
+	outline: none;
 }
 
 .Menu{
@@ -438,12 +438,12 @@ table tbody tr {
 	z-index: 20;
 	position: absolute;
 	width: 28%;
-  	left: 36%;
-  	top: 19%;
-  	border-radius: 2%; 
-  	background: #C0C4CD;
-  	-webkit-transition: opacity 0.7s; 
-  	box-shadow: inset 0 0 20px rgba(42, 60, 60,0.5); 
+	left: 36%;
+	top: 19%;
+	border-radius: 2%;
+	background: #C0C4CD;
+	-webkit-transition: opacity 0.7s;
+	box-shadow: inset 0 0 20px rgba(42, 60, 60,0.5);
 }
 
 .Menu ul{
@@ -456,13 +456,13 @@ table tbody tr {
 .Menu li{
 	margin: 2% 5%;
 	width: 90%;
-	height: 20%; 
-	border-radius: 6%; 
+	height: 20%;
+	border-radius: 6%;
 	background-color: #DADCE2;
 	position: relative;
 	box-shadow: inset 0 0 10px rgba(192, 196, 205,1);
 	transition-property: background-color;
- 	transition-duration: 0.7s;
+	transition-duration: 0.7s;
 }
 
 .Menu li:hover{
@@ -473,13 +473,18 @@ table tbody tr {
 	opacity: 1;
 }
 
+.Menu a{
+	font-size: 30;
+	color: #2a3c3c;
+}
+
 .Menu li div{
 	padding: 7% 0px;
- 	color: #2a3c3c;
+	color: #2a3c3c;
 	font-size: 40px;
 	text-align:  center;
 	opacity: 0.6;
-	-webkit-transition: opacity 0.5s; 	
+	-webkit-transition: opacity 0.5s;
 }
 
 .reg{
@@ -487,12 +492,12 @@ table tbody tr {
 	z-index: 20;
 	position: absolute;
 	width: 28%;
-  	left: 36%;
-  	top: 19%;
-  	border-radius: 2%; 
-  	background: #C0C4CD;
-  	-webkit-transition: opacity 0.7s; 
-  	box-shadow: inset 0 0 20px rgba(42, 60, 60,0.5); 	
+	left: 36%;
+	top: 19%;
+	border-radius: 2%;
+	background: #C0C4CD;
+	-webkit-transition: opacity 0.7s;
+	box-shadow: inset 0 0 20px rgba(42, 60, 60,0.5);
 }
 
 .reg ul{
@@ -512,8 +517,8 @@ table tbody tr {
 	background-color: #E6EAF5;
 	box-shadow: inset 0 0 10px rgba(192, 196, 205,1);
 	transition-property: background-color;
- 	transition-duration: 0.7s;
- 	outline: none; 
+	transition-duration: 0.7s;
+	outline: none;
 }
 
 .reg .txt:hover{
@@ -528,7 +533,7 @@ table tbody tr {
 
 .reg li{
 	padding: 7% 0px;
- 	color: #2a3c3c;
+	color: #2a3c3c;
 	font-size: 40px;
 	text-align:  center;
 	opacity: 0.7;
@@ -538,13 +543,13 @@ table tbody tr {
 .reg .txt {
 	margin: 2% 5%;
 	width: 90%;
-	height: 20%; 
-	border-radius: 6%; 
+	height: 20%;
+	border-radius: 6%;
 	background-color: #E6EAF5;
 	position: relative;
 	box-shadow: inset 0 0 10px rgba(192, 196, 205,1);
 	transition-property: background-color;
- 	transition-duration: 0.7s;
+	transition-duration: 0.7s;
 }
 
 .submitbutton{
@@ -552,19 +557,19 @@ table tbody tr {
 	margin: 2% 5%;
 	width: 90%;
 	border: none;
-	height: 20%; 
-	border-radius: 6%; 
+	height: 20%;
+	border-radius: 6%;
 	background-color: #DADCE2;
 	position: relative;
- 	padding: 7% 0px;
- 	color: #2a3c3c;
+	padding: 7% 0px;
+	color: #2a3c3c;
 	font-size: 40px;
 	text-align:  center;
 	box-shadow: inset 0 0 10px rgba(192, 196, 205,1);
 	-webkit-transition: opacity 0.7s;
 	transition-property: background-color;
- 	transition-duration: 0.7s;	 
-	outline: none; 
+	transition-duration: 0.7s;
+	outline: none;
 }
 
 .submitbutton:hover{
@@ -575,23 +580,23 @@ table tbody tr {
 
 .debagTarg{
 	border-radius: 5%;
-	box-shadow:  0 0 10px rgba(0,0,0,0.7); 	
+	box-shadow:  0 0 10px rgba(0,0,0,0.7);
 }
 
 .onfocus{
 	border-radius: 5%;
-	box-shadow:  0 0 10px rgba(0,0,0,0.7); 	
+	box-shadow:  0 0 10px rgba(0,0,0,0.7);
 	background: #C0C4CD;
 }
 
 .errorblock{
 	border-radius: 5%;
-	box-shadow:  0 0 10px rgba(0,0,0,0.7); 	
-	background: #DEB5B1;	
+	box-shadow:  0 0 10px rgba(0,0,0,0.7);
+	background: #DEB5B1;
 }
 
 #buttons input{
-	-webkit-transition: width 0.5s,opacity 0.5s; 
+	-webkit-transition: width 0.5s,opacity 0.5s;
 }
 
 .down {
@@ -606,7 +611,7 @@ table tbody tr {
 .Glass{
 	position: absolute;
 	opacity: 0.7;
-	z-index : 15;	
+	z-index : 15;
 	display : none;
 	background: #0C1414;
 }
@@ -665,7 +670,7 @@ table tbody tr {
 .modal-content{
 	color: #412D2D;
 	font-size: 30px;
-	box-shadow:inset 0 0 15px rgba(0,0,0,0.3); 
+	box-shadow:inset 0 0 15px rgba(0,0,0,0.3);
 	margin: 15% auto;
 	padding: 20px;
 	border-radius: 7%;

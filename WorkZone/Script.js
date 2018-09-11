@@ -1318,6 +1318,15 @@ function getCookie (cookieName) {
   } else return null;
 }
 
+function goWorks() {
+    if (getCookie("session_id")){
+        document.location.href = '/works'
+    } else {
+        login();
+    }
+
+}
+
 function changeLogIn() {
     if (getCookie("session_id")) {
         var li = document.getElementById("newFileMenu").children[0].children[4];
@@ -1350,6 +1359,18 @@ function logOut() {
         
         deleteCookie("session_id");
         changeLogIn();
+    }
+}
+
+function logOutFromProjects() {
+    if (getCookie("session_id")) {
+        var body = getCookie("session_id");
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/deleteSession');
+        xhr.send(body);
+
+        deleteCookie("session_id");
+        document.location.href = '/';
     }
 }
 
@@ -1422,6 +1443,7 @@ function buttonDesign(){
     menu.style.opacity=1;
     menu.style.display= "block";
 }
+
 
 
 function login(){
