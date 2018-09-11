@@ -18,7 +18,14 @@ function getRandom() {
     return Math.floor(Math.random() * 9732712) + 101;
 }
 
+// function openWorks() {
+//     var xhr = new XMLHttpRequest();
+//     xhr.open('GET', '/works');
+//     xhr.send();
+// }
+
 function checkAuth (req, res) {
+    
     var db = new sqlite3.Database('./data.db');
     let body = '';
 
@@ -34,7 +41,7 @@ function checkAuth (req, res) {
         
         db.get("SELECT * FROM users WHERE login=$login", {$login: login}, function(err, row) {
             if (typeof(row) === 'undefined') {
-                error = "Неверный логин!";
+                error = "Incorrect username!";
                 res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
                 fs.readFile('index.html', 'utf-8', function (err, data) {
                     var loadParam = "reLogin();";
@@ -45,7 +52,7 @@ function checkAuth (req, res) {
                 });
                 console.log(error);
             } else if (row.password !== password) {
-                error = "Неверный пароль!";
+                error = "Incorrect password!";
                 res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
                 fs.readFile('index.html', 'utf-8', function (err, data) {
                     var loadParam = "reLogin();";
@@ -68,6 +75,7 @@ function checkAuth (req, res) {
                 fs.readFile(path.resolve('Workzone', 'works.html'), 'utf-8', function (err, data) {
                     res.end(data);
                 })
+                // openWorks();
             }
         });  
         db.close();

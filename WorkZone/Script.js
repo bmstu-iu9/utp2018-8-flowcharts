@@ -24,14 +24,6 @@ let MDL;
 let MDT;
 let gotoMod=false;
 
-
-// window.onload=function(){
-//     newFile();
-//     if (!source){
-//         source= document.getElementById('workSpaceBody').innerHTML;
-//     }
-// }();
-
 class vort{
     constructor(type,pos, x, y){
         this.parents= [];
@@ -1298,6 +1290,48 @@ function saveFile() {
     body = "title=new&content=info";
     xhr.open('POST', '/save');
     xhr.send(body);
+}
+
+function getCookie (cookieName) {
+  var result = document.cookie.match ('(^|;) ?' + cookieName + '=([^;]*)(;|$)');
+  if (result) {
+      return (unescape (result[2]));
+  } else return null;
+}
+
+function changeLogIn() {
+    if (getCookie("session_id")) {
+        var li = document.getElementById("newFileMenu").children[0].children[4];
+        var id = getCookie("session_id");
+        li.outerHTML = '<li id="logInOut" onclick="logOut();"><div>Log Out<br>Logged in as '+id+'</div></li>';
+    } else {
+        var li = document.getElementById("newFileMenu").children[0].children[4];
+        li.outerHTML = '<li id="logInOut" onclick="login();"><div>Log in</div></li>';
+    }
+}
+
+function setCookie(name, value, days) {
+    days = days || 30;
+    var last_date = new Date();
+    last_date.setDate(last_date.getDate() + days);
+    var value = escape(value) + ((days==null) ? "" : "; expires="+last_date.toUTCString());
+    document.cookie = name + "=" + value;
+}
+
+function deleteCookie(name) {
+    setCookie(name,0,-1);
+}
+
+function logOut() {
+    if (getCookie("session_id")) {
+        var body = getCookie("session_id");
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/deleteSession');
+        xhr.send(body);
+        
+        deleteCookie("session_id");
+        changeLogIn();
+    }
 }
 
 function mouseDown(){
