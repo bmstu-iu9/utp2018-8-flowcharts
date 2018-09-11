@@ -92,7 +92,7 @@
    			<hr width="80%" style="margin: 0% 10%;" size="3	" color="#596868"align="center" />
    			<li><div>Help</div></li>
    			<hr width="80%" style="margin: 0% 10%;" size="3	" color="#596868"align="center" />
-   			<li><div>Team</div></li>
+   			<li onclick="buttonTeam()"><div>Team</div></li>
 	        <hr width="80%" style="margin: 0% 10%;" size="3 " color="#596868"align="center" />
 	        <li onclick="buttonDesign()"><div>Themes</div></li>
 	        <hr width="80%" style="margin: 0% 10%;" size="3 " color="#596868"align="center" />
@@ -124,6 +124,23 @@
 	        <li onclick="buttonBack()"><div>Back</div></li>
    		</ul>
    	</div>
+	<div id="team" class="Menu">
+        <ul id="newFileUl">
+            <li><div style="font-size:25px"><a href="https://github.com/coudam">Конюхов Александр</a></div></li>
+            <hr  width="70%" style="margin: 0% 10%;" size="3" color="#596868"align="center" />
+            <li><div style="font-size:25px"><a href="https://github.com/PsycholoG-ZxZ">Курушин Дмитрий</a></div></li>
+            <hr  width="70%" style="margin: 0% 10%;" size="3" color="#596868"align="center" />
+            <li><div style="font-size:25px"><a href="https://github.com/ansi-rius">Бакланова Анастасия</a></div></li>
+            <hr width="70%" style="margin: 0% 10%;" size="3 " color="#7FFF00"align="center" />
+            <li><div style="font-size:25px"><a href="https://github.com/dimonbocha">Снегур Дмитрий</a></div></li>
+            <hr width="70%" style="margin: 0% 10%;" size="3 " color="#596868"align="center" />
+            <li><div style="font-size:25px"><a href="https://github.com/kirsnegir">Бокарев Кирилл</a></div></li>
+            <hr width="70%" style="margin: 0% 10%;" size="3 " color="#596868"align="center" />
+            <li><div style="font-size:25px"><a href="https://github.com/LysenkoAnastasia">Лысенко Анастасия</a></div></li>
+            <hr width="70%" style="margin: 0% 10%;" size="3 " color="#596868"align="center" />
+            <li onclick="buttonBack()"><div>Back</div></li>
+        </ul>
+    </div>
 
    	<main id="Main" style="display:block" >
    		<div id="zoomBox"><img src="WorkZone/img/lupa.png" height="25px" width="25px" onclick="document.getElementById('zoom').value=5; reSize();"> <input id="zoom" type="range" min="0" max="10" step="1" value="5" oninput="reSize()"></div>
