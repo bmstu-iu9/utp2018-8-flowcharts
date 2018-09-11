@@ -723,6 +723,10 @@ function whileForLeftOrRight(){
     var V =graph[0];
     while(V.type!="end" && count>=0){
         count--;
+        if (V.dead){
+            alert("any block is already dead");
+            return;
+        }
         if (V.type=="start"){
             V=graph[V.childs[0]];
             //reSetM();
@@ -823,6 +827,10 @@ function buttonPlay(){
     infinitLoop=0;
     var V =graph[0];
     while(V.type!="end"){
+        if (V.dead){
+            alert("any block is already dead");
+            return;
+        }
         infinitLoop++;
         if (V.type=="start"){
             V=graph[V.childs[0]];
@@ -985,9 +993,19 @@ function buttonDelete(){
             graph[trueCh].cell.appendChild(mg);
         }
     } else if (block.type=="end" || block.type=="loop"){
+        if (block.type== "loop"){
+            let i;
+            var U=graph[block.childs[0]];
+            for (i=0;i<U.parents.length;i++){
+                if (U.parents[i]==block.pos)
+                    break;
+            }
+            U.parents.splice(i,1);
+        }
         block.cell.innerHTML="";
         block.cell.className="droptarget";
         block.type="trg";
+
     }else{
         pr.childs[0]==block.pos?(pr.childs[0]=block.childs[0]) :(pr.childs[1]=block.childs[0]);
         graph[block.childs[0]].parents[0]=pr.pos;
