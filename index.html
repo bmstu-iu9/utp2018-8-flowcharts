@@ -3,7 +3,7 @@
    <head>
    	<meta charset="utf-8">
     <title>BlockWork</title>
-    <link rel="stylesheet"  id="CSSsource" type="text/css" href="./WorkZone/mainStyle.css">
+    <link rel="stylesheet"  id="CSSsource" type="text/css" href="WorkZone/simpleStyle.css">
     <link rel="shortcut icon" href="./WorkZone/img/temmie.png" type="image/png">
    </head>
    <body id="body" onload = "newFile(); {param}; changeLogIn();">
@@ -14,41 +14,42 @@
    		</div>
    		<div id="options" >
 	   		<div id="buttons">
-				<input type="image" src="https://png.icons8.com/ios/40/B7BCC7/play-filled.png" onclick="buttonPlay();" checked/>
-				<input type="image" id ="buttonReStart" src="https://png.icons8.com/ios/40/B7BCC7/stop-filled.png" style="display: none;" onclick="buttonReStart();" checked/>
-				<input type="image" id = "left" src="https://png.icons8.com/windows/40/B7BCC7/left.png" style="display:none" onclick= "buttonLeft();" checked/>
-				<input type="image" id = "bug" src="https://png.icons8.com/windows/40/B7BCC7/bug.png" onclick="buttonDebag();" checked/>
-				<input type="image" id = "right" src="https://png.icons8.com/windows/40/B7BCC7/right.png" style="display: none" onclick="buttonRight();" checked/>
-				<input type="image" src="https://png.icons8.com/ios/40/B7BCC7/save-as.png" download="9dksk239xwd.txt" id="buttonSave" href="#" onclick="buttonSave()" checked/>
-				<input type="image" src="https://png.icons8.com/dotty/40/B7BCC7/add-file.png" onclick="newFile()" checked/>
-       			<input type="image" src="https://png.icons8.com/ios/48/cccccc/settings.png" onclick="settings()" checked/>
-				<input type="image" src="https://png.icons8.com/material/40/B7BCC7/question-mark.png" onclick="helpPage()" checked/>
+				<input type="image" id ="buttonPlay" src="./WorkZone/img/SimpleIcons/play-filled.png" onclick="buttonPlay();" checked/>
+				<input type="image" id ="buttonReStart" src="./WorkZone/img/SimpleIcons/stop-filled.png" style="display: none;" onclick="buttonReStart();" checked/>
+				<input type="image" id = "left" src="./WorkZone/img/SimpleIcons/left.png" style="display:none" onclick= "buttonLeft();" checked/>
+				<input type="image" id = "bug" src="./WorkZone/img/SimpleIcons/bug.png" onclick="buttonDebag();" checked/>
+				<input type="image" id = "right" src="./WorkZone/img/SimpleIcons/right.png" style="display: none" onclick="buttonRight();" checked/>
+				<input type="image" id="buttonSave" src="./WorkZone/img/SimpleIcons/save-as.png" download="9dksk239xwd.txt"  href="#" onclick="buttonSave()" checked/>
+				<input type="image" id = "buttonAddFile" src="./WorkZone/img/SimpleIcons/add-file.png" onclick="newFile()" checked/>
+       			<input type="image" id = "buttonSettings" src="./WorkZone/img/SimpleIcons/settings.png" onclick="settings()" checked/>
+				<input type="image" id = "questionMark" src="./WorkZone/img/SimpleIcons/question-mark.png" onclick="helpPage()" checked/>
 			</div>
    		</div>
-   		<div id="hiddenInformationMenu" style="text-align: center;line-height: 8vh;" onclick="addWindow(this)">
+   		<div id="hiddenInformationMenu" style="text-align: center; line-height: 8vh ;" onclick="addWindow(this)">
    			<strong id="informationHead"><i>Information</i></strong>
    		</div>
    	</header>
    	<div id="newFileMenu" class="Menu">
    		<ul id='newFileUl'>
    			<li onclick="buttonNewFile()"><div>Create new file</div></li>
-   			<hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" />
+   			<hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" class="hrline"/>
    			<li>
    				<div onclick="loadF()">
 	        		Open File
         		</div>
         	</li>
-	        <hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" />
+	        <hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" class="hrline"/>
 			<li id="logInOut" onclick="login();"><div>Log In</div></li>
-			<hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" />
+			<hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" class="hrline"/>
 			<li id="projectsButton" onclick="goWorks()" ><div>Projects</div></li>
    		</ul>
    	</div>
 
     <div id="Loginform" class="reg">
         <ul>
-            <li onclick="backGO()" class="txt" >BlockWork</li>
-            <hr width="80%" style="margin: 0% 10%;" size="3	" color="#596868"align="center" />
+			<li onclick="backGO()" class="txt" >BACK TO MENU</li>
+			<hr width="80%" style="margin: 0% 10%;" size="1px" color="#596868"align="center" />
+			<li><h1 style="color: #5FA5FA;">Аuthorization</h1></li>
             <li>
                 <div class="formreg">
                     <form action="/auth" method="POST">
@@ -59,7 +60,7 @@
                         <br>
                         <button class="submitbutton" type="submit">Log In</button>
                     </form>
-                    <h5 style="color:#596868;"> <u style=" cursor: pointer; color: #5FA5FA" onclick="reReg()">Sign up</u></h5>
+                    <h5 style="color:#596868;">No account? <u style=" cursor: pointer; color: #5FA5FA" onclick="reReg()">Sign up</u></h5>
                 </div>
             </li>
         </ul>
@@ -67,8 +68,9 @@
 
     <div id="Regform" class="reg" style="top: 15%">
         <ul>
-            <li onclick="backGO()" class="txt" >BlockWork</li>
-            <hr width="80%" style="margin: 0% 10%;" size="3	" color="#596868"align="center" />
+			<li onclick="backGO()" class="txt" >BACK TO MENU</li>
+			<hr width="80%" style="margin: 0% 10%;" size="1px" color="#596868"align="center" />
+			<li><h1 style="color: #5FA5FA;">Аuthorization</h1></li>
             <li>
                 <div class="formreg">
                     <form action="/reg" method="POST">
@@ -91,13 +93,13 @@
    	<div id="mainMenu" class="Menu">
    		<ul id='mainMenuUl'>
    			<li onclick="customize()"><div>Сustomization</div></li>
-   			<hr width="80%" style="margin: 0% 10%;" size="3	" color="#596868"align="center" />
+   			<hr width="80%" style="margin: 0% 10%;" size="3	" color="#596868"align="center" class="hrline"/>
    			<li><div>Help</div></li>
-   			<hr width="80%" style="margin: 0% 10%;" size="3	" color="#596868"align="center" />
+   			<hr width="80%" style="margin: 0% 10%;" size="3	" color="#596868"align="center" class="hrline"/>
    			<li onclick="buttonTeam()"><div>Team</div></li>
-	        <hr width="80%" style="margin: 0% 10%;" size="3 " color="#596868"align="center" />
+	        <hr width="80%" style="margin: 0% 10%;" size="3 " color="#596868"align="center" class="hrline"/>
 	        <li onclick="buttonDesign()"><div>Themes</div></li>
-	        <hr width="80%" style="margin: 0% 10%;" size="3 " color="#596868"align="center" />
+	        <hr width="80%" style="margin: 0% 10%;" size="3 " color="#596868"align="center" class="hrline"/>
 	        <li onclick="buttonBack()"><div>Back</div></li>
    		</ul>
    	</div>
@@ -110,7 +112,7 @@
 	   				<input id="switch" onclick="gridSwitch()" type="image" src="WorkZone/img/switch.png" width="70px" height="70px" style="margin: 3% 2% 0% 0%;outline: none;"> <!-- up, rgt, dwn, lft-->
    				</div>
    			</li>
-   			<hr width="80%" style="margin: 0% 10%;" size="3 " color="#596868"align="center" />
+   			<hr width="80%" style="margin: 0% 10%;" size="3 " color="#596868"align="center" class="hrline"/>
 	        <li onclick="buttonBack()"><div>Back</div></li>
    		</ul>
    	</div>
@@ -118,28 +120,31 @@
    	<div id="design" class="Menu">
    		<ul id='designUl'>
    			<li onclick="greenT()"><div>Green</div></li>
-   			<hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" />
+   			<hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" class="hrline"/>
    			<li onclick="blueT()"><div>Blue</div></li>
-   			<hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" />
+   			<hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" class="hrline"/>
    			<li onclick="darkT()"><div>Dark</div></li>
-	        <hr width="80%" style="margin: 0% 10%;" size="3" color="#596868" align="center"/>
+			<hr width="80%" style="margin: 0% 10%;" size="3" color="#596868" align="center" class="hrline"/>
+			<li onclick="simpleT()"><div>Simlpe</div></li>
+	        <hr width="80%" style="margin: 0% 10%;" size="3" color="#596868" align="center" class="hrline"/>
 	        <li onclick="buttonBack()"><div>Back</div></li>
+
    		</ul>
    	</div>
 	<div id="team" class="Menu" style="top: 10%">
         <ul id="newFileUl">
             <li><div style="font-size:25px"><a href="https://github.com/coudam">Конюхов Александр</a></div></li>
-            <hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868" align="center" />
+            <hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868" align="center" class="hrline"/>
             <li><div style="font-size:25px"><a href="https://github.com/PsycholoG-ZxZ">Курушин Дмитрий</a></div></li>
-            <hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868" align="center" />
+            <hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868" align="center" class="hrline"/>
             <li><div style="font-size:25px"><a href="https://github.com/ansi-rius">Бакланова Анастасия</a></div></li>
-            <hr width="80%" style="margin: 0% 10%;" size="3 " color="#596868" align="center" />
+            <hr width="80%" style="margin: 0% 10%;" size="3 " color="#596868" align="center" class="hrline"/>
             <li><div style="font-size:25px"><a href="https://github.com/dimonbocha">Бокарев Дмитрий</a></div></li>
-            <hr width="80%" style="margin: 0% 10%;" size="3 " color="#596868" align="center" />
+            <hr width="80%" style="margin: 0% 10%;" size="3 " color="#596868" align="center" class="hrline"/>
             <li><div style="font-size:25px"><a href="https://github.com/kirsnegir">Снегур Кирилл</a></div></li>
-            <hr width="80%" style="margin: 0% 10%;" size="3 " color="#596868" align="center" />
+            <hr width="80%" style="margin: 0% 10%;" size="3 " color="#596868" align="center" class="hrline"/>
             <li><div style="font-size:25px"><a href="https://github.com/LysenkoAnastasia">Лысенко Анастасия</a></div></li>
-            <hr width="80%" style="margin: 0% 10%;" size="3 " color="#596868" align="center" />
+            <hr width="80%" style="margin: 0% 10%;" size="3 " color="#596868" align="center" class="hrline"/>
             <li onclick="buttonBack()"><div>Back</div></li>
         </ul>
     </div>
@@ -160,7 +165,7 @@
 		
 		<div id = "ModalWindHead" class = "modal">
 			<div class = "modal-content">
-				<i>
+				<i class="iRegular">
 				Функциональная панель содержит в себе кнопки скрывающие интерфейс выбора фигур и интерфейс ввода (конпки "Tools" и "Information" соответственно)
 					В центре находятся кнопки (слева направо) : кнопка запуска, "дебаг", сохранение, создание новой страницы, режим обучения, настройки.
 					
@@ -170,17 +175,17 @@
 		
 		<div id = "ModalWindMenu" class = "modal">
 			<div class = "modal-content">
-				<i>
+				<i class="iRegular">
 				Данный интерфейс представляет из себя палитру с фигурами, которые будут являться компонентами вашей блок-схемы.
 					Чтобы задействовать любую из фигур, просто перетяните ее в подсвеченное поле.
 					Все фигуры соответствуют каноническим элементам языка блок-схем.
-				</i>			
+				</i>
 			</div>
 		</div>
 		
 		<div id = "ModalWindInp" class = "modal">
 			<div class = "modal-content">
-				<i>
+				<i class="iRegular">
 				Данное поле позволяет вам связать объект на "рабочем столе" и переменные.
 					Именно в это поле вводится все желаемые действия, условия и т.п.
 				</i>			
@@ -200,7 +205,7 @@
 		
 		<div id = "ModalWindMain" class = "modal">
 			<div class = "modal-content">
-				<i>
+				<i class="iRegular">
 					Это рабочее поле, именно на него необходимо переносить объекты из палитры (она расположена слева)
 					Активные поля ( это те в которые вы можете переместить объект из палитры) подсвечены.
 					Начальный элемент сразу находится на поле, после него вы сразу же можете приступать создавать "начинку" вашей схемы.
@@ -212,36 +217,34 @@
 		</div>
 		
 		<div id="menu">
-			-act-
-			<hr  width="90%" style="margin: 0% 5%;" size="3" color="#596868"align="center" />
-			<div><img class="act" src="https://png.icons8.com/windows/96/2a3c3c/unchecked-checkbox.png" width="36%" height="38%" draggable="true" id="prm"></div>
-			-if-
-			<hr  width="90%" style="margin: 0% 5%;" size="3" color="#596868"align="center" />
-			<div><img class="if" src="https://png.icons8.com/windows/100/2a3c3c/rhombus.png" width="37%" height="37%" draggable="true" id="romb"></div>
-			-init-
-			<hr  width="90%"  style="margin: 0% 5%;" size="3" color="#596868"align="center" />
+			<!-- -act- -->
+			<hr  width="90%" style="margin: 0% 5%;" size="3" color="#596868" align="center" class="hrlineRemowe"/>
+			<div><img class="act" src="https://png.icons8.com/windows/96/2a3c3c/unchecked-checkbox.png" width="36%" height="38%" draggable="true" id="prm" ></div>
+			<!-- -if- -->
+			<hr  width="90%" style="margin: 0% 5%;" size="3" color="#596868" align="center" class="hrlineRemowe"/>
+			<div><img class="if" src="https://png.icons8.com/windows/100/2a3c3c/rhombus.png" width="37%" height="37%" draggable="true" id="romb" ></div>
+			<!-- -init- -->
+			<hr  width="90%"  style="margin: 0% 5%;" size="3" color="#596868" align="center" class="hrlineRemowe"/>
 			<div><img class="init" src="https://png.icons8.com/small/80/2a3c3c/rectangle-stroked.png" width="37%" height="37%" draggable="true" id="parl"></div>
-			-goto-
-			<hr  width="90%" style="margin: 0% 5%;" size="3" color="#596868"align="center" />
+			<!-- -goto- -->
+			<hr  width="90%" style="margin: 0% 5%;" size="3" color="#596868" align="center" class="hrlineRemowe"/>
 			<div><img class="loop" src="https://png.icons8.com/windows/96/2A3C3C/rotate-right.png" width="39%" height="39%" draggable="true" id="loop"></div>
-			-end-
-			<hr  width="90%" style="margin: 0% 5%;" size="3" color="#596868"align="center" />
+			<!-- -end- -->
+			<hr  width="90%" style="margin: 0% 5%;" size="3" color="#596868"align="center" class="hrlineRemowe"/>
 			<div><img class="end" src="WorkZone/img/exit.png" width="39%" height="39%" draggable="true" id="end"></div>
      	</div>
      	<div id="InformationMenu" onclick = "TutMenu">
 			<div id = "Glassinp" onclick = "Tutinp" class="Glass" > </div>
 			<div id = "GlassInpPerem" onclick = "TutInpPerem" class="Glass" > </div>
-			
-			
 	    	<div id="init">
-	    		<input width="100%" type="text" name="инициализацияБлока" id="initBox" placeholder="Value of Block" onkeydown="if(event.keyCode==13){ getValOfBlock();} else {this.style.background='#DFE0E7';}" onblur="delChange()" onfocus="changedBlock()">
+	    		<input width="100%" type="text" name="инициализацияБлока" id="initBox" placeholder="Value of Block" onkeydown="if(event.keyCode==13){ getValOfBlock();} else {this.style.background='#white';}" onblur="delChange()" onfocus="changedBlock()">
 	    	</div>
-	    	<hr  width="99%" size="4" color="#334D4D"align="center" style="opacity:0.7;"/>
+	    	<hr  width="99%" size="4" color="#334D4D" align="center" style="opacity:0.7; " class="hrline"/>
 	    	<div style="width: 90%;margin: 0% 5%; height: 100%;">
 		    	<div id="var">
 		    		<div id="addVar" style="height: 100%">
 		    			<input type="image" src="https://png.icons8.com/ios/100/2a3c3c/plus.png" style="outline: none;" width="40" height="40" id="Plas" onclick="hiddenVarBox(this)" draggable="false" checked/>
-		    			<input type="text" name="инициализацияПеременных" onblur="returnPlas()" placeholder="var [name] = [expr];" width="70%" id="initVarBox" onkeydown="if(event.keyCode==13){ getVal(this);} else {this.style.background='#DFE0E7';}">
+		    			<input type="text" name="инициализацияПеременных" onblur="returnPlas()" placeholder="var [name] = [expr];" width="70%" id="initVarBox" onkeydown="if(event.keyCode==13){ getVal(this);} else {this.style.background='#white';}">
 		    		</div>
 		    	</div>	
 		    </div>
