@@ -314,20 +314,38 @@ function reSetIdsChld(V,side,C){
     for (let i of V.childs){
         reSetIdsChld(graph[i],side,C);
     }
-}
+}	
 
 function createBlock(row, cell,prnt,ifRes){
     var table = document.getElementById("workSpace");
-    let key=row+ " " +(cell-mainColumn);
+	let key=row+ " " +(cell-mainColumn);
     let newVort = new vort("trg",countOfVort++,row,cell-mainColumn);
     newVort.baseClass="lv";
     newVort.addParent(prnt);
-    graph[prnt].addChild(countOfVort-1);
+	graph[prnt].addChild(countOfVort-1);
     newVort.cell=table.rows[row].cells[cell];
     newVort.cell.className="droptarget";
     graphIds.set(key,countOfVort-1);
     graph.push(newVort);
     newVort.ifRes=ifRes;
+}
+
+function createBlockV2(row, cell,prnt,ifRes){
+    var table = document.getElementById("workSpace");
+	let key=row+ " " +(cell-mainColumn);
+    let newVort = new vort("trg",countOfVort++,row,cell-mainColumn);
+    newVort.baseClass="lv";
+	newVort.cell=table.rows[row].cells[cell];
+    graphIds.set(key,countOfVort-1);
+    graph.push(newVort);
+    newVort.ifRes=ifRes;
+}
+
+function findRoot(V){
+    while (V.y==graph[V.parents[0]].y && graph[V.parents[0]].type!="start" ){
+        V=graph[V.parents[0]];
+    }
+    return V.parents[0];
 }
 
 function addColumn(pos){
@@ -501,8 +519,8 @@ function reGetVal(){
             per.children[i].remove();
             per.children[i].remove();
         } else{
-            m.set(name.innerHTML,trg.value);
-            varMap.set(name.innerHTML,trg.value);
+            m.set(name.innerHTML,Number(trg.value));
+            varMap.set(name.innerHTML,Number(trg.value));
             trg.parentNode.firstChild.innerHTML=trg.value;
             reValBlur();
         }
@@ -1202,7 +1220,7 @@ function newFile(){
     let M=document.getElementById("Main");
     let lu=document.getElementById('newFileUl');
     menu.style.display= "block";
-    if (firstFile>=1 && lu.children.length==5){
+    if (firstFile>=1 && lu.children.length==7){
         let lu=document.getElementById('newFileUl');
         let back = document.createElement('li');
         let hr= document.createElement("hr");
@@ -1303,6 +1321,357 @@ function buttonNewFile(){
 
     graph.push(startV);
     graph.push(ft);
+}
+
+
+// ДИЧЬ КЛЕВАЯ КЛАССНАЯ (с) ДИМА К.
+
+function SaveDataStr() {
+	var str = "";
+	var key;
+	
+	str += document.getElementById("workSpace").innerHTML;
+	
+	str += "@\n";
+	str += mainColumn;
+	
+	str += "@\n";
+	
+	
+	for ( key of varMap) {
+		str += key + " ";
+	}
+	str += ";\n";
+	
+	
+	
+	//инфа для вершин
+	
+	for (var i of graph) {
+		str += i.x + " " + (i.y + mainColumn) + " " ;
+		if (i.parents[0] != undefined){
+			str += i.parents[0] + " ";
+		}
+		else
+		{
+			str += " ";
+		}
+		str += i.ifRes + ",";
+	}
+	str += "!\n";
+	
+	for ( key of graphIds) {
+		str += key + " ";
+	}
+	
+	str += ";\n";
+	
+	for (var i of graph) {
+		for (var j of i.parents){
+			str += j + " ";
+		}
+		str += "|";
+	}
+	str += ";\n";
+	for (var i of graph) {
+		for (var j of i.childs){
+			str += j + " ";
+		}
+		str += "|";
+	}
+	str += ";\n";
+	
+	
+	for (var i of graph) {
+		str += i.type + " ";
+	}
+	str += ";\n";
+	/*
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	for (var i of graph) {
+		str += i.pos + " ";
+	}
+	str += ";\n";
+	
+	for (var i of graph) {
+		str += i.x + " ";
+	}
+	str += ";\n";
+	
+	for (var i of graph) {
+		str += i.y + " ";
+	}
+	str += ";\n";
+	
+	*/
+	
+	
+	for (var i of graph) {
+		str += i.dead + " ";
+	}
+	str += ";\n";
+	
+	
+	for (var i of graph) {
+		str += i.value + " ";
+	}
+	
+	str += ";\n";
+	
+	
+	
+	console.log(str);
+	return str;
+}
+
+function loadF() {
+    var input=document.createElement("input");
+    input.type='file';
+
+    input.onchange= function (){
+        var fr = new FileReader();
+        fr.onload = function (e){
+            str=e.target.result;
+            priem(str);
+        };
+        console.log(fr.readAsText(this.files[0]));
+
+    };
+    input.click();
+}
+
+function priem(str) {
+	var len = str.length;
+	var cnt = 0;
+	var key = "";
+	var val = "";
+	var crewKol = 0;
+	//  = "";
+	while (str.charAt(cnt) != "@")
+	{
+		val +=str.charAt(cnt);
+		cnt++;
+	}
+	document.getElementById("workSpace").innerHTML = val;
+	val ="";
+	cnt +=2;
+	while (str.charAt(cnt) != "@")
+	{
+		val +=str.charAt(cnt);
+		cnt++;
+	}
+	mainColumn = Number(val);
+	//alert(val);
+	
+	varMap.clear();
+	graph = [];
+	
+	val = "";
+	cnt +=2;
+	
+	while (str.charAt(cnt) != ";")
+	{
+		while (str.charAt(cnt) != ","){
+			key += str.charAt(cnt);
+			cnt++;
+		}
+		cnt++;
+		while (str.charAt(cnt) != " "){
+			val += str.charAt(cnt);
+			cnt++;
+		}
+		cnt++;
+        varSet.add(key);
+		varMap.set(key, Number(val));
+		key = "";
+		val = "";
+	
+	}
+	key = "";
+	val = "";
+	
+	cnt += 2;
+	
+	countOfVort = crewKol;
+	while (str.charAt(cnt) != "!")
+	{
+		var xx = "";
+		var yy= "";
+		var prntx = "";
+		var ress = "";
+	
+			while (str.charAt(cnt) != " ")
+			{
+				xx +=str.charAt(cnt);
+				cnt++;
+			}
+			cnt++;
+			while (str.charAt(cnt) != " ")
+			{
+				yy += str.charAt(cnt);
+				cnt++;
+			}
+			cnt++;
+			while (str.charAt(cnt) != " ")
+			{
+				prntx += str.charAt(cnt);
+				cnt++;
+			}
+			cnt++;
+			while (str.charAt(cnt) != ",")
+			{
+				ress += str.charAt(cnt);
+				cnt++;
+			}
+			cnt++;
+		var ifRess = (ress == "true");
+		if (prntx == ""){
+			var ifPrntx = -1;
+		}
+		else{
+			var ifPrntx = Number(prntx);
+		}
+		createBlockV2(Number(xx), Number(yy), 0, ifRess);
+			
+		crewKol++;
+		countOfVort = crewKol;	
+	}
+	cnt+=2;
+	graphIds.clear();	
+	
+	for (var i of graph) {
+			i.parents = [];
+			i.childs = [];
+	}
+	
+	
+	while (str.charAt(cnt) != ";")
+	{
+		while (str.charAt(cnt) != ","){
+			key += str.charAt(cnt);
+			cnt++;
+			
+		}
+		cnt++;
+		while (str.charAt(cnt) != " "){
+			val += str.charAt(cnt);
+			cnt++;
+		}
+		cnt++;
+		graphIds.set(key, Number(val));
+		key = "";
+		val = "";
+	}
+	
+	
+	
+	cnt += 2;
+	var countV =0;
+    var st="";
+	while (str.charAt(cnt) != ";")
+	{
+		while (str.charAt(cnt) != "|"){
+			if (str.charAt(cnt) != " ")
+				st += str.charAt(cnt);
+			cnt++;
+		}
+		cnt++;
+		graph[countV].addParent(Number(st));
+				if (st == "")
+			graph[countV].parents = [];
+		//alert("!" + countV);
+		st = "";
+		countV++;
+	}
+	countV = 0;
+	st = "";
+	
+	cnt += 2;
+	
+	//alert('&!');
+	
+	while (str.charAt(cnt) != ";")
+	{
+		while (str.charAt(cnt) != "|"){
+			if (str.charAt(cnt) != " ")
+				st += str.charAt(cnt);
+			cnt++;
+		}
+		cnt++;
+		graph[countV].addChild(Number(st));
+		if (st == "")
+			graph[countV].childs = [];
+		countV++;
+		st = "";
+	}
+	countV= 0;
+	
+	val ="";
+	cnt+=2;
+	
+	//document.getElementById("workSpace").innerHTML = "";
+	while (str.charAt(cnt) != ";")
+	{
+		while (str.charAt(cnt) != " "){
+			val += str.charAt(cnt);
+			cnt++;
+		}
+		cnt++;
+		graph[countV].type=val;
+		countV++;
+		val ="";
+	}
+	cnt += 2;
+    val="";
+    countV=0;
+    while (str.charAt(cnt) != ";")
+    {
+        while (str.charAt(cnt) != " "){
+            val += str.charAt(cnt);
+            cnt++;
+        }
+        cnt++;
+        graph[countV].dead=val=="false"?false : true;
+        countV++;
+        val ="";
+    }
+    cnt += 2;
+    val="";
+    countV=1;
+
+    while(cnt<len){
+        while (str.charAt(cnt) != ";"){
+            val += str.charAt(cnt);
+            cnt++;
+        }
+        val += str.charAt(cnt);
+        cnt+=2;
+        graph[countV].value=val;
+        countV++;
+        val ="";
+    }
+    inMenu=false;
+    buttonReStart();
+    firstFile++ ;
+    let M=document.getElementById("Main");
+    let menu=document.getElementById("newFileMenu");
+    M.style.opacity=1;
+    menu.style.opacity=0;
+    document.getElementById("informationHead").style.opacity= "1";
+    document.getElementById("toolsHead").style.opacity="1";
+    menu.style.display= "none";
+    inMenu=false;
+}
+
+function buttonSave(){
+    if (inMenu)
+        return;
+    var type = 'data:application/octet-stream;base64, ';
+    var text = SaveDataStr();
+    var base = btoa(text);
+    var res = type + base;
+    document.getElementById('buttonSave').href = res;
+    location.href=document.getElementById('buttonSave').href;
 }
 
 function saveFile() {
