@@ -474,8 +474,8 @@ function reGetVal(){
             per.children[i].remove();
             per.children[i].remove();
         } else{
-            m.set(name.innerHTML,trg.value);
-            varMap.set(name.innerHTML,trg.value);
+            m.set(name.innerHTML,Number(trg.value));
+            varMap.set(name.innerHTML,Number(trg.value));
             trg.parentNode.firstChild.innerHTML=trg.value;
             reValBlur();
         }
@@ -1322,26 +1322,23 @@ function SaveDataStr() {
 	return str;
 }
 
+function loadF() {
+    var input=document.createElement("input");
+    input.type='file';
 
-function priem() {
-	alert("1");
-	var file = document.getElementById('uploadData').files[0];
-	
-	var reader = new FileReader();
-	reader.onload = function(e) {
-		var contents = e.target.result;
-    	console.log("Содержимое файла: " + contents);
-};
-	reader.onerror = function(event) {
-    console.error("Файл не может быть прочитан! код " + event.target.error.code);
-	};
- 	
-	reader.readAsText(file);
-	alert("!" + reader.readyState);
-	
-	
-	var str = reader.result;
-	alert(str);
+    input.onchange= function (){
+        var fr = new FileReader();
+        fr.onload = function (e){
+            str=e.target.result;
+            priem(str);
+        };
+        console.log(fr.readAsText(this.files[0]));
+
+    };
+    input.click();
+}
+
+function priem(str) {
 	var len = str.length;
 	var cnt = 0;
 	var key = "";
@@ -1382,6 +1379,7 @@ function priem() {
 			cnt++;
 		}
 		cnt++;
+        varSet.add(key);
 		varMap.set(key, Number(val));
 		key = "";
 		val = "";
@@ -1467,23 +1465,24 @@ function priem() {
 	
 	cnt += 2;
 	var countV =0;
+    var st="";
 	while (str.charAt(cnt) != ";")
 	{
 		while (str.charAt(cnt) != "|"){
 			if (str.charAt(cnt) != " ")
-				s += str.charAt(cnt);
+				st += str.charAt(cnt);
 			cnt++;
 		}
 		cnt++;
-		graph[countV].parents.push(Number(s));
-				if (s == "")
+		graph[countV].addParent(Number(st));
+				if (st == "")
 			graph[countV].parents = [];
-		alert("!" + countV);
-		s = "";
+		//alert("!" + countV);
+		st = "";
 		countV++;
 	}
 	countV = 0;
-	s = "";
+	st = "";
 	
 	cnt += 2;
 	
@@ -1493,15 +1492,15 @@ function priem() {
 	{
 		while (str.charAt(cnt) != "|"){
 			if (str.charAt(cnt) != " ")
-				s += str.charAt(cnt);
+				st += str.charAt(cnt);
 			cnt++;
 		}
 		cnt++;
-		graph[countV].childs.push(Number(s));
-		if (s == "")
+		graph[countV].addChild(Number(st));
+		if (st == "")
 			graph[countV].childs = [];
 		countV++;
-		s = "";
+		st = "";
 	}
 	countV= 0;
 	
@@ -1518,10 +1517,48 @@ function priem() {
 		cnt++;
 		graph[countV].type=val;
 		countV++;
-		alert(val);
 		val ="";
 	}
 	cnt += 2;
+    val="";
+    countV=0;
+    while (str.charAt(cnt) != ";")
+    {
+        while (str.charAt(cnt) != " "){
+            val += str.charAt(cnt);
+            cnt++;
+        }
+        cnt++;
+        graph[countV].dead=val=="false"?false : true;
+        countV++;
+        val ="";
+    }
+    cnt += 2;
+    val="";
+    countV=1;
+
+    while(cnt<len){
+        while (str.charAt(cnt) != ";"){
+            val += str.charAt(cnt);
+            cnt++;
+        }
+        val += str.charAt(cnt);
+        cnt+=2;
+        graph[countV].value=val;
+        countV++;
+        val ="";
+    }
+    inMenu=false;
+    buttonReStart();
+    firstFile++ ;
+    let M=document.getElementById("Main");
+    let menu=document.getElementById("newFileMenu");
+    M.style.opacity=1;
+    menu.style.opacity=0;
+    document.getElementById("informationHead").style.opacity= "1";
+    document.getElementById("toolsHead").style.opacity="1";
+    menu.style.display= "none";
+    inMenu=false;
 }
 
 function buttonSave(){
