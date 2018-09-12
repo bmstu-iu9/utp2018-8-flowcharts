@@ -534,7 +534,9 @@ function getValOfBlock(){
     if (input.value===""){
         return;
     }
-    if (res==="error" || (trg.type=="init" && (typeof(res)!=="string" || res=="changes")) || !(trg.type=="act" && (res!=="changes") || !isNaN(+res)) || (trg.type=="if" && typeof(res)=="string")){
+    alert(res);
+    alert((trg.type=="act" && (res!=="changes" && isNaN(+res))));
+    if (res==="error" || (trg.type=="init" && (typeof(res)!=="string" || res=="changes")) || (trg.type=="act" && (res!=="changes" && isNaN(+res))) || (trg.type=="if" && typeof(res)=="string")){
         input.style.background="#DEB5B1";
         return;
     }
