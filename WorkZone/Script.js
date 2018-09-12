@@ -2237,11 +2237,11 @@ function parseF() {
         if (t.getVal() === 'var') {
             t.next();
             var key = t.getVal();
-            mess=key;
-            if (varSet.has(key)) {
+            if (varSet.has(key) || t.getId() !== "ident") {
                 SE = 'SE';
                 return ;
             }
+            mess=key;
             t.next();
             if (t.getVal() === '=') {
                 t.next();
