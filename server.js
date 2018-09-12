@@ -7,7 +7,7 @@ const checkReg = require('./Workzone/scripts/regger');
 const checkAuth = require('./Workzone/scripts/auther');
 const save = require('./Workzone/scripts/saver');
 const works = require('./routes/works');
-const deleteSession = require('./Workzone/scripts/saver');
+const deleteSession = require('./Workzone/scripts/deleteSession');
 
 http.createServer((req,res) => {
     switch (req.method) {

@@ -19,7 +19,7 @@
 				<input type="image" id = "left" src="https://png.icons8.com/windows/40/B7BCC7/left.png" style="display:none" onclick= "buttonLeft();" checked/>
 				<input type="image" id = "bug" src="https://png.icons8.com/windows/40/B7BCC7/bug.png" onclick="buttonDebag();" checked/>
 				<input type="image" id = "right" src="https://png.icons8.com/windows/40/B7BCC7/right.png" style="display: none" onclick="buttonRight();" checked/>
-				<input type="image" src="https://png.icons8.com/ios/40/B7BCC7/save-as.png" download="9dksk239xwd.txt" id="buttonSave" href="#" onclick="buttonSave()" checked/>
+				<input type="image" src="https://png.icons8.com/ios/40/B7BCC7/save-as.png" onclick="showSave()" checked/>
 				<input type="image" src="https://png.icons8.com/dotty/40/B7BCC7/add-file.png" onclick="newFile()" checked/>
        			<input type="image" src="https://png.icons8.com/ios/48/cccccc/settings.png" onclick="settings()" checked/>
 				<input type="image" src="https://png.icons8.com/material/40/B7BCC7/question-mark.png" onclick="helpPage()" checked/>
@@ -43,7 +43,17 @@
 			<hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" />
 			<li id="projectsButton" onclick="goWorks()" ><div>Projects</div></li>
    		</ul>
-   	</div>
+	</div>
+
+	<div id="saveChooser" class="Menu">
+		<ul id='saveChooserUl'>	
+		 		<li download="9dksk239xwd.txt" id="buttonSave" href="#" onclick="buttonSave()"><div>Download</div></li>
+		 		<hr  width="80%" style="margin: 0% 10%;" size="3" color="#596868"align="center" />
+				<li id="saveAcc" onclick="saveFile()" ><div>Save to account</div></li>
+				<hr width="80%" style="margin: 0% 10%;" size="3 " color="#596868"align="center" />
+	        	<li onclick="buttonBackSave()"><div>Back</div></li>
+		</ul>
+	</div>   
 
     <div id="Loginform" class="reg">
         <ul>
@@ -241,7 +251,7 @@
 		    	<div id="var">
 		    		<div id="addVar" style="height: 100%">
 		    			<input type="image" src="https://png.icons8.com/ios/100/2a3c3c/plus.png" style="outline: none;" width="40" height="40" id="Plas" onclick="hiddenVarBox(this)" draggable="false" checked/>
-		    			<input type="text" name="инициализацияПеременных" onblur="returnPlas()" placeholder="var [name] = [expr];" width="70%" id="initVarBox" onkeydown="if(event.keyCode==13){ getVal(this);} else {this.style.background='#DFE0E7';}">
+		    			<input type="text" name="инициализацияПеременных" onblur="returnPlas()" placeholder="var [name] = [expr];" width="70%" id="initVarBox" onkeydown="if(event.keyCode==13){getVal(this);} else {this.style.background='#DFE0E7';}">
 		    		</div>
 		    	</div>	
 		    </div>

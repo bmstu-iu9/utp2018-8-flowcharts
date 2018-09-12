@@ -39,33 +39,18 @@ function save (req, res) {
                 console.log('NO SESSION');
             } else {
                 login = row.login;
-                title = 'proj';
+                title = 'new';
                 var curdt = new Date();
                 lastupdate = "last updated in: " + curdt.toDateString();
                 const path = './usersProjects/' + login + '/' + title + '.txt';
+                console.log(body);
                 fs.writeFile(path, body, (err) => {
                     if (err) throw err;
                     db.run("INSERT INTO projects Values ($login, $title, $lastupdate)", {$login: login, $title: title, $lastupdate: lastupdate});
                 });
             }
         });
-        db.close();  
+        setTimeout(() => {db.close();}, 100);  
     });       
 }
-
-function deleteSession(req, res) {
-    var db = new sqlite3.Database('./data.db');
-    let body = '';
-
-    req.setEncoding('utf-8');
-    req.on('data', data => body += data);
-    req.on('end', () => {
-        var cookies = parseCookies(req);
-        console.log(body);
-        db.run("DELETE FROM sessions WHERE id = $id", {$id: cookies.session_id});
-        db.close();
-    });
-}
-
 module.exports = save;
-module.exports = deleteSession;

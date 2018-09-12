@@ -1258,6 +1258,26 @@ function settings() {
     document.getElementById("toolsHead").style.opacity="0";
 }
 
+function showSave() {
+    let saveChooser=document.getElementById("saveChooser");
+    let M=document.getElementById("Main");
+    saveChooser.style.display= "block";
+    saveChooser.style.opacity=1;
+    M.style.opacity=0;
+    document.getElementById("informationHead").style.opacity= "0";
+    document.getElementById("toolsHead").style.opacity="0";
+}
+
+function buttonBackSave(){
+    let M=document.getElementById("Main");
+    let menu=event.target.parentNode.parentNode.parentNode;
+    M.style.opacity=1;
+    menu.style.opacity=0;
+    document.getElementById("informationHead").style.opacity= "1";
+    document.getElementById("toolsHead").style.opacity="1";
+    menu.style.display= "none";
+}
+
 function buttonBack(){
     firstFile++ ;
     let M=document.getElementById("Main");
@@ -1676,9 +1696,11 @@ function buttonSave(){
 
 function saveFile() {
     var xhr = new XMLHttpRequest();
-    body = "title=new&content=info";
+    var type = 'data:application/octet-stream;base64, ';
+    var text = SaveDataStr();
+    var res = type + text;
     xhr.open('POST', '/save');
-    xhr.send(body);
+    xhr.send(res);
 }
 
 function getCookie (cookieName) {
