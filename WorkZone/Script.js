@@ -534,7 +534,7 @@ function getValOfBlock(){
     if (input.value===""){
         return;
     }
-    if (res==="error" || (trg.type=="init" && (typeof(res)!=="string" || res=="changes")) || (trg.type=="act" && res!=="changes") || (trg.type=="if" && typeof(res)=="string")){
+    if (res==="error" || (trg.type=="init" && (typeof(res)!=="string" || res=="changes")) || !(trg.type=="act" && (res!=="changes") || !isNaN(+res)) || (trg.type=="if" && typeof(res)=="string")){
         input.style.background="#DEB5B1";
         return;
     }
@@ -2032,7 +2032,6 @@ var SE = 0;
 var mess=NaN;
 function checkRes(result){
     if (result === undefined || SE === 'SE' || result==='NaN' ) {
-        //alert(result);
         return "error";
     }
     else {
@@ -2141,7 +2140,7 @@ function parse_T(n) {
         if (n=="changes")
             return n;
         else{
-            return mess=="changes"?mess:n;
+            return n;
         }
     }
     if (t.getVal() === '*') {
