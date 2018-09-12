@@ -92,7 +92,8 @@ header div{
 }
 
 #hiddenTools{
-    width: 0%;
+    width: 8%;
+    float:left;
     overflow: hidden;
 }
 
