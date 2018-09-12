@@ -90,11 +90,10 @@ header div{
 
 #hiddenTools:hover{
 	display: block;
-	/*opacity: 0.5;*/
 }
 
 #hiddenTools{
-	width: 8%;
+	width: 0%;
 	float:left;
 	overflow: hidden;
 }
@@ -104,12 +103,12 @@ header div{
 	height: 50px;
 	float: top;
 	vertical-align: center;
-	margin-left: 150px;
+	/*margin-left: 150px;*/
 }
 
 #hiddenInformationMenu{
 	overflow: hidden;
-	width: 16%;
+	width: 0%;
 	float:right;
 }
 
