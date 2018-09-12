@@ -22,11 +22,20 @@ function works(req, res) {
     db.serialize(function () {
         db.get("SELECT * FROM sessions WHERE id=$id", {$id: cookies.session_id}, function (err, row) {
             if (typeof(row) === 'undefined') {
-                console.log('NO SESSION');
-                console.log(cookies.session_id);
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'text/html');
+
+                fs.readFile('index.html', 'utf-8', function (err, data) {
+                    var loadParam = "reLogin();";
+                    data = data.replace("{param}", loadParam).replace("{errorAuth}", "Log In before Projects").replace("{errorReg}", "")
+                    .replace("{valueAuth}", "value=\"\"").replace("{valueReg}", "value=\"\"")
+                    .replace("{loginCheckBorder}", "").replace("{passwordCheckBorder}", "")
+                    .replace("{loginCheckBorder}", "").replace("{passwordBorder}", "").replace("{rePasswordBorder}", "");
+                    res.end(data);
+                })
             } else {
                 login = row.login;
-                // lastupdate = row.$lastupdate;
+                //lastupdate = row.$lastupdate;
                 let projects = '';
                 db.each("SELECT * FROM projects WHERE login=$login", {$login: login}, function (err, row) {
                     projects += "<div class=\"project\">" + row.title + "<p class=\"defaulttext\">" + row.lastupdate + "</p></div>";
@@ -37,7 +46,7 @@ function works(req, res) {
                         data = data.replace("{projects}", projects);
                         res.end(data);
                     });
-                }, 10)
+                }, 100)
             }
         });
     });

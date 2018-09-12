@@ -24,14 +24,6 @@ let MDL;
 let MDT;
 let gotoMod=false;
 
-
-window.onloud=function(){
-    newFile();
-    if (!source){
-        source= document.getElementById('workSpaceBody').innerHTML;
-    }
-}();
-
 class vort{
     constructor(type,pos, x, y){
         this.parents= [];
@@ -206,7 +198,8 @@ document.addEventListener("drop", function(event) {
             mg.setAttribute("src","WorkZone/img/down.png");
             mg.className="down";
             if (parent.type=="start"){
-                mg.style.top="-140%";
+                mg.style.top="-149%";
+                mg.style.height="70%";
             }
             V.cell.appendChild(mg);
         }
@@ -321,20 +314,38 @@ function reSetIdsChld(V,side,C){
     for (let i of V.childs){
         reSetIdsChld(graph[i],side,C);
     }
-}
+}	
 
 function createBlock(row, cell,prnt,ifRes){
     var table = document.getElementById("workSpace");
-    let key=row+ " " +(cell-mainColumn);
+	let key=row+ " " +(cell-mainColumn);
     let newVort = new vort("trg",countOfVort++,row,cell-mainColumn);
     newVort.baseClass="lv";
     newVort.addParent(prnt);
-    graph[prnt].addChild(countOfVort-1);
+	graph[prnt].addChild(countOfVort-1);
     newVort.cell=table.rows[row].cells[cell];
     newVort.cell.className="droptarget";
     graphIds.set(key,countOfVort-1);
     graph.push(newVort);
     newVort.ifRes=ifRes;
+}
+
+function createBlockV2(row, cell,prnt,ifRes){
+    var table = document.getElementById("workSpace");
+	let key=row+ " " +(cell-mainColumn);
+    let newVort = new vort("trg",countOfVort++,row,cell-mainColumn);
+    newVort.baseClass="lv";
+	newVort.cell=table.rows[row].cells[cell];
+    graphIds.set(key,countOfVort-1);
+    graph.push(newVort);
+    newVort.ifRes=ifRes;
+}
+
+function findRoot(V){
+    while (V.y==graph[V.parents[0]].y && graph[V.parents[0]].type!="start" ){
+        V=graph[V.parents[0]];
+    }
+    return V.parents[0];
 }
 
 function addColumn(pos){
@@ -508,8 +519,8 @@ function reGetVal(){
             per.children[i].remove();
             per.children[i].remove();
         } else{
-            m.set(name.innerHTML,trg.value);
-            varMap.set(name.innerHTML,trg.value);
+            m.set(name.innerHTML,Number(trg.value));
+            varMap.set(name.innerHTML,Number(trg.value));
             trg.parentNode.firstChild.innerHTML=trg.value;
             reValBlur();
         }
@@ -523,7 +534,7 @@ function getValOfBlock(){
     if (input.value===""){
         return;
     }
-    if (res==="error" || (trg.type=="init" && (typeof(res)!=="string" || res=="changes")) || (trg.type=="act" && res!=="changes") || (trg.type=="if" && typeof(res)=="string")){
+    if (res==="error" || (trg.type=="init" && (typeof(res)!=="string" || res=="changes")) || !(trg.type=="act" && (res!=="changes") || !isNaN(+res)) || (trg.type=="if" && typeof(res)=="string")){
         input.style.background="#DEB5B1";
         return;
     }
@@ -730,6 +741,10 @@ function whileForLeftOrRight(){
     var V =graph[0];
     while(V.type!="end" && count>=0){
         count--;
+        if (V.dead){
+            alert("any block is already dead");
+            return;
+        }
         if (V.type=="start"){
             V=graph[V.childs[0]];
             //reSetM();
@@ -824,12 +839,22 @@ function buttonPlay(){
     if (inMenu)
         return;
     buttonReStart();
+
     if (document.getElementById("var").firstChild.tagName=="i"){
         return;
     }
     infinitLoop=0;
     var V =graph[0];
     while(V.type!="end"){
+        if (infinitLoop>100){
+            alert("error of loop");
+            buttonReStart();
+            return;
+        }
+        if (V.dead){
+            alert("any block is already dead");
+            return;
+        }
         infinitLoop++;
         if (V.type=="start"){
             V=graph[V.childs[0]];
@@ -875,11 +900,6 @@ function buttonPlay(){
             break;
         }
         V=graph[V.childs[0]];
-        if (infinitLoop>100){
-            alert("error of loop");
-            buttonReStart();
-            return;
-        }
     }
     setRes();
     reSetM();
@@ -992,9 +1012,19 @@ function buttonDelete(){
             graph[trueCh].cell.appendChild(mg);
         }
     } else if (block.type=="end" || block.type=="loop"){
+        if (block.type== "loop"){
+            let i;
+            var U=graph[block.childs[0]];
+            for (i=0;i<U.parents.length;i++){
+                if (U.parents[i]==block.pos)
+                    break;
+            }
+            U.parents.splice(i,1);
+        }
         block.cell.innerHTML="";
         block.cell.className="droptarget";
         block.type="trg";
+
     }else{
         pr.childs[0]==block.pos?(pr.childs[0]=block.childs[0]) :(pr.childs[1]=block.childs[0]);
         graph[block.childs[0]].parents[0]=pr.pos;
@@ -1190,7 +1220,7 @@ function newFile(){
     let M=document.getElementById("Main");
     let lu=document.getElementById('newFileUl');
     menu.style.display= "block";
-    if (firstFile>=1 && lu.children.length==5){
+    if (firstFile>=1 && lu.children.length==7){
         let lu=document.getElementById('newFileUl');
         let back = document.createElement('li');
         let hr= document.createElement("hr");
@@ -1293,11 +1323,420 @@ function buttonNewFile(){
     graph.push(ft);
 }
 
+
+// ДИЧЬ КЛЕВАЯ КЛАССНАЯ (с) ДИМА К.
+
+function SaveDataStr() {
+	var str = "";
+	var key;
+	
+	str += document.getElementById("workSpace").innerHTML;
+	
+	str += "@\n";
+	str += mainColumn;
+	
+	str += "@\n";
+	
+	
+	for ( key of varMap) {
+		str += key + " ";
+	}
+	str += ";\n";
+	
+	
+	
+	//инфа для вершин
+	
+	for (var i of graph) {
+		str += i.x + " " + (i.y + mainColumn) + " " ;
+		if (i.parents[0] != undefined){
+			str += i.parents[0] + " ";
+		}
+		else
+		{
+			str += " ";
+		}
+		str += i.ifRes + ",";
+	}
+	str += "!\n";
+	
+	for ( key of graphIds) {
+		str += key + " ";
+	}
+	
+	str += ";\n";
+	
+	for (var i of graph) {
+		for (var j of i.parents){
+			str += j + " ";
+		}
+		str += "|";
+	}
+	str += ";\n";
+	for (var i of graph) {
+		for (var j of i.childs){
+			str += j + " ";
+		}
+		str += "|";
+	}
+	str += ";\n";
+	
+	
+	for (var i of graph) {
+		str += i.type + " ";
+	}
+	str += ";\n";
+	/*
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	for (var i of graph) {
+		str += i.pos + " ";
+	}
+	str += ";\n";
+	
+	for (var i of graph) {
+		str += i.x + " ";
+	}
+	str += ";\n";
+	
+	for (var i of graph) {
+		str += i.y + " ";
+	}
+	str += ";\n";
+	
+	*/
+	
+	
+	for (var i of graph) {
+		str += i.dead + " ";
+	}
+	str += ";\n";
+	
+	
+	for (var i of graph) {
+		str += i.value + " ";
+	}
+	
+	str += ";\n";
+	
+	
+	
+	console.log(str);
+	return str;
+}
+
+function loadF() {
+    var input=document.createElement("input");
+    input.type='file';
+
+    input.onchange= function (){
+        var fr = new FileReader();
+        fr.onload = function (e){
+            str=e.target.result;
+            priem(str);
+        };
+        console.log(fr.readAsText(this.files[0]));
+
+    };
+    input.click();
+}
+
+function priem(str) {
+	var len = str.length;
+	var cnt = 0;
+	var key = "";
+	var val = "";
+	var crewKol = 0;
+	//  = "";
+	while (str.charAt(cnt) != "@")
+	{
+		val +=str.charAt(cnt);
+		cnt++;
+	}
+	document.getElementById("workSpace").innerHTML = val;
+	val ="";
+	cnt +=2;
+	while (str.charAt(cnt) != "@")
+	{
+		val +=str.charAt(cnt);
+		cnt++;
+	}
+	mainColumn = Number(val);
+	//alert(val);
+	
+	varMap.clear();
+	graph = [];
+	
+	val = "";
+	cnt +=2;
+	
+	while (str.charAt(cnt) != ";")
+	{
+		while (str.charAt(cnt) != ","){
+			key += str.charAt(cnt);
+			cnt++;
+		}
+		cnt++;
+		while (str.charAt(cnt) != " "){
+			val += str.charAt(cnt);
+			cnt++;
+		}
+		cnt++;
+        varSet.add(key);
+		varMap.set(key, Number(val));
+		key = "";
+		val = "";
+	
+	}
+	key = "";
+	val = "";
+	
+	cnt += 2;
+	
+	countOfVort = crewKol;
+	while (str.charAt(cnt) != "!")
+	{
+		var xx = "";
+		var yy= "";
+		var prntx = "";
+		var ress = "";
+	
+			while (str.charAt(cnt) != " ")
+			{
+				xx +=str.charAt(cnt);
+				cnt++;
+			}
+			cnt++;
+			while (str.charAt(cnt) != " ")
+			{
+				yy += str.charAt(cnt);
+				cnt++;
+			}
+			cnt++;
+			while (str.charAt(cnt) != " ")
+			{
+				prntx += str.charAt(cnt);
+				cnt++;
+			}
+			cnt++;
+			while (str.charAt(cnt) != ",")
+			{
+				ress += str.charAt(cnt);
+				cnt++;
+			}
+			cnt++;
+		var ifRess = (ress == "true");
+		if (prntx == ""){
+			var ifPrntx = -1;
+		}
+		else{
+			var ifPrntx = Number(prntx);
+		}
+		createBlockV2(Number(xx), Number(yy), 0, ifRess);
+			
+		crewKol++;
+		countOfVort = crewKol;	
+	}
+	cnt+=2;
+	graphIds.clear();	
+	
+	for (var i of graph) {
+			i.parents = [];
+			i.childs = [];
+	}
+	
+	
+	while (str.charAt(cnt) != ";")
+	{
+		while (str.charAt(cnt) != ","){
+			key += str.charAt(cnt);
+			cnt++;
+			
+		}
+		cnt++;
+		while (str.charAt(cnt) != " "){
+			val += str.charAt(cnt);
+			cnt++;
+		}
+		cnt++;
+		graphIds.set(key, Number(val));
+		key = "";
+		val = "";
+	}
+	
+	
+	
+	cnt += 2;
+	var countV =0;
+    var st="";
+	while (str.charAt(cnt) != ";")
+	{
+		while (str.charAt(cnt) != "|"){
+			if (str.charAt(cnt) != " ")
+				st += str.charAt(cnt);
+			cnt++;
+		}
+		cnt++;
+		graph[countV].addParent(Number(st));
+				if (st == "")
+			graph[countV].parents = [];
+		//alert("!" + countV);
+		st = "";
+		countV++;
+	}
+	countV = 0;
+	st = "";
+	
+	cnt += 2;
+	
+	//alert('&!');
+	
+	while (str.charAt(cnt) != ";")
+	{
+		while (str.charAt(cnt) != "|"){
+			if (str.charAt(cnt) != " ")
+				st += str.charAt(cnt);
+			cnt++;
+		}
+		cnt++;
+		graph[countV].addChild(Number(st));
+		if (st == "")
+			graph[countV].childs = [];
+		countV++;
+		st = "";
+	}
+	countV= 0;
+	
+	val ="";
+	cnt+=2;
+	
+	//document.getElementById("workSpace").innerHTML = "";
+	while (str.charAt(cnt) != ";")
+	{
+		while (str.charAt(cnt) != " "){
+			val += str.charAt(cnt);
+			cnt++;
+		}
+		cnt++;
+		graph[countV].type=val;
+		countV++;
+		val ="";
+	}
+	cnt += 2;
+    val="";
+    countV=0;
+    while (str.charAt(cnt) != ";")
+    {
+        while (str.charAt(cnt) != " "){
+            val += str.charAt(cnt);
+            cnt++;
+        }
+        cnt++;
+        graph[countV].dead=val=="false"?false : true;
+        countV++;
+        val ="";
+    }
+    cnt += 2;
+    val="";
+    countV=1;
+
+    while(cnt<len){
+        while (str.charAt(cnt) != ";"){
+            val += str.charAt(cnt);
+            cnt++;
+        }
+        val += str.charAt(cnt);
+        cnt+=2;
+        graph[countV].value=val;
+        countV++;
+        val ="";
+    }
+    inMenu=false;
+    buttonReStart();
+    firstFile++ ;
+    let M=document.getElementById("Main");
+    let menu=document.getElementById("newFileMenu");
+    M.style.opacity=1;
+    menu.style.opacity=0;
+    document.getElementById("informationHead").style.opacity= "1";
+    document.getElementById("toolsHead").style.opacity="1";
+    menu.style.display= "none";
+    inMenu=false;
+}
+
+function buttonSave(){
+    if (inMenu)
+        return;
+    var type = 'data:application/octet-stream;base64, ';
+    var text = SaveDataStr();
+    var base = btoa(text);
+    var res = type + base;
+    document.getElementById('buttonSave').href = res;
+    location.href=document.getElementById('buttonSave').href;
+}
+
 function saveFile() {
     var xhr = new XMLHttpRequest();
     body = "title=new&content=info";
     xhr.open('POST', '/save');
     xhr.send(body);
+}
+
+function getCookie (cookieName) {
+  var result = document.cookie.match ('(^|;) ?' + cookieName + '=([^;]*)(;|$)');
+  if (result) {
+      return (unescape (result[2]));
+  } else return null;
+}
+
+function goWorks() {
+    document.location.href = '/works'
+}
+
+function changeLogIn() {
+    if (getCookie("session_id")) {
+        var li = document.getElementById("newFileMenu").children[0].children[4];
+        var id = getCookie("session_id");
+        li.outerHTML = '<li id="logInOut" onclick="logOut();"><div>Log Out<br></div></li>';
+    } else {
+        var li = document.getElementById("newFileMenu").children[0].children[4];
+        li.outerHTML = '<li id="logInOut" onclick="login();"><div>Log in</div></li>';
+    }
+}
+
+function setCookie(name, value, days) {
+    days = days || 30;
+    var last_date = new Date();
+    last_date.setDate(last_date.getDate() + days);
+    var value = escape(value) + ((days==null) ? "" : "; expires="+last_date.toUTCString());
+    document.cookie = name + "=" + value;
+}
+
+function deleteCookie(name) {
+    setCookie(name,0,-1);
+}
+
+function logOut() {
+    if (getCookie("session_id")) {
+        var body = getCookie("session_id");
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/deleteSession');
+        xhr.send(body);
+        
+        deleteCookie("session_id");
+        changeLogIn();
+    }
+}
+
+function logOutFromProjects() {
+    if (getCookie("session_id")) {
+        var body = getCookie("session_id");
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/deleteSession');
+        xhr.send(body);
+
+        deleteCookie("session_id");
+        document.location.href = '/';
+    }
 }
 
 function mouseDown(){
@@ -1370,6 +1809,16 @@ function buttonDesign(){
     menu.style.display= "block";
 }
 
+function buttonTeam(){
+    let menu=document.getElementById("team");
+    let menu1=event.target.parentNode.parentNode.parentNode;
+    menu1.style.opacity=0;
+    menu1.style.display= "none";
+    menu.style.opacity=1;
+    menu.style.display= "block";
+}
+
+
 
 function login(){
     let menu=document.getElementById("Loginform");
@@ -1391,6 +1840,24 @@ function reg(){
     menu1.style.display= "none";
     menu.style.opacity=1;
     menu.style.display= "block";
+}
+
+function reLogin(){
+    let menu=document.getElementById("Loginform");
+    menu.style.opacity=1;
+    menu.style.display= "block";
+    let menu2=document.getElementById("Regform");
+    menu2.style.opacity=0;
+    menu2.style.display= "none";
+}
+
+function reReg(){
+    let menu=document.getElementById("Regform");
+    menu.style.opacity=1;
+    menu.style.display= "block";
+    let menu2=document.getElementById("Loginform");
+    menu2.style.opacity=0;
+    menu2.style.display= "none";
 }
 
 function backGO(){
@@ -1565,7 +2032,6 @@ var SE = 0;
 var mess=NaN;
 function checkRes(result){
     if (result === undefined || SE === 'SE' || result==='NaN' ) {
-        //alert(result);
         return "error";
     }
     else {
@@ -1674,7 +2140,7 @@ function parse_T(n) {
         if (n=="changes")
             return n;
         else{
-            return mess=="changes"?mess:n;
+            return n;
         }
     }
     if (t.getVal() === '*') {

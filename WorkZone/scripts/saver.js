@@ -2,9 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
 
-
-
-
 function parseBody(body) {
     const result = {};
     const keyValuePairs = body.split('&');
@@ -42,18 +39,33 @@ function save (req, res) {
                 console.log('NO SESSION');
             } else {
                 login = row.login;
-                title = 'Рабочий кла$$ =))))';
+                title = 'proj';
                 var curdt = new Date();
                 lastupdate = "last updated in: " + curdt.toDateString();
                 const path = './usersProjects/' + login + '/' + title + '.txt';
                 fs.writeFile(path, body, (err) => {
                     if (err) throw err;
                     db.run("INSERT INTO projects Values ($login, $title, $lastupdate)", {$login: login, $title: title, $lastupdate: lastupdate});
-                    db.close();
                 });
             }
-        });  
+        });
+        db.close();  
     });       
 }
 
+function deleteSession(req, res) {
+    var db = new sqlite3.Database('./data.db');
+    let body = '';
+
+    req.setEncoding('utf-8');
+    req.on('data', data => body += data);
+    req.on('end', () => {
+        var cookies = parseCookies(req);
+        console.log(body);
+        db.run("DELETE FROM sessions WHERE id = $id", {$id: cookies.session_id});
+        db.close();
+    });
+}
+
 module.exports = save;
+module.exports = deleteSession;

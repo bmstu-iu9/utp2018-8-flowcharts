@@ -30,21 +30,21 @@ function checkReg (req, res) {
         let error = "";
 
         if (login.length === 0) {
-            error = "Введите логин!";
+            error = "Enter username!";
         } else if (login.length < 5) {
-            error = "Минимальная длина логина - 5 символов!";
+            error = "Username is 5 symbols minimum!";
         } else if (password.length === 0) {
-            error = "Введите пароль!";
+            error = "Enter password!";
         } else if (password.length < 3) {
-            error = "Минимальная длина пароля - 3 символа!";
+            error = "Password is 3 symbols minimum!";
         } else if (password !== rePassword) {
-            error = "Пароли не совпадают!";
+            error = "Passwords are not same!";
         }
 
-        if (error === "Введите логин!" || error === "Минимальная длина логина - 5 символов!") {
+        if (error === "Enter username!" || error === "Username is 5 symbols minimum!") {
             res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-            fs.readFile(path.resolve('Workzone', 'regauthindex.html'), 'utf-8', function (err, data) {
-                var loadParam = "<body onload=\"showreg('block')\">";
+            fs.readFile('index.html', 'utf-8', function (err, data) {
+                var loadParam = "reReg();";
                 data =  data.replace("{param}", loadParam).replace("{errorReg}", error).replace("{errorAuth}", "")
                     .replace("{valueReg}", "value=\""+login.toString()+"\"").replace("{valueAuth}",  "value=\"\"")
                     .replace("{loginBorder}", 'style=\"border: 1px solid lightcoral;\"');
@@ -57,11 +57,11 @@ function checkReg (req, res) {
                         db.run("INSERT INTO users Values ($login, $password)", {$login: login, $password: password});
                         fs.mkdirSync("./usersProjects/"+login);
                         res.writeHead(200, {"Content-Type": "text/plain; charset=utf-8"});
-                        res.end('Вы успешно зарегистрированы!');
+                        res.end('Signed up successfully!');
                     } else {
                         res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-                        fs.readFile(path.resolve('WorkZone', 'regauthindex.html'), 'utf-8', function (err, data) {
-                            var loadParam = "<body onload=\"showreg('block')\">";
+                        fs.readFile('index.html', 'utf-8', function (err, data) {
+                            var loadParam = "reReg();";
                             data =  data.replace("{param}", loadParam).replace("{errorReg}", error).replace("{errorAuth}", "")
                                 .replace("{valueReg}", "value=\""+login.toString()+"\"").replace("{valueAuth}",  "value=\"\"")
                                 .replace("{passwordBorder}", 'style=\"border: 1px solid lightcoral;\"')
@@ -70,10 +70,10 @@ function checkReg (req, res) {
                         });
                     }
                 } else {
-                    error = "Пользователь с таким логином уже зарегистрирован!";
+                    error = "This username already exists!";
                     res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-                    fs.readFile(path.resolve('Workzone', 'regauthindex.html'), 'utf-8', function (err, data) {
-                        var loadParam = "<body onload=\"showreg('block')\">";
+                    fs.readFile('index.html', 'utf-8', function (err, data) {
+                        var loadParam = "reReg();";
                         data =  data.replace("{param}", loadParam).replace("{errorReg}", error).replace("{errorAuth}", "")
                             .replace("{valueReg}", "value=\""+login.toString()+"\"").replace("{valueAuth}", "\"\"")
                             .replace("{loginBorder}", 'style=\"border: 1px solid lightcoral;\"');
