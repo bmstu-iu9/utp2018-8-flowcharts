@@ -454,6 +454,8 @@ function getVal(){
     hr.size=3;
     hr.color="#334D4D";
     hr.style.opacity= 0.7;
+    hr.style.backgroundColor= "lightgrey";
+    hr.style.borderColor="white";
     elem1.innerHTML = res;
     let i = document.createElement("div");
     i.innerHTML=m.get(res);
@@ -944,6 +946,7 @@ function newSetRes(item, tMap){
     hr.size=3;
     hr.color="#334D4D";
     hr.style.opacity= 0.7;
+    hr.className = hrline;
     elem1.innerHTML = item;
     let i = document.createElement("div");
     let rs=tMap.get(item);
@@ -1780,6 +1783,7 @@ function greenT(){
     document.getElementById('buttonAddFile').src="https://png.icons8.com/dotty/40/B7BCC7/add-file.png";
     document.getElementById('buttonSettings').src="https://png.icons8.com/ios/48/cccccc/settings.png";
     document.getElementById('questionMark').src="https://png.icons8.com/material/40/B7BCC7/question-mark.png";
+    document.getElementById('lupa').src='WorkZone/img/lupa.png';
 }
 
 function blueT(){
@@ -1798,6 +1802,7 @@ function blueT(){
     document.getElementById('buttonAddFile').src="https://png.icons8.com/dotty/40/B7BCC7/add-file.png";
     document.getElementById('buttonSettings').src="https://png.icons8.com/ios/48/cccccc/settings.png";
     document.getElementById('questionMark').src="https://png.icons8.com/material/40/B7BCC7/question-mark.png";
+    document.getElementById('lupa').src='WorkZone/img/lupa.png';
 }
 
 function darkT(){
@@ -1816,6 +1821,7 @@ function darkT(){
     document.getElementById('buttonAddFile').src="https://png.icons8.com/dotty/40/B7BCC7/add-file.png";
     document.getElementById('buttonSettings').src="https://png.icons8.com/ios/48/cccccc/settings.png";
     document.getElementById('questionMark').src="https://png.icons8.com/material/40/B7BCC7/question-mark.png";
+    document.getElementById('lupa').src='WorkZone/img/lupa.png';
 }
 
 function simpleT() {
@@ -1834,6 +1840,7 @@ function simpleT() {
     document.getElementById('buttonAddFile').src="./WorkZone/img/SimpleIcons/add-file.png";
     document.getElementById('buttonSettings').src="./WorkZone/img/SimpleIcons/settings.png";
     document.getElementById('questionMark').src="./WorkZone/img/SimpleIcons/question-mark.png";
+    document.getElementById('lupa').src='./WorkZone/img/SimpleIcons/lupa.png';
 
 }
 

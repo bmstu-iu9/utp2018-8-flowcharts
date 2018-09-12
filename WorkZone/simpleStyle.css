@@ -30,10 +30,9 @@ body{
 	-webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    background-color: #F7F7F7;
+    background-color:  white;
     -webkit-appearance: none;
   	-moz-appearance: none;
-  	appearance: none;
 
 }
 
@@ -48,7 +47,7 @@ main{
 *{
   margin: 0;
   padding: 0;
-  color: #BEC8DE;
+  color: black;
 }
 
 header{
@@ -56,7 +55,8 @@ header{
 	width: 100%;
 	justify-content:center;
 	height: 75px;
-	background-color: white;
+	background-color: #F7F7F7;
+	border: 1px solid lightgrey;
 	margin-bottom: 10px;
 }
 
@@ -177,6 +177,14 @@ header div{
 	border: 1px solid lightgrey;
   	-webkit-transition: width 1s, left 1s;
   	text-align: center;
+}
+
+#menu h6{
+	color: black;
+	font: 13px/18px Arial, sans-serif;
+	position: relative;
+	padding-top: 10px;
+
 }
 
 #menu img{
@@ -450,14 +458,15 @@ table tbody tr {
 	z-index: 20	;
 	position: absolute;
 	top: 1%;
-	left: 74%;
+	left: 77%;
 	width: calc(9% + 10px);	
 	-webkit-transition: left 1s;
 }	
 
 #zoom {
-	padding: 12px 0px;
+	padding: 12px 0;
     width: 80%;
+	height: 50%;
     background: none;
     -webkit-appearance: none;
     outline: none;
@@ -468,21 +477,18 @@ table tbody tr {
 	border-radius: 2px;
 	height: 3px;
 	cursor: pointer;
-    background: #3C5454;
+    background: lightgrey;
     opacity: 0.7;
-    box-shadow:  0 0 1px rgba(0,0,0,0.5); 
 }
 
 #zoom::-webkit-slider-thumb {
 	-webkit-appearance: none;
-	background: #475D5D;
+	background: #d3d3d3;
 	height: 16px;
 	width: 4px;
 	border-radius: 4px;
-	margin: -6px 0px;
-	background: #111;
+	margin: -6px 0;
 	opacity: 1;
-	box-shadow:  0 0 2px rgba(0,0,0,0.5); 
 }
 
 #buttons input {
