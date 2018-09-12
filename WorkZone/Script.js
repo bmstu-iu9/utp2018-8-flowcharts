@@ -534,8 +534,6 @@ function getValOfBlock(){
     if (input.value===""){
         return;
     }
-    alert(res);
-    alert((trg.type=="act" && (res!=="changes" && isNaN(+res))));
     if (res==="error" || (trg.type=="init" && (typeof(res)!=="string" || res=="changes")) || (trg.type=="act" && (res!=="changes" && isNaN(+res))) || (trg.type=="if" && typeof(res)=="string")){
         input.style.background="#DEB5B1";
         return;
@@ -2233,10 +2231,6 @@ function parseF() {
             if (t.getVal() === '=') {
                 t.next();
                 m.set(key, Number(parseO()));
-                if (t.getVal() !== ";") {
-                    SE ="SE";
-                    return;
-                }
                 return 'changes';
             }
             else if (t.getVal() === '+='){
