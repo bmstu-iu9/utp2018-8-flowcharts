@@ -603,6 +603,15 @@ function cmenu(){
         }
         contmenu.style.height="160px";
     }
+    if (block.type=="if"){
+        document.getElementById("DT").style.display="block";
+        document.getElementById("DF").style.display="block";
+        document.getElementById("D").style.display="none";
+    } else{
+        document.getElementById("DT").style.display="none";
+        document.getElementById("DF").style.display="none";
+        document.getElementById("D").style.display="block";
+    }
     contmenu.style.width="170px";
     contmenu.style.opacity=0.95;
 }
@@ -976,6 +985,10 @@ function buttonReStart() {
         debag=false;
     }
     document.getElementById('buttonReStart').style.display= 'none';
+}
+
+function buttonDeleteT(){
+    //лень делать 
 }
 
 function buttonDelete(){
@@ -1635,7 +1648,7 @@ function priem(str) {
         countV++;
         val ="";
     }
-    cnt += 2;
+    cnt += 3;
     val="";
     countV=1;
 
@@ -1644,7 +1657,7 @@ function priem(str) {
             val += str.charAt(cnt);
             cnt++;
         }
-        val += str.charAt(cnt);
+        if (val!=" ") val += str.charAt(cnt);
         cnt+=2;
         graph[countV].value=val;
         countV++;
