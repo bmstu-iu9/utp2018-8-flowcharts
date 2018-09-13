@@ -81,7 +81,7 @@ function getFocus(trg) {
     let row=trg.parentNode.rowIndex;
     let cell=trg.cellIndex;
     let paint=true;
-    let V =graph[graphIds.get(row+ " "+(cell-mainColumn))];    
+    let V =graph[graphIds.get(row+ " "+(cell-mainColumn))];
     if (gotoMod){
         var W=graph[blockTriggered];
         if (W.childs.length){
@@ -97,7 +97,7 @@ function getFocus(trg) {
         } else {
             W.addChild(V.pos);
             V.addParent(W.pos);
-        }  
+        }
         if (trg.tagName!="IMG")
             trg=trg.firstChild;
         if (trg.className!=="down"&& trg.className!="loop"){
@@ -314,15 +314,15 @@ function reSetIdsChld(V,side,C){
     for (let i of V.childs){
         reSetIdsChld(graph[i],side,C);
     }
-}	
+}
 
 function createBlock(row, cell,prnt,ifRes){
     var table = document.getElementById("workSpace");
-	let key=row+ " " +(cell-mainColumn);
+    let key=row+ " " +(cell-mainColumn);
     let newVort = new vort("trg",countOfVort++,row,cell-mainColumn);
     newVort.baseClass="lv";
     newVort.addParent(prnt);
-	graph[prnt].addChild(countOfVort-1);
+    graph[prnt].addChild(countOfVort-1);
     newVort.cell=table.rows[row].cells[cell];
     newVort.cell.className="droptarget";
     graphIds.set(key,countOfVort-1);
@@ -332,10 +332,10 @@ function createBlock(row, cell,prnt,ifRes){
 
 function createBlockV2(row, cell,prnt,ifRes){
     var table = document.getElementById("workSpace");
-	let key=row+ " " +(cell-mainColumn);
+    let key=row+ " " +(cell-mainColumn);
     let newVort = new vort("trg",countOfVort++,row,cell-mainColumn);
     newVort.baseClass="lv";
-	newVort.cell=table.rows[row].cells[cell];
+    newVort.cell=table.rows[row].cells[cell];
     graphIds.set(key,countOfVort-1);
     graph.push(newVort);
     newVort.ifRes=ifRes;
@@ -1050,7 +1050,7 @@ function buttonDelete(){
 function fix(V,dif){
     V.y-=dif;
     if (V.type=="loop")
-            return;
+        return;
     for(let i=0;i<V.childs.length;i++){
         fix(graph[V.childs[i]],dif);
     }
@@ -1075,7 +1075,7 @@ function reIndRec(V){
     V.x=V.cell.parentNode.rowIndex;
     V.y=V.cell.cellIndex-mainColumn;
     if (V.type=="loop")
-            return;
+        return;
     for (var i=0;i<V.childs.length;i++){
         reIndRec(graph[V.childs[i]]);
     }
@@ -1133,7 +1133,7 @@ function ifDfs(V,dif){
     V.y-=dif;
     V.x--;
     if (V.type=="loop")
-            return;
+        return;
     for (var i=0;i<V.childs.length;i++){
         ifDfs(graph[V.childs[i]],dif);
     }
@@ -1152,7 +1152,7 @@ function dfs(V){
     graphIds.delete((V.x)+ " "+(V.y));
     V.x--;
     if (V.type=="loop")
-            return;
+        return;
     for (var i=0;i<V.childs.length;i++){
         dfs(graph[V.childs[i]]);
     }
@@ -1340,101 +1340,101 @@ function buttonNewFile(){
 // ДИЧЬ КЛЕВАЯ КЛАССНАЯ (с) ДИМА К.
 
 function SaveDataStr() {
-	var str = "";
-	var key;
-	
-	str += document.getElementById("workSpace").innerHTML;
-	
-	str += "@\n";
-	str += mainColumn;
-	
-	str += "@\n";
-	
-	
-	for ( key of varMap) {
-		str += key + " ";
-	}
-	str += ";\n";
-	
-	
-	
-	//инфа для вершин
-	
-	for (var i of graph) {
-		str += i.x + " " + (i.y + mainColumn) + " " ;
-		if (i.parents[0] != undefined){
-			str += i.parents[0] + " ";
-		}
-		else
-		{
-			str += " ";
-		}
-		str += i.ifRes + ",";
-	}
-	str += "!\n";
-	
-	for ( key of graphIds) {
-		str += key + " ";
-	}
-	
-	str += ";\n";
-	
-	for (var i of graph) {
-		for (var j of i.parents){
-			str += j + " ";
-		}
-		str += "|";
-	}
-	str += ";\n";
-	for (var i of graph) {
-		for (var j of i.childs){
-			str += j + " ";
-		}
-		str += "|";
-	}
-	str += ";\n";
-	
-	
-	for (var i of graph) {
-		str += i.type + " ";
-	}
-	str += ";\n";
-	/*
-	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	for (var i of graph) {
-		str += i.pos + " ";
-	}
-	str += ";\n";
-	
-	for (var i of graph) {
-		str += i.x + " ";
-	}
-	str += ";\n";
-	
-	for (var i of graph) {
-		str += i.y + " ";
-	}
-	str += ";\n";
-	
-	*/
-	
-	
-	for (var i of graph) {
-		str += i.dead + " ";
-	}
-	str += ";\n";
-	
-	
-	for (var i of graph) {
-		str += i.value + " ";
-	}
-	
-	str += ";\n";
-	
-	
-	
-	console.log(str);
-	return str;
+    var str = "";
+    var key;
+
+    str += document.getElementById("workSpace").innerHTML;
+
+    str += "@\n";
+    str += mainColumn;
+
+    str += "@\n";
+
+
+    for ( key of varMap) {
+        str += key + " ";
+    }
+    str += ";\n";
+
+
+
+    //инфа для вершин
+
+    for (var i of graph) {
+        str += i.x + " " + (i.y + mainColumn) + " " ;
+        if (i.parents[0] != undefined){
+            str += i.parents[0] + " ";
+        }
+        else
+        {
+            str += " ";
+        }
+        str += i.ifRes + ",";
+    }
+    str += "!\n";
+
+    for ( key of graphIds) {
+        str += key + " ";
+    }
+
+    str += ";\n";
+
+    for (var i of graph) {
+        for (var j of i.parents){
+            str += j + " ";
+        }
+        str += "|";
+    }
+    str += ";\n";
+    for (var i of graph) {
+        for (var j of i.childs){
+            str += j + " ";
+        }
+        str += "|";
+    }
+    str += ";\n";
+
+
+    for (var i of graph) {
+        str += i.type + " ";
+    }
+    str += ";\n";
+    /*
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    for (var i of graph) {
+        str += i.pos + " ";
+    }
+    str += ";\n";
+
+    for (var i of graph) {
+        str += i.x + " ";
+    }
+    str += ";\n";
+
+    for (var i of graph) {
+        str += i.y + " ";
+    }
+    str += ";\n";
+
+    */
+
+
+    for (var i of graph) {
+        str += i.dead + " ";
+    }
+    str += ";\n";
+
+
+    for (var i of graph) {
+        str += i.value + " ";
+    }
+
+    str += ";\n";
+
+
+
+    console.log(str);
+    return str;
 }
 
 function loadF() {
@@ -1454,187 +1454,187 @@ function loadF() {
 }
 
 function priem(str) {
-	var len = str.length;
-	var cnt = 0;
-	var key = "";
-	var val = "";
-	var crewKol = 0;
-	//  = "";
-	while (str.charAt(cnt) != "@")
-	{
-		val +=str.charAt(cnt);
-		cnt++;
-	}
-	document.getElementById("workSpace").innerHTML = val;
-	val ="";
-	cnt +=2;
-	while (str.charAt(cnt) != "@")
-	{
-		val +=str.charAt(cnt);
-		cnt++;
-	}
-	mainColumn = Number(val);
-	//alert(val);
-	
-	varMap.clear();
-	graph = [];
-	
-	val = "";
-	cnt +=2;
-	
-	while (str.charAt(cnt) != ";")
-	{
-		while (str.charAt(cnt) != ","){
-			key += str.charAt(cnt);
-			cnt++;
-		}
-		cnt++;
-		while (str.charAt(cnt) != " "){
-			val += str.charAt(cnt);
-			cnt++;
-		}
-		cnt++;
+    var len = str.length;
+    var cnt = 0;
+    var key = "";
+    var val = "";
+    var crewKol = 0;
+    //  = "";
+    while (str.charAt(cnt) != "@")
+    {
+        val +=str.charAt(cnt);
+        cnt++;
+    }
+    document.getElementById("workSpace").innerHTML = val;
+    val ="";
+    cnt +=2;
+    while (str.charAt(cnt) != "@")
+    {
+        val +=str.charAt(cnt);
+        cnt++;
+    }
+    mainColumn = Number(val);
+    //alert(val);
+
+    varMap.clear();
+    graph = [];
+
+    val = "";
+    cnt +=2;
+
+    while (str.charAt(cnt) != ";")
+    {
+        while (str.charAt(cnt) != ","){
+            key += str.charAt(cnt);
+            cnt++;
+        }
+        cnt++;
+        while (str.charAt(cnt) != " "){
+            val += str.charAt(cnt);
+            cnt++;
+        }
+        cnt++;
         varSet.add(key);
-		varMap.set(key, Number(val));
-		key = "";
-		val = "";
-	
-	}
-	key = "";
-	val = "";
-	
-	cnt += 2;
-	
-	countOfVort = crewKol;
-	while (str.charAt(cnt) != "!")
-	{
-		var xx = "";
-		var yy= "";
-		var prntx = "";
-		var ress = "";
-	
-			while (str.charAt(cnt) != " ")
-			{
-				xx +=str.charAt(cnt);
-				cnt++;
-			}
-			cnt++;
-			while (str.charAt(cnt) != " ")
-			{
-				yy += str.charAt(cnt);
-				cnt++;
-			}
-			cnt++;
-			while (str.charAt(cnt) != " ")
-			{
-				prntx += str.charAt(cnt);
-				cnt++;
-			}
-			cnt++;
-			while (str.charAt(cnt) != ",")
-			{
-				ress += str.charAt(cnt);
-				cnt++;
-			}
-			cnt++;
-		var ifRess = (ress == "true");
-		if (prntx == ""){
-			var ifPrntx = -1;
-		}
-		else{
-			var ifPrntx = Number(prntx);
-		}
-		createBlockV2(Number(xx), Number(yy), 0, ifRess);
-			
-		crewKol++;
-		countOfVort = crewKol;	
-	}
-	cnt+=2;
-	graphIds.clear();	
-	
-	for (var i of graph) {
-			i.parents = [];
-			i.childs = [];
-	}
-	
-	
-	while (str.charAt(cnt) != ";")
-	{
-		while (str.charAt(cnt) != ","){
-			key += str.charAt(cnt);
-			cnt++;
-			
-		}
-		cnt++;
-		while (str.charAt(cnt) != " "){
-			val += str.charAt(cnt);
-			cnt++;
-		}
-		cnt++;
-		graphIds.set(key, Number(val));
-		key = "";
-		val = "";
-	}
-	
-	
-	
-	cnt += 2;
-	var countV =0;
+        varMap.set(key, Number(val));
+        key = "";
+        val = "";
+
+    }
+    key = "";
+    val = "";
+
+    cnt += 2;
+
+    countOfVort = crewKol;
+    while (str.charAt(cnt) != "!")
+    {
+        var xx = "";
+        var yy= "";
+        var prntx = "";
+        var ress = "";
+
+        while (str.charAt(cnt) != " ")
+        {
+            xx +=str.charAt(cnt);
+            cnt++;
+        }
+        cnt++;
+        while (str.charAt(cnt) != " ")
+        {
+            yy += str.charAt(cnt);
+            cnt++;
+        }
+        cnt++;
+        while (str.charAt(cnt) != " ")
+        {
+            prntx += str.charAt(cnt);
+            cnt++;
+        }
+        cnt++;
+        while (str.charAt(cnt) != ",")
+        {
+            ress += str.charAt(cnt);
+            cnt++;
+        }
+        cnt++;
+        var ifRess = (ress == "true");
+        if (prntx == ""){
+            var ifPrntx = -1;
+        }
+        else{
+            var ifPrntx = Number(prntx);
+        }
+        createBlockV2(Number(xx), Number(yy), 0, ifRess);
+
+        crewKol++;
+        countOfVort = crewKol;
+    }
+    cnt+=2;
+    graphIds.clear();
+
+    for (var i of graph) {
+        i.parents = [];
+        i.childs = [];
+    }
+
+
+    while (str.charAt(cnt) != ";")
+    {
+        while (str.charAt(cnt) != ","){
+            key += str.charAt(cnt);
+            cnt++;
+
+        }
+        cnt++;
+        while (str.charAt(cnt) != " "){
+            val += str.charAt(cnt);
+            cnt++;
+        }
+        cnt++;
+        graphIds.set(key, Number(val));
+        key = "";
+        val = "";
+    }
+
+
+
+    cnt += 2;
+    var countV =0;
     var st="";
-	while (str.charAt(cnt) != ";")
-	{
-		while (str.charAt(cnt) != "|"){
-			if (str.charAt(cnt) != " ")
-				st += str.charAt(cnt);
-			cnt++;
-		}
-		cnt++;
-		graph[countV].addParent(Number(st));
-				if (st == "")
-			graph[countV].parents = [];
-		//alert("!" + countV);
-		st = "";
-		countV++;
-	}
-	countV = 0;
-	st = "";
-	
-	cnt += 2;
-	
-	//alert('&!');
-	
-	while (str.charAt(cnt) != ";")
-	{
-		while (str.charAt(cnt) != "|"){
-			if (str.charAt(cnt) != " ")
-				st += str.charAt(cnt);
-			cnt++;
-		}
-		cnt++;
-		graph[countV].addChild(Number(st));
-		if (st == "")
-			graph[countV].childs = [];
-		countV++;
-		st = "";
-	}
-	countV= 0;
-	
-	val ="";
-	cnt+=2;
-	
-	//document.getElementById("workSpace").innerHTML = "";
-	while (str.charAt(cnt) != ";")
-	{
-		while (str.charAt(cnt) != " "){
-			val += str.charAt(cnt);
-			cnt++;
-		}
-		cnt++;
-		graph[countV].type=val;
-		countV++;
-		val ="";
-	}
-	cnt += 2;
+    while (str.charAt(cnt) != ";")
+    {
+        while (str.charAt(cnt) != "|"){
+            if (str.charAt(cnt) != " ")
+                st += str.charAt(cnt);
+            cnt++;
+        }
+        cnt++;
+        graph[countV].addParent(Number(st));
+        if (st == "")
+            graph[countV].parents = [];
+        //alert("!" + countV);
+        st = "";
+        countV++;
+    }
+    countV = 0;
+    st = "";
+
+    cnt += 2;
+
+    //alert('&!');
+
+    while (str.charAt(cnt) != ";")
+    {
+        while (str.charAt(cnt) != "|"){
+            if (str.charAt(cnt) != " ")
+                st += str.charAt(cnt);
+            cnt++;
+        }
+        cnt++;
+        graph[countV].addChild(Number(st));
+        if (st == "")
+            graph[countV].childs = [];
+        countV++;
+        st = "";
+    }
+    countV= 0;
+
+    val ="";
+    cnt+=2;
+
+    //document.getElementById("workSpace").innerHTML = "";
+    while (str.charAt(cnt) != ";")
+    {
+        while (str.charAt(cnt) != " "){
+            val += str.charAt(cnt);
+            cnt++;
+        }
+        cnt++;
+        graph[countV].type=val;
+        countV++;
+        val ="";
+    }
+    cnt += 2;
     val="";
     countV=0;
     while (str.charAt(cnt) != ";")
@@ -1695,10 +1695,10 @@ function saveFile() {
 }
 
 function getCookie (cookieName) {
-  var result = document.cookie.match ('(^|;) ?' + cookieName + '=([^;]*)(;|$)');
-  if (result) {
-      return (unescape (result[2]));
-  } else return null;
+    var result = document.cookie.match ('(^|;) ?' + cookieName + '=([^;]*)(;|$)');
+    if (result) {
+        return (unescape (result[2]));
+    } else return null;
 }
 
 function goWorks() {
@@ -1734,7 +1734,7 @@ function logOut() {
         var xhr = new XMLHttpRequest();
         xhr.open('POST', '/deleteSession');
         xhr.send(body);
-        
+
         deleteCookie("session_id");
         changeLogIn();
     }
@@ -1984,6 +1984,18 @@ class Pos {
                     res += a;
                     t = t.skip();
                     a = t.getChar();
+                } else  if  (a === "\"") {
+                    res += a;
+                    t = t.skip();
+                    a = t.getChar();
+                    while (a !== "\"") {
+                        res += a;
+                        t = t.skip();
+                        a = t.getChar();
+                    }
+                    res += a;
+                    t = t.skip();
+                    a = t.getChar();
                 } else {
                     //console.log("error of Syntax2");
                     return "error";
@@ -2008,7 +2020,7 @@ class token {
         if (oper.some(t => t === a)){
             this.val=this.start.getVal("oper");
             this.id="oper";
-        } else if (a >= 'a' && a <= 'z' || a >= 'A' && a <= 'Z') {
+        } else if (a >= 'a' && a <= 'z' || a >= 'A' && a <= 'Z' || a === "\"") {
             this.val = this.start.getVal("ident");
             this.id="ident";
             if (this.val === "true" || this.val === "false"){
@@ -2210,7 +2222,13 @@ function parseF() {
             t.next();
             if (t.getVal() === '=') {
                 t.next();
-                let res= Number(parseO());
+                let res;
+                if (t.getId() === "ident") {
+                    res = t.getVal();
+                    t.next();
+                } else {
+                    res = Number(parseO());
+                }
                 //alert(t.getVal());
                 if (t.getVal() !== ";") {
                     SE = "SE";
@@ -2243,7 +2261,18 @@ function parseF() {
 
             if (t.getVal() === '=') {
                 t.next();
-                m.set(key, Number(parseO()));
+                let res;
+                if (t.getId() === "ident") {
+                    res = t.getVal();
+                    t.next();
+                } else if (t.getId() === "number"){
+                    res = Number(parseO());
+                }
+                else {
+                    SE = "SE"
+                    return;
+                }
+                m.set(key, res);
                 return 'changes';
             }
             else if (t.getVal() === '+='){
