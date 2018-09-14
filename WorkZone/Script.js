@@ -2190,9 +2190,15 @@ function parse_T(n) {
             return n;
         }
     }
+    let res;
     if (t.getVal() === '*') {
         t.next();
-        return parse_T(n * parseF());
+        res = n * parseF();
+        if (isNaN(res)) {
+            SE = "SE";
+            return;
+        }
+        return parse_T(res);
     } else if (t.getVal() === '%') {
         t.next();
         return parse_T(n * parseF());
