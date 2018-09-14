@@ -2266,14 +2266,17 @@ function parseF() {
             if (t.getVal() === '=') {
                 t.next();
                 let res;
-                if (t.getId() === "ident" || t.getId() === "number") {
+                //alert(t.getVal() + " " + t.getId());
+                if (t.getId() === "number") {
                     res = parseO();
-                }
-                else {
+                } else if (t.getId() === "ident") {
+                    res = t.getVal();
+                    t.next();
+                }  else {
                     SE = "SE"
                     return;
                 }
-               // alert("!" + res);
+                //alert("!" + res);
                 m.set(key, res);
                 return 'changes';
             }

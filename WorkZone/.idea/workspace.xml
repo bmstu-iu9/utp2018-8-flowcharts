@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d38461f3-4549-42a8-a2dc-e21978eb031a" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Script.js" beforeDir="false" afterPath="$PROJECT_DIR$/Script.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -17,20 +18,21 @@
     <session id="-665019448">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
+          <entry key="project.closed" value="3" />
           <entry key="project.open.time.0" value="2" />
           <entry key="project.open.time.11" value="1" />
-          <entry key="project.opened" value="3" />
+          <entry key="project.open.time.12" value="1" />
+          <entry key="project.opened" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="js" value="1475" />
+          <entry key="js" value="1519" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JavaScript" value="1475" />
+          <entry key="JavaScript" value="1519" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.js.language.service.starts" />
@@ -44,8 +46,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Script.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="2123" column="36" selection-start-line="2123" selection-start-column="36" selection-end-line="2123" selection-end-column="36" />
+            <state relative-caret-position="391">
+              <caret line="2341" column="16" selection-start-line="2341" selection-start-column="16" selection-end-line="2341" selection-end-column="16" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
               </folding>
@@ -81,8 +83,8 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="1055" />
-    <option name="width" value="873" />
-    <option name="height" value="1038" />
+    <option name="width" value="874" />
+    <option name="height" value="1039" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -90,6 +92,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -101,7 +104,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -135,18 +137,19 @@
       <workItem from="1534509563343" duration="150000" />
       <workItem from="1536309797445" duration="2713000" />
       <workItem from="1536407500807" duration="3318000" />
-      <workItem from="1536887027561" duration="10118000" />
+      <workItem from="1536887027561" duration="10486000" />
+      <workItem from="1536919164997" duration="1470000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31401000" />
+    <option name="totallyTimeSpent" value="33239000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="844" y="0" width="698" height="830" extended-state="0" />
+    <frame x="844" y="0" width="699" height="831" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.04236006" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.042296074" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -177,8 +180,8 @@
     <entry file="file://$PROJECT_DIR$/index.html" />
     <entry file="file://$PROJECT_DIR$/Script.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="2123" column="36" selection-start-line="2123" selection-start-column="36" selection-end-line="2123" selection-end-column="36" />
+        <state relative-caret-position="391">
+          <caret line="2341" column="16" selection-start-line="2341" selection-start-column="16" selection-end-line="2341" selection-end-column="16" />
           <folding>
             <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
           </folding>
