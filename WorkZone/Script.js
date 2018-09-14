@@ -1964,7 +1964,7 @@ class Pos {
             let res = "";
             let a = this.getChar();
             while(!oper.some(t=>t=== a)){
-                if  (a >= '0' && a <= '9') {
+                if  (a >= '0' && a <= '9' || a==='.') {
                     res += a;
                     t = t.skip();
                     a = t.getChar();
@@ -2030,7 +2030,7 @@ class token {
             if (this.val === "true" || this.val === "false"){
                 this.id="boolean";
             }
-        } else if (a >= '0' && a <= '9') {
+        } else if (a >= '0' && a <= '9' || a==='.') {
             this.val = this.start.getVal("number");
             this.id = "number";
         } else {
@@ -2141,6 +2141,7 @@ function parse_E(n) {
     if (t.getVal() === '+') {
         t.next();
         let ttt=parseT();
+       // alert(isNaN(Number(ttt)));
        // alert(n+ttt);
         return parse_E(n + ttt);
     }
@@ -2174,14 +2175,14 @@ function parse_T(n) {
     }
     if (t.getVal() === '*') {
         t.next();
-        return parse_T(n * parseF());
+        return parse_T(Number(n) * Number(parseF()));
     } else if (t.getVal() === '%') {
         t.next();
-        return parse_T(n * parseF());
+        return parse_T(Number(n) * Number(parseF()));
     }
     else if (t.getVal() === '/') {
         t.next();
-        return parse_T(n / parseF());
+        return parse_T(Number(n) / Number(parseF()));
     }
     else if (t.getVal() === '&&'){
         t.next();
@@ -2231,7 +2232,7 @@ function parseF() {
                     res = t.getVal();
                     t.next();
                 } else {
-                    res = parseO();
+                    res = Number(parseO());
                 }
                 //alert(t.getVal());
                 if (t.getVal() !== ";") {
@@ -2281,7 +2282,7 @@ function parseF() {
                 t.next();
                 let exp=parseE();
                 if (write){
-                    m.set(key,sors.get(key)+Number(exp));
+                    m.set(key,sors.get(key)+exp);
                 }
                 return "changes";
             }
