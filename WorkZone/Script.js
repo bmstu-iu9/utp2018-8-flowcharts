@@ -1974,7 +1974,7 @@ class Pos {
                 }
             }
             this.pos = t.pos;
-            return res;
+            return Number(res);
         } else {
             let t = this;
             let res = "";
@@ -1985,10 +1985,14 @@ class Pos {
                     t = t.skip();
                     a = t.getChar();
                 } else  if  (a === "\"") {
+                    let count = 0;
                     res += a;
                     t = t.skip();
                     a = t.getChar();
                     while (a !== "\"") {
+                        if (count++ >100) {
+                            return "error";
+                        }
                         res += a;
                         t = t.skip();
                         a = t.getChar();
@@ -2136,13 +2140,13 @@ function parse_E(n) {
     //alert(n);
     if (t.getVal() === '+') {
         t.next();
-        let ttt=Number(parseT());
-        //alert(n+  " "+ttt);
-        return parse_E(Number(n) + ttt);
+        let ttt=parseT();
+       // alert(n+ttt);
+        return parse_E(n + ttt);
     }
     else if (t.getVal() === '-') {
         t.next();
-        return parse_E(Number(n) - Number(parseT()));
+        return parse_E(n - parseT());
     }
     else if (t.getVal() === '||'){
         t.next();
@@ -2170,14 +2174,14 @@ function parse_T(n) {
     }
     if (t.getVal() === '*') {
         t.next();
-        return parse_T(Number(n) * Number(parseF()));
+        return parse_T(n * parseF());
     } else if (t.getVal() === '%') {
         t.next();
-        return parse_T(Number(n) * Number(parseF()));
+        return parse_T(n * parseF());
     }
     else if (t.getVal() === '/') {
         t.next();
-        return parse_T(Number(n) / Number(parseF()));
+        return parse_T(n / parseF());
     }
     else if (t.getVal() === '&&'){
         t.next();
@@ -2227,7 +2231,7 @@ function parseF() {
                     res = t.getVal();
                     t.next();
                 } else {
-                    res = Number(parseO());
+                    res = parseO();
                 }
                 //alert(t.getVal());
                 if (t.getVal() !== ";") {
@@ -2262,16 +2266,14 @@ function parseF() {
             if (t.getVal() === '=') {
                 t.next();
                 let res;
-                if (t.getId() === "ident") {
-                    res = t.getVal();
-                    t.next();
-                } else if (t.getId() === "number"){
-                    res = Number(parseO());
+                if (t.getId() === "ident" || t.getId() === "number") {
+                    res = parseO();
                 }
                 else {
                     SE = "SE"
                     return;
                 }
+               // alert("!" + res);
                 m.set(key, res);
                 return 'changes';
             }
@@ -2334,6 +2336,7 @@ function parseF() {
                 if (write){
                     i=sors.get(key);
                 }
+                i = sors.get(key);
                 return i;
             }
         }
