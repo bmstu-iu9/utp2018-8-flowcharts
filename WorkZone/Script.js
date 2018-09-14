@@ -81,7 +81,7 @@ function getFocus(trg) {
     let row=trg.parentNode.rowIndex;
     let cell=trg.cellIndex;
     let paint=true;
-    let V =graph[graphIds.get(row+ " "+(cell-mainColumn))];
+    let V =graph[graphIds.get(row+ " "+(cell-mainColumn))];    
     if (gotoMod){
         var W=graph[blockTriggered];
         if (W.childs.length){
@@ -97,7 +97,7 @@ function getFocus(trg) {
         } else {
             W.addChild(V.pos);
             V.addParent(W.pos);
-        }
+        }  
         if (trg.tagName!="IMG")
             trg=trg.firstChild;
         if (trg.className!=="down"&& trg.className!="loop"){
@@ -314,7 +314,7 @@ function reSetIdsChld(V,side,C){
     for (let i of V.childs){
         reSetIdsChld(graph[i],side,C);
     }
-}
+}   
 
 function createBlock(row, cell,prnt,ifRes){
     var table = document.getElementById("workSpace");
@@ -1050,7 +1050,7 @@ function buttonDelete(){
 function fix(V,dif){
     V.y-=dif;
     if (V.type=="loop")
-        return;
+            return;
     for(let i=0;i<V.childs.length;i++){
         fix(graph[V.childs[i]],dif);
     }
@@ -1075,7 +1075,7 @@ function reIndRec(V){
     V.x=V.cell.parentNode.rowIndex;
     V.y=V.cell.cellIndex-mainColumn;
     if (V.type=="loop")
-        return;
+            return;
     for (var i=0;i<V.childs.length;i++){
         reIndRec(graph[V.childs[i]]);
     }
@@ -1133,7 +1133,7 @@ function ifDfs(V,dif){
     V.y-=dif;
     V.x--;
     if (V.type=="loop")
-        return;
+            return;
     for (var i=0;i<V.childs.length;i++){
         ifDfs(graph[V.childs[i]],dif);
     }
@@ -1152,7 +1152,7 @@ function dfs(V){
     graphIds.delete((V.x)+ " "+(V.y));
     V.x--;
     if (V.type=="loop")
-        return;
+            return;
     for (var i=0;i<V.childs.length;i++){
         dfs(graph[V.childs[i]]);
     }
@@ -1342,24 +1342,24 @@ function buttonNewFile(){
 function SaveDataStr() {
     var str = "";
     var key;
-
+    
     str += document.getElementById("workSpace").innerHTML;
-
+    
     str += "@\n";
     str += mainColumn;
-
+    
     str += "@\n";
-
-
+    
+    
     for ( key of varMap) {
         str += key + " ";
     }
     str += ";\n";
-
-
-
+    
+    
+    
     //инфа для вершин
-
+    
     for (var i of graph) {
         str += i.x + " " + (i.y + mainColumn) + " " ;
         if (i.parents[0] != undefined){
@@ -1372,13 +1372,13 @@ function SaveDataStr() {
         str += i.ifRes + ",";
     }
     str += "!\n";
-
+    
     for ( key of graphIds) {
         str += key + " ";
     }
-
+    
     str += ";\n";
-
+    
     for (var i of graph) {
         for (var j of i.parents){
             str += j + " ";
@@ -1393,8 +1393,8 @@ function SaveDataStr() {
         str += "|";
     }
     str += ";\n";
-
-
+    
+    
     for (var i of graph) {
         str += i.type + " ";
     }
@@ -1405,34 +1405,34 @@ function SaveDataStr() {
         str += i.pos + " ";
     }
     str += ";\n";
-
+    
     for (var i of graph) {
         str += i.x + " ";
     }
     str += ";\n";
-
+    
     for (var i of graph) {
         str += i.y + " ";
     }
     str += ";\n";
-
+    
     */
-
-
+    
+    
     for (var i of graph) {
         str += i.dead + " ";
     }
     str += ";\n";
-
-
+    
+    
     for (var i of graph) {
         str += i.value + " ";
     }
-
+    
     str += ";\n";
-
-
-
+    
+    
+    
     console.log(str);
     return str;
 }
@@ -1475,13 +1475,13 @@ function priem(str) {
     }
     mainColumn = Number(val);
     //alert(val);
-
+    
     varMap.clear();
     graph = [];
-
+    
     val = "";
     cnt +=2;
-
+    
     while (str.charAt(cnt) != ";")
     {
         while (str.charAt(cnt) != ","){
@@ -1498,13 +1498,13 @@ function priem(str) {
         varMap.set(key, Number(val));
         key = "";
         val = "";
-
+    
     }
     key = "";
     val = "";
-
+    
     cnt += 2;
-
+    
     countOfVort = crewKol;
     while (str.charAt(cnt) != "!")
     {
@@ -1512,31 +1512,31 @@ function priem(str) {
         var yy= "";
         var prntx = "";
         var ress = "";
-
-        while (str.charAt(cnt) != " ")
-        {
-            xx +=str.charAt(cnt);
+    
+            while (str.charAt(cnt) != " ")
+            {
+                xx +=str.charAt(cnt);
+                cnt++;
+            }
             cnt++;
-        }
-        cnt++;
-        while (str.charAt(cnt) != " ")
-        {
-            yy += str.charAt(cnt);
+            while (str.charAt(cnt) != " ")
+            {
+                yy += str.charAt(cnt);
+                cnt++;
+            }
             cnt++;
-        }
-        cnt++;
-        while (str.charAt(cnt) != " ")
-        {
-            prntx += str.charAt(cnt);
+            while (str.charAt(cnt) != " ")
+            {
+                prntx += str.charAt(cnt);
+                cnt++;
+            }
             cnt++;
-        }
-        cnt++;
-        while (str.charAt(cnt) != ",")
-        {
-            ress += str.charAt(cnt);
+            while (str.charAt(cnt) != ",")
+            {
+                ress += str.charAt(cnt);
+                cnt++;
+            }
             cnt++;
-        }
-        cnt++;
         var ifRess = (ress == "true");
         if (prntx == ""){
             var ifPrntx = -1;
@@ -1545,25 +1545,25 @@ function priem(str) {
             var ifPrntx = Number(prntx);
         }
         createBlockV2(Number(xx), Number(yy), 0, ifRess);
-
+            
         crewKol++;
-        countOfVort = crewKol;
+        countOfVort = crewKol;  
     }
     cnt+=2;
-    graphIds.clear();
-
+    graphIds.clear();   
+    
     for (var i of graph) {
-        i.parents = [];
-        i.childs = [];
+            i.parents = [];
+            i.childs = [];
     }
-
-
+    
+    
     while (str.charAt(cnt) != ";")
     {
         while (str.charAt(cnt) != ","){
             key += str.charAt(cnt);
             cnt++;
-
+            
         }
         cnt++;
         while (str.charAt(cnt) != " "){
@@ -1575,9 +1575,9 @@ function priem(str) {
         key = "";
         val = "";
     }
-
-
-
+    
+    
+    
     cnt += 2;
     var countV =0;
     var st="";
@@ -1590,7 +1590,7 @@ function priem(str) {
         }
         cnt++;
         graph[countV].addParent(Number(st));
-        if (st == "")
+                if (st == "")
             graph[countV].parents = [];
         //alert("!" + countV);
         st = "";
@@ -1598,11 +1598,11 @@ function priem(str) {
     }
     countV = 0;
     st = "";
-
+    
     cnt += 2;
-
+    
     //alert('&!');
-
+    
     while (str.charAt(cnt) != ";")
     {
         while (str.charAt(cnt) != "|"){
@@ -1618,10 +1618,10 @@ function priem(str) {
         st = "";
     }
     countV= 0;
-
+    
     val ="";
     cnt+=2;
-
+    
     //document.getElementById("workSpace").innerHTML = "";
     while (str.charAt(cnt) != ";")
     {
@@ -1695,10 +1695,10 @@ function saveFile() {
 }
 
 function getCookie (cookieName) {
-    var result = document.cookie.match ('(^|;) ?' + cookieName + '=([^;]*)(;|$)');
-    if (result) {
-        return (unescape (result[2]));
-    } else return null;
+  var result = document.cookie.match ('(^|;) ?' + cookieName + '=([^;]*)(;|$)');
+  if (result) {
+      return (unescape (result[2]));
+  } else return null;
 }
 
 function goWorks() {
@@ -1734,7 +1734,7 @@ function logOut() {
         var xhr = new XMLHttpRequest();
         xhr.open('POST', '/deleteSession');
         xhr.send(body);
-
+        
         deleteCookie("session_id");
         changeLogIn();
     }
@@ -1959,22 +1959,46 @@ class Pos {
             }
             this.pos = t.pos;
             return res;
+        } else if (type === "string"){
+            let t = this;
+            let res = '"';
+            let a = this.getChar();
+            t = t.skip();
+            a = t.getChar();
+            while(a!=="\""){
+                if (a===undefined){
+                    return "error";
+                }
+                res += a;
+                t = t.skip();
+                a = t.getChar();
+            }
+            res+=a;
+            t = t.skip();
+            a = t.getChar();
+            this.pos = t.pos;
+            return res;
         } else if (type === "number"){
             let t = this;
             let res = "";
             let a = this.getChar();
+            let point=0;
             while(!oper.some(t=>t=== a)){
-                if  (a >= '0' && a <= '9' || a==='.') {
+                if (a == "." && point==0){
+                    point++;
+                    res+=a;
+                    t = t.skip();
+                    a = t.getChar();
+                } else if  (a >= '0' && a <= '9') {
                     res += a;
                     t = t.skip();
                     a = t.getChar();
                 } else {
-                    // console.log("error of Syntax1");
                     return "error";
                 }
             }
             this.pos = t.pos;
-            return Number(res).toFixed(2);
+            return Number(res);
         } else {
             let t = this;
             let res = "";
@@ -1984,24 +2008,7 @@ class Pos {
                     res += a;
                     t = t.skip();
                     a = t.getChar();
-                } else  if  (a === "\"") {
-                    let count = 0;
-                   // res += a;
-                    t = t.skip();
-                    a = t.getChar();
-                    while (a !== "\"") {
-                        if (count++ >100) {
-                            return "error";
-                        }
-                        res += a;
-                        t = t.skip();
-                        a = t.getChar();
-                    }
-                    //res += a;
-                    t = t.skip();
-                    a = t.getChar();
                 } else {
-                    //console.log("error of Syntax2");
                     return "error";
                 }
             }
@@ -2024,13 +2031,16 @@ class token {
         if (oper.some(t => t === a)){
             this.val=this.start.getVal("oper");
             this.id="oper";
-        } else if (a >= 'a' && a <= 'z' || a >= 'A' && a <= 'Z' || a === "\"") {
+        } else if (a >= 'a' && a <= 'z' || a >= 'A' && a <= 'Z') {
             this.val = this.start.getVal("ident");
             this.id="ident";
             if (this.val === "true" || this.val === "false"){
                 this.id="boolean";
             }
-        } else if (a >= '0' && a <= '9' || a==='.') {
+        } else if (a=='"'){
+            this.val=this.start.getVal("string");
+            this.id="string";
+        } else if (a >= '0' && a <= '9') {
             this.val = this.start.getVal("number");
             this.id = "number";
         } else {
@@ -2105,23 +2115,23 @@ function parse_O(n) {
     }
     else if ( t.getVal() === '<') {
         t.next();
-        return parse_O(Number(n) < Number(parseE()));
+        return parse_O(n < parseE());
     }
     else if (t.getVal() === '>') {
         t.next();
-        return parse_O(Number(n) > Number(parseE()));
+        return parse_O(n > parseE());
     }
     else if (t.getVal() === '>=') {
         t.next();
-        return parse_O(Number(n) >= Number(parseE()));
+        return parse_O(n >=(parseE));
     }
     else if (t.getVal() === '<=') {
         t.next();
-        return parse_O(Number(n) <= Number(parseE()));
+        return parse_O(n <=(parseE));
     }
     else if (t.getVal() === '==') {
         t.next();
-        return parse_O(n == parseE());
+        return parse_O(n ==(parseE));
     }
     else if (t.getId()==="number"|| t.getId()==="ident" || n==="initialization"&& t.getVal()!=";"){
         SE = 'SE';
@@ -2137,9 +2147,11 @@ function parseE() {
 
 
 function parse_E(n) {
+    //alert(n);
     if (t.getVal() === '+') {
         t.next();
-        let ttt=parseT();
+        let ttt=(parseT());
+        //alert(n+  " "+ttt);
         return parse_E(n + ttt);
     }
     else if (t.getVal() === '-') {
@@ -2172,14 +2184,14 @@ function parse_T(n) {
     }
     if (t.getVal() === '*') {
         t.next();
-        return parse_T(Number(n) * Number(parseF()));
+        return parse_T(n * parseF());
     } else if (t.getVal() === '%') {
         t.next();
-        return parse_T(Number(n) * Number(parseF()));
+        return parse_T(n * parseF());
     }
     else if (t.getVal() === '/') {
         t.next();
-        return parse_T(Number(n) / Number(parseF()));
+        return parse_T(n / parseF());
     }
     else if (t.getVal() === '&&'){
         t.next();
@@ -2203,6 +2215,11 @@ function parseF() {
         t.next();
         return num;
     }
+    else if (t.getId()==="string") {
+        var strng = t.getVal();
+        t.next();
+        return strng;
+    }
     else if (t.getId()==='boolean'){
         if (t.getVal()){
             t.next();
@@ -2224,14 +2241,7 @@ function parseF() {
             t.next();
             if (t.getVal() === '=') {
                 t.next();
-                let res;
-                if (t.getId() === "ident") {
-                    res = t.getVal();
-                    t.next();
-                } else {
-                    res = Number(parseO());
-                }
-                //alert(t.getVal());
+                let res= parseO();
                 if (t.getVal() !== ";") {
                     SE = "SE";
                 }
@@ -2257,24 +2267,13 @@ function parseF() {
             var sors;
             if (m.has(key)){
                 sors = m;
-            }else if (varMap.has(key)) {
+            }else {
                 sors =varMap;
-            } else {
-                return key;
             }
 
             if (t.getVal() === '=') {
                 t.next();
-                let res;
-                if (t.getId() === "ident" || t.getId() === "number") {
-                    res = parseO();
-                }
-                else {
-                    SE = "SE"
-                    return;
-                }
-               // alert("!" + res);
-                m.set(key, res);
+                m.set(key, parseO());
                 return 'changes';
             }
             else if (t.getVal() === '+='){
@@ -2289,7 +2288,7 @@ function parseF() {
                 t.next();
                 let exp=parseE();
                 if (write){
-                    m.set(key,sors.get(key)-Number(exp));
+                    m.set(key,sors.get(key)-exp);
                 }
                 return "changes";
             }
@@ -2297,7 +2296,7 @@ function parseF() {
                 t.next();
                 let exp=parseE();
                 if (write){
-                    m.set(key,sors.get(key)*Number(exp));
+                    m.set(key,sors.get(key)*exp);
                 }
                 return "changes";
             }
@@ -2305,7 +2304,7 @@ function parseF() {
                 t.next();
                 let exp=parseE();
                 if (write){
-                    m.set(key,sors.get(key)/Number(exp));
+                    m.set(key,sors.get(key)/exp);
                 }
                 return "changes";
             }
@@ -2316,7 +2315,7 @@ function parseF() {
                     if(sors.get(key)==undefined ){
                         m.set(key,1);
                     } else {
-                        m.set(key,(Number(sors.get(key))+1));
+                        m.set(key,sors.get(key)+1);
                     }
                 }
                 return (write?(m.get(key)-1):1);
@@ -2327,16 +2326,15 @@ function parseF() {
                 if (write){
                     if(sors.get(key)==undefined){
                         m.set(key,-1);
-                    } else m.set(key,Number(sors.get(key))-1);
+                    } else m.set(key,sors.get(key)-1);
                 }
                 return (write?(m.get(key)+1):1);
             }
             else {
-                let i= key;
+                let i= 0;
                 if (write){
                     i=sors.get(key);
                 }
-                //alert("i "+i);
                 return i;
             }
         }
@@ -2372,7 +2370,7 @@ function parseF() {
                 if (sors.get(key) == undefined) {
                     m.set(key, 1);
                 } else {
-                    m.set(key, Number(sors.get(key)) + 1);
+                    m.set(key, sors.get(key) + 1);
                 }
             }
 
@@ -2397,7 +2395,7 @@ function parseF() {
             if (write) {
                 if (sors.get(key) == undefined) {
                     m.set(key, -1);
-                } else m.set(key, Number(sors.get(key)) - 1);
+                } else m.set(key, sors.get(key) - 1);
             }
             return (write ? (m.get(key)) : 1);
         }else {
