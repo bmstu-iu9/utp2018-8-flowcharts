@@ -501,29 +501,31 @@ function reValBlur(){
 
 function reGetVal(){
     let trg=event.target;
-    if (isNaN(trg.value)){
-        trg.style.background="#DEB5B1";
-    }else{
-        let i=0;
-        while (trg.parentNode.children[i+1]!=trg){
-            i+=3;
+    let i=0;
+    while (trg.parentNode.children[i+1]!=trg){
+        i+=3;
+    }
+    let name= trg.parentNode.parentNode.children[i];
+    if (trg.value===""){
+        let per=trg.parentNode.parentNode;
+        m.delete(name.innerHTML);
+        s.delete(name.innerHTML);
+        varSet.delete(name.innerHTML);
+        varMap.delete(name.innerHTML);
+        per.children[i].remove();
+        per.children[i].remove();
+        per.children[i].remove();
+    } else{
+        let t=trg.value;
+        if (t[0]!=='"') {
+            if (Number(t)) 
+                t =Number(t);
+            else t= '"'+t+'"';
         }
-        let name= trg.parentNode.parentNode.children[i];
-        if (trg.value===""){
-            let per=trg.parentNode.parentNode;
-            m.delete(name.innerHTML);
-            s.delete(name.innerHTML);
-            varSet.delete(name.innerHTML);
-            varMap.delete(name.innerHTML);
-            per.children[i].remove();
-            per.children[i].remove();
-            per.children[i].remove();
-        } else{
-            m.set(name.innerHTML,Number(trg.value));
-            varMap.set(name.innerHTML,Number(trg.value));
-            trg.parentNode.firstChild.innerHTML=trg.value;
-            reValBlur();
-        }
+        m.set(name.innerHTML,t);
+        varMap.set(name.innerHTML,t);
+        trg.parentNode.firstChild.innerHTML=t;
+        reValBlur();
     }
 }
 
@@ -2064,7 +2066,6 @@ class token {
 }
 
 
-
 var write=true;
 var t;
 var SE = 0;
@@ -2145,14 +2146,21 @@ function parseE() {
     return parse_E(parseT());
 }
 
+function checkStr(a,b){
+    var t =a+ b;
+    if (typeof(t)=="string"){
+        t=t.replace(/"/g,"");
+        t='"'+t+'"';
+    }
+    return t;
+}
 
 function parse_E(n) {
     //alert(n);
     if (t.getVal() === '+') {
         t.next();
         let ttt=(parseT());
-        //alert(n+  " "+ttt);
-        return parse_E(n + ttt);
+        return parse_E(checkStr(n,ttt));
     }
     else if (t.getVal() === '-') {
         t.next();
@@ -2315,7 +2323,7 @@ function parseF() {
                     if(sors.get(key)==undefined ){
                         m.set(key,1);
                     } else {
-                        m.set(key,sors.get(key)+1);
+                        m.set(key,checkStr(sors.get(key),1));
                     }
                 }
                 return (write?(m.get(key)-1):1);
@@ -2370,7 +2378,7 @@ function parseF() {
                 if (sors.get(key) == undefined) {
                     m.set(key, 1);
                 } else {
-                    m.set(key, sors.get(key) + 1);
+                    m.set(key, checkStr(sors.get(key),1));
                 }
             }
 
