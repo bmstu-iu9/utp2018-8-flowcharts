@@ -314,15 +314,15 @@ function reSetIdsChld(V,side,C){
     for (let i of V.childs){
         reSetIdsChld(graph[i],side,C);
     }
-}	
+}   
 
 function createBlock(row, cell,prnt,ifRes){
     var table = document.getElementById("workSpace");
-	let key=row+ " " +(cell-mainColumn);
+    let key=row+ " " +(cell-mainColumn);
     let newVort = new vort("trg",countOfVort++,row,cell-mainColumn);
     newVort.baseClass="lv";
     newVort.addParent(prnt);
-	graph[prnt].addChild(countOfVort-1);
+    graph[prnt].addChild(countOfVort-1);
     newVort.cell=table.rows[row].cells[cell];
     newVort.cell.className="droptarget";
     graphIds.set(key,countOfVort-1);
@@ -332,10 +332,10 @@ function createBlock(row, cell,prnt,ifRes){
 
 function createBlockV2(row, cell,prnt,ifRes){
     var table = document.getElementById("workSpace");
-	let key=row+ " " +(cell-mainColumn);
+    let key=row+ " " +(cell-mainColumn);
     let newVort = new vort("trg",countOfVort++,row,cell-mainColumn);
     newVort.baseClass="lv";
-	newVort.cell=table.rows[row].cells[cell];
+    newVort.cell=table.rows[row].cells[cell];
     graphIds.set(key,countOfVort-1);
     graph.push(newVort);
     newVort.ifRes=ifRes;
@@ -501,29 +501,31 @@ function reValBlur(){
 
 function reGetVal(){
     let trg=event.target;
-    if (isNaN(trg.value)){
-        trg.style.background="#DEB5B1";
-    }else{
-        let i=0;
-        while (trg.parentNode.children[i+1]!=trg){
-            i+=3;
+    let i=0;
+    while (trg.parentNode.children[i+1]!=trg){
+        i+=3;
+    }
+    let name= trg.parentNode.parentNode.children[i];
+    if (trg.value===""){
+        let per=trg.parentNode.parentNode;
+        m.delete(name.innerHTML);
+        s.delete(name.innerHTML);
+        varSet.delete(name.innerHTML);
+        varMap.delete(name.innerHTML);
+        per.children[i].remove();
+        per.children[i].remove();
+        per.children[i].remove();
+    } else{
+        let t=trg.value;
+        if (t[0]!=='"') {
+            if (Number(t)) 
+                t =Number(t);
+            else t= '"'+t+'"';
         }
-        let name= trg.parentNode.parentNode.children[i];
-        if (trg.value===""){
-            let per=trg.parentNode.parentNode;
-            m.delete(name.innerHTML);
-            s.delete(name.innerHTML);
-            varSet.delete(name.innerHTML);
-            varMap.delete(name.innerHTML);
-            per.children[i].remove();
-            per.children[i].remove();
-            per.children[i].remove();
-        } else{
-            m.set(name.innerHTML,Number(trg.value));
-            varMap.set(name.innerHTML,Number(trg.value));
-            trg.parentNode.firstChild.innerHTML=trg.value;
-            reValBlur();
-        }
+        m.set(name.innerHTML,t);
+        varMap.set(name.innerHTML,t);
+        trg.parentNode.firstChild.innerHTML=t;
+        reValBlur();
     }
 }
 
@@ -602,6 +604,15 @@ function cmenu(){
             contmenu.insertBefore(lit,contmenu.children[0]);
         }
         contmenu.style.height="160px";
+    }
+    if (block.type=="if"){
+        document.getElementById("DT").style.display="block";
+        document.getElementById("DF").style.display="block";
+        document.getElementById("D").style.display="none";
+    } else{
+        document.getElementById("DT").style.display="none";
+        document.getElementById("DF").style.display="none";
+        document.getElementById("D").style.display="block";
     }
     contmenu.style.width="170px";
     contmenu.style.opacity=0.95;
@@ -978,6 +989,10 @@ function buttonReStart() {
     document.getElementById('buttonReStart').style.display= 'none';
 }
 
+function buttonDeleteT(){
+    //лень делать 
+}
+
 function buttonDelete(){
     let trg=event.target.parentNode;
     let block=graph[blockTriggered];
@@ -1327,101 +1342,101 @@ function buttonNewFile(){
 // ДИЧЬ КЛЕВАЯ КЛАССНАЯ (с) ДИМА К.
 
 function SaveDataStr() {
-	var str = "";
-	var key;
-	
-	str += document.getElementById("workSpace").innerHTML;
-	
-	str += "@\n";
-	str += mainColumn;
-	
-	str += "@\n";
-	
-	
-	for ( key of varMap) {
-		str += key + " ";
-	}
-	str += ";\n";
-	
-	
-	
-	//инфа для вершин
-	
-	for (var i of graph) {
-		str += i.x + " " + (i.y + mainColumn) + " " ;
-		if (i.parents[0] != undefined){
-			str += i.parents[0] + " ";
-		}
-		else
-		{
-			str += " ";
-		}
-		str += i.ifRes + ",";
-	}
-	str += "!\n";
-	
-	for ( key of graphIds) {
-		str += key + " ";
-	}
-	
-	str += ";\n";
-	
-	for (var i of graph) {
-		for (var j of i.parents){
-			str += j + " ";
-		}
-		str += "|";
-	}
-	str += ";\n";
-	for (var i of graph) {
-		for (var j of i.childs){
-			str += j + " ";
-		}
-		str += "|";
-	}
-	str += ";\n";
-	
-	
-	for (var i of graph) {
-		str += i.type + " ";
-	}
-	str += ";\n";
-	/*
-	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	for (var i of graph) {
-		str += i.pos + " ";
-	}
-	str += ";\n";
-	
-	for (var i of graph) {
-		str += i.x + " ";
-	}
-	str += ";\n";
-	
-	for (var i of graph) {
-		str += i.y + " ";
-	}
-	str += ";\n";
-	
-	*/
-	
-	
-	for (var i of graph) {
-		str += i.dead + " ";
-	}
-	str += ";\n";
-	
-	
-	for (var i of graph) {
-		str += i.value + " ";
-	}
-	
-	str += ";\n";
-	
-	
-	
-	console.log(str);
-	return str;
+    var str = "";
+    var key;
+    
+    str += document.getElementById("workSpace").innerHTML;
+    
+    str += "@\n";
+    str += mainColumn;
+    
+    str += "@\n";
+    
+    
+    for ( key of varMap) {
+        str += key + " ";
+    }
+    str += ";\n";
+    
+    
+    
+    //инфа для вершин
+    
+    for (var i of graph) {
+        str += i.x + " " + (i.y + mainColumn) + " " ;
+        if (i.parents[0] != undefined){
+            str += i.parents[0] + " ";
+        }
+        else
+        {
+            str += " ";
+        }
+        str += i.ifRes + ",";
+    }
+    str += "!\n";
+    
+    for ( key of graphIds) {
+        str += key + " ";
+    }
+    
+    str += ";\n";
+    
+    for (var i of graph) {
+        for (var j of i.parents){
+            str += j + " ";
+        }
+        str += "|";
+    }
+    str += ";\n";
+    for (var i of graph) {
+        for (var j of i.childs){
+            str += j + " ";
+        }
+        str += "|";
+    }
+    str += ";\n";
+    
+    
+    for (var i of graph) {
+        str += i.type + " ";
+    }
+    str += ";\n";
+    /*
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    for (var i of graph) {
+        str += i.pos + " ";
+    }
+    str += ";\n";
+    
+    for (var i of graph) {
+        str += i.x + " ";
+    }
+    str += ";\n";
+    
+    for (var i of graph) {
+        str += i.y + " ";
+    }
+    str += ";\n";
+    
+    */
+    
+    
+    for (var i of graph) {
+        str += i.dead + " ";
+    }
+    str += ";\n";
+    
+    
+    for (var i of graph) {
+        str += i.value + " ";
+    }
+    
+    str += ";\n";
+    
+    
+    
+    console.log(str);
+    return str;
 }
 
 function loadF() {
@@ -1441,187 +1456,187 @@ function loadF() {
 }
 
 function priem(str) {
-	var len = str.length;
-	var cnt = 0;
-	var key = "";
-	var val = "";
-	var crewKol = 0;
-	//  = "";
-	while (str.charAt(cnt) != "@")
-	{
-		val +=str.charAt(cnt);
-		cnt++;
-	}
-	document.getElementById("workSpace").innerHTML = val;
-	val ="";
-	cnt +=2;
-	while (str.charAt(cnt) != "@")
-	{
-		val +=str.charAt(cnt);
-		cnt++;
-	}
-	mainColumn = Number(val);
-	//alert(val);
-	
-	varMap.clear();
-	graph = [];
-	
-	val = "";
-	cnt +=2;
-	
-	while (str.charAt(cnt) != ";")
-	{
-		while (str.charAt(cnt) != ","){
-			key += str.charAt(cnt);
-			cnt++;
-		}
-		cnt++;
-		while (str.charAt(cnt) != " "){
-			val += str.charAt(cnt);
-			cnt++;
-		}
-		cnt++;
+    var len = str.length;
+    var cnt = 0;
+    var key = "";
+    var val = "";
+    var crewKol = 0;
+    //  = "";
+    while (str.charAt(cnt) != "@")
+    {
+        val +=str.charAt(cnt);
+        cnt++;
+    }
+    document.getElementById("workSpace").innerHTML = val;
+    val ="";
+    cnt +=2;
+    while (str.charAt(cnt) != "@")
+    {
+        val +=str.charAt(cnt);
+        cnt++;
+    }
+    mainColumn = Number(val);
+    //alert(val);
+    
+    varMap.clear();
+    graph = [];
+    
+    val = "";
+    cnt +=2;
+    
+    while (str.charAt(cnt) != ";")
+    {
+        while (str.charAt(cnt) != ","){
+            key += str.charAt(cnt);
+            cnt++;
+        }
+        cnt++;
+        while (str.charAt(cnt) != " "){
+            val += str.charAt(cnt);
+            cnt++;
+        }
+        cnt++;
         varSet.add(key);
-		varMap.set(key, Number(val));
-		key = "";
-		val = "";
-	
-	}
-	key = "";
-	val = "";
-	
-	cnt += 2;
-	
-	countOfVort = crewKol;
-	while (str.charAt(cnt) != "!")
-	{
-		var xx = "";
-		var yy= "";
-		var prntx = "";
-		var ress = "";
-	
-			while (str.charAt(cnt) != " ")
-			{
-				xx +=str.charAt(cnt);
-				cnt++;
-			}
-			cnt++;
-			while (str.charAt(cnt) != " ")
-			{
-				yy += str.charAt(cnt);
-				cnt++;
-			}
-			cnt++;
-			while (str.charAt(cnt) != " ")
-			{
-				prntx += str.charAt(cnt);
-				cnt++;
-			}
-			cnt++;
-			while (str.charAt(cnt) != ",")
-			{
-				ress += str.charAt(cnt);
-				cnt++;
-			}
-			cnt++;
-		var ifRess = (ress == "true");
-		if (prntx == ""){
-			var ifPrntx = -1;
-		}
-		else{
-			var ifPrntx = Number(prntx);
-		}
-		createBlockV2(Number(xx), Number(yy), 0, ifRess);
-			
-		crewKol++;
-		countOfVort = crewKol;	
-	}
-	cnt+=2;
-	graphIds.clear();	
-	
-	for (var i of graph) {
-			i.parents = [];
-			i.childs = [];
-	}
-	
-	
-	while (str.charAt(cnt) != ";")
-	{
-		while (str.charAt(cnt) != ","){
-			key += str.charAt(cnt);
-			cnt++;
-			
-		}
-		cnt++;
-		while (str.charAt(cnt) != " "){
-			val += str.charAt(cnt);
-			cnt++;
-		}
-		cnt++;
-		graphIds.set(key, Number(val));
-		key = "";
-		val = "";
-	}
-	
-	
-	
-	cnt += 2;
-	var countV =0;
+        varMap.set(key, Number(val));
+        key = "";
+        val = "";
+    
+    }
+    key = "";
+    val = "";
+    
+    cnt += 2;
+    
+    countOfVort = crewKol;
+    while (str.charAt(cnt) != "!")
+    {
+        var xx = "";
+        var yy= "";
+        var prntx = "";
+        var ress = "";
+    
+            while (str.charAt(cnt) != " ")
+            {
+                xx +=str.charAt(cnt);
+                cnt++;
+            }
+            cnt++;
+            while (str.charAt(cnt) != " ")
+            {
+                yy += str.charAt(cnt);
+                cnt++;
+            }
+            cnt++;
+            while (str.charAt(cnt) != " ")
+            {
+                prntx += str.charAt(cnt);
+                cnt++;
+            }
+            cnt++;
+            while (str.charAt(cnt) != ",")
+            {
+                ress += str.charAt(cnt);
+                cnt++;
+            }
+            cnt++;
+        var ifRess = (ress == "true");
+        if (prntx == ""){
+            var ifPrntx = -1;
+        }
+        else{
+            var ifPrntx = Number(prntx);
+        }
+        createBlockV2(Number(xx), Number(yy), 0, ifRess);
+            
+        crewKol++;
+        countOfVort = crewKol;  
+    }
+    cnt+=2;
+    graphIds.clear();   
+    
+    for (var i of graph) {
+            i.parents = [];
+            i.childs = [];
+    }
+    
+    
+    while (str.charAt(cnt) != ";")
+    {
+        while (str.charAt(cnt) != ","){
+            key += str.charAt(cnt);
+            cnt++;
+            
+        }
+        cnt++;
+        while (str.charAt(cnt) != " "){
+            val += str.charAt(cnt);
+            cnt++;
+        }
+        cnt++;
+        graphIds.set(key, Number(val));
+        key = "";
+        val = "";
+    }
+    
+    
+    
+    cnt += 2;
+    var countV =0;
     var st="";
-	while (str.charAt(cnt) != ";")
-	{
-		while (str.charAt(cnt) != "|"){
-			if (str.charAt(cnt) != " ")
-				st += str.charAt(cnt);
-			cnt++;
-		}
-		cnt++;
-		graph[countV].addParent(Number(st));
-				if (st == "")
-			graph[countV].parents = [];
-		//alert("!" + countV);
-		st = "";
-		countV++;
-	}
-	countV = 0;
-	st = "";
-	
-	cnt += 2;
-	
-	//alert('&!');
-	
-	while (str.charAt(cnt) != ";")
-	{
-		while (str.charAt(cnt) != "|"){
-			if (str.charAt(cnt) != " ")
-				st += str.charAt(cnt);
-			cnt++;
-		}
-		cnt++;
-		graph[countV].addChild(Number(st));
-		if (st == "")
-			graph[countV].childs = [];
-		countV++;
-		st = "";
-	}
-	countV= 0;
-	
-	val ="";
-	cnt+=2;
-	
-	//document.getElementById("workSpace").innerHTML = "";
-	while (str.charAt(cnt) != ";")
-	{
-		while (str.charAt(cnt) != " "){
-			val += str.charAt(cnt);
-			cnt++;
-		}
-		cnt++;
-		graph[countV].type=val;
-		countV++;
-		val ="";
-	}
-	cnt += 2;
+    while (str.charAt(cnt) != ";")
+    {
+        while (str.charAt(cnt) != "|"){
+            if (str.charAt(cnt) != " ")
+                st += str.charAt(cnt);
+            cnt++;
+        }
+        cnt++;
+        graph[countV].addParent(Number(st));
+                if (st == "")
+            graph[countV].parents = [];
+        //alert("!" + countV);
+        st = "";
+        countV++;
+    }
+    countV = 0;
+    st = "";
+    
+    cnt += 2;
+    
+    //alert('&!');
+    
+    while (str.charAt(cnt) != ";")
+    {
+        while (str.charAt(cnt) != "|"){
+            if (str.charAt(cnt) != " ")
+                st += str.charAt(cnt);
+            cnt++;
+        }
+        cnt++;
+        graph[countV].addChild(Number(st));
+        if (st == "")
+            graph[countV].childs = [];
+        countV++;
+        st = "";
+    }
+    countV= 0;
+    
+    val ="";
+    cnt+=2;
+    
+    //document.getElementById("workSpace").innerHTML = "";
+    while (str.charAt(cnt) != ";")
+    {
+        while (str.charAt(cnt) != " "){
+            val += str.charAt(cnt);
+            cnt++;
+        }
+        cnt++;
+        graph[countV].type=val;
+        countV++;
+        val ="";
+    }
+    cnt += 2;
     val="";
     countV=0;
     while (str.charAt(cnt) != ";")
@@ -1635,7 +1650,7 @@ function priem(str) {
         countV++;
         val ="";
     }
-    cnt += 2;
+    cnt += 3;
     val="";
     countV=1;
 
@@ -1644,7 +1659,7 @@ function priem(str) {
             val += str.charAt(cnt);
             cnt++;
         }
-        val += str.charAt(cnt);
+        if (val!=" ") val += str.charAt(cnt);
         cnt+=2;
         graph[countV].value=val;
         countV++;
@@ -1946,22 +1961,46 @@ class Pos {
             }
             this.pos = t.pos;
             return res;
+        } else if (type === "string"){
+            let t = this;
+            let res = '"';
+            let a = this.getChar();
+            t = t.skip();
+            a = t.getChar();
+            while(a!=="\""){
+                if (a===undefined){
+                    return "error";
+                }
+                res += a;
+                t = t.skip();
+                a = t.getChar();
+            }
+            res+=a;
+            t = t.skip();
+            a = t.getChar();
+            this.pos = t.pos;
+            return res;
         } else if (type === "number"){
             let t = this;
             let res = "";
             let a = this.getChar();
+            let point=0;
             while(!oper.some(t=>t=== a)){
-                if  (a >= '0' && a <= '9') {
+                if (a == "." && point==0){
+                    point++;
+                    res+=a;
+                    t = t.skip();
+                    a = t.getChar();
+                } else if  (a >= '0' && a <= '9') {
                     res += a;
                     t = t.skip();
                     a = t.getChar();
                 } else {
-                    // console.log("error of Syntax1");
                     return "error";
                 }
             }
             this.pos = t.pos;
-            return res;
+            return Number(res);
         } else {
             let t = this;
             let res = "";
@@ -1972,7 +2011,6 @@ class Pos {
                     t = t.skip();
                     a = t.getChar();
                 } else {
-                    //console.log("error of Syntax2");
                     return "error";
                 }
             }
@@ -2001,6 +2039,9 @@ class token {
             if (this.val === "true" || this.val === "false"){
                 this.id="boolean";
             }
+        } else if (a=='"'){
+            this.val=this.start.getVal("string");
+            this.id="string";
         } else if (a >= '0' && a <= '9') {
             this.val = this.start.getVal("number");
             this.id = "number";
@@ -2023,7 +2064,6 @@ class token {
     }
 
 }
-
 
 
 var write=true;
@@ -2076,23 +2116,23 @@ function parse_O(n) {
     }
     else if ( t.getVal() === '<') {
         t.next();
-        return parse_O(Number(n) < Number(parseE()));
+        return parse_O(n < parseE());
     }
     else if (t.getVal() === '>') {
         t.next();
-        return parse_O(Number(n) > Number(parseE()));
+        return parse_O(n > parseE());
     }
     else if (t.getVal() === '>=') {
         t.next();
-        return parse_O(Number(n) >= Number(parseE()));
+        return parse_O(n >=(parseE));
     }
     else if (t.getVal() === '<=') {
         t.next();
-        return parse_O(Number(n) <= Number(parseE()));
+        return parse_O(n <=(parseE));
     }
     else if (t.getVal() === '==') {
         t.next();
-        return parse_O(Number(n) == Number(parseE()));
+        return parse_O(n ==(parseE));
     }
     else if (t.getId()==="number"|| t.getId()==="ident" || n==="initialization"&& t.getVal()!=";"){
         SE = 'SE';
@@ -2106,18 +2146,25 @@ function parseE() {
     return parse_E(parseT());
 }
 
+function checkStr(a,b){
+    var t =a+ b;
+    if (typeof(t)=="string"){
+        t=t.replace(/"/g,"");
+        t='"'+t+'"';
+    }
+    return t;
+}
 
 function parse_E(n) {
     //alert(n);
     if (t.getVal() === '+') {
         t.next();
-        let ttt=Number(parseT());
-        //alert(n+  " "+ttt);
-        return parse_E(Number(n) + ttt);
+        let ttt=(parseT());
+        return parse_E(checkStr(n,ttt));
     }
     else if (t.getVal() === '-') {
         t.next();
-        return parse_E(Number(n) - Number(parseT()));
+        return parse_E(n - parseT());
     }
     else if (t.getVal() === '||'){
         t.next();
@@ -2145,14 +2192,14 @@ function parse_T(n) {
     }
     if (t.getVal() === '*') {
         t.next();
-        return parse_T(Number(n) * Number(parseF()));
+        return parse_T(n * parseF());
     } else if (t.getVal() === '%') {
         t.next();
-        return parse_T(Number(n) * Number(parseF()));
+        return parse_T(n * parseF());
     }
     else if (t.getVal() === '/') {
         t.next();
-        return parse_T(Number(n) / Number(parseF()));
+        return parse_T(n / parseF());
     }
     else if (t.getVal() === '&&'){
         t.next();
@@ -2176,6 +2223,11 @@ function parseF() {
         t.next();
         return num;
     }
+    else if (t.getId()==="string") {
+        var strng = t.getVal();
+        t.next();
+        return strng;
+    }
     else if (t.getId()==='boolean'){
         if (t.getVal()){
             t.next();
@@ -2197,8 +2249,7 @@ function parseF() {
             t.next();
             if (t.getVal() === '=') {
                 t.next();
-                let res= Number(parseO());
-                //alert(t.getVal());
+                let res= parseO();
                 if (t.getVal() !== ";") {
                     SE = "SE";
                 }
@@ -2230,14 +2281,14 @@ function parseF() {
 
             if (t.getVal() === '=') {
                 t.next();
-                m.set(key, Number(parseO()));
+                m.set(key, parseO());
                 return 'changes';
             }
             else if (t.getVal() === '+='){
                 t.next();
                 let exp=parseE();
                 if (write){
-                    m.set(key,sors.get(key)+Number(exp));
+                    m.set(key,sors.get(key)+exp);
                 }
                 return "changes";
             }
@@ -2245,7 +2296,7 @@ function parseF() {
                 t.next();
                 let exp=parseE();
                 if (write){
-                    m.set(key,sors.get(key)-Number(exp));
+                    m.set(key,sors.get(key)-exp);
                 }
                 return "changes";
             }
@@ -2253,7 +2304,7 @@ function parseF() {
                 t.next();
                 let exp=parseE();
                 if (write){
-                    m.set(key,sors.get(key)*Number(exp));
+                    m.set(key,sors.get(key)*exp);
                 }
                 return "changes";
             }
@@ -2261,7 +2312,7 @@ function parseF() {
                 t.next();
                 let exp=parseE();
                 if (write){
-                    m.set(key,sors.get(key)/Number(exp));
+                    m.set(key,sors.get(key)/exp);
                 }
                 return "changes";
             }
@@ -2272,7 +2323,7 @@ function parseF() {
                     if(sors.get(key)==undefined ){
                         m.set(key,1);
                     } else {
-                        m.set(key,(Number(sors.get(key))+1));
+                        m.set(key,checkStr(sors.get(key),1));
                     }
                 }
                 return (write?(m.get(key)-1):1);
@@ -2283,7 +2334,7 @@ function parseF() {
                 if (write){
                     if(sors.get(key)==undefined){
                         m.set(key,-1);
-                    } else m.set(key,Number(sors.get(key))-1);
+                    } else m.set(key,sors.get(key)-1);
                 }
                 return (write?(m.get(key)+1):1);
             }
@@ -2327,7 +2378,7 @@ function parseF() {
                 if (sors.get(key) == undefined) {
                     m.set(key, 1);
                 } else {
-                    m.set(key, Number(sors.get(key)) + 1);
+                    m.set(key, checkStr(sors.get(key),1));
                 }
             }
 
@@ -2352,7 +2403,7 @@ function parseF() {
             if (write) {
                 if (sors.get(key) == undefined) {
                     m.set(key, -1);
-                } else m.set(key, Number(sors.get(key)) - 1);
+                } else m.set(key, sors.get(key) - 1);
             }
             return (write ? (m.get(key)) : 1);
         }else {
