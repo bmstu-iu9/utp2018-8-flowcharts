@@ -1974,7 +1974,7 @@ class Pos {
                 }
             }
             this.pos = t.pos;
-            return Number(res);
+            return Number(res).toFixed(2);
         } else {
             let t = this;
             let res = "";
@@ -1986,7 +1986,7 @@ class Pos {
                     a = t.getChar();
                 } else  if  (a === "\"") {
                     let count = 0;
-                    res += a;
+                   // res += a;
                     t = t.skip();
                     a = t.getChar();
                     while (a !== "\"") {
@@ -1997,7 +1997,7 @@ class Pos {
                         t = t.skip();
                         a = t.getChar();
                     }
-                    res += a;
+                    //res += a;
                     t = t.skip();
                     a = t.getChar();
                 } else {
@@ -2121,7 +2121,7 @@ function parse_O(n) {
     }
     else if (t.getVal() === '==') {
         t.next();
-        return parse_O(Number(n) == Number(parseE()));
+        return parse_O(n == parseE());
     }
     else if (t.getId()==="number"|| t.getId()==="ident" || n==="initialization"&& t.getVal()!=";"){
         SE = 'SE';
@@ -2137,12 +2137,9 @@ function parseE() {
 
 
 function parse_E(n) {
-    //alert(n);
     if (t.getVal() === '+') {
         t.next();
         let ttt=parseT();
-       // alert(isNaN(Number(ttt)));
-       // alert(n+ttt);
         return parse_E(n + ttt);
     }
     else if (t.getVal() === '-') {
@@ -2260,8 +2257,10 @@ function parseF() {
             var sors;
             if (m.has(key)){
                 sors = m;
-            }else {
+            }else if (varMap.has(key)) {
                 sors =varMap;
+            } else {
+                return key;
             }
 
             if (t.getVal() === '=') {
@@ -2333,11 +2332,11 @@ function parseF() {
                 return (write?(m.get(key)+1):1);
             }
             else {
-                let i= 0;
+                let i= key;
                 if (write){
                     i=sors.get(key);
                 }
-                i = sors.get(key);
+                //alert("i "+i);
                 return i;
             }
         }
