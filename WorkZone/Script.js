@@ -2065,13 +2065,13 @@ class token {
 
 }
 
-
+var tkey = "";
 var write=true;
 var t;
 var SE = 0;
 var mess=NaN;
 function checkRes(result){
-    if (result === undefined || SE === 'SE' || result==='NaN' ) {
+    if (result === undefined || SE === 'SE' || result==='NaN' || !m.get(tkey) || typeof(m.get(tkey))==undefined) {
         return "error";
     }
     else {
@@ -2086,6 +2086,7 @@ function parse(str,wrt) {
     SE=0;
     result="";
     mess=NaN;
+    tkey = "";
     if (';' !== t.getVal()) {
         return checkRes(parseO());
     }
@@ -2247,6 +2248,7 @@ function parseF() {
         if (t.getVal() === 'var') {
             t.next();
             var key = t.getVal();
+            tkey = key;
             mess=key;
             if (varSet.has(key)) {
                 SE = 'SE';
@@ -2277,6 +2279,7 @@ function parseF() {
         }
         else if (s.has(t.getVal()) || varSet.has(t.getVal()) || !write) {
             var key = t.getVal();
+            tkey = key;
             t.next();
             var sors;
             if (m.has(key)){
@@ -2372,6 +2375,7 @@ function parseF() {
         t.next();
         if (t.getId() == "ident") {
             let key = t.getVal();
+            tkey = key;
             t.next();
             var sors;
             if (m.has(key)) {
@@ -2398,6 +2402,7 @@ function parseF() {
         t.next();
         if (t.getId() === "ident") {
             let key = t.getVal();
+            tkey = key;
             t.next();
             var sors;
             if (m.has(key)) {
