@@ -1030,16 +1030,20 @@ function buttonDelete(){
         if (block.type== "loop"){
             let i;
             var U=graph[block.childs[0]];
-            for (i=0;i<U.parents.length;i++){
-                if (U.parents[i]==block.pos)
-                    break;
+            if (U){
+                for (i=0;i<U.parents.length;i++){
+                    if (U.parents[i]==block.pos)
+                        break;
+                }
+                if (i!=U.parents.length)
+                    U.parents.splice(i,1);
             }
-            U.parents.splice(i,1);
         }
         block.cell.innerHTML="";
         block.cell.className="droptarget";
         block.type="trg";
-
+        block.value="";
+        block.childs=[];
     }else{
         pr.childs[0]==block.pos?(pr.childs[0]=block.childs[0]) :(pr.childs[1]=block.childs[0]);
         graph[block.childs[0]].parents[0]=pr.pos;
@@ -2065,13 +2069,13 @@ class token {
 
 }
 
-
+var tkey = "";
 var write=true;
 var t;
 var SE = 0;
 var mess=NaN;
 function checkRes(result){
-    if (result === undefined || SE === 'SE' || result==='NaN' ) {
+    if (result === undefined || SE === 'SE' || result==='NaN' || !m.get(tkey) || typeof(m.get(tkey))==undefined) {
         return "error";
     }
     else {
@@ -2086,6 +2090,7 @@ function parse(str,wrt) {
     SE=0;
     result="";
     mess=NaN;
+    tkey = "";
     if (';' !== t.getVal()) {
         return checkRes(parseO());
     }
@@ -2190,6 +2195,7 @@ function parse_T(n) {
             return n;
         }
     }
+    let res;
     if (t.getVal() === '*') {
         t.next();
         return parse_T(n * parseF());
@@ -2241,6 +2247,7 @@ function parseF() {
         if (t.getVal() === 'var') {
             t.next();
             var key = t.getVal();
+            tkey = key;
             mess=key;
             if (varSet.has(key)) {
                 SE = 'SE';
@@ -2271,6 +2278,7 @@ function parseF() {
         }
         else if (s.has(t.getVal()) || varSet.has(t.getVal()) || !write) {
             var key = t.getVal();
+            tkey = key;
             t.next();
             var sors;
             if (m.has(key)){
@@ -2288,7 +2296,7 @@ function parseF() {
                 t.next();
                 let exp=parseE();
                 if (write){
-                    m.set(key,sors.get(key)+exp);
+                    m.set(key,checkStr(sors.get(key),exp));
                 }
                 return "changes";
             }
@@ -2366,6 +2374,7 @@ function parseF() {
         t.next();
         if (t.getId() == "ident") {
             let key = t.getVal();
+            tkey = key;
             t.next();
             var sors;
             if (m.has(key)) {
@@ -2392,6 +2401,7 @@ function parseF() {
         t.next();
         if (t.getId() === "ident") {
             let key = t.getVal();
+            tkey = key;
             t.next();
             var sors;
             if (m.has(key)) {
