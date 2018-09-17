@@ -2129,15 +2129,15 @@ function parse_O(n) {
     }
     else if (t.getVal() === '>=') {
         t.next();
-        return parse_O(n >=(parseE));
+        return parse_O(n >=(parseE()));
     }
     else if (t.getVal() === '<=') {
         t.next();
-        return parse_O(n <=(parseE));
+        return parse_O(n <=(parseE()));
     }
     else if (t.getVal() === '==') {
         t.next();
-        return parse_O(n ==(parseE));
+        return parse_O(n == (parseE()));
     }
     else if (t.getId()==="number"|| t.getId()==="ident" || n==="initialization"&& t.getVal()!=";"){
         SE = 'SE';
