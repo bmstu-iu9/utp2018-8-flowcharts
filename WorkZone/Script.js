@@ -2075,7 +2075,7 @@ var t;
 var SE = 0;
 var mess=NaN;
 function checkRes(result){
-    if (result === undefined || SE === 'SE' || result==='NaN' || !m.get(tkey) || typeof(m.get(tkey))==undefined) {
+    if (result === undefined || SE === 'SE' || result==='NaN' || !m.get(tkey)&&write || typeof(m.get(tkey))==undefined) {
         return "error";
     }
     else {
