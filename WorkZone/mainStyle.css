@@ -13,9 +13,9 @@
 	border-radius: 3px;
 }
 
-::-webkit-transition-scrollbar-thumb:hover {
-	background: #555;
-}
+/*::-webkit-transition-scrollbar-thumb:hover {*/
+	/*background: #555;*/
+/*}*/
 
 
 html, body {
@@ -274,7 +274,7 @@ td {
 table tbody {
 	display:block;
 	max-height:100%;
-	max-width: :100%;
+	max-width:100%;
 }
 table tbody tr {
 	vertical-align: middle;
@@ -341,14 +341,14 @@ table tbody tr {
 }
 
 #delImg{
-	margin: 10;
+	margin: 10px;
 }
 
 #submenu{
 	z-index: 10;
 	position: absolute;
 	left: 750px;
-	display: hidden;
+	/*display: hidden;*/
 	width: 0px;
 	height: 0px;
 	opacity: 0;
@@ -474,7 +474,7 @@ table tbody tr {
 }
 
 .Menu a{
-	font-size: 30;
+	font-size: 30px;
 	color: #2a3c3c;
 }
 
