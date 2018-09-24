@@ -454,6 +454,8 @@ function getVal(){
     hr.size=3;
     hr.color="#334D4D";
     hr.style.opacity= 0.7;
+    hr.style.backgroundColor= "lightgrey";
+    hr.style.borderColor="white";
     elem1.innerHTML = res;
     let i = document.createElement("div");
     i.innerHTML=m.get(res);
@@ -955,6 +957,7 @@ function newSetRes(item, tMap){
     hr.size=3;
     hr.color="#334D4D";
     hr.style.opacity= 0.7;
+    hr.className = hrline;
     elem1.innerHTML = item;
     let i = document.createElement("div");
     let rs=tMap.get(item);
@@ -1790,6 +1793,16 @@ function greenT(){
         i.color="#596868";
     }
     them=1;
+    document.getElementById('buttonPlay').src="https://png.icons8.com/ios/40/B7BCC7/play-filled.png";
+    document.getElementById('buttonReStart').src="https://png.icons8.com/ios/40/B7BCC7/stop-filled.png";
+    document.getElementById('left').src="https://png.icons8.com/windows/40/B7BCC7/left.png";
+    document.getElementById('bug').src="https://png.icons8.com/windows/40/B7BCC7/bug.png";
+    document.getElementById('right').src="https://png.icons8.com/windows/40/B7BCC7/right.png";
+    document.getElementById('buttonSave').src="https://png.icons8.com/ios/40/B7BCC7/save-as.png";
+    document.getElementById('buttonAddFile').src="https://png.icons8.com/dotty/40/B7BCC7/add-file.png";
+    document.getElementById('buttonSettings').src="https://png.icons8.com/ios/48/cccccc/settings.png";
+    document.getElementById('questionMark').src="https://png.icons8.com/material/40/B7BCC7/question-mark.png";
+    document.getElementById('lupa').src='WorkZone/img/lupa.png';
 }
 
 function blueT(){
@@ -1799,6 +1812,16 @@ function blueT(){
         i.color="#3E6788";
     }
     them=2;
+    document.getElementById('buttonPlay').src="https://png.icons8.com/ios/40/B7BCC7/play-filled.png";
+    document.getElementById('buttonReStart').src="https://png.icons8.com/ios/40/B7BCC7/stop-filled.png";
+    document.getElementById('left').src="https://png.icons8.com/windows/40/B7BCC7/left.png";
+    document.getElementById('bug').src="https://png.icons8.com/windows/40/B7BCC7/bug.png";
+    document.getElementById('right').src="https://png.icons8.com/windows/40/B7BCC7/right.png";
+    document.getElementById('buttonSave').src="https://png.icons8.com/ios/40/B7BCC7/save-as.png";
+    document.getElementById('buttonAddFile').src="https://png.icons8.com/dotty/40/B7BCC7/add-file.png";
+    document.getElementById('buttonSettings').src="https://png.icons8.com/ios/48/cccccc/settings.png";
+    document.getElementById('questionMark').src="https://png.icons8.com/material/40/B7BCC7/question-mark.png";
+    document.getElementById('lupa').src='WorkZone/img/lupa.png';
 }
 
 function darkT(){
@@ -1808,6 +1831,36 @@ function darkT(){
         i.color="#343B45";
     }
     them=3;
+    document.getElementById('buttonPlay').src="https://png.icons8.com/ios/40/B7BCC7/play-filled.png";
+    document.getElementById('buttonReStart').src="https://png.icons8.com/ios/40/B7BCC7/stop-filled.png";
+    document.getElementById('left').src="https://png.icons8.com/windows/40/B7BCC7/left.png";
+    document.getElementById('bug').src="https://png.icons8.com/windows/40/B7BCC7/bug.png";
+    document.getElementById('right').src="https://png.icons8.com/windows/40/B7BCC7/right.png";
+    document.getElementById('buttonSave').src="https://png.icons8.com/ios/40/B7BCC7/save-as.png";
+    document.getElementById('buttonAddFile').src="https://png.icons8.com/dotty/40/B7BCC7/add-file.png";
+    document.getElementById('buttonSettings').src="https://png.icons8.com/ios/48/cccccc/settings.png";
+    document.getElementById('questionMark').src="https://png.icons8.com/material/40/B7BCC7/question-mark.png";
+    document.getElementById('lupa').src='WorkZone/img/lupa.png';
+}
+
+function simpleT() {
+    document.getElementById('CSSsource').href='WorkZone/simpleStyle.css';
+    let hrs= document.querySelectorAll("hr");
+    for (let i of hrs){
+        i.color="#fbfbfb";
+    }
+    them=4;
+    document.getElementById('buttonPlay').src="./WorkZone/img/SimpleIcons/play-filled.png";
+    document.getElementById('buttonReStart').src="./WorkZone/img/SimpleIcons/stop-filled.png";
+    document.getElementById('left').src="./WorkZone/img/SimpleIcons/left.png";
+    document.getElementById('bug').src="./WorkZone/img/SimpleIcons/bug.png";
+    document.getElementById('right').src="./WorkZone/img/SimpleIcons/right.png";
+    document.getElementById('buttonSave').src="./WorkZone/img/SimpleIcons/save-as.png";
+    document.getElementById('buttonAddFile').src="./WorkZone/img/SimpleIcons/add-file.png";
+    document.getElementById('buttonSettings').src="./WorkZone/img/SimpleIcons/settings.png";
+    document.getElementById('questionMark').src="./WorkZone/img/SimpleIcons/question-mark.png";
+    document.getElementById('lupa').src='./WorkZone/img/SimpleIcons/lupa.png';
+
 }
 
 function customize(){
@@ -1908,6 +1961,8 @@ function resetGrid(){
         color="#929FB0";
     } else if (them==3){
         color="#5D6373";
+    } else if (them ==4){
+        color = "lightgrey"
     }
     let bord=grid?"1px solid "+color :"none";
     for (let i of table.rows){
