@@ -4,8 +4,8 @@
   "description": "block-scheme workspace",
   "main": "server.js",
   "dependencies": {
-    "js-cookie": "^2.2.1",
-    "sqlite3": "^4.1.1"
+    "js-cookie": "^3.0.1",
+    "sqlite3": "^5.1.2"
   },
   "devDependencies": {},
   "scripts": {
